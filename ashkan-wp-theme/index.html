@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashkan Studios | Full-Service Production Company</title>
+    <meta name="description" content="Ashkan Studios is a Houston-based production company built on bold ideas and refined execution. We collaborate with brands and artists to transform concepts into striking visual narratives.">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================
+     HEADER & NAVIGATION
+     ============================================ -->
+<header class="site-header" id="site-header">
+    <div class="container">
+        <nav class="main-nav">
+            <div class="nav-item"><a href="#work">Work</a></div>
+            <div class="nav-item">
+                <a href="#services">Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-menu-inner">
+                        <a href="photography.html">Photography</a>
+                        <a href="videography.html">Videography</a>
+                        <a href="campaigns.html">Campaigns</a>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-item"><a href="#about">What We Do</a></div>
+        </nav>
+        <a href="index.html" class="site-logo">
+            <img src="images/logo.png" alt="Ashkan Studios">
+        </a>
+        <nav class="main-nav" style="justify-self: end;">
+            <div class="nav-item"><a href="studio.html">The Studio</a></div>
+            <div class="nav-item"><a href="contact.html">Contact</a></div>
+            <div class="nav-item">
+                <a href="storytime.html">Storytime <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-menu-inner">
+                        <a href="storytime.html">Stories</a>
+                        <a href="press.html">Press</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <button class="menu-button" id="menu-toggle" aria-label="Open Menu">
+            <span class="menu-label">Menu</span>
+            <div class="menu-icon"></div>
+        </button>
+    </div>
+</header>
+
+<!-- ============================================
+     FULL-SCREEN MENU OVERLAY (Change 2)
+     ============================================ -->
+<div class="menu-overlay" id="menu-overlay">
+    <div class="menu-overlay-header">
+        <a href="index.html" class="menu-overlay-logo">
+            <img src="images/logo.png" alt="Ashkan Studios">
+        </a>
+        <button class="menu-close-btn" id="menu-close" aria-label="Close Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+    
+    <div class="menu-overlay-content">
+        <div class="menu-item">
+            <a href="index.html">Home</a>
+        </div>
+        <div class="menu-item">
+            <a href="#work">Work</a>
+            <div class="menu-subitems">
+                <a href="photography.html">Photography</a>
+                <a href="videography.html">Videography</a>
+                <a href="campaigns.html">Campaigns</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <a href="#services">What We Do</a>
+        </div>
+        <div class="menu-item">
+            <a href="studio.html">The Studio</a>
+        </div>
+        <div class="menu-item">
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="menu-item">
+            <a href="storytime.html">Storytime</a>
+        </div>
+    </div>
+    
+    <div class="menu-overlay-footer">
+        <div class="menu-social">
+            <a href="https://instagram.com/ashkanstudios" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                </svg>
+            </a>
+            <a href="https://linkedin.com/company/ashkan-studios" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+            </a>
+            <a href="https://tiktok.com/@ashkanstudios" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="menu-contact-info">
+            <span>T — (346) 335-7973</span>
+            <span>E — info@ashkanstudios.com</span>
+        </div>
+    </div>
+</div>
+
+<main>
+    <!-- ============================================
+         HERO SECTION (Change 1)
+         ============================================ -->
+    <section class="hero-section">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-headline-wrapper">
+                <!-- Product Cutouts with Absolute Positioning -->
+                <div class="hero-cutout cutout-1" data-alt-images="images/hero/product-1.jpg,images/hero/product-1-alt.jpg">
+                    <img src="images/hero/product-1.jpg" alt="Luxury handbag product photography">
+                </div>
+                <div class="hero-cutout cutout-2" data-alt-images="images/hero/product-2.jpg,images/hero/product-2-alt.jpg">
+                    <img src="images/hero/product-2.jpg" alt="Beauty product photography">
+                </div>
+                <div class="hero-cutout cutout-3" data-alt-images="images/hero/product-3.jpg,images/hero/product-3-alt.jpg">
+                    <img src="images/hero/product-3.jpg" alt="Tech product photography">
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="hero-title-line">We Create</span>
+                    <span class="hero-title-line">Visual Stories</span>
+                    <span class="hero-title-line">That Inspire</span>
+                </h1>
+            </div>
+            
+            <!-- New Hero Paragraph (Change 1) -->
+            <p class="hero-subtitle">
+                Ashkan Studios is a Houston-based production company built on bold ideas and refined execution. 
+                We collaborate with brands and artists to transform concepts into striking visual narratives — 
+                from studio shoots to large-scale commercial productions.
+            </p>
+            
+            <div class="scroll-indicator">
+                <span>Scroll for More</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         WORK SECTION (Change 3)
+         ============================================ -->
+    <section class="work-section" id="work">
+        <div class="container-wide">
+            <!-- Letter Animation Headline -->
+            <h2 class="work-headline">Work</h2>
+            
+            <!-- Vertical Capsule Cards -->
+            <div class="capsule-grid">
+                <a href="portfolio-brandon-blackwood.html" class="capsule-card">
+                    <div class="capsule-image-wrapper">
+                        <img src="images/portfolio/brandon-blackwood.jpg" alt="Brandon Blackwood">
+                    </div>
+                    <div class="capsule-info">
+                        <p class="capsule-category">Product</p>
+                        <h3 class="capsule-title">Brandon Blackwood</h3>
+                    </div>
+                </a>
+                
+                <a href="portfolio-cecilia-duarte.html" class="capsule-card">
+                    <div class="capsule-image-wrapper">
+                        <img src="images/portfolio/cecilia-duarte.jpg" alt="Cecilia Duarte">
+                    </div>
+                    <div class="capsule-info">
+                        <p class="capsule-category">Portrait</p>
+                        <h3 class="capsule-title">Cecilia Duarte</h3>
+                    </div>
+                </a>
+                
+                <a href="portfolio-audaja-skincare.html" class="capsule-card">
+                    <div class="capsule-image-wrapper">
+                        <img src="images/portfolio/audaja-skincare.jpg" alt="Audaja Skincare">
+                    </div>
+                    <div class="capsule-info">
+                        <p class="capsule-category">Product</p>
+                        <h3 class="capsule-title">Audaja Skincare</h3>
+                    </div>
+                </a>
+                
+                <a href="portfolio-lauren-anderson.html" class="capsule-card">
+                    <div class="capsule-image-wrapper">
+                        <img src="images/portfolio/lauren-anderson.jpg" alt="Lauren Anderson">
+                    </div>
+                    <div class="capsule-info">
+                        <p class="capsule-category">Portrait</p>
+                        <h3 class="capsule-title">Lauren Anderson</h3>
+                    </div>
+                </a>
+                
+                <a href="portfolio-vitacca-ballet.html" class="capsule-card">
+                    <div class="capsule-image-wrapper">
+                        <img src="images/portfolio/vitacca-ballet.jpg" alt="Vitacca Ballet">
+                    </div>
+                    <div class="capsule-info">
+                        <p class="capsule-category">Arts / Dance</p>
+                        <h3 class="capsule-title">Vitacca Ballet</h3>
+                    </div>
+                </a>
+                
+                <a href="portfolio-elastique-athletics.html" class="capsule-card">
+                    <div class="capsule-image-wrapper">
+                        <img src="images/portfolio/elastique-athletics.jpg" alt="Elastique Athletics">
+                    </div>
+                    <div class="capsule-info">
+                        <p class="capsule-category">Fashion</p>
+                        <h3 class="capsule-title">Elastique Athletics</h3>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="text-center" style="margin-top: 60px;">
+                <a href="work.html" class="btn btn-outline">
+                    See More Work
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CLIENTS SECTION (Change 4)
+         ============================================ -->
+    <section class="clients-section">
+        <div class="container">
+            <!-- Staggered Word Animation Headline -->
+            <h2 class="clients-headline">Our Friends</h2>
+            
+            <div class="clients-grid">
+                <div class="client-name">The Eye Gallery</div>
+                <div class="client-name">Excel Diagnostics</div>
+                <div class="client-name">Elastique Athletics</div>
+                <div class="client-name">iCRYO</div>
+                <div class="client-name">Globo</div>
+                <div class="client-name">Frost</div>
+                <div class="client-name">Instacart</div>
+                <div class="client-name">YETI</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FULL-SERVICE PRODUCTION SECTION (Change 5)
+         ============================================ -->
+    <section class="services-section" id="services">
+        <div class="services-bg"></div>
+        <div class="services-overlay"></div>
+        <div class="services-content">
+            <!-- Staggered Line Animation Headline -->
+            <h2 class="services-headline">
+                <span class="line">Full-Service</span>
+                <span class="line">Production</span>
+            </h2>
+            
+            <p class="services-description">
+                From concept to delivery, our talented network of directors, photographers, 
+                cinematographers, stylists, and editors bring your vision to life with precision and creativity.
+            </p>
+            
+            <div class="services-list">
+                <span class="service-tag">Photographers<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Cinematographers<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Directors<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Hair/Makeup<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Stylists<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Sound/Audio<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Designers<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Pre & Post Production<span class="service-tag-separator">|</span></span>
+                <span class="service-tag">Marketing Support</span>
+            </div>
+            
+            <a href="services.html" class="btn btn-primary">
+                Explore Services
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT SECTION (Change 6)
+         ============================================ -->
+    <section class="about-section" id="about">
+        <div class="about-grid">
+            <div class="about-content">
+                <h2 class="about-title">Based In Houston, TX</h2>
+                <p class="about-subtitle">Endless Possibilities</p>
+                
+                <!-- New Paragraph (Change 6) -->
+                <p class="about-text">
+                    Every project at Ashkan Studios starts with a vision — and we exist to bring it to life. 
+                    From concept development to final delivery, our team handles every detail with intention, 
+                    craft, and creative precision.
+                </p>
+                <p class="about-text">
+                    Whether it's an intimate brand story or a large-scale commercial production, we approach 
+                    each collaboration with clarity, artistry, and strategic direction.
+                </p>
+                <p class="about-text" style="margin-top: 24px;">
+                    <strong>Have an ambitious idea? Let's build it.</strong><br>
+                    <strong>Ready to elevate your brand? Step inside the studio.</strong>
+                </p>
+                
+                <a href="studio.html" class="btn btn-outline" style="margin-top: 8px;">
+                    About Us
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+            <div class="about-image">
+                <img src="images/sections/studio.jpg" alt="Ashkan Studios production space">
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ============================================
+     FOOTER (Change 7)
+     ============================================ -->
+<footer class="site-footer">
+    <div class="footer-grid">
+        <!-- Left: Contact -->
+        <div class="footer-contact">
+            <p class="footer-label">Want to Work With Us?</p>
+            <a href="tel:3463357973" class="footer-link">(346) 335-7973</a>
+            <a href="mailto:info@ashkanstudios.com" class="footer-link">info@ashkanstudios.com</a>
+        </div>
+        
+        <!-- Center: Logo -->
+        <div class="footer-logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Ashkan Studios">
+            </a>
+        </div>
+        
+        <!-- Right: Find Us -->
+        <div class="footer-location">
+            <p class="footer-label">Find Us</p>
+            <p class="footer-address">
+                1502 Sawyer St #108<br>
+                Houston, TX 77007
+            </p>
+        </div>
+    </div>
+    
+    <!-- Bottom: Social Icons -->
+    <div class="footer-bottom">
+        <div class="footer-social">
+            <a href="https://instagram.com/ashkanstudios" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                </svg>
+            </a>
+            <a href="https://linkedin.com/company/ashkan-studios" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+            </a>
+            <a href="https://tiktok.com/@ashkanstudios" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+            </a>
+        </div>
+        <!-- Change 7: Copyright year 2026 -->
+        <p class="footer-copyright">2026 Ashkan Studios | All Rights Reserved</p>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

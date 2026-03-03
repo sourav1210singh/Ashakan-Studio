@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work | Ashkan Studios</title>
+    <meta name="description" content="Explore our portfolio of photography, videography, and creative campaigns.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header" id="header">
+        <div class="container">
+            <a href="index.html" class="site-logo">
+                <img src="images/logo.png" alt="Ashkan Studios">
+            </a>
+            <nav class="site-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="has-dropdown">
+                        <a href="work.html" class="active">Work</a>
+                        <ul class="dropdown">
+                            <li><a href="photography.html">Photography</a></li>
+                            <li><a href="videography.html">Videography</a></li>
+                            <li><a href="campaigns.html">Campaigns</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="services.html">What We Do</a></li>
+                    <li><a href="studio.html">The Studio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="storytime.html">Storytime</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="work.html">Work</a></li>
+                <li><a href="photography.html">— Photography</a></li>
+                <li><a href="videography.html">— Videography</a></li>
+                <li><a href="campaigns.html">— Campaigns</a></li>
+                <li><a href="services.html">What We Do</a></li>
+                <li><a href="studio.html">The Studio</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="storytime.html">Storytime</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="site-main">
+        <section class="page-header">
+            <div class="page-header-content">
+                <div class="container">
+                    <h1 class="page-title">Our Work</h1>
+                    <p class="page-subtitle">A curated selection of our photography, videography, and creative campaigns for leading brands.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="work-categories">
+            <div class="container">
+                <div class="category-grid">
+                    <a href="photography.html" class="category-card">
+                        <img src="images/portfolio/fashion.jpg" alt="Photography">
+                        <div class="category-overlay">
+                            <h2 class="category-name">Photography</h2>
+                            <span class="category-count">24 Projects</span>
+                        </div>
+                    </a>
+                    <a href="videography.html" class="category-card">
+                        <img src="images/portfolio/car-collections.jpg" alt="Videography">
+                        <div class="category-overlay">
+                            <h2 class="category-name">Videography</h2>
+                            <span class="category-count">12 Projects</span>
+                        </div>
+                    </a>
+                    <a href="campaigns.html" class="category-card">
+                        <img src="images/portfolio/monarch-school.jpg" alt="Campaigns">
+                        <div class="category-overlay">
+                            <h2 class="category-name">Campaigns</h2>
+                            <span class="category-count">8 Projects</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-work">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Projects</h2>
+                </div>
+                <div class="portfolio-grid">
+                    <article class="portfolio-card featured">
+                        <div class="portfolio-card-image">
+                            <img src="images/portfolio/10-Monarch-116-2.jpeg" alt="Monarch School" loading="lazy">
+                            <div class="portfolio-card-overlay">
+                                <div class="portfolio-card-content">
+                                    <h3 class="portfolio-card-title">Monarch School</h3>
+                                    <span class="portfolio-card-category">Campaign</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="portfolio-card">
+                        <div class="portfolio-card-image">
+                            <img src="images/portfolio/brandon-blackwood.jpg" alt="Brandon Blackwood" loading="lazy">
+                            <div class="portfolio-card-overlay">
+                                <div class="portfolio-card-content">
+                                    <h3 class="portfolio-card-title">Brandon Blackwood</h3>
+                                    <span class="portfolio-card-category">Product</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="portfolio-card">
+                        <div class="portfolio-card-image">
+                            <img src="images/portfolio/cecilia-duarte.jpg" alt="Cecilia Duarte" loading="lazy">
+                            <div class="portfolio-card-overlay">
+                                <div class="portfolio-card-content">
+                                    <h3 class="portfolio-card-title">Cecilia Duarte</h3>
+                                    <span class="portfolio-card-category">Portrait</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-contact">
+                    <h3 class="footer-title">Get in Touch</h3>
+                    <p class="footer-info">
+                        <a href="mailto:hello@ashkanstudios.com">hello@ashkanstudios.com</a><br>
+                        <a href="tel:+17135551234">+1 (713) 555-1234</a>
+                    </p>
+                </div>
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Ashkan Studios">
+                </div>
+                <div class="footer-social">
+                    <h3 class="footer-title">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                        <a href="#" aria-label="Twitter"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                        <a href="#" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ashkan Studios. All rights reserved.</p>
+                <p class="footer-address">Houston, Texas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

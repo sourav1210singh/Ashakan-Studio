@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories | Ashkan Studios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-primary: #F5F3EF; --bg-secondary: #E8E4DC; --bg-dark: #1A1A1A; --text-primary: #1A1A1A; --text-secondary: #666666; --text-light: #FFFFFF; --accent: #8B7355; --white: #FFFFFF; --border: #D4CFC4; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(245, 243, 239, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 2rem; max-width: 1600px; margin: 0 auto; position: relative; height: 80px; }
+        .nav-left { display: flex; list-style: none; gap: 2rem; align-items: center; flex: 1; justify-content: flex-start; }
+        .nav-left a { text-decoration: none; color: var(--text-primary); font-size: 0.9rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-left a:hover { color: var(--accent); }
+        .logo { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; height: 100%; }
+        .logo img { height: 140px; width: auto; object-fit: contain; }
+        .nav-right { display: flex; list-style: none; gap: 2rem; align-items: center; flex: 1; justify-content: flex-end; padding-right: 4rem; }
+        .nav-right a { text-decoration: none; color: var(--text-primary); font-size: 0.9rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-right a:hover { color: var(--accent); }
+        .dropdown { position: relative; }
+        .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: var(--white); min-width: 220px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); border-radius: 8px; padding: 0.5rem 0; margin-top: 0.5rem; }
+        .dropdown-content a { display: block; padding: 0.75rem 1.5rem; font-size: 0.85rem; }
+        .dropdown:hover .dropdown-content { display: block; }
+        .menu-btn { display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary); padding: 0.5rem; }
+        .menu-btn:hover { color: var(--accent); }
+        .menu-icon { width: 16px; height: 16px; border: 1.5px solid currentColor; position: relative; }
+        .menu-icon::before, .menu-icon::after { content: ''; position: absolute; background: currentColor; transition: all 0.3s ease; }
+        .menu-icon::before { width: 8px; height: 1.5px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .menu-icon::after { width: 1.5px; height: 8px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .menu-btn.active .menu-icon::after { opacity: 0; }
+        .menu-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg-primary); z-index: 999; padding: 8rem 4rem 4rem; overflow-y: auto; }
+        .menu-overlay.active { display: block; }
+        .menu-content { max-width: 800px; margin: 0 auto; }
+        .menu-section { border-bottom: 1px solid var(--border); padding: 2rem 0; }
+        .menu-section:last-child { border-bottom: none; }
+        .menu-section-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-secondary); margin-bottom: 1rem; }
+        .menu-links { display: flex; flex-direction: column; gap: 0.75rem; }
+        .menu-links a { font-family: 'Anton', sans-serif; font-size: 2rem; text-transform: uppercase; text-decoration: none; color: var(--text-primary); letter-spacing: 0.02em; transition: color 0.3s ease; }
+        .menu-links a:hover { color: var(--accent); }
+        .menu-footer { border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 2rem; }
+        .menu-footer-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+        .menu-footer-item { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease; }
+        .menu-footer-item:hover { color: var(--text-primary); }
+        .page-hero { padding: 10rem 2rem 4rem; text-align: center; background: var(--bg-primary); }
+        .page-hero h1 { font-size: clamp(3rem, 10vw, 7rem); line-height: 1; margin-bottom: 1.5rem; }
+        .page-hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+        .stories-grid { padding: 4rem 2rem 6rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+        .story-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.3s ease; }
+        .story-card:hover { transform: translateY(-8px); }
+        .story-image { height: 280px; background: var(--bg-secondary); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .story-content { padding: 2rem; }
+        .story-content .date { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .story-content h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .story-content p { color: var(--text-secondary); line-height: 1.7; }
+        footer { background: var(--bg-dark); color: var(--white); padding: 4rem 2rem 2rem; }
+        .footer-main { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 4rem; align-items: start; margin-bottom: 4rem; }
+        .footer-contact h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; opacity: 0.6; }
+        .footer-contact a { color: var(--white); text-decoration: none; display: block; margin-bottom: 0.5rem; transition: opacity 0.3s ease; }
+        .footer-contact a:hover { opacity: 0.7; }
+        .footer-logo-section { text-align: center; }
+        .footer-logo { height: 140px; margin-bottom: 2rem; filter: brightness(0) invert(1); }
+        .footer-nav { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: nowrap; margin-bottom: 2rem; }
+        .footer-nav a { color: var(--white); text-decoration: none; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; transition: opacity 0.3s ease; white-space: nowrap; }
+        .footer-nav a:hover { opacity: 0.7; }
+        .footer-social { display: flex; justify-content: center; gap: 1.5rem; }
+        .footer-social a { color: var(--white); font-size: 1.25rem; transition: opacity 0.3s ease; }
+        .footer-social a:hover { opacity: 0.7; }
+        .footer-find-us h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; opacity: 0.6; }
+        .footer-find-us p { font-size: 0.9rem; line-height: 1.6; opacity: 0.8; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; max-width: 1200px; margin: 0 auto; }
+        .footer-bottom p { font-size: 0.8rem; opacity: 0.5; }
+        @media (max-width: 1024px) { .stories-grid { grid-template-columns: 1fr; } .footer-main { grid-template-columns: 1fr; text-align: center; gap: 3rem; } .footer-find-us { text-align: center; } .footer-nav { flex-wrap: wrap; gap: 1.5rem; } .menu-footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .nav-left, .nav-right { display: none; } .menu-btn { margin-left: auto; } .logo { position: static; transform: none; margin: 0 auto; } .logo img { height: 60px; } .menu-links a { font-size: 1.5rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-left">
+                <li class="dropdown">
+                    <a href="services.html">Services</a>
+                    <div class="dropdown-content">
+                        <a href="photography.html">Photography</a>
+                        <a href="videography.html">Videography</a>
+                        <a href="campaigns.html">Campaigns</a>
+                        <a href="hair-makeup.html">Hair/Makeup</a>
+                        <a href="sound-audio.html">Sound/Audio</a>
+                        <a href="pre-post-production.html">Pre & Post Production</a>
+                        <a href="marketing-support.html">Marketing Support</a>
+                    </div>
+                </li>
+                <li><a href="work.html">Work</a></li>
+                <li><a href="studio.html">The Studio</a></li>
+            </ul>
+            <a href="index.html" class="logo"><img src="images/logo.png" alt="Ashkan Studios"></a>
+            <ul class="nav-right">
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="menu-btn" onclick="toggleMenu()" id="menuBtn"><span>MENU</span><span class="menu-icon"></span></button>
+        </nav>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-content">
+            <div class="menu-section">
+                <div class="menu-section-title">Navigation</div>
+                <div class="menu-links">
+                    <a href="index.html">Home</a>
+                    <a href="work.html">Work</a>
+                    <a href="services.html">What We Do</a>
+                    <a href="studio.html">The Studio</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Services</div>
+                <div class="menu-links">
+                    <a href="photography.html">Photography</a>
+                    <a href="videography.html">Videography</a>
+                    <a href="campaigns.html">Campaigns</a>
+                    <a href="hair-makeup.html">Hair/Makeup</a>
+                    <a href="sound-audio.html">Sound/Audio</a>
+                    <a href="pre-post-production.html">Pre & Post Production</a>
+                    <a href="marketing-support.html">Marketing Support</a>
+                </div>
+            </div>
+            <div class="menu-section">
+                <div class="menu-section-title">Company</div>
+                <div class="menu-links">
+                    <a href="storytime.html">Storytime</a>
+                    <a href="stories.html">Stories</a>
+                    <a href="press.html">Press</a>
+                </div>
+            </div>
+            <div class="menu-footer">
+                <div class="menu-footer-grid">
+                    <a href="https://instagram.com" target="_blank" class="menu-footer-item">Instagram</a>
+                    <a href="https://linkedin.com" target="_blank" class="menu-footer-item">LinkedIn</a>
+                    <a href="https://tiktok.com" target="_blank" class="menu-footer-item">TikTok</a>
+                    <a href="mailto:hello@ashkanstudios.com" class="menu-footer-item">hello@ashkanstudios.com</a>
+                    <a href="tel:+17135551234" class="menu-footer-item">+1 (713) 555-1234</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="page-hero">
+        <h1 class="font-anton">STORIES</h1>
+        <p>Behind-the-scenes moments, client successes, and the narratives that shape our work.</p>
+    </section>
+
+    <section class="stories-grid">
+        <article class="story-card">
+            <div class="story-image">📸</div>
+            <div class="story-content">
+                <span class="date">February 2026</span>
+                <h2>The Art of Fashion Photography</h2>
+                <p>Exploring the intersection of style and storytelling in our latest fashion campaign.</p>
+            </div>
+        </article>
+        <article class="story-card">
+            <div class="story-image">🎬</div>
+            <div class="story-content">
+                <span class="date">January 2026</span>
+                <h2>Behind the Lens</h2>
+                <p>A day in the life at Ashkan Studios during a major commercial shoot.</p>
+            </div>
+        </article>
+        <article class="story-card">
+            <div class="story-image">✨</div>
+            <div class="story-content">
+                <span class="date">December 2025</span>
+                <h2>Client Spotlight: Elastique</h2>
+                <p>How we helped an activewear brand find their visual voice.</p>
+            </div>
+        </article>
+        <article class="story-card">
+            <div class="story-image">💡</div>
+            <div class="story-content">
+                <span class="date">November 2025</span>
+                <h2>Lighting Mastery</h2>
+                <p>Techniques and tricks our photographers use to create stunning imagery.</p>
+            </div>
+        </article>
+    </section>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-contact">
+                <h3>WANT TO WORK WITH US?</h3>
+                <a href="mailto:hello@ashkanstudios.com">hello@ashkanstudios.com</a>
+                <a href="tel:+17135551234">+1 (713) 555-1234</a>
+            </div>
+            <div class="footer-logo-section">
+                <img src="images/logo.png" alt="Ashkan Studios" class="footer-logo">
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="work.html">Work</a>
+                    <a href="services.html">What We Do</a>
+                    <a href="studio.html">The Studio</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="storytime.html">Storytime</a>
+                </nav>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="TikTok">🎵</a>
+                </div>
+            </div>
+            <div class="footer-find-us">
+                <h3>FIND US</h3>
+                <p>1502 Sawyer St #908<br>Houston, TX 77007</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ASHKAN STUDIOS. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menuOverlay = document.getElementById('menuOverlay');
+            const menuBtn = document.getElementById('menuBtn');
+            menuOverlay.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
