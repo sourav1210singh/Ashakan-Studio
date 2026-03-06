@@ -74,12 +74,12 @@ export function PressPage({ onNavigate }: PressPageProps) {
                 <FadeIn key={item.id} delay={index * 0.1}>
                   <article className="group cursor-pointer grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
                     <div
-                      className={`relative overflow-hidden rounded-2xl aspect-[4/3] ${index % 2 === 1 ? "md:order-2" : ""}`}
+                      className={`relative overflow-hidden rounded-2xl ${index % 2 === 1 ? "md:order-2" : ""}`}
                     >
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="w-full h-auto max-h-[500px] object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     </div>
                     <div>

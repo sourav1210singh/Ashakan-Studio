@@ -79,7 +79,7 @@ export function HeroSection() {
 
           {/* ---- LINE 1: [dancer] WE CREATE ---- */}
           <div
-            className="mb-0 sm:mb-1 lg:mb-2"
+            className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.3s forwards",
@@ -90,11 +90,11 @@ export function HeroSection() {
               src="/images/hero/dance-cutout.png"
               alt="Dance photography"
               className="hidden md:inline-block"
-              width="clamp(120px, 14vw, 215px)"
-              height="clamp(95px, 11.5vw, 175px)"
+              width="clamp(100px, 11.5vw, 180px)"
+              height="clamp(80px, 9.5vw, 145px)"
               driftName="driftA"
               enterDelay={0.6}
-              style={{ marginRight: "-4px", marginBottom: "0px" }}
+              style={{ marginRight: "4px", marginTop: "-25px", top: "6px" }}
             />
             <span className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none tracking-tight">
               WE CREATE
@@ -103,7 +103,7 @@ export function HeroSection() {
 
           {/* ---- LINE 2: VISUAL [cameraman] STORIES ---- */}
           <div
-            className="mb-0 sm:mb-1 lg:mb-2"
+            className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
@@ -117,11 +117,11 @@ export function HeroSection() {
               src="/images/hero/cameraman-cutout.png"
               alt="Video production"
               className="hidden md:inline-block"
-              width="clamp(66px, 7.2vw, 108px)"
-              height="clamp(95px, 11.5vw, 175px)"
+              width="clamp(88px, 9.5vw, 145px)"
+              height="clamp(125px, 15vw, 230px)"
               driftName="driftB"
               enterDelay={1.1}
-              style={{ margin: "0 4px", marginBottom: "-4px" }}
+              style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "30px" }}
             />
             <span className="md:hidden">{" "}</span>
             <span className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none tracking-tight">
@@ -145,11 +145,11 @@ export function HeroSection() {
               src="/images/hero/portrait-cutout.png"
               alt="Portrait photography"
               className="hidden md:inline-block"
-              width="clamp(78px, 9vw, 138px)"
-              height="clamp(95px, 11.5vw, 175px)"
+              width="clamp(65px, 7.5vw, 115px)"
+              height="clamp(80px, 9.5vw, 145px)"
               driftName="driftC"
               enterDelay={1.5}
-              style={{ marginLeft: "6px", marginBottom: "0px" }}
+              style={{ marginLeft: "20px", marginTop: "-25px", top: "-2px" }}
             />
           </div>
         </div>

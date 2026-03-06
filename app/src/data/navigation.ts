@@ -46,8 +46,14 @@ export const mainNavigation: NavItem[] = [
   { label: "WHAT WE DO", href: "/services" },
   { label: "THE STUDIO", href: "/studio" },
   { label: "CONTACT", href: "/contact" },
-  { label: "STORYTIME", href: "/storytime" },
-  { label: "PRESS", href: "/press" },
+  {
+    label: "STORYTIME",
+    href: "/storytime",
+    children: [
+      { label: "STORYTIME", href: "/storytime" },
+      { label: "PRESS", href: "/press" },
+    ],
+  },
 ];
 
 // Photography portfolio categories

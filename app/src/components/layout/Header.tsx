@@ -78,7 +78,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     if (href === "/services" && currentView === "services") return true;
     if (href === "/studio" && currentView === "studio") return true;
     if (href === "/contact" && currentView === "contact") return true;
-    if (href === "/storytime" && currentView === "storytime") return true;
+    if (href === "/storytime" && (currentView === "storytime" || currentView === "press")) return true;
     if (href === "/press" && currentView === "press") return true;
     return false;
   };
@@ -269,21 +269,25 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                 </button>
               </div>
 
-              {/* PRESS & STORYTIME — same row */}
-              <div className="border-b border-dark/15 flex items-center justify-between py-4 sm:py-5">
-                <button
-                  onClick={() => handleNavClick("/press")}
-                  className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.2s forwards" }}
-                >
-                  PRESS
-                </button>
+              {/* STORYTIME */}
+              <div className="border-b border-dark/15">
                 <button
                   onClick={() => handleNavClick("/storytime")}
-                  className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.25s forwards" }}
+                  className="w-full text-left font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight py-4 sm:py-5"
+                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.2s forwards" }}
                 >
                   STORYTIME
+                </button>
+              </div>
+
+              {/* PRESS (sub-item of STORYTIME) */}
+              <div className="border-b border-dark/15">
+                <button
+                  onClick={() => handleNavClick("/press")}
+                  className="w-full text-left font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-dark/60 hover:text-dark hover:opacity-60 transition-all tracking-tight py-3 sm:py-4 pl-4 sm:pl-6"
+                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.25s forwards" }}
+                >
+                  PRESS
                 </button>
               </div>
             </nav>
