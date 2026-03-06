@@ -29,6 +29,7 @@ export type View =
 function App() {
   const [currentView, setCurrentView] = useState<View>("home");
   const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   // Parse URL hash on initial load
   useEffect(() => {
@@ -48,12 +49,18 @@ function App() {
     
     // Main pages
     if (hash === "#/work" || hash.startsWith("#/work/")) {
-      if (hash.includes("/photography")) {
+      if (hash.startsWith("#/work/photography")) {
         setCurrentView("photography");
-      } else if (hash.includes("/videography")) {
+        const catMatch = hash.match(/^#\/work\/photography\/(.+)$/);
+        setSelectedCategory(catMatch ? catMatch[1] : null);
+      } else if (hash.startsWith("#/work/videography")) {
         setCurrentView("videography");
-      } else if (hash.includes("/campaigns")) {
+        const catMatch = hash.match(/^#\/work\/videography\/(.+)$/);
+        setSelectedCategory(catMatch ? catMatch[1] : null);
+      } else if (hash.startsWith("#/work/campaigns")) {
         setCurrentView("campaigns");
+        const catMatch = hash.match(/^#\/work\/campaigns\/(.+)$/);
+        setSelectedCategory(catMatch ? catMatch[1] : null);
       } else {
         setCurrentView("work");
       }
@@ -89,12 +96,18 @@ function App() {
       }
       
       if (hash === "#/work" || hash.startsWith("#/work/")) {
-        if (hash.includes("/photography")) {
+        if (hash.startsWith("#/work/photography")) {
           setCurrentView("photography");
-        } else if (hash.includes("/videography")) {
+          const catMatch = hash.match(/^#\/work\/photography\/(.+)$/);
+          setSelectedCategory(catMatch ? catMatch[1] : null);
+        } else if (hash.startsWith("#/work/videography")) {
           setCurrentView("videography");
-        } else if (hash.includes("/campaigns")) {
+          const catMatch = hash.match(/^#\/work\/videography\/(.+)$/);
+          setSelectedCategory(catMatch ? catMatch[1] : null);
+        } else if (hash.startsWith("#/work/campaigns")) {
           setCurrentView("campaigns");
+          const catMatch = hash.match(/^#\/work\/campaigns\/(.+)$/);
+          setSelectedCategory(catMatch ? catMatch[1] : null);
         } else {
           setCurrentView("work");
         }
@@ -120,10 +133,17 @@ function App() {
   const navigateTo = (view: View, slug?: string) => {
     if (view === "portfolio" && slug) {
       setSelectedProjectSlug(slug);
+      setSelectedCategory(null);
       setCurrentView("portfolio");
       window.location.hash = `#/portfolio/${slug}`;
+    } else if ((view === "photography" || view === "videography" || view === "campaigns") && slug) {
+      setSelectedCategory(slug);
+      setCurrentView(view);
+      const base = view === "photography" ? "#/work/photography" : view === "videography" ? "#/work/videography" : "#/work/campaigns";
+      window.location.hash = `${base}/${slug}`;
     } else {
       setCurrentView(view);
+      setSelectedCategory(null);
       const hashMap: Record<View, string> = {
         home: "",
         work: "#/work",
@@ -157,11 +177,11 @@ function App() {
       case "work":
         return <WorkPage onNavigate={navigateTo} />;
       case "photography":
-        return <PhotographyPage onNavigate={navigateTo} />;
+        return <PhotographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "videography":
-        return <VideographyPage onNavigate={navigateTo} />;
+        return <VideographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "campaigns":
-        return <CampaignsPage onNavigate={navigateTo} />;
+        return <CampaignsPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "services":
         return <ServicesPage onNavigate={navigateTo} />;
       case "studio":

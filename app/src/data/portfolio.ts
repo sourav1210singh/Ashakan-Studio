@@ -4,6 +4,9 @@ export interface PortfolioItem {
   category: string;
   image: string;
   href: string;
+  photoCategories?: string[];
+  videoCategories?: string[];
+  campaign?: string;
 }
 
 export const portfolioItems: PortfolioItem[] = [
@@ -13,6 +16,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PRODUCT",
     image: "/images/portfolio/brandon-blackwood.jpg",
     href: "#",
+    photoCategories: ["retail", "fashion"],
+    videoCategories: ["retail"],
   },
   {
     id: "cecilia-duarte",
@@ -20,6 +25,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PORTRAIT",
     image: "/images/portfolio/cecilia-duarte.jpg",
     href: "#",
+    photoCategories: ["the-arts"],
+    videoCategories: ["the-arts"],
   },
   {
     id: "audaja-skincare",
@@ -27,6 +34,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PRODUCT",
     image: "/images/portfolio/audaja-skincare.jpg",
     href: "#",
+    photoCategories: ["retail"],
+    videoCategories: ["retail"],
   },
   {
     id: "lauren-anderson",
@@ -34,6 +43,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PORTRAIT",
     image: "/images/portfolio/lauren-anderson.jpg",
     href: "#",
+    photoCategories: ["the-arts"],
+    videoCategories: ["the-arts"],
   },
   {
     id: "vitacca-ballet",
@@ -41,6 +52,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "ARTS / DANCE",
     image: "/images/portfolio/vitacca-ballet.jpg",
     href: "#",
+    photoCategories: ["the-arts"],
+    videoCategories: ["the-arts"],
   },
   {
     id: "elastique-athletics",
@@ -48,6 +61,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "FASHION",
     image: "/images/portfolio/elastique-athletics.jpg",
     href: "#",
+    photoCategories: ["retail", "fashion"],
+    videoCategories: ["retail"],
   },
   {
     id: "publications",
@@ -55,6 +70,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "EDITORIAL",
     image: "/images/portfolio/publications.jpg",
     href: "#",
+    photoCategories: ["fashion"],
+    videoCategories: [],
   },
   {
     id: "miscellaneous",
@@ -62,6 +79,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PHOTOGRAPHY",
     image: "/images/portfolio/miscellaneous.jpg",
     href: "#",
+    photoCategories: ["retail"],
+    videoCategories: [],
   },
   {
     id: "monarch-school",
@@ -69,6 +88,9 @@ export const portfolioItems: PortfolioItem[] = [
     category: "DOCUMENTARY",
     image: "/images/portfolio/8-4Q7A9046-2.jpeg",
     href: "#",
+    photoCategories: ["the-arts"],
+    videoCategories: ["documentary"],
+    campaign: "monarch-school",
   },
   {
     id: "cacao-cardamom",
@@ -76,6 +98,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PRODUCT",
     image: "/images/portfolio/cacao-cardamom.jpg",
     href: "#",
+    photoCategories: ["retail"],
+    videoCategories: ["retail"],
   },
   {
     id: "fashion",
@@ -83,13 +107,18 @@ export const portfolioItems: PortfolioItem[] = [
     category: "FASHION",
     image: "/images/portfolio/fashion.jpg",
     href: "#",
+    photoCategories: ["fashion", "retail"],
+    videoCategories: ["retail"],
   },
   {
     id: "weissman-elite",
     title: "Weissman Elite",
-    category: "ARCHITECTURE",
+    category: "RETAIL",
     image: "/images/portfolio/weissman-elite.jpg",
     href: "#",
+    photoCategories: ["retail"],
+    videoCategories: ["retail"],
+    campaign: "weissman",
   },
   {
     id: "car-collections",
@@ -97,13 +126,17 @@ export const portfolioItems: PortfolioItem[] = [
     category: "AUTOMOTIVE",
     image: "/images/portfolio/car-collections.jpg",
     href: "#",
+    photoCategories: ["industrial"],
+    videoCategories: ["industrial"],
   },
   {
     id: "kinetik",
     title: "Kinetik",
-    category: "FITNESS",
+    category: "NARRATIVE",
     image: "/images/portfolio/kinetik.jpg",
     href: "#",
+    photoCategories: [],
+    videoCategories: ["narrative"],
   },
   {
     id: "radiomedix",
@@ -111,6 +144,8 @@ export const portfolioItems: PortfolioItem[] = [
     category: "MEDICAL / CORPORATE",
     image: "/images/portfolio/radiomedix.jpg",
     href: "#",
+    photoCategories: ["industrial"],
+    videoCategories: ["industrial"],
   },
   {
     id: "eye-gallery",
@@ -118,6 +153,9 @@ export const portfolioItems: PortfolioItem[] = [
     category: "RETAIL",
     image: "/images/portfolio/eye-gallery.jpg",
     href: "#",
+    photoCategories: ["retail"],
+    videoCategories: ["retail"],
+    campaign: "eye-gallery",
   },
   {
     id: "deutsch-fine-jewelry",
@@ -125,6 +163,9 @@ export const portfolioItems: PortfolioItem[] = [
     category: "PHOTOGRAPHY / VIDEOGRAPHY",
     image: "/images/portfolio/deutsch-jewelry.jpg",
     href: "#",
+    photoCategories: ["retail"],
+    videoCategories: ["retail"],
+    campaign: "deutsch",
   },
 ];
 

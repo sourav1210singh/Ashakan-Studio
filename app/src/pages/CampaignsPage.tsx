@@ -2,20 +2,26 @@ import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { campaigns } from "@/data/navigation";
-import { getProjectById } from "@/data/projects";
+import { portfolioItems } from "@/data/portfolio";
 import type { View } from "@/App";
 
 interface CampaignsPageProps {
   onNavigate: (view: View, slug?: string) => void;
+  activeCategory?: string | null;
 }
 
-export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
-  const campaignData = campaigns.map(c => {
-    const project = getProjectById(c.id);
+export function CampaignsPage({ onNavigate, activeCategory }: CampaignsPageProps) {
+  // If a specific campaign is selected, filter to just that one
+  const campaignList = activeCategory
+    ? campaigns.filter((c) => c.id === activeCategory)
+    : campaigns;
+
+  const campaignData = campaignList.map((c) => {
+    const project = portfolioItems.find((p) => p.campaign === c.id || p.id === c.id);
     return {
       ...c,
-      image: project?.heroImage || "/images/portfolio/placeholder.jpg",
-      description: project?.description || "",
+      image: project?.image || "/images/portfolio/placeholder.jpg",
+      category: project?.category || "CASE STUDY",
     };
   });
 
@@ -39,10 +45,41 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                 CAMPAIGNS
               </h1>
               <p className="text-lg sm:text-xl text-dark/70 max-w-2xl mt-6">
-                Full-scale production campaigns that combine photography, videography, 
+                Full-scale production campaigns that combine photography, videography,
                 and creative direction to tell complete brand stories.
               </p>
             </FadeIn>
+          </div>
+        </section>
+
+        {/* Campaign Filter Tabs */}
+        <section className="py-8 border-b border-dark/10">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+            <div className="flex flex-wrap gap-4">
+              <button
+                onClick={() => onNavigate("campaigns")}
+                className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
+                  !activeCategory
+                    ? "bg-dark text-white border-dark"
+                    : "text-dark border-dark/30 hover:bg-dark hover:text-white"
+                }`}
+              >
+                ALL
+              </button>
+              {campaigns.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => onNavigate("campaigns", c.id)}
+                  className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
+                    activeCategory === c.id
+                      ? "bg-dark text-white border-dark"
+                      : "text-dark border-dark/30 hover:bg-dark hover:text-white"
+                  }`}
+                >
+                  {c.name}
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -53,7 +90,10 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
               {campaignData.map((campaign, index) => (
                 <FadeIn key={campaign.id} delay={index * 0.15}>
                   <button
-                    onClick={() => onNavigate("portfolio", campaign.id)}
+                    onClick={() => {
+                      const project = portfolioItems.find((p) => p.campaign === campaign.id || p.id === campaign.id);
+                      if (project) onNavigate("portfolio", project.id);
+                    }}
                     className="group block relative overflow-hidden rounded-2xl sm:rounded-3xl w-full text-left"
                   >
                     <div className="relative overflow-hidden aspect-[16/10]">

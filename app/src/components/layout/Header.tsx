@@ -13,6 +13,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeSubDropdown, setActiveSubDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,11 +45,17 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
 
   const handleNavClick = (href: string) => {
     if (!onNavigate) return;
-    
+
     if (href === "/") {
       onNavigate("home");
     } else if (href === "/work") {
       onNavigate("work");
+    } else if (href.startsWith("/work/photography")) {
+      onNavigate("photography", href.replace("/work/photography/", "") || undefined);
+    } else if (href.startsWith("/work/videography")) {
+      onNavigate("videography", href.replace("/work/videography/", "") || undefined);
+    } else if (href.startsWith("/work/campaigns")) {
+      onNavigate("campaigns", href.replace("/work/campaigns/", "") || undefined);
     } else if (href === "/services") {
       onNavigate("services");
     } else if (href === "/studio") {
@@ -60,6 +67,8 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     } else if (href === "/press") {
       onNavigate("press");
     }
+    setActiveDropdown(null);
+    setActiveSubDropdown(null);
     setIsMenuOpen(false);
   };
 
@@ -82,8 +91,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     <div
       key={item.label}
       className="relative"
-      onMouseEnter={() => item.children && setActiveDropdown(item.label)}
-      onMouseLeave={() => setActiveDropdown(null)}
+      onMouseEnter={() => {
+        if (item.children) setActiveDropdown(item.label);
+      }}
+      onMouseLeave={() => {
+        setActiveDropdown(null);
+        setActiveSubDropdown(null);
+      }}
     >
       <button
         onClick={() => handleNavClick(item.href)}
@@ -107,13 +121,39 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         <div className="absolute top-full left-0 pt-2 z-50">
           <div className="bg-cream border border-dark/10 rounded-lg shadow-lg py-2 min-w-[200px]">
             {item.children.map((child) => (
-              <button
+              <div
                 key={child.label}
-                onClick={() => handleNavClick(child.href)}
-                className="w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors"
+                className="relative"
+                onMouseEnter={() => child.children && setActiveSubDropdown(child.label)}
+                onMouseLeave={() => setActiveSubDropdown(null)}
               >
-                {child.label}
-              </button>
+                <button
+                  onClick={() => handleNavClick(child.href)}
+                  className="w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors flex items-center justify-between"
+                >
+                  {child.label}
+                  {child.children && (
+                    <ChevronDown className="w-3 h-3 -rotate-90" />
+                  )}
+                </button>
+
+                {/* Sub-dropdown (flyout right) */}
+                {child.children && activeSubDropdown === child.label && (
+                  <div className="absolute left-full top-0 pl-2 z-50">
+                    <div className="bg-cream border border-dark/10 rounded-lg shadow-lg py-2 min-w-[180px]">
+                      {child.children.map((sub) => (
+                        <button
+                          key={sub.label}
+                          onClick={() => handleNavClick(sub.href)}
+                          className="w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors"
+                        >
+                          {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

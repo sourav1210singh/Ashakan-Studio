@@ -10,9 +10,37 @@ export const mainNavigation: NavItem[] = [
     label: "WORK",
     href: "/work",
     children: [
-      { label: "PHOTOGRAPHY", href: "/work/photography" },
-      { label: "VIDEOGRAPHY", href: "/work/videography" },
-      { label: "CAMPAIGNS", href: "/work/campaigns" },
+      {
+        label: "PHOTOGRAPHY",
+        href: "/work/photography",
+        children: [
+          { label: "RETAIL", href: "/work/photography/retail" },
+          { label: "THE ARTS", href: "/work/photography/the-arts" },
+          { label: "FASHION", href: "/work/photography/fashion" },
+          { label: "INDUSTRIAL", href: "/work/photography/industrial" },
+        ],
+      },
+      {
+        label: "VIDEOGRAPHY",
+        href: "/work/videography",
+        children: [
+          { label: "RETAIL", href: "/work/videography/retail" },
+          { label: "THE ARTS", href: "/work/videography/the-arts" },
+          { label: "INDUSTRIAL", href: "/work/videography/industrial" },
+          { label: "DOCUMENTARY", href: "/work/videography/documentary" },
+          { label: "NARRATIVE", href: "/work/videography/narrative" },
+        ],
+      },
+      {
+        label: "CAMPAIGNS",
+        href: "/work/campaigns",
+        children: [
+          { label: "DEUTSCH", href: "/work/campaigns/deutsch" },
+          { label: "WEISSMAN", href: "/work/campaigns/weissman" },
+          { label: "THE EYE GALLERY", href: "/work/campaigns/eye-gallery" },
+          { label: "THE MONARCH SCHOOL", href: "/work/campaigns/monarch-school" },
+        ],
+      },
     ],
   },
   { label: "WHAT WE DO", href: "/services" },

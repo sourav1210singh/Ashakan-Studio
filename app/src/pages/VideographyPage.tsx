@@ -1,21 +1,21 @@
 import { ArrowLeft, Play } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { portfolioItems } from "@/data/portfolio";
+import { videographyCategories } from "@/data/navigation";
 import type { View } from "@/App";
 
 interface VideographyPageProps {
   onNavigate: (view: View, slug?: string) => void;
+  activeCategory?: string | null;
 }
 
-export function VideographyPage({ onNavigate }: VideographyPageProps) {
-  const videoProjects = [
-    { id: "deutsch", title: "DEUTSCH FINE JEWELRY", category: "RETAIL", thumbnail: "/images/portfolio/deutsch-jewelry.jpg" },
-    { id: "monarch", title: "THE MONARCH SCHOOL", category: "DOCUMENTARY", thumbnail: "/images/portfolio/8-4Q7A9046-2.jpeg" },
-    { id: "radiomedix", title: "RADIOMEDIX", category: "INDUSTRIAL", thumbnail: "/images/portfolio/radiomedix.jpg" },
-    { id: "vitacca", title: "VITACCA BALLET", category: "THE ARTS", thumbnail: "/images/portfolio/vitacca-ballet.jpg" },
-    { id: "weissman", title: "WEISSMAN ELITE", category: "NARRATIVE", thumbnail: "/images/portfolio/weissman-elite.jpg" },
-    { id: "fashion", title: "FASHION EDITORIAL", category: "RETAIL", thumbnail: "/images/portfolio/fashion.jpg" },
-  ];
+export function VideographyPage({ onNavigate, activeCategory }: VideographyPageProps) {
+  const videoProjects = portfolioItems.filter((item) => {
+    if (!item.videoCategories || item.videoCategories.length === 0) return false;
+    if (!activeCategory) return true;
+    return item.videoCategories.includes(activeCategory);
+  });
 
   return (
     <>
@@ -44,16 +44,27 @@ export function VideographyPage({ onNavigate }: VideographyPageProps) {
         <section className="py-8 border-b border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="flex flex-wrap gap-4">
-              {["ALL", "RETAIL", "THE ARTS", "INDUSTRIAL", "DOCUMENTARY", "NARRATIVE"].map((cat, index) => (
+              <button
+                onClick={() => onNavigate("videography")}
+                className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
+                  !activeCategory
+                    ? "bg-dark text-white border-dark"
+                    : "text-dark border-dark/30 hover:bg-dark hover:text-white"
+                }`}
+              >
+                ALL
+              </button>
+              {videographyCategories.map((cat) => (
                 <button
-                  key={cat}
+                  key={cat.id}
+                  onClick={() => onNavigate("videography", cat.id)}
                   className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
-                    index === 0 
-                      ? "bg-dark text-white border-dark" 
+                    activeCategory === cat.id
+                      ? "bg-dark text-white border-dark"
                       : "text-dark border-dark/30 hover:bg-dark hover:text-white"
                   }`}
                 >
-                  {cat}
+                  {cat.name}
                 </button>
               ))}
             </div>
@@ -63,38 +74,44 @@ export function VideographyPage({ onNavigate }: VideographyPageProps) {
         {/* Projects Grid */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {videoProjects.map((item, index) => (
-                <FadeIn key={item.id} delay={index * 0.1}>
-                  <button
-                    onClick={() => onNavigate("portfolio", item.id)}
-                    className="group block relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white w-full text-left"
-                  >
-                    <div className="relative overflow-hidden aspect-video">
-                      <img
-                        src={item.thumbnail}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-600 ease-out group-hover:scale-105"
-                      />
-                      {/* Play Button Overlay */}
-                      <div className="absolute inset-0 bg-dark/30 flex items-center justify-center">
-                        <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <Play className="w-6 h-6 text-dark ml-1" fill="currentColor" />
+            {videoProjects.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-lg text-dark/50">No projects found in this category.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {videoProjects.map((item, index) => (
+                  <FadeIn key={item.id} delay={index * 0.1}>
+                    <button
+                      onClick={() => onNavigate("portfolio", item.id)}
+                      className="group block relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white w-full text-left"
+                    >
+                      <div className="relative overflow-hidden aspect-video">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-600 ease-out group-hover:scale-105"
+                        />
+                        {/* Play Button Overlay */}
+                        <div className="absolute inset-0 bg-dark/30 flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Play className="w-6 h-6 text-dark ml-1" fill="currentColor" />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="p-4 sm:p-6">
-                      <p className="text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-1">
-                        {item.category}
-                      </p>
-                      <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight">
-                        {item.title}
-                      </h3>
-                    </div>
-                  </button>
-                </FadeIn>
-              ))}
-            </div>
+                      <div className="p-4 sm:p-6">
+                        <p className="text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-1">
+                          {item.category}
+                        </p>
+                        <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight">
+                          {item.title}
+                        </h3>
+                      </div>
+                    </button>
+                  </FadeIn>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>
