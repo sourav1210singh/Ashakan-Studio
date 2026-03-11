@@ -42,8 +42,8 @@ export function AboutSection() {
                   HOUSTON, TX
                 </span>
                 <br />
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-dark/40">
-                  ENDLESS POSSIBILITIES
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-midgray">
+                  2 DEPARTMENTS, 1 COMPANY.
                 </span>
               </h2>
             </FadeIn>
@@ -51,25 +51,28 @@ export function AboutSection() {
             {/* Paragraph 1 */}
             <FadeIn delay={0.1}>
               <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-5 sm:mb-6 max-w-lg">
-                Every project begins with your story. From concept development
-                to final delivery, our in-house team manages each phase with
-                precision, creativity, and intention.
+                Ashkan Studios is the parent company of{" "}
+                <span className="font-semibold text-dark">Ashkan Image</span> and{" "}
+                <span className="font-semibold text-dark">Ashkan Media</span>.
+                We specialize in commercial photography, videography, and
+                creative production.
               </p>
             </FadeIn>
 
             {/* Paragraph 2 */}
             <FadeIn delay={0.2}>
               <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-5 sm:mb-6 max-w-lg">
-                Bold vision? Ambitious production? Complete creative
-                partnership?{" "}
-                <span className="font-medium text-dark">We're ready.</span>
+                Every project at Ashkan Studios begins with a story — yours.
+                We guide it from concept to completion, handling all aspects of
+                production in-house with care, precision, and intention.
               </p>
             </FadeIn>
 
             {/* Paragraph 3 */}
             <FadeIn delay={0.25}>
               <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-8 sm:mb-10 max-w-lg">
-                Curious? Discover the studio behind the work.
+                Crazy concept? Bring it. Big production? No problem.
+                Need total artistic guidance? Can't wait.
               </p>
             </FadeIn>
 

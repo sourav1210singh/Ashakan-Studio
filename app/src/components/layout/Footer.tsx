@@ -65,7 +65,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 <img
                   src="/images/logo.png"
                   alt="Ashkan Studios"
-                  className="h-20 sm:h-24 lg:h-28 w-auto invert"
+                  className="h-28 sm:h-36 lg:h-44 xl:h-52 w-auto invert"
                 />
               </button>
             </div>

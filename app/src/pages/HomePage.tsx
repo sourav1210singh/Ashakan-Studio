@@ -17,7 +17,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
         <HeroSection />
         <PortfolioSection onProjectClick={(slug) => onNavigate("portfolio", slug)} onSeeMoreClick={() => onNavigate("work")} />
         <ClientsSection />
-        <ServicesSection />
+        <ServicesSection onNavigate={onNavigate} />
         <AboutSection />
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />

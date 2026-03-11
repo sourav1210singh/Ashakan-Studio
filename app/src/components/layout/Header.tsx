@@ -192,7 +192,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               <img
                 src="/images/logo.png"
                 alt="Ashkan Studios"
-                className="h-18 sm:h-22 md:h-[96px] lg:h-[92px] w-auto"
+                className="h-16 sm:h-20 md:h-24 lg:h-[120px] xl:h-[140px] w-auto"
               />
             </button>
 

@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { services } from "@/data/portfolio";
 
-export function ServicesSection() {
+interface ServicesSectionProps {
+  onNavigate?: (view: string) => void;
+}
+
+export function ServicesSection({ onNavigate }: ServicesSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
@@ -106,7 +110,7 @@ export function ServicesSection() {
           >
             <p
               className="mx-auto text-base sm:text-lg lg:text-xl text-white/85 leading-relaxed"
-              style={{ maxWidth: "780px", lineHeight: 1.55 }}
+              style={{ maxWidth: "780px", lineHeight: 1.55, textWrap: "balance" } as React.CSSProperties}
             >
               From concept to delivery, our talented network of directors,
               photographers, cinematographers, stylists, and editors bring your
@@ -150,13 +154,13 @@ export function ServicesSection() {
                 "opacity 0.7s cubic-bezier(.16,1,.3,1) 0.4s, transform 0.7s cubic-bezier(.16,1,.3,1) 0.4s",
             }}
           >
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 border border-white text-white font-medium tracking-wider text-sm sm:text-base hover:bg-white hover:text-dark transition-colors duration-300"
+            <button
+              onClick={() => onNavigate?.("services")}
+              className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 border border-white text-white font-medium tracking-wider text-sm sm:text-base hover:bg-white hover:text-dark transition-colors duration-300 cursor-pointer"
             >
               EXPLORE SERVICES
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-            </a>
+            </button>
           </div>
         </div>
       </div>

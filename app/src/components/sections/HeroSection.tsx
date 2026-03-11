@@ -156,16 +156,16 @@ export function HeroSection() {
 
         {/* Subtext */}
         <p
-          className="font-sans max-w-2xl mx-auto text-center mt-6 sm:mt-10 text-sm sm:text-base lg:text-lg text-dark/70 leading-relaxed relative z-30"
+          className="font-sans max-w-2xl mx-auto text-center mt-6 sm:mt-10 text-sm sm:text-base lg:text-lg text-dark/70 leading-relaxed relative z-30 text-balance"
           style={{
             opacity: 0,
             animation: "fadeInUp 0.6s ease-out 0.9s forwards",
           }}
         >
           Ashkan Studios is a Houston-based production company specializing in
-          commercial photography, videography, and creative direction. We partner
-          with brands to craft visually compelling narratives that capture
-          attention and drive measurable impact.
+          commercial photography, cinematic videography, and strategic creative
+          direction. We partner with brands to craft visuals that command
+          attention and define presence.
         </p>
 
         {/* Scroll Indicator */}

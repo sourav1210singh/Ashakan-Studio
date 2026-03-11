@@ -8,6 +8,75 @@ interface WorkPageProps {
   onNavigate: (view: View, slug?: string) => void;
 }
 
+/* Representative images for each category */
+const photographyImages: Record<string, string> = {
+  retail: "/images/portfolio/brandon-blackwood.jpg",
+  "the-arts": "/images/portfolio/vitacca-ballet.jpg",
+  fashion: "/images/portfolio/fashion.jpg",
+  industrial: "/images/portfolio/radiomedix.jpg",
+};
+
+const videographyImages: Record<string, string> = {
+  retail: "/images/portfolio/audaja-skincare.jpg",
+  "the-arts": "/images/portfolio/lauren-anderson.jpg",
+  industrial: "/images/portfolio/kinetik.jpg",
+  documentary: "/images/portfolio/monarch-school.jpg",
+  narrative: "/images/portfolio/cecilia-duarte.jpg",
+};
+
+const campaignImages: Record<string, string> = {
+  deutsch: "/images/portfolio/deutsch-jewelry.jpg",
+  weissman: "/images/portfolio/weissman-elite.jpg",
+  "eye-gallery": "/images/portfolio/eye-gallery.jpg",
+  "monarch-school": "/images/portfolio/monarch-school.jpg",
+};
+
+/* Leaf card heights for organic rhythm */
+const leafHeights = [420, 480, 440, 500, 460];
+
+function LeafWorkCard({
+  name,
+  image,
+  index,
+  onClick,
+}: {
+  name: string;
+  image: string;
+  index: number;
+  onClick: () => void;
+}) {
+  const leafRadius =
+    index % 2 === 0 ? "120px 16px 120px 16px" : "16px 120px 16px 120px";
+  const height = leafHeights[index % leafHeights.length];
+
+  return (
+    <FadeIn delay={index * 0.1}>
+      <button
+        onClick={onClick}
+        className="group relative w-full text-left focus:outline-none overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+        style={{
+          borderRadius: leafRadius,
+          height: `${height}px`,
+        }}
+      >
+        <img
+          src={image}
+          alt={name}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-dark/70 via-dark/20 to-transparent"
+        />
+        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+          <span className="font-display text-xl sm:text-2xl text-white tracking-tight">
+            {name}
+          </span>
+        </div>
+      </button>
+    </FadeIn>
+  );
+}
+
 export function WorkPage({ onNavigate }: WorkPageProps) {
   return (
     <>
@@ -19,8 +88,8 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
               <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[180px] text-dark tracking-tight leading-none mb-8">
                 THE WORK
               </h1>
-              <p className="text-lg sm:text-xl text-dark/70 max-w-2xl">
-                Explore our portfolio of photography, videography, and full-scale campaigns. 
+              <p className="text-lg sm:text-xl text-dark/70 max-w-2xl" style={{ textWrap: "balance" } as React.CSSProperties}>
+                Explore our portfolio of photography, videography, and full-scale campaigns.
                 Each project tells a unique story crafted with precision and creativity.
               </p>
             </FadeIn>
@@ -49,19 +118,13 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {photographyCategories.map((cat, index) => (
-                <FadeIn key={cat.id} delay={index * 0.1}>
-                  <button
-                    onClick={() => onNavigate("photography")}
-                    className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-dark/5"
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-display text-2xl sm:text-3xl text-dark tracking-tight group-hover:scale-105 transition-transform">
-                        {cat.name}
-                      </span>
-                    </div>
-                    <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/5 transition-colors" />
-                  </button>
-                </FadeIn>
+                <LeafWorkCard
+                  key={cat.id}
+                  name={cat.name}
+                  image={photographyImages[cat.id] || "/images/portfolio/fashion.jpg"}
+                  index={index}
+                  onClick={() => onNavigate("photography")}
+                />
               ))}
             </div>
           </div>
@@ -87,21 +150,15 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
               {videographyCategories.map((cat, index) => (
-                <FadeIn key={cat.id} delay={index * 0.1}>
-                  <button
-                    onClick={() => onNavigate("videography")}
-                    className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-dark/5"
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-display text-xl sm:text-2xl text-dark tracking-tight group-hover:scale-105 transition-transform text-center px-2">
-                        {cat.name}
-                      </span>
-                    </div>
-                    <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/5 transition-colors" />
-                  </button>
-                </FadeIn>
+                <LeafWorkCard
+                  key={cat.id}
+                  name={cat.name}
+                  image={videographyImages[cat.id] || "/images/portfolio/vitacca-ballet.jpg"}
+                  index={index}
+                  onClick={() => onNavigate("videography")}
+                />
               ))}
             </div>
           </div>
@@ -129,19 +186,13 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {campaigns.map((campaign, index) => (
-                <FadeIn key={campaign.id} delay={index * 0.1}>
-                  <button
-                    onClick={() => onNavigate("portfolio", campaign.id)}
-                    className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-dark/5"
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="font-display text-xl sm:text-2xl text-dark tracking-tight group-hover:scale-105 transition-transform text-center px-2">
-                        {campaign.name}
-                      </span>
-                    </div>
-                    <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/5 transition-colors" />
-                  </button>
-                </FadeIn>
+                <LeafWorkCard
+                  key={campaign.id}
+                  name={campaign.name}
+                  image={campaignImages[campaign.id] || "/images/portfolio/deutsch-jewelry.jpg"}
+                  index={index}
+                  onClick={() => onNavigate("campaigns")}
+                />
               ))}
             </div>
           </div>
