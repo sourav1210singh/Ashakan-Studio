@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { services } from "@/data/portfolio";
+import type { View } from "@/App";
 
 interface ServicesSectionProps {
-  onNavigate?: (view: string) => void;
+  onNavigate?: (view: View, slug?: string) => void;
 }
 
 export function ServicesSection({ onNavigate }: ServicesSectionProps) {
