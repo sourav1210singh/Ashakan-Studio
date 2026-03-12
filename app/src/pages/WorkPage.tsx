@@ -31,9 +31,7 @@ const campaignImages: Record<string, string> = {
   "monarch-school": "/images/portfolio/monarch-school.jpg",
 };
 
-/* Leaf card heights for organic rhythm */
-const leafHeights = [420, 480, 440, 500, 460];
-
+/* Tall thin leaf card — diagonal opposite corners rounded */
 function LeafWorkCard({
   name,
   image,
@@ -45,18 +43,25 @@ function LeafWorkCard({
   index: number;
   onClick: () => void;
 }) {
+  /*
+   * Diagonal leaf: top-left & bottom-right rounded (even)
+   *                top-right & bottom-left rounded (odd)
+   * border-radius order: top-left top-right bottom-right bottom-left
+   */
   const leafRadius =
-    index % 2 === 0 ? "120px 16px 120px 16px" : "16px 120px 16px 120px";
-  const height = leafHeights[index % leafHeights.length];
+    index % 2 === 0
+      ? "80px 6px 80px 6px"
+      : "6px 80px 6px 80px";
 
   return (
-    <FadeIn delay={index * 0.1}>
+    <FadeIn delay={index * 0.08}>
       <button
         onClick={onClick}
-        className="group relative w-full text-left focus:outline-none overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+        className="group relative text-left focus:outline-none overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
         style={{
           borderRadius: leafRadius,
-          height: `${height}px`,
+          width: "clamp(100px, 14vw, 180px)",
+          height: "clamp(380px, 50vw, 540px)",
         }}
       >
         <img
@@ -64,11 +69,11 @@ function LeafWorkCard({
           alt={name}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-dark/70 via-dark/20 to-transparent"
-        />
-        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-          <span className="font-display text-xl sm:text-2xl text-white tracking-tight">
+        {/* Gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-dark/20 to-transparent" />
+        {/* Title at bottom centre */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-5 sm:pb-6">
+          <span className="font-display text-xs sm:text-sm md:text-base text-white tracking-widest uppercase">
             {name}
           </span>
         </div>
@@ -116,7 +121,7 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="flex justify-center gap-4 sm:gap-6">
               {photographyCategories.map((cat, index) => (
                 <LeafWorkCard
                   key={cat.id}
@@ -150,7 +155,7 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+            <div className="flex justify-center gap-4 sm:gap-6">
               {videographyCategories.map((cat, index) => (
                 <LeafWorkCard
                   key={cat.id}
@@ -184,7 +189,7 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="flex justify-center gap-4 sm:gap-6">
               {campaigns.map((campaign, index) => (
                 <LeafWorkCard
                   key={campaign.id}
