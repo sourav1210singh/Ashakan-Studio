@@ -33,7 +33,10 @@ interface ParsedRoute {
   category: string | null;
 }
 
-function parseRoute(pathname: string): ParsedRoute {
+function parseRoute(rawPathname: string): ParsedRoute {
+  // Normalize: strip trailing slash (except root "/")
+  const pathname = rawPathname.length > 1 ? rawPathname.replace(/\/+$/, "") : rawPathname;
+
   // Portfolio pages
   const portfolioMatch = pathname.match(/^\/portfolio\/(.+)$/);
   if (portfolioMatch) {
@@ -79,15 +82,15 @@ function parseRoute(pathname: string): ParsedRoute {
 /* ── Path map: View → clean URL ── */
 const pathMap: Record<View, string> = {
   home: "/",
-  work: "/work",
-  photography: "/work/photography",
-  videography: "/work/videography",
-  campaigns: "/work/campaigns",
-  services: "/services",
-  studio: "/studio",
-  contact: "/contact",
-  storytime: "/storytime",
-  press: "/press",
+  work: "/work/",
+  photography: "/work/photography/",
+  videography: "/work/videography/",
+  campaigns: "/work/campaigns/",
+  services: "/services/",
+  studio: "/studio/",
+  contact: "/contact/",
+  storytime: "/storytime/",
+  press: "/press/",
   portfolio: "/",
 };
 
@@ -130,15 +133,15 @@ function App() {
       setSelectedProjectSlug(slug);
       setSelectedCategory(null);
       setCurrentView("portfolio");
-      window.history.pushState(null, "", `/portfolio/${slug}`);
+      window.history.pushState(null, "", `/portfolio/${slug}/`);
     } else if ((view === "photography" || view === "videography" || view === "campaigns") && slug) {
       setSelectedCategory(slug);
       setCurrentView(view);
       const base =
-        view === "photography" ? "/work/photography" :
-        view === "videography" ? "/work/videography" :
-        "/work/campaigns";
-      window.history.pushState(null, "", `${base}/${slug}`);
+        view === "photography" ? "/work/photography/" :
+        view === "videography" ? "/work/videography/" :
+        "/work/campaigns/";
+      window.history.pushState(null, "", `${base}${slug}/`);
     } else {
       setCurrentView(view);
       setSelectedCategory(null);
