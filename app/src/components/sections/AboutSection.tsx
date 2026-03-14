@@ -78,8 +78,8 @@ export function AboutSection() {
 
             {/* ABOUT US Button */}
             <FadeIn delay={0.35}>
-              <a
-                href="#"
+              <button
+                type="button"
                 className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-transform duration-200 hover:translate-x-1"
               >
                 <span className="text-sm sm:text-base font-medium tracking-wider">
@@ -88,7 +88,7 @@ export function AboutSection() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-              </a>
+              </button>
             </FadeIn>
           </div>
 

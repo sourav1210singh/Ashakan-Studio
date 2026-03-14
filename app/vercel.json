@@ -1,0 +1,1550 @@
+{
+  "redirects": [
+    {
+      "source": "/portfolios",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/production-studio-in-houston-2",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-production-studio",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/about-me",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios-new",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/brandon-blackwood",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/cecilia-duarte",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/audaja-skincare",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/lauren-anderson",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/vitacca-ballet",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/elastique-athletics",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/publications",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/miscellaneous",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/the-monarch-school-and-institute",
+      "destination": "/work/campaigns/monarch-school",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/cacao-cardamom",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/fashion",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/weissman-elite",
+      "destination": "/work/campaigns/weissman",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/car-collections",
+      "destination": "/work/photography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/kinetik",
+      "destination": "/work/photography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/radiomedix",
+      "destination": "/work/photography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/eye-gallery",
+      "destination": "/work/campaigns/eye-gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolios/deutsch-fine-jewelry",
+      "destination": "/work/campaigns/deutsch",
+      "statusCode": 301
+    },
+    {
+      "source": "/header/header-transparent",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/header/header",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/header/header-2",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/footer/footer",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/fullmenu/fullscreen-menu",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolio-2",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/portfolio-2/averlee-rose-kohrs",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/our-process",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/session-pricing",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-services",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/buildyoursession",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/tips-for-dance-audition-photos",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/street-studio-dance-photography",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/boundless-dance-art-exhibition",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-for-you-dance-auditions",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/performance-over-perfection-houston-dance-photographers-perspective",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/thank-you-body-melody-walsh",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/why-capture-movement-by-houston-photographer",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/new-age-of-dance-for-houston-dancers",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/mentally-fit-stay-inspired-houston-dancers",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/5-ways-houston-dancers-can-balance-their-life",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/virtual-photography-lighting-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-studio-available-to-rent-houston",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/fine-art-prints-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography-texas",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-in-houston",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-lighting-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/a-deep-dive-into-fashion-photography",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/tips-for-dancers",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/choosing-art-from-your-session-for-your-home",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photography-in-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/professional-photography-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/new-business-lighting-workshops-learn-new-skills-from-ashkan-roayaee",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/private-coaching-and-live-sessions-with-ashkan-roayaee",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/artistic-photography-and-style-in-motion-sessions-with-ashkan-image",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/thank-you-for-subscribing",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/live-session-workshop",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-studio-rent-houston",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-photography-studio-rental",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photographer",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-photography-studio",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/gymnastics-photographers-in-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-portrait-photographers",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-photography-dallas",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-photgraphers",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/photographers-in-houston-tx",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-photographer",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/mail-chimp-sign-up",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/countour",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/editorial",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/elastique",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/fine-art-prints-available-in-houston",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/weissman",
+      "destination": "/work/campaigns/weissman",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-headshots-photographer",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/professional-headshots-houston",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/application-for-ashkan-images-commercial-project-casting",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-product-photography",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-fashion-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography-houston",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography-dallas",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography-headshots",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/headshots-houston",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/model-casting",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/casting-woman",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/casting-men",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-photo-studio",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-studios-in-houston",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/studio-photography-houston",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/headshots",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/magazine",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/audition-photos",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-fashion-photographer",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-teacher-in-houston",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-coaching-in-houston",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-course-in-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/casting-general-page",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/holiday-gift-card",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/gymnast-photography",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/photo-studio-houston",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/lighting-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-business-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photography-houston",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/studio-lighting-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-class-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-photography-classes",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photography-houston",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-photography-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-commercial-photographer",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-editorial-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-photographer",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/portrait-photography-houston",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-photography",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/artistic-photography",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography-services",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-portrait-studio",
+      "destination": "/photography/headshots",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-fashion-photography",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/headshots-in-houston",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-lighting-class",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/audition-session",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/commercial-work",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/fashion",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/creative-session",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/dance-companies",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/principals",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/street-sessions",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/private-photography-coaching",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/studio-photography-near-me",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/ballet-audition-photos",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/editorial-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/professional-fashion-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/artistic-dance-photographer",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/lighting-design-workshop",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-sessions",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-photography-workshops",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/austin-photography-session",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photography",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/bold-fashion-photography",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-in-texas",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/austin-commercial-photography",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-in-austin",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-fitness-sessions",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/fitness-photographer",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/professional-fitness-photos",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/fitness-photography",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/fitness-photography-session",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/fitness-sessions",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/indulge-session",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/indulge-session",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-company-sessions",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photography-houston-2",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-shoot-houston",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/activewear-product-photographer",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photo-shoots",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photo-branding",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/activewear-photo-branding",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/editorial-fitness-photographer",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/dancewear-photography",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/dancewear-photo-shoot",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photographer-houston",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/designer-brand-photography",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/local-photography-houston",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-space-available",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/designer-fashion-photography",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-lighting-course",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/educational-photography-workshops",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-reels",
+      "destination": "/work/videography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/top-commercial-photographer-houston",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/houstons-best-photographer",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/houstons-best-photographer-2",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/top-product-photographer",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/top-houston-fashion-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/top-houston-portrait-photographer",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-photography-workshop-in-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photography-studio-near-me",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/fashion-photographer-inspiration",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/headshots",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-commercial-photography",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-editorial-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-commercial-photographer-houston",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-commercial-photographer-in-houston",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/holiday-campaign",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/citybook",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/senior-photography-session",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/creative-session",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/standard-session",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/style-in-motion-session-fitness",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-fitness-photographer",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-headshot-photographer-in-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-houston-photographers",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/best-product-photographer-in-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-houston",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/projects/style-in-motion",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/style-in-motion-session",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/the-dancers-edge-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/art-artists",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/auditions-houston-dance-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/dance-photography",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/dancers",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/lighting",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/photography-workshop",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/street-photography",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/uncategorized",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/ballet",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/ballet-auditions",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/dance",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/dance-auditions",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/fashion",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/fashion-photography",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/houston-ballet",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/houston-dance",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/tag/melody-walsh",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/author/ashkanmedia",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/author/ashkanimage18",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/home-5",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/ashkan-studios",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/the-team-2",
+      "destination": "/studio",
+      "statusCode": 301
+    },
+    {
+      "source": "/our-services",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/work-with-us",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/consultation",
+      "destination": "/contact",
+      "statusCode": 301
+    },
+    {
+      "source": "/media-content-packages",
+      "destination": "/services",
+      "statusCode": 301
+    },
+    {
+      "source": "/main-portfolio",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/our-work-projects",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photography-portfolio",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-portfolio",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/food-photographer-portfolio",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-to-attract-customers-with-video",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/video-production-a-deep-dive",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-to-connect-with-your-audience",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/how-to-do-food-photography-yourself",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/workshop-video-101",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/media-production-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/brands-business-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/branding-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/drone-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/equipment-blog",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog-film-cinematography",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog-industry",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog-lighting",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog-marketing",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog-media-production",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-commercial-photographers",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/professional-headshots-houston",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photography-in-houston",
+      "destination": "/product-photography-in-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photographer-in-houston",
+      "destination": "/product-photographer-in-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photographer-houston",
+      "destination": "/product-photographer-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photography-houston",
+      "destination": "/commercial-photography-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-commercial-photography",
+      "destination": "/houston-commercial-photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-houston",
+      "destination": "/commercial-photographer-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-editorial-photographer",
+      "destination": "/work/photography/fashion",
+      "statusCode": 301
+    },
+    {
+      "source": "/business-marketing-photography-houston",
+      "destination": "/business-marketing-photography-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/headshot-photography-houston",
+      "destination": "/headshot-photography-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/cinematography-services-in-houston",
+      "destination": "/cinematography-services-in-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-videographers-houston",
+      "destination": "/commercial-videographers-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/video-editing-services-in-houston",
+      "destination": "/video-editing-services-in-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/video-production-services-houston",
+      "destination": "/video-production-services-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/videographer-houston",
+      "destination": "/videographer-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/videography-houston",
+      "destination": "/videography-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/videography-in-the-woodlands",
+      "destination": "/videography-in-the-woodlands",
+      "statusCode": 301
+    },
+    {
+      "source": "/videography-in-texas",
+      "destination": "/videography-in-texas",
+      "statusCode": 301
+    },
+    {
+      "source": "/videographer-in-houston",
+      "destination": "/videographer-in-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-videography-in-houston",
+      "destination": "/commercial-videography-in-houston",
+      "statusCode": 301
+    },
+    {
+      "source": "/dancer-reel-texas",
+      "destination": "/work/videography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/curated-content-reel",
+      "destination": "/work/videography",
+      "statusCode": 301
+    },
+    {
+      "source": "/vsl-arts-industry",
+      "destination": "/work/videography",
+      "statusCode": 301
+    },
+    {
+      "source": "/vsl-retail-industry",
+      "destination": "/work/videography",
+      "statusCode": 301
+    },
+    {
+      "source": "/vsl-li-industry",
+      "destination": "/work/videography",
+      "statusCode": 301
+    },
+    {
+      "source": "/chosen-project-eye-gallery",
+      "destination": "/work/campaigns/eye-gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-the-eye-gallery-houston",
+      "destination": "/work/campaigns/eye-gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/eye-gallery-monthly-deliverables",
+      "destination": "/work/campaigns/eye-gallery",
+      "statusCode": 301
+    },
+    {
+      "source": "/chosen-project-monarch",
+      "destination": "/work/campaigns/monarch-school",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-monarch-school-and-institute",
+      "destination": "/work/campaigns/monarch-school",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-weissman-elite",
+      "destination": "/work/campaigns/weissman",
+      "statusCode": 301
+    },
+    {
+      "source": "/excel-diagnostics-radiomedix-chosen-project",
+      "destination": "/work/videography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-radio-medix",
+      "destination": "/work/videography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/chosen-project-contour",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-kinetik",
+      "destination": "/work/videography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-athletico",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-audaja",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-safari-vet",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-cecilia-duarte",
+      "destination": "/work/videography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-gwen-berry",
+      "destination": "/work/photography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-tecas-tex-mex",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-icryo-with-jaylon-smith",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-makartt-femi-beauty",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-pdi",
+      "destination": "/work/photography/industrial",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-vitacca",
+      "destination": "/work/videography/the-arts",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-pink-palette",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/project-la-vie-photography",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/marthann-masterson-monthly-deliverables",
+      "destination": "/work/photography/retail",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/brands-businesses",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/marketing",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/photography",
+      "destination": "/work/photography",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/social-media",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/uncategorized",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
+      "source": "/category/videography",
+      "destination": "/work/videography",
+      "statusCode": 301
+    },
+    {
+      "source": "/author/admin",
+      "destination": "/studio",
+      "statusCode": 301
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

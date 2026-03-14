@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Header } from "@/components/layout/Header";
 import { HomePage } from "@/pages/HomePage";
 import { WorkPage } from "@/pages/WorkPage";
@@ -26,150 +26,136 @@ export type View =
   | "press"
   | "portfolio";
 
+/* ── Route parsing (shared by initial load + popstate) ── */
+interface ParsedRoute {
+  view: View;
+  slug: string | null;
+  category: string | null;
+}
+
+function parseRoute(pathname: string): ParsedRoute {
+  // Portfolio pages
+  const portfolioMatch = pathname.match(/^\/portfolio\/(.+)$/);
+  if (portfolioMatch) {
+    const slug = portfolioMatch[1];
+    const project = getProjectById(slug);
+    if (project) {
+      return { view: "portfolio", slug, category: null };
+    }
+  }
+
+  // Work sub-routes
+  if (pathname === "/work" || pathname.startsWith("/work/")) {
+    if (pathname.startsWith("/work/photography")) {
+      const catMatch = pathname.match(/^\/work\/photography\/(.+)$/);
+      return { view: "photography", slug: null, category: catMatch ? catMatch[1] : null };
+    }
+    if (pathname.startsWith("/work/videography")) {
+      const catMatch = pathname.match(/^\/work\/videography\/(.+)$/);
+      return { view: "videography", slug: null, category: catMatch ? catMatch[1] : null };
+    }
+    if (pathname.startsWith("/work/campaigns")) {
+      const catMatch = pathname.match(/^\/work\/campaigns\/(.+)$/);
+      return { view: "campaigns", slug: null, category: catMatch ? catMatch[1] : null };
+    }
+    return { view: "work", slug: null, category: null };
+  }
+
+  // Top-level pages
+  const pageMap: Record<string, View> = {
+    "/services": "services",
+    "/studio": "studio",
+    "/contact": "contact",
+    "/storytime": "storytime",
+    "/press": "press",
+  };
+  if (pageMap[pathname]) {
+    return { view: pageMap[pathname], slug: null, category: null };
+  }
+
+  return { view: "home", slug: null, category: null };
+}
+
+/* ── Path map: View → clean URL ── */
+const pathMap: Record<View, string> = {
+  home: "/",
+  work: "/work",
+  photography: "/work/photography",
+  videography: "/work/videography",
+  campaigns: "/work/campaigns",
+  services: "/services",
+  studio: "/studio",
+  contact: "/contact",
+  storytime: "/storytime",
+  press: "/press",
+  portfolio: "/",
+};
+
 function App() {
   const [currentView, setCurrentView] = useState<View>("home");
   const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Parse URL hash on initial load
+  // ── Hash migration shim + initial route parse ──
   useEffect(() => {
+    // Migrate legacy hash URLs (/#/work → /work) transparently
     const hash = window.location.hash;
-    
-    // Portfolio pages
-    const portfolioMatch = hash.match(/^#\/portfolio\/(.+)$/);
-    if (portfolioMatch) {
-      const slug = portfolioMatch[1];
-      const project = getProjectById(slug);
-      if (project) {
-        setSelectedProjectSlug(slug);
-        setCurrentView("portfolio");
-        return;
-      }
+    if (hash.startsWith("#/")) {
+      const cleanPath = hash.slice(1); // "#/work" → "/work"
+      window.history.replaceState(null, "", cleanPath);
     }
-    
-    // Main pages
-    if (hash === "#/work" || hash.startsWith("#/work/")) {
-      if (hash.startsWith("#/work/photography")) {
-        setCurrentView("photography");
-        const catMatch = hash.match(/^#\/work\/photography\/(.+)$/);
-        setSelectedCategory(catMatch ? catMatch[1] : null);
-      } else if (hash.startsWith("#/work/videography")) {
-        setCurrentView("videography");
-        const catMatch = hash.match(/^#\/work\/videography\/(.+)$/);
-        setSelectedCategory(catMatch ? catMatch[1] : null);
-      } else if (hash.startsWith("#/work/campaigns")) {
-        setCurrentView("campaigns");
-        const catMatch = hash.match(/^#\/work\/campaigns\/(.+)$/);
-        setSelectedCategory(catMatch ? catMatch[1] : null);
-      } else {
-        setCurrentView("work");
-      }
-    } else if (hash === "#/services") {
-      setCurrentView("services");
-    } else if (hash === "#/studio") {
-      setCurrentView("studio");
-    } else if (hash === "#/contact") {
-      setCurrentView("contact");
-    } else if (hash === "#/storytime") {
-      setCurrentView("storytime");
-    } else if (hash === "#/press") {
-      setCurrentView("press");
-    } else {
-      setCurrentView("home");
-    }
+
+    const { view, slug, category } = parseRoute(window.location.pathname);
+    setCurrentView(view);
+    setSelectedProjectSlug(slug);
+    setSelectedCategory(category);
   }, []);
 
-  // Handle browser back/forward buttons
+  // ── Handle browser back/forward buttons ──
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      
-      const portfolioMatch = hash.match(/^#\/portfolio\/(.+)$/);
-      if (portfolioMatch) {
-        const slug = portfolioMatch[1];
-        const project = getProjectById(slug);
-        if (project) {
-          setSelectedProjectSlug(slug);
-          setCurrentView("portfolio");
-          return;
-        }
-      }
-      
-      if (hash === "#/work" || hash.startsWith("#/work/")) {
-        if (hash.startsWith("#/work/photography")) {
-          setCurrentView("photography");
-          const catMatch = hash.match(/^#\/work\/photography\/(.+)$/);
-          setSelectedCategory(catMatch ? catMatch[1] : null);
-        } else if (hash.startsWith("#/work/videography")) {
-          setCurrentView("videography");
-          const catMatch = hash.match(/^#\/work\/videography\/(.+)$/);
-          setSelectedCategory(catMatch ? catMatch[1] : null);
-        } else if (hash.startsWith("#/work/campaigns")) {
-          setCurrentView("campaigns");
-          const catMatch = hash.match(/^#\/work\/campaigns\/(.+)$/);
-          setSelectedCategory(catMatch ? catMatch[1] : null);
-        } else {
-          setCurrentView("work");
-        }
-      } else if (hash === "#/services") {
-        setCurrentView("services");
-      } else if (hash === "#/studio") {
-        setCurrentView("studio");
-      } else if (hash === "#/contact") {
-        setCurrentView("contact");
-      } else if (hash === "#/storytime") {
-        setCurrentView("storytime");
-      } else if (hash === "#/press") {
-        setCurrentView("press");
-      } else {
-        setCurrentView("home");
-      }
+    const handlePopState = () => {
+      const { view, slug, category } = parseRoute(window.location.pathname);
+      setCurrentView(view);
+      setSelectedProjectSlug(slug);
+      setSelectedCategory(category);
     };
 
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const navigateTo = (view: View, slug?: string) => {
+  // ── Navigation ──
+  const navigateTo = useCallback((view: View, slug?: string) => {
     if (view === "portfolio" && slug) {
       setSelectedProjectSlug(slug);
       setSelectedCategory(null);
       setCurrentView("portfolio");
-      window.location.hash = `#/portfolio/${slug}`;
+      window.history.pushState(null, "", `/portfolio/${slug}`);
     } else if ((view === "photography" || view === "videography" || view === "campaigns") && slug) {
       setSelectedCategory(slug);
       setCurrentView(view);
-      const base = view === "photography" ? "#/work/photography" : view === "videography" ? "#/work/videography" : "#/work/campaigns";
-      window.location.hash = `${base}/${slug}`;
+      const base =
+        view === "photography" ? "/work/photography" :
+        view === "videography" ? "/work/videography" :
+        "/work/campaigns";
+      window.history.pushState(null, "", `${base}/${slug}`);
     } else {
       setCurrentView(view);
       setSelectedCategory(null);
-      const hashMap: Record<View, string> = {
-        home: "",
-        work: "#/work",
-        photography: "#/work/photography",
-        videography: "#/work/videography",
-        campaigns: "#/work/campaigns",
-        services: "#/services",
-        studio: "#/studio",
-        contact: "#/contact",
-        storytime: "#/storytime",
-        press: "#/press",
-        portfolio: "",
-      };
-      window.location.hash = hashMap[view];
+      window.history.pushState(null, "", pathMap[view]);
     }
     window.scrollTo(0, 0);
-  };
+  }, []);
 
-  const navigateToHome = () => {
+  const navigateToHome = useCallback(() => {
     setCurrentView("home");
     setSelectedProjectSlug(null);
-    window.location.hash = "";
+    setSelectedCategory(null);
+    window.history.pushState(null, "", "/");
     window.scrollTo(0, 0);
-  };
+  }, []);
 
-  // Render current view
+  // ── Render current view ──
   const renderContent = () => {
     switch (currentView) {
       case "home":

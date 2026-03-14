@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
+  <url><loc>https://ashkanstudios.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://ashkanstudios.com/work</loc><priority>0.9</priority></url>
+  <url><loc>https://ashkanstudios.com/services</loc><priority>0.9</priority></url>
+  <url><loc>https://ashkanstudios.com/studio</loc><priority>0.8</priority></url>
+  <url><loc>https://ashkanstudios.com/contact</loc><priority>0.8</priority></url>
+  <url><loc>https://ashkanstudios.com/storytime</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/press</loc><priority>0.7</priority></url>
+
+  <!-- Photography -->
+  <url><loc>https://ashkanstudios.com/work/photography</loc><priority>0.8</priority></url>
+  <url><loc>https://ashkanstudios.com/work/photography/retail</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/photography/the-arts</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/photography/fashion</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/photography/industrial</loc><priority>0.7</priority></url>
+
+  <!-- Videography -->
+  <url><loc>https://ashkanstudios.com/work/videography</loc><priority>0.8</priority></url>
+  <url><loc>https://ashkanstudios.com/work/videography/retail</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/videography/the-arts</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/videography/industrial</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/videography/documentary</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/videography/narrative</loc><priority>0.7</priority></url>
+
+  <!-- Campaigns -->
+  <url><loc>https://ashkanstudios.com/work/campaigns</loc><priority>0.8</priority></url>
+  <url><loc>https://ashkanstudios.com/work/campaigns/deutsch</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/campaigns/weissman</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/campaigns/eye-gallery</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/work/campaigns/monarch-school</loc><priority>0.7</priority></url>
+
+  <!-- Portfolio Projects -->
+  <url><loc>https://ashkanstudios.com/portfolio/brandon-blackwood</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/cecilia-duarte</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/audaja-skincare</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/lauren-anderson</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/vitacca-ballet</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/elastique-athletics</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/publications</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/miscellaneous</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/monarch-school</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/cacao-cardamom</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/fashion</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/weissman-elite</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/car-collections</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/kinetik</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/radiomedix</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/eye-gallery</loc><priority>0.6</priority></url>
+  <url><loc>https://ashkanstudios.com/portfolio/deutsch-fine-jewelry</loc><priority>0.6</priority></url>
+</urlset>
