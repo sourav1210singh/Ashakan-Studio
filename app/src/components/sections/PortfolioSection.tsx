@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { portfolioItems } from "@/data/portfolio";
 import { getProjectById } from "@/data/projects";
 
@@ -292,6 +292,9 @@ function MobileLeafCard({
 export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSectionProps) {
   const [headingVisible, setHeadingVisible] = useState(false);
   const headingRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isScrolledToEnd, setIsScrolledToEnd] = useState(false);
+  const [isScrolledFromStart, setIsScrolledFromStart] = useState(false);
 
   /* Heading scroll-trigger */
   useEffect(() => {
@@ -309,6 +312,38 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  /* Track scroll position to know when we've reached the end */
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const checkScroll = () => {
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 20;
+      setIsScrolledToEnd(atEnd);
+      setIsScrolledFromStart(el.scrollLeft > 100);
+    };
+    el.addEventListener("scroll", checkScroll);
+    checkScroll();
+    return () => el.removeEventListener("scroll", checkScroll);
+  }, []);
+
+  /* Scroll the strip right, or navigate to Work page if at end */
+  const handleScrollRight = () => {
+    const el = scrollRef.current;
+    if (el && !isScrolledToEnd) {
+      el.scrollBy({ left: el.clientWidth * 0.7, behavior: "smooth" });
+    } else if (onSeeMoreClick) {
+      onSeeMoreClick();
+    }
+  };
+
+  /* Scroll the strip back to the left */
+  const handleScrollLeft = () => {
+    const el = scrollRef.current;
+    if (el) {
+      el.scrollBy({ left: -(el.clientWidth * 0.7), behavior: "smooth" });
+    }
+  };
 
   /* Filter to curated featured items (preserves order) */
   const featured = FEATURED_IDS
@@ -342,10 +377,13 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         {/* ============================================================ */}
         <div className="hidden lg:block">
           <div
-            className="leaf-scroll flex items-start gap-6 xl:gap-8 overflow-x-auto pb-8 -mx-10 px-10"
+            ref={scrollRef}
+            className="leaf-scroll flex items-start gap-6 xl:gap-8 overflow-x-auto pb-8"
             style={{
               scrollSnapType: "x proximity",
               WebkitOverflowScrolling: "touch",
+              paddingLeft: "clamp(40px, 5vw, 80px)",
+              paddingRight: "clamp(40px, 5vw, 80px)",
             }}
           >
             {featured.map((item, index) => (
@@ -391,7 +429,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         {/*  CTA                                                          */}
         {/* ============================================================ */}
         <div
-          className="mt-12 sm:mt-16 lg:mt-20 text-right"
+          className="mt-12 sm:mt-16 lg:mt-20 flex items-center justify-between"
           style={{
             opacity: headingVisible ? 1 : 0,
             transform: headingVisible ? "translateY(0)" : "translateY(20px)",
@@ -399,12 +437,27 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
               "opacity 0.6s ease-out 0.5s, transform 0.6s ease-out 0.5s",
           }}
         >
+          {/* Left arrow — scroll back */}
           <button
-            onClick={() => {
-              if (onSeeMoreClick) {
-                onSeeMoreClick();
-              }
+            onClick={handleScrollLeft}
+            className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-all duration-300"
+            style={{
+              opacity: isScrolledFromStart ? 1 : 0,
+              pointerEvents: isScrolledFromStart ? "auto" : "none",
+              transform: isScrolledFromStart ? "translateX(0)" : "translateX(20px)",
             }}
+          >
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <span className="text-sm sm:text-base font-medium tracking-wider">
+              BACK
+            </span>
+          </button>
+
+          {/* Right arrow — scroll forward / see all work */}
+          <button
+            onClick={handleScrollRight}
             className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-transform duration-200 hover:translate-x-1"
           >
             <span className="text-sm sm:text-base font-medium tracking-wider">
