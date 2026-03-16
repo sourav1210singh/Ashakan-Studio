@@ -136,16 +136,6 @@
       "statusCode": 301
     },
     {
-      "source": "/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact",
-      "statusCode": 301
-    },
-    {
       "source": "/portfolio",
       "destination": "/work/photography",
       "statusCode": 301
@@ -1116,11 +1106,6 @@
       "statusCode": 301
     },
     {
-      "source": "/",
-      "destination": "/",
-      "statusCode": 301
-    },
-    {
       "source": "/home",
       "destination": "/",
       "statusCode": 301
@@ -1271,98 +1256,8 @@
       "statusCode": 301
     },
     {
-      "source": "/product-photography-in-houston",
-      "destination": "/product-photography-in-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/product-photographer-in-houston",
-      "destination": "/product-photographer-in-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/product-photographer-houston",
-      "destination": "/product-photographer-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/commercial-photography-houston",
-      "destination": "/commercial-photography-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/houston-commercial-photography",
-      "destination": "/houston-commercial-photography",
-      "statusCode": 301
-    },
-    {
-      "source": "/commercial-photographer-houston",
-      "destination": "/commercial-photographer-houston",
-      "statusCode": 301
-    },
-    {
       "source": "/houston-editorial-photographer",
       "destination": "/work/photography/fashion",
-      "statusCode": 301
-    },
-    {
-      "source": "/business-marketing-photography-houston",
-      "destination": "/business-marketing-photography-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/headshot-photography-houston",
-      "destination": "/headshot-photography-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/cinematography-services-in-houston",
-      "destination": "/cinematography-services-in-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/commercial-videographers-houston",
-      "destination": "/commercial-videographers-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/video-editing-services-in-houston",
-      "destination": "/video-editing-services-in-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/video-production-services-houston",
-      "destination": "/video-production-services-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/videographer-houston",
-      "destination": "/videographer-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/videography-houston",
-      "destination": "/videography-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/videography-in-the-woodlands",
-      "destination": "/videography-in-the-woodlands",
-      "statusCode": 301
-    },
-    {
-      "source": "/videography-in-texas",
-      "destination": "/videography-in-texas",
-      "statusCode": 301
-    },
-    {
-      "source": "/videographer-in-houston",
-      "destination": "/videographer-in-houston",
-      "statusCode": 301
-    },
-    {
-      "source": "/commercial-videography-in-houston",
-      "destination": "/commercial-videography-in-houston",
       "statusCode": 301
     },
     {
@@ -1546,5 +1441,6 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "trailingSlash": true
 }
