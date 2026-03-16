@@ -235,56 +235,48 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         >
           <div className="flex flex-col justify-between h-full pt-20 sm:pt-24">
             {/* Nav Items */}
-            <nav className="max-w-[1200px] w-full mx-auto px-6 sm:px-10 lg:px-16 flex-1 flex flex-col justify-center">
-              {/* WORK */}
-              <div className="border-b border-dark/15">
-                <button
-                  onClick={() => handleNavClick("/work")}
-                  className="w-full text-left font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight py-4 sm:py-5"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.05s forwards" }}
-                >
-                  WORK
-                </button>
-              </div>
-
-              {/* WHAT WE DO */}
-              <div className="border-b border-dark/15">
-                <button
-                  onClick={() => handleNavClick("/services")}
-                  className="w-full text-left font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight py-4 sm:py-5"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.1s forwards" }}
-                >
-                  WHAT WE DO
-                </button>
-              </div>
-
-              {/* THE STUDIO */}
-              <div className="border-b border-dark/15">
-                <button
-                  onClick={() => handleNavClick("/studio")}
-                  className="w-full text-left font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight py-4 sm:py-5"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.15s forwards" }}
-                >
-                  THE STUDIO
-                </button>
-              </div>
+            <nav className="max-w-[1200px] w-full mx-auto px-6 sm:px-10 lg:px-16 flex-1 flex flex-col justify-end pb-8">
+              {/* Menu item with MCJ-style hover: text slides up + accent line from left */}
+              {[
+                { label: "WORK", href: "/work", delay: 0.05 },
+                { label: "WHAT WE DO", href: "/services", delay: 0.1 },
+                { label: "THE STUDIO", href: "/studio", delay: 0.15 },
+              ].map((item) => (
+                <div key={item.label} className="border-b border-dark/15 group relative overflow-hidden">
+                  {/* Accent underline — slides in from left on hover */}
+                  <div className="absolute bottom-0 left-0 h-[3px] bg-emerald-700 w-0 group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]" />
+                  <button
+                    onClick={() => handleNavClick(item.href)}
+                    className="w-full text-left font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark tracking-tight py-4 sm:py-5 transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-x-4 group-hover:-translate-y-[2px]"
+                    style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
+                  >
+                    {item.label}
+                  </button>
+                </div>
+              ))}
 
               {/* STORYTIME & PRESS — same row */}
-              <div className="border-b border-dark/15 flex items-center justify-between py-4 sm:py-5">
-                <button
-                  onClick={() => handleNavClick("/storytime")}
-                  className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark hover:opacity-60 transition-opacity tracking-tight"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.2s forwards" }}
-                >
-                  STORYTIME
-                </button>
-                <button
-                  onClick={() => handleNavClick("/press")}
-                  className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-dark/50 hover:text-dark transition-colors tracking-tight"
-                  style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.25s forwards" }}
-                >
-                  PRESS
-                </button>
+              <div className="flex items-center justify-between py-4 sm:py-5">
+                <div className="group relative overflow-hidden">
+                  <div className="absolute bottom-0 left-0 h-[3px] bg-emerald-700 w-0 group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]" />
+                  <button
+                    onClick={() => handleNavClick("/storytime")}
+                    className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark tracking-tight transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-x-4 group-hover:-translate-y-[2px]"
+                    style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.2s forwards" }}
+                  >
+                    STORYTIME
+                  </button>
+                </div>
+                <div className="group relative overflow-hidden">
+                  <div className="absolute bottom-0 left-0 h-[3px] bg-emerald-700 w-0 group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]" />
+                  <button
+                    onClick={() => handleNavClick("/press")}
+                    className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-dark/50 hover:text-dark tracking-tight transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-x-3 group-hover:-translate-y-[2px]"
+                    style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.25s forwards" }}
+                  >
+                    PRESS
+                  </button>
+                </div>
               </div>
             </nav>
 

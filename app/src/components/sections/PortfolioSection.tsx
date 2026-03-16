@@ -23,8 +23,8 @@ const FEATURED_IDS = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Leaf / Pill Card — Desktop & Tablet                                */
-/*  Elongated vertical pill with hover image-swap + lift               */
+/*  Leaf Card — Desktop: Thin tall leaf with vertical brand name       */
+/*  Matches reference: diagonal rounded corners, vertical text         */
 /* ------------------------------------------------------------------ */
 function LeafCard({
   item,
@@ -62,15 +62,11 @@ function LeafCard({
     return () => observer.disconnect();
   }, []);
 
-  /* Staggered heights for organic rhythm */
-  const heights = [420, 490, 440, 510, 460, 430, 500, 450];
-  const cardHeight = heights[index % heights.length];
-
-  /* Leaf shape: alternating diagonal rounded corners */
+  /* Diagonal leaf: opposite corners rounded */
   const leafRadius =
     index % 2 === 0
-      ? "130px 20px 130px 20px"
-      : "20px 130px 20px 130px";
+      ? "80px 6px 80px 6px"
+      : "6px 80px 6px 80px";
 
   return (
     <button
@@ -80,12 +76,11 @@ function LeafCard({
       onMouseLeave={() => setIsHovered(false)}
       className="group relative flex-shrink-0 text-left focus:outline-none"
       style={{
-        width: "clamp(180px, 15vw, 260px)",
-        height: `${cardHeight}px`,
+        width: "clamp(120px, 13vw, 180px)",
+        height: "clamp(400px, 48vw, 540px)",
         borderRadius: leafRadius,
         overflow: "hidden",
         scrollSnapAlign: "start",
-        /* Entrance animation */
         opacity: isVisible ? 1 : 0,
         transform: isVisible
           ? `translateY(${isHovered ? "-4px" : "0px"})`
@@ -93,7 +88,6 @@ function LeafCard({
         transition: isVisible
           ? "transform 0.3s ease-out, box-shadow 0.3s ease-out"
           : `opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`,
-        /* Hover shadow */
         boxShadow: isHovered
           ? "0 24px 56px rgba(0,0,0,0.18)"
           : "0 4px 24px rgba(0,0,0,0.08)",
@@ -126,37 +120,37 @@ function LeafCard({
         />
       )}
 
-      {/* ---- Bottom gradient overlay ---- */}
+      {/* ---- Gradient overlay ---- */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(180deg, transparent 45%, rgba(0,0,0,${isHovered ? 0.65 : 0.35}) 100%)`,
+          background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,${isHovered ? 0.55 : 0.3}) 100%)`,
           transition: "background 0.4s ease-out",
         }}
       />
 
-      {/* ---- Text label ---- */}
+      {/* ---- Vertical brand name ---- */}
       <div
-        className="absolute bottom-0 left-0 right-0 px-8 pb-14 text-white text-center"
-        style={{
-          transform: isHovered ? "translateY(0)" : "translateY(6px)",
-          opacity: isHovered ? 1 : 0.85,
-          transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
-        }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
       >
-        <p className="text-[10px] font-medium tracking-[0.2em] mb-1 text-white/70">
-          {item.category}
-        </p>
-        <h3 className="font-display text-base lg:text-lg tracking-tight leading-tight">
+        <span
+          className="font-display text-white text-lg lg:text-xl tracking-[0.15em] uppercase"
+          style={{
+            writingMode: "vertical-rl",
+            textOrientation: "mixed",
+            opacity: isHovered ? 1 : 0.9,
+            transition: "opacity 0.3s ease-out",
+          }}
+        >
           {item.title}
-        </h3>
+        </span>
       </div>
     </button>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Tablet Leaf Card — grid-based, no stagger offset                   */
+/*  Tablet Leaf Card — thin leaf with vertical text                    */
 /* ------------------------------------------------------------------ */
 function TabletLeafCard({
   item,
@@ -167,13 +161,8 @@ function TabletLeafCard({
   index: number;
   onClick: () => void;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLButtonElement>(null);
-
-  const project = getProjectById(item.id);
-  const gallery = project?.gallery || [];
-  const secondaryImage = gallery.length > 1 ? gallery[1].src : null;
 
   useEffect(() => {
     const el = cardRef.current;
@@ -191,82 +180,45 @@ function TabletLeafCard({
     return () => observer.disconnect();
   }, []);
 
+  const leafRadius =
+    index % 2 === 0
+      ? "70px 6px 70px 6px"
+      : "6px 70px 6px 70px";
+
   return (
     <button
       ref={cardRef}
       onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       className="group relative w-full text-left focus:outline-none"
       style={{
-        height: "420px",
-        borderRadius:
-          index % 2 === 0
-            ? "110px 16px 110px 16px"
-            : "16px 110px 16px 110px",
+        height: "400px",
+        borderRadius: leafRadius,
         overflow: "hidden",
         opacity: isVisible ? 1 : 0,
-        transform: isVisible
-          ? `translateY(${isHovered ? "-4px" : "0px"})`
-          : "translateY(30px)",
-        transition: isVisible
-          ? "transform 0.3s ease-out, box-shadow 0.3s ease-out"
-          : `opacity 0.7s ease-out ${index * 0.08}s, transform 0.7s ease-out ${index * 0.08}s`,
-        boxShadow: isHovered
-          ? "0 20px 48px rgba(0,0,0,0.16)"
-          : "0 4px 20px rgba(0,0,0,0.06)",
+        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transition: `opacity 0.7s ease-out ${index * 0.08}s, transform 0.7s ease-out ${index * 0.08}s`,
       }}
     >
       <img
         src={item.image}
         alt={item.title}
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{
-          transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
-          opacity: isHovered && secondaryImage ? 0 : 1,
-          transform: isHovered && !secondaryImage ? "scale(1.05)" : "scale(1)",
-        }}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-      {secondaryImage && (
-        <img
-          src={secondaryImage}
-          alt={`${item.title} — alternate`}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
-            opacity: isHovered ? 1 : 0,
-            transform: isHovered ? "scale(1)" : "scale(1.05)",
-          }}
-        />
-      )}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(180deg, transparent 45%, rgba(0,0,0,${isHovered ? 0.6 : 0.35}) 100%)`,
-          transition: "background 0.3s ease-out",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 right-0 px-8 pb-12 text-white text-center"
-        style={{
-          transform: isHovered ? "translateY(0)" : "translateY(4px)",
-          opacity: isHovered ? 1 : 0.85,
-          transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
-        }}
-      >
-        <p className="text-[10px] font-medium tracking-[0.2em] mb-1 text-white/70">
-          {item.category}
-        </p>
-        <h3 className="font-display text-lg tracking-tight leading-tight">
+      <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-dark/10 to-transparent" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="font-display text-white text-base tracking-[0.15em] uppercase"
+          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+        >
           {item.title}
-        </h3>
+        </span>
       </div>
     </button>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mobile Leaf Card — simpler, no heavy animations                    */
+/*  Mobile Leaf Card — thin leaf with vertical text                    */
 /* ------------------------------------------------------------------ */
 function MobileLeafCard({
   item,
@@ -296,17 +248,20 @@ function MobileLeafCard({
     return () => observer.disconnect();
   }, []);
 
+  const leafRadius =
+    index % 2 === 0
+      ? "60px 6px 60px 6px"
+      : "6px 60px 6px 60px";
+
   return (
     <button
       ref={cardRef}
       onClick={onClick}
-      className="group relative w-full text-left focus:outline-none"
+      className="group relative text-left focus:outline-none"
       style={{
-        height: "360px",
-        borderRadius:
-          index % 2 === 0
-            ? "90px 14px 90px 14px"
-            : "14px 90px 14px 90px",
+        width: "100%",
+        height: "320px",
+        borderRadius: leafRadius,
         overflow: "hidden",
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? "translateY(0)" : "translateY(24px)",
@@ -318,20 +273,14 @@ function MobileLeafCard({
         alt={item.title}
         className="absolute inset-0 w-full h-full object-cover"
       />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.5) 100%)",
-        }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 px-8 pb-12 text-white text-center">
-        <p className="text-[10px] font-medium tracking-[0.2em] mb-1 text-white/70">
-          {item.category}
-        </p>
-        <h3 className="font-display text-lg tracking-tight leading-tight">
+      <div className="absolute inset-0 bg-gradient-to-t from-dark/50 via-dark/15 to-transparent" />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="font-display text-white text-base tracking-[0.15em] uppercase"
+          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+        >
           {item.title}
-        </h3>
+        </span>
       </div>
     </button>
   );
@@ -413,7 +362,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         {/* ============================================================ */}
         {/*  Tablet (sm–lg): 2–3 column grid, pill shapes                 */}
         {/* ============================================================ */}
-        <div className="hidden sm:grid lg:hidden grid-cols-2 md:grid-cols-3 gap-5">
+        <div className="hidden sm:grid lg:hidden grid-cols-3 md:grid-cols-4 gap-4">
           {featured.map((item, index) => (
             <TabletLeafCard
               key={item.id}
@@ -427,7 +376,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         {/* ============================================================ */}
         {/*  Mobile (<sm): Single column stacked pills                    */}
         {/* ============================================================ */}
-        <div className="sm:hidden flex flex-col gap-5">
+        <div className="sm:hidden grid grid-cols-2 gap-3">
           {featured.slice(0, 6).map((item, index) => (
             <MobileLeafCard
               key={item.id}

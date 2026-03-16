@@ -96,7 +96,10 @@ export function HeroSection() {
               enterDelay={0.6}
               style={{ marginRight: "4px", marginTop: "-25px", top: "6px" }}
             />
-            <span className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none tracking-tight">
+            <span
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              style={{ fontWeight: 100, letterSpacing: "0.06em", fontStretch: "condensed", transform: "scaleX(0.9)" }}
+            >
               WE CREATE
             </span>
           </div>
@@ -109,7 +112,10 @@ export function HeroSection() {
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
             }}
           >
-            <span className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none tracking-tight">
+            <span
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              style={{ fontWeight: 900, letterSpacing: "-0.02em" }}
+            >
               VISUAL
             </span>
             {/* Cameraman — medium, tall silhouette between words */}
@@ -124,7 +130,10 @@ export function HeroSection() {
               style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "30px" }}
             />
             <span className="md:hidden">{" "}</span>
-            <span className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none tracking-tight">
+            <span
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              style={{ fontWeight: 900, letterSpacing: "-0.02em" }}
+            >
               STORIES
             </span>
           </div>
@@ -136,9 +145,17 @@ export function HeroSection() {
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
             }}
           >
-            <span className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none tracking-tight">
+            <span
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              style={{ fontWeight: 100, letterSpacing: "0.06em", fontStretch: "condensed", transform: "scaleX(0.9)" }}
+            >
               THAT{" "}
-              <span className="text-emerald-700">INSPIRE</span>
+            </span>
+            <span
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] leading-none uppercase text-emerald-700"
+              style={{ fontWeight: 900, letterSpacing: "-0.02em" }}
+            >
+              INSPIRE
             </span>
             {/* Portrait — medium-large, anchored to INSPIRE */}
             <InlineCutout
