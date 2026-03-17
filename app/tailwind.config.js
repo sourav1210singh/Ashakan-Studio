@@ -46,6 +46,8 @@ module.exports = {
       fontFamily: {
         display: ['Anton', 'sans-serif'],
         sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        'hero-bold': ['"Bebas Neue"', 'Anton', 'sans-serif'],
+        'hero-thin': ['Montserrat', 'Inter', 'sans-serif'],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",

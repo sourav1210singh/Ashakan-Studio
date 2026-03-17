@@ -94,11 +94,11 @@ export function HeroSection() {
               height="clamp(80px, 9.5vw, 145px)"
               driftName="driftA"
               enterDelay={0.6}
-              style={{ marginRight: "4px", marginTop: "-25px", top: "6px" }}
+              style={{ marginRight: "-10px", marginTop: "-25px", top: "6px" }}
             />
             <span
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
-              style={{ fontWeight: 100, letterSpacing: "0.06em", fontStretch: "condensed", transform: "scaleX(0.9)" }}
+              className="font-hero-thin text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              style={{ fontWeight: 100, letterSpacing: "-0.02em", transform: "scaleX(0.9)", display: "inline-block" }}
             >
               WE CREATE
             </span>
@@ -113,8 +113,8 @@ export function HeroSection() {
             }}
           >
             <span
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
-              style={{ fontWeight: 900, letterSpacing: "-0.02em" }}
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark uppercase"
+              style={{ fontWeight: 900, letterSpacing: "0.02em", lineHeight: 0.9, display: "inline-block" }}
             >
               VISUAL
             </span>
@@ -131,8 +131,8 @@ export function HeroSection() {
             />
             <span className="md:hidden">{" "}</span>
             <span
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
-              style={{ fontWeight: 900, letterSpacing: "-0.02em" }}
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark uppercase"
+              style={{ fontWeight: 900, letterSpacing: "0.02em", lineHeight: 0.9, display: "inline-block" }}
             >
               STORIES
             </span>
@@ -146,14 +146,14 @@ export function HeroSection() {
             }}
           >
             <span
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
-              style={{ fontWeight: 100, letterSpacing: "0.06em", fontStretch: "condensed", transform: "scaleX(0.9)" }}
+              className="font-hero-thin text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              style={{ fontWeight: 100, letterSpacing: "-0.02em", transform: "scaleX(0.9)", display: "inline-block" }}
             >
               THAT{" "}
             </span>
             <span
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] leading-none uppercase text-emerald-700"
-              style={{ fontWeight: 900, letterSpacing: "-0.02em" }}
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase text-dark"
+              style={{ fontWeight: 900, letterSpacing: "0.02em", lineHeight: 0.9, display: "inline-block" }}
             >
               INSPIRE
             </span>
@@ -173,8 +173,10 @@ export function HeroSection() {
 
         {/* Subtext */}
         <p
-          className="font-sans max-w-2xl mx-auto text-center mt-6 sm:mt-10 text-sm sm:text-base lg:text-lg text-dark/70 leading-relaxed relative z-30 text-balance"
+          className="font-sans mx-auto text-center mt-6 sm:mt-10 text-sm sm:text-base lg:text-lg text-dark/70 leading-relaxed relative z-30 text-balance"
           style={{
+            maxWidth: "600px",
+            fontWeight: 400,
             opacity: 0,
             animation: "fadeInUp 0.6s ease-out 0.9s forwards",
           }}

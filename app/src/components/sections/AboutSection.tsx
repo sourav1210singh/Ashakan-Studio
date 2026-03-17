@@ -78,7 +78,7 @@ export function AboutSection() {
 
             {/* CTA line */}
             <FadeIn delay={0.3}>
-              <p className="text-sm sm:text-base text-dark/50 italic mb-6 sm:mb-8">
+              <p className="text-sm sm:text-base text-dark/70 italic mb-6 sm:mb-8">
                 Curious? Meet the studio behind the work.
               </p>
             </FadeIn>

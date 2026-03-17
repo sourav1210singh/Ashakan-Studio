@@ -227,7 +227,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         </div>
       </header>
 
-      {/* Full Screen Menu */}
+      {/* Full Screen Menu — MCJ-style with color sweep + cutout images */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-[45] bg-cream"
@@ -235,68 +235,84 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         >
           <div className="flex flex-col justify-between h-full pt-20 sm:pt-24">
             {/* Nav Items */}
-            <nav className="max-w-[1200px] w-full mx-auto px-6 sm:px-10 lg:px-16 flex-1 flex flex-col justify-end pb-8">
-              {/* Menu item with MCJ-style hover: text slides up + accent line from left */}
+            <nav className="w-full flex-1 flex flex-col justify-end">
               {[
-                { label: "WORK", href: "/work", delay: 0.05 },
-                { label: "WHAT WE DO", href: "/what-we-do", delay: 0.1 },
-                { label: "THE STUDIO", href: "/studio", delay: 0.15 },
+                { label: "THE WORK", href: "/work", delay: 0.05, color: "#2563eb", image: "/images/hero/cameraman-cutout.png" },
+                { label: "WHAT WE DO", href: "/what-we-do", delay: 0.1, color: "#16a34a", image: "/images/hero/dance-cutout.png" },
+                { label: "THE STUDIO", href: "/studio", delay: 0.15, color: "#eab308", image: "/images/hero/portrait-cutout.png" },
+                { label: "STORYTIME", href: "/storytime", delay: 0.2, color: "#ec4899", image: "/images/hero/dance-cutout.png" },
               ].map((item) => (
-                <div key={item.label} className="border-b border-dark/15 group relative overflow-hidden">
-                  {/* Accent underline — slides in from left on hover */}
-                  <div className="absolute bottom-0 left-0 h-[3px] bg-emerald-700 w-0 group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]" />
+                <div key={item.label} className="border-b border-dark/10 group relative overflow-hidden">
+                  {/* Color sweep — slides from right to left on hover */}
+                  <div
+                    className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  {/* Cutout image — fades in on hover */}
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="absolute right-[10%] top-1/2 -translate-y-1/2 h-[80%] w-auto object-contain opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out group-hover:translate-x-0 translate-x-8 pointer-events-none select-none z-10"
+                    style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.15))" }}
+                  />
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="w-full text-left font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark tracking-tight py-4 sm:py-5 transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-x-4 group-hover:-translate-y-[2px]"
+                    className="relative z-20 w-full text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-6 transition-colors duration-300 group-hover:text-white uppercase"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {item.label}
                   </button>
                 </div>
               ))}
-
-              {/* STORYTIME & PRESS — same row */}
-              <div className="flex items-center justify-between py-4 sm:py-5">
-                <div className="group relative overflow-hidden">
-                  <div className="absolute bottom-0 left-0 h-[3px] bg-emerald-700 w-0 group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]" />
-                  <button
-                    onClick={() => handleNavClick("/storytime")}
-                    className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-dark tracking-tight transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-x-4 group-hover:-translate-y-[2px]"
-                    style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.2s forwards" }}
-                  >
-                    STORYTIME
-                  </button>
-                </div>
-                <div className="group relative overflow-hidden">
-                  <div className="absolute bottom-0 left-0 h-[3px] bg-emerald-700 w-0 group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]" />
-                  <button
-                    onClick={() => handleNavClick("/press")}
-                    className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-dark/50 hover:text-dark tracking-tight transition-all duration-300 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-x-3 group-hover:-translate-y-[2px]"
-                    style={{ opacity: 0, animation: "fadeInUp 0.4s ease-out 0.25s forwards" }}
-                  >
-                    PRESS
-                  </button>
-                </div>
-              </div>
             </nav>
 
-            {/* Bottom Bar — socials left, contact right */}
+            {/* Bottom Bar — socials & contact with sweep hover */}
             <div
-              className="max-w-[1200px] w-full mx-auto px-6 sm:px-10 lg:px-16 pb-6 sm:pb-8"
+              className="w-full"
               style={{ opacity: 0, animation: "fadeIn 0.4s ease-out 0.3s forwards" }}
             >
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-5 border-t border-dark/15">
+              <div className="flex flex-col sm:flex-row border-t border-dark/10">
                 {/* Social Links */}
-                <div className="flex items-center gap-6 text-xs sm:text-sm font-medium tracking-wider text-dark/60">
-                  <a href="https://instagram.com/ashkanstudios" target="_blank" rel="noopener noreferrer" className="hover:text-dark transition-colors">INSTAGRAM</a>
-                  <a href="https://linkedin.com/company/ashkan-studios" target="_blank" rel="noopener noreferrer" className="hover:text-dark transition-colors">LINKEDIN</a>
-                  <a href="https://tiktok.com/@ashkanstudios" target="_blank" rel="noopener noreferrer" className="hover:text-dark transition-colors">TIKTOK</a>
-                </div>
+                {[
+                  { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", color: "#ec4899" },
+                  { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", color: "#2563eb" },
+                  { label: "TIKTOK", href: "https://tiktok.com/@ashkanstudios", color: "#16a34a" },
+                ].map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/link relative overflow-hidden flex-1 border-r border-dark/10 last:border-r-0"
+                  >
+                    <div
+                      className="absolute inset-0 origin-right scale-x-0 group-hover/link:scale-x-100 group-hover/link:origin-left transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)]"
+                      style={{ backgroundColor: link.color }}
+                    />
+                    <span className="relative z-10 block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 group-hover/link:text-white transition-colors duration-300">
+                      {link.label}
+                    </span>
+                  </a>
+                ))}
                 {/* Contact */}
-                <div className="flex items-center gap-6 text-xs sm:text-sm font-medium tracking-wider text-dark/60">
-                  <a href="tel:+17135551234" className="hover:text-dark transition-colors">+1 (713) 555-1234</a>
-                  <a href="mailto:hello@ashkanstudios.com" className="hover:text-dark transition-colors">hello@ashkanstudios.com</a>
-                </div>
+                {[
+                  { label: "T — +1 (713) 555-1234", href: "tel:+17135551234", color: "#eab308" },
+                  { label: "E — hello@ashkanstudios.com", href: "mailto:hello@ashkanstudios.com", color: "#1A1A1A" },
+                ].map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="group/link relative overflow-hidden flex-1 border-r border-dark/10 last:border-r-0"
+                  >
+                    <div
+                      className="absolute inset-0 origin-right scale-x-0 group-hover/link:scale-x-100 group-hover/link:origin-left transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)]"
+                      style={{ backgroundColor: link.color }}
+                    />
+                    <span className="relative z-10 block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 group-hover/link:text-white transition-colors duration-300">
+                      {link.label}
+                    </span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>

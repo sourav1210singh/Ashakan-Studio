@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { portfolioItems } from "@/data/portfolio";
-import { getProjectById } from "@/data/projects";
 
 interface PortfolioSectionProps {
   onProjectClick: (slug: string) => void;
@@ -9,29 +7,38 @@ interface PortfolioSectionProps {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Curated featured items for the flowing editorial strip             */
+/*  Campaign cards: alternating Image → Video for each campaign        */
 /* ------------------------------------------------------------------ */
-const FEATURED_IDS = [
-  "brandon-blackwood",
-  "fashion",
-  "vitacca-ballet",
-  "deutsch-fine-jewelry",
-  "audaja-skincare",
-  "cecilia-duarte",
-  "monarch-school",
-  "elastique-athletics",
+type CampaignCard = {
+  id: string;
+  label: string;
+  type: "image" | "video";
+  image: string;
+  vimeoId?: string;
+  slug: string; // project slug for navigation
+};
+
+const CAMPAIGN_CARDS: CampaignCard[] = [
+  { id: "deutsch-img",    label: "DEUTSCH FINE JEWELRY",  type: "image", image: "/images/portfolio/deutsch-jewelry.jpg",    slug: "deutsch-fine-jewelry" },
+  { id: "deutsch-vid",    label: "DEUTSCH FINE JEWELRY",  type: "video", image: "/images/portfolio/deutsch-jewelry.jpg",    slug: "deutsch-fine-jewelry" },
+  { id: "weissman-img",   label: "WEISSMAN ELITE",        type: "image", image: "/images/portfolio/weissman-elite.jpg",     slug: "weissman-elite" },
+  { id: "weissman-vid",   label: "WEISSMAN ELITE",        type: "video", image: "https://vumbnail.com/950064546.jpg",      vimeoId: "950064546", slug: "weissman-elite" },
+  { id: "eye-img",        label: "THE EYE GALLERY",       type: "image", image: "/images/portfolio/eye-gallery.jpg",        slug: "eye-gallery" },
+  { id: "eye-vid",        label: "THE EYE GALLERY",       type: "video", image: "https://vumbnail.com/529432034.jpg",       vimeoId: "529432034", slug: "eye-gallery" },
+  { id: "monarch-img",    label: "THE MONARCH SCHOOL",    type: "image", image: "/images/portfolio/8-4Q7A9046-2.jpeg",      slug: "monarch-school" },
+  { id: "monarch-vid",    label: "THE MONARCH SCHOOL",    type: "video", image: "https://vumbnail.com/896674527.jpg",       vimeoId: "896674527", slug: "monarch-school" },
 ];
 
 /* ------------------------------------------------------------------ */
 /*  Leaf Card — Desktop: Thin tall leaf with vertical brand name       */
-/*  Matches reference: diagonal rounded corners, vertical text         */
+/*  Supports both image-only and video-on-hover modes                  */
 /* ------------------------------------------------------------------ */
 function LeafCard({
-  item,
+  card,
   index,
   onClick,
 }: {
-  item: (typeof portfolioItems)[0];
+  card: CampaignCard;
   index: number;
   onClick: () => void;
 }) {
@@ -39,11 +46,7 @@ function LeafCard({
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLButtonElement>(null);
 
-  /* Look up project for secondary gallery image */
-  const project = getProjectById(item.id);
-  const gallery = project?.gallery || [];
-  const hasMultipleImages = gallery.length > 1;
-  const secondaryImage = hasMultipleImages ? gallery[1].src : null;
+  const isVideo = card.type === "video" && !!card.vimeoId;
 
   /* Scroll-triggered entrance */
   useEffect(() => {
@@ -94,30 +97,36 @@ function LeafCard({
         willChange: "transform, opacity",
       }}
     >
-      {/* ---- Primary Image ---- */}
+      {/* ---- Image ---- */}
       <img
-        src={item.image}
-        alt={item.title}
+        src={card.image}
+        alt={card.label}
         className="absolute inset-0 w-full h-full object-cover"
         style={{
-          transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
-          opacity: isHovered && secondaryImage ? 0 : 1,
-          transform: isHovered && !secondaryImage ? "scale(1.06)" : "scale(1)",
+          transition: "transform 0.7s ease-out",
+          transform: isHovered && !isVideo ? "scale(1.06)" : "scale(1)",
         }}
       />
 
-      {/* ---- Secondary Image (hover swap) ---- */}
-      {secondaryImage && (
-        <img
-          src={secondaryImage}
-          alt={`${item.title} — alternate`}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            transition: "opacity 0.7s ease-out, transform 0.7s ease-out",
-            opacity: isHovered ? 1 : 0,
-            transform: isHovered ? "scale(1)" : "scale(1.06)",
-          }}
-        />
+      {/* ---- Vimeo video on hover (video cards only) ---- */}
+      {/* iframe is sized to maintain 16:9 aspect while covering the tall narrow leaf */}
+      {isVideo && isHovered && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <iframe
+            src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0`}
+            className="absolute pointer-events-none"
+            style={{
+              top: "50%",
+              left: "50%",
+              width: "300%",
+              height: "300%",
+              transform: "translate(-50%, -50%)",
+            }}
+            frameBorder="0"
+            allow="autoplay"
+            title={card.label}
+          />
+        </div>
       )}
 
       {/* ---- Gradient overlay ---- */}
@@ -129,10 +138,25 @@ function LeafCard({
         }}
       />
 
+      {/* ---- Play icon for video cards ---- */}
+      {card.type === "video" && (
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 flex items-center justify-center transition-opacity duration-300 pointer-events-none"
+          style={{ opacity: isHovered ? 0 : 1 }}
+        >
+          <div className="w-0 h-0 border-t-[7px] border-t-transparent border-l-[12px] border-l-dark border-b-[7px] border-b-transparent ml-1" />
+        </div>
+      )}
+
+      {/* ---- Type badge (Image / Video) ---- */}
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none">
+        <span className="text-[10px] font-semibold tracking-widest uppercase text-white/90 bg-dark/40 backdrop-blur-sm px-3 py-1 rounded-full">
+          {card.type === "video" ? "Video" : "Image"}
+        </span>
+      </div>
+
       {/* ---- Vertical brand name ---- */}
-      <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none"
-      >
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <span
           className="font-display text-white text-lg lg:text-xl tracking-[0.15em] uppercase"
           style={{
@@ -142,7 +166,7 @@ function LeafCard({
             transition: "opacity 0.3s ease-out",
           }}
         >
-          {item.title}
+          {card.label}
         </span>
       </div>
     </button>
@@ -153,11 +177,11 @@ function LeafCard({
 /*  Tablet Leaf Card — thin leaf with vertical text                    */
 /* ------------------------------------------------------------------ */
 function TabletLeafCard({
-  item,
+  card,
   index,
   onClick,
 }: {
-  item: (typeof portfolioItems)[0];
+  card: CampaignCard;
   index: number;
   onClick: () => void;
 }) {
@@ -200,17 +224,27 @@ function TabletLeafCard({
       }}
     >
       <img
-        src={item.image}
-        alt={item.title}
+        src={card.image}
+        alt={card.label}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-dark/40 via-dark/10 to-transparent" />
+      {card.type === "video" && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 flex items-center justify-center">
+          <div className="w-0 h-0 border-t-[7px] border-t-transparent border-l-[12px] border-l-dark border-b-[7px] border-b-transparent ml-1" />
+        </div>
+      )}
+      <div className="absolute top-4 left-1/2 -translate-x-1/2">
+        <span className="text-[10px] font-semibold tracking-widest uppercase text-white/90 bg-dark/40 backdrop-blur-sm px-3 py-1 rounded-full">
+          {card.type === "video" ? "Video" : "Image"}
+        </span>
+      </div>
       <div className="absolute inset-0 flex items-center justify-center">
         <span
           className="font-display text-white text-base tracking-[0.15em] uppercase"
           style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
         >
-          {item.title}
+          {card.label}
         </span>
       </div>
     </button>
@@ -221,11 +255,11 @@ function TabletLeafCard({
 /*  Mobile Leaf Card — thin leaf with vertical text                    */
 /* ------------------------------------------------------------------ */
 function MobileLeafCard({
-  item,
+  card,
   index,
   onClick,
 }: {
-  item: (typeof portfolioItems)[0];
+  card: CampaignCard;
   index: number;
   onClick: () => void;
 }) {
@@ -269,17 +303,27 @@ function MobileLeafCard({
       }}
     >
       <img
-        src={item.image}
-        alt={item.title}
+        src={card.image}
+        alt={card.label}
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-dark/50 via-dark/15 to-transparent" />
+      {card.type === "video" && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 flex items-center justify-center">
+          <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-dark border-b-[6px] border-b-transparent ml-1" />
+        </div>
+      )}
+      <div className="absolute top-3 left-1/2 -translate-x-1/2">
+        <span className="text-[9px] font-semibold tracking-widest uppercase text-white/90 bg-dark/40 backdrop-blur-sm px-2 py-0.5 rounded-full">
+          {card.type === "video" ? "Video" : "Image"}
+        </span>
+      </div>
       <div className="absolute inset-0 flex items-center justify-center">
         <span
           className="font-display text-white text-base tracking-[0.15em] uppercase"
           style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
         >
-          {item.title}
+          {card.label}
         </span>
       </div>
     </button>
@@ -345,11 +389,6 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
     }
   };
 
-  /* Filter to curated featured items (preserves order) */
-  const featured = FEATURED_IDS
-    .map((id) => portfolioItems.find((p) => p.id === id))
-    .filter(Boolean) as (typeof portfolioItems)[number][];
-
   return (
     <section id="work" className="py-14 sm:py-24 lg:py-28 bg-cream overflow-hidden">
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
@@ -373,7 +412,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
 
         {/* ============================================================ */}
         {/*  Desktop (lg+): Horizontal Flowing Leaf Strip                 */}
-        {/*  Staggered heights, horizontal scroll, snap                   */}
+        {/*  8 cards: Image→Video alternating for 4 campaigns             */}
         {/* ============================================================ */}
         <div className="hidden lg:block">
           <div
@@ -386,12 +425,12 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
               paddingRight: "clamp(40px, 5vw, 80px)",
             }}
           >
-            {featured.map((item, index) => (
+            {CAMPAIGN_CARDS.map((card, index) => (
               <LeafCard
-                key={item.id}
-                item={item}
+                key={card.id}
+                card={card}
                 index={index}
-                onClick={() => onProjectClick(item.id)}
+                onClick={() => onProjectClick(card.slug)}
               />
             ))}
           </div>
@@ -401,12 +440,12 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         {/*  Tablet (sm–lg): 2–3 column grid, pill shapes                 */}
         {/* ============================================================ */}
         <div className="hidden sm:grid lg:hidden grid-cols-3 md:grid-cols-4 gap-4">
-          {featured.map((item, index) => (
+          {CAMPAIGN_CARDS.map((card, index) => (
             <TabletLeafCard
-              key={item.id}
-              item={item}
+              key={card.id}
+              card={card}
               index={index}
-              onClick={() => onProjectClick(item.id)}
+              onClick={() => onProjectClick(card.slug)}
             />
           ))}
         </div>
@@ -415,12 +454,12 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         {/*  Mobile (<sm): Single column stacked pills                    */}
         {/* ============================================================ */}
         <div className="sm:hidden grid grid-cols-2 gap-3">
-          {featured.slice(0, 6).map((item, index) => (
+          {CAMPAIGN_CARDS.slice(0, 6).map((card, index) => (
             <MobileLeafCard
-              key={item.id}
-              item={item}
+              key={card.id}
+              card={card}
               index={index}
-              onClick={() => onProjectClick(item.id)}
+              onClick={() => onProjectClick(card.slug)}
             />
           ))}
         </div>
