@@ -5,6 +5,36 @@ import { portfolioItems } from "@/data/portfolio";
 import { videographyCategories } from "@/data/navigation";
 import type { View } from "@/App";
 
+/** Featured Vimeo videos from old ashkanmedia.com project pages, by category */
+const categoryVideos: Record<string, { vimeoId: string; title: string }[]> = {
+  industrial: [
+    { vimeoId: "808109158", title: "RadioMedix — Innovating Theranostics" },
+    { vimeoId: "437963536", title: "RadioMedix — From Innovation to Intervention" },
+    { vimeoId: "437960590", title: "Excel Diagnostics — Committed to Excellence" },
+    { vimeoId: "865168546", title: "Kinetik — Once Upon A Time in the Delaware Basin" },
+  ],
+  "the-arts": [
+    { vimeoId: "1022971286", title: "Vitacca Ballet — Season Promo 24-25" },
+    { vimeoId: "863773710", title: "Vitacca Ballet — Sown / Woven / One" },
+    { vimeoId: "1002076560", title: "Cecilia Duarte — Solo Album Promotional" },
+    { vimeoId: "807672933", title: "Cecilia Duarte — Live Performance w/ Misael Barraza" },
+  ],
+  retail: [
+    { vimeoId: "529432034", title: "The Eye Gallery — Edgy, Designer, Eyewear" },
+    { vimeoId: "354069394", title: "The Eye Gallery — A Motion Editorial" },
+    { vimeoId: "950064546", title: "Weissman Elite — Fall FY25" },
+    { vimeoId: "886600264", title: "Weissman Elite — Spring 2024" },
+  ],
+  documentary: [
+    { vimeoId: "896674527", title: "Monarch — Transforming Lives 2023-2024" },
+    { vimeoId: "518687682", title: "Monarch — 2021 Virtual Luncheon" },
+    { vimeoId: "673378712", title: "Monarch School — Kitchen Donation" },
+  ],
+  narrative: [
+    { vimeoId: "865168546", title: "Kinetik — Once Upon A Time in the Delaware Basin" },
+  ],
+};
+
 interface VideographyPageProps {
   onNavigate: (view: View, slug?: string) => void;
   activeCategory?: string | null;
@@ -114,6 +144,39 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
             )}
           </div>
         </section>
+        {/* Featured Videos — Vimeo embeds from old URLs */}
+        {activeCategory && categoryVideos[activeCategory] && categoryVideos[activeCategory].length > 0 && (
+          <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+              <FadeIn>
+                <h2 className="font-display text-3xl sm:text-4xl text-dark tracking-tight mb-12">
+                  FEATURED VIDEOS
+                </h2>
+              </FadeIn>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {categoryVideos[activeCategory].map((video, index) => (
+                  <FadeIn key={video.vimeoId} delay={index * 0.1}>
+                    <div>
+                      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-video bg-dark">
+                        <iframe
+                          src={`https://player.vimeo.com/video/${video.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}
+                          className="w-full h-full"
+                          frameBorder="0"
+                          allow="autoplay; fullscreen; picture-in-picture"
+                          allowFullScreen
+                          title={video.title}
+                        />
+                      </div>
+                      <p className="mt-3 text-sm font-medium tracking-wider text-dark/70">
+                        {video.title}
+                      </p>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>

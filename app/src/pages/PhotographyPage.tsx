@@ -5,6 +5,37 @@ import { portfolioItems } from "@/data/portfolio";
 import { photographyCategories } from "@/data/navigation";
 import type { View } from "@/App";
 
+/** Gallery images from old ashkanimage.com pages, organized by category */
+const categoryGallery: Record<string, { src: string; alt: string }[]> = {
+  fashion: [
+    { src: "/images/gallery/fashion/fashion-1.jpg", alt: "Fashion editorial — red monochromatic styling" },
+    { src: "/images/gallery/fashion/fashion-2.jpg", alt: "Fashion editorial — colorful babydoll boots" },
+    { src: "/images/gallery/fashion/fashion-3.jpg", alt: "Fashion editorial — flowy fabric pants" },
+    { src: "/images/gallery/fashion/fashion-4.jpg", alt: "Fashion portrait — studio editorial" },
+    { src: "/images/gallery/fashion/fashion-5.jpg", alt: "Fashion portrait — dramatic lighting" },
+    { src: "/images/gallery/fashion/fashion-6.jpg", alt: "Dancewear fashion editorial" },
+    { src: "/images/gallery/fashion/fashion-7.jpg", alt: "Fashion editorial — Julianna Perez" },
+  ],
+  "the-arts": [
+    { src: "/images/portfolio/vitacca-ballet.jpg", alt: "Vitacca Ballet — dance performance" },
+    { src: "/images/portfolio/cecilia-duarte.jpg", alt: "Cecilia Duarte — portrait" },
+    { src: "/images/portfolio/lauren-anderson.jpg", alt: "Lauren Anderson — dance portrait" },
+    { src: "/images/gallery/the-arts/arts-2.jpg", alt: "Dance audition photography" },
+  ],
+  retail: [
+    { src: "/images/portfolio/brandon-blackwood.jpg", alt: "Brandon Blackwood — luxury handbags" },
+    { src: "/images/portfolio/audaja-skincare.jpg", alt: "Audaja Skincare — product photography" },
+    { src: "/images/portfolio/cacao-cardamom.jpg", alt: "Cacao & Cardamom — artisan chocolates" },
+    { src: "/images/portfolio/elastique-athletics.jpg", alt: "Élastique Athletics — activewear" },
+    { src: "/images/portfolio/eye-gallery.jpg", alt: "The Eye Gallery — designer eyewear" },
+    { src: "/images/portfolio/deutsch-jewelry.jpg", alt: "Deutsch Fine Jewelry — luxury jewelry" },
+  ],
+  industrial: [
+    { src: "/images/portfolio/radiomedix.jpg", alt: "RadioMedix — medical facility" },
+    { src: "/images/portfolio/car-collections.jpg", alt: "Automotive photography" },
+  ],
+};
+
 interface PhotographyPageProps {
   onNavigate: (view: View, slug?: string) => void;
   activeCategory?: string | null;
@@ -113,6 +144,32 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
             )}
           </div>
         </section>
+        {/* Category Gallery Showcase — images from old URLs */}
+        {activeCategory && categoryGallery[activeCategory] && categoryGallery[activeCategory].length > 0 && (
+          <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
+            <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+              <FadeIn>
+                <h2 className="font-display text-3xl sm:text-4xl text-dark tracking-tight mb-12">
+                  GALLERY
+                </h2>
+              </FadeIn>
+              <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
+                {categoryGallery[activeCategory].map((img, index) => (
+                  <FadeIn key={img.src} delay={index * 0.08} className="break-inside-avoid mb-4 sm:mb-6">
+                    <div className="relative overflow-hidden rounded-xl sm:rounded-2xl group">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/10 transition-colors duration-300" />
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>
