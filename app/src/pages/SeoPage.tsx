@@ -9,6 +9,7 @@ export interface SeoPageData {
   subtitle: string;
   heroImage: string;
   intro: string;
+  videoEmbed?: string;
   sections: {
     heading: string;
     body: string;
@@ -70,6 +71,25 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
             </div>
           </div>
         </section>
+
+        {/* Video Embed */}
+        {data.videoEmbed && (
+          <section className="py-16 sm:py-24 border-t border-dark/10 bg-dark/[0.02]">
+            <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-10">
+              <FadeIn>
+                <div className="aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    src={data.videoEmbed}
+                    className="w-full h-full"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    allowFullScreen
+                    title="Video"
+                  />
+                </div>
+              </FadeIn>
+            </div>
+          </section>
+        )}
 
         {/* Content Sections */}
         {data.sections.map((section, index) => (
