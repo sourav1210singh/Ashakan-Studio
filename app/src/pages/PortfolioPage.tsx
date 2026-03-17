@@ -183,7 +183,16 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                         : "aspect-[4/3]"
                     }`}
                   >
-                    {item.type === "video" ? (
+                    {item.type === "video" && item.vimeoId ? (
+                      <iframe
+                        src={`https://player.vimeo.com/video/${item.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}
+                        className="w-full h-full"
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowFullScreen
+                        title={item.alt}
+                      />
+                    ) : item.type === "video" ? (
                       <div className="w-full h-full flex items-center justify-center bg-dark">
                         <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center">
                           <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-white border-b-8 border-b-transparent ml-1" />

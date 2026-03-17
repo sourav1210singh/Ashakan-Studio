@@ -12,6 +12,7 @@ import { StorytimePage } from "@/pages/StorytimePage";
 import { PortfolioPage } from "@/pages/PortfolioPage";
 import { PressPage } from "@/pages/PressPage";
 import { getProjectById } from "@/data/projects";
+import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
 
@@ -69,7 +70,7 @@ function parseRoute(rawPathname: string): ParsedRoute {
 
   // Top-level pages
   const pageMap: Record<string, View> = {
-    "/services": "services",
+    "/what-we-do": "services",
     "/studio": "studio",
     "/contact": "contact",
     "/storytime": "storytime",
@@ -95,7 +96,7 @@ const pathMap: Record<View, string> = {
   photography: "/work/photography/",
   videography: "/work/videography/",
   campaigns: "/work/campaigns/",
-  services: "/services/",
+  services: "/what-we-do/",
   studio: "/studio/",
   contact: "/contact/",
   storytime: "/storytime/",
@@ -181,6 +182,9 @@ function App() {
       case "work":
         return <WorkPage onNavigate={navigateTo} />;
       case "photography":
+        if (selectedCategory === "headshots") {
+          return <HeadshotsPage onNavigate={navigateTo} />;
+        }
         return <PhotographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "videography":
         return <VideographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;

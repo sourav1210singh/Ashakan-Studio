@@ -6,8 +6,9 @@
 
 # --- ashkanstudios.com old paths ---
 /portfolios /work/photography/ 301
-/production-studio-in-houston-2 /services/ 301
-/houston-production-studio /services/ 301
+/production-studio-in-houston-2 /what-we-do/ 301
+/houston-production-studio /what-we-do/ 301
+/services /what-we-do/ 301
 /about-me /studio/ 301
 /portfolios-new /work/photography/ 301
 /portfolios/brandon-blackwood /work/photography/fashion/ 301
@@ -42,9 +43,9 @@ https://ashkanimage.com/contact https://ashkanstudios.com/contact/ 301!
 https://ashkanimage.com/portfolio https://ashkanstudios.com/work/photography/ 301!
 https://ashkanimage.com/portfolio-2 https://ashkanstudios.com/work/photography/ 301!
 https://ashkanimage.com/portfolio-2/averlee-rose-kohrs https://ashkanstudios.com/work/photography/the-arts/ 301!
-https://ashkanimage.com/our-process https://ashkanstudios.com/services/ 301!
-https://ashkanimage.com/session-pricing https://ashkanstudios.com/services/ 301!
-https://ashkanimage.com/photography-services https://ashkanstudios.com/services/ 301!
+https://ashkanimage.com/our-process https://ashkanstudios.com/what-we-do/ 301!
+https://ashkanimage.com/session-pricing https://ashkanstudios.com/what-we-do/ 301!
+https://ashkanimage.com/photography-services https://ashkanstudios.com/what-we-do/ 301!
 https://ashkanimage.com/buildyoursession https://ashkanstudios.com/contact/ 301!
 https://ashkanimage.com/tips-for-dance-audition-photos https://ashkanstudios.com/storytime/ 301!
 https://ashkanimage.com/street-studio-dance-photography https://ashkanstudios.com/storytime/ 301!
@@ -71,7 +72,7 @@ https://ashkanimage.com/new-business-lighting-workshops-learn-new-skills-from-as
 https://ashkanimage.com/private-coaching-and-live-sessions-with-ashkan-roayaee https://ashkanstudios.com/storytime/ 301!
 https://ashkanimage.com/artistic-photography-and-style-in-motion-sessions-with-ashkan-image https://ashkanstudios.com/storytime/ 301!
 https://ashkanimage.com/thank-you-for-subscribing https://ashkanstudios.com/ 301!
-https://ashkanimage.com/live-session-workshop https://ashkanstudios.com/services/ 301!
+https://ashkanimage.com/live-session-workshop https://ashkanstudios.com/what-we-do/ 301!
 https://ashkanimage.com/photography-studio-rent-houston https://ashkanstudios.com/studio/ 301!
 https://ashkanimage.com/houston-photography-studio-rental https://ashkanstudios.com/studio/ 301!
 https://ashkanimage.com/fashion-photographer https://ashkanstudios.com/storytime/ 301!
@@ -195,7 +196,7 @@ https://ashkanimage.com/top-houston-portrait-photographer https://ashkanstudios.
 https://ashkanimage.com/best-photography-workshop-in-houston https://ashkanstudios.com/storytime/ 301!
 https://ashkanimage.com/commercial-photography-studio-near-me https://ashkanstudios.com/studio/ 301!
 https://ashkanimage.com/fashion-photographer-inspiration https://ashkanstudios.com/work/photography/fashion/ 301!
-https://ashkanimage.com/projects/headshots https://ashkanstudios.com/work/photography/ 301!
+https://ashkanimage.com/projects/headshots https://ashkanstudios.com/work/photography/headshots/ 301!
 https://ashkanimage.com/best-commercial-photography https://ashkanstudios.com/work/photography/retail/ 301!
 https://ashkanimage.com/best-editorial-photographer https://ashkanstudios.com/work/photography/fashion/ 301!
 https://ashkanimage.com/best-commercial-photographer-houston https://ashkanstudios.com/work/photography/retail/ 301!
@@ -240,10 +241,10 @@ https://ashkanmedia.com/home https://ashkanstudios.com/ 301!
 https://ashkanmedia.com/home-5 https://ashkanstudios.com/ 301!
 https://ashkanmedia.com/ashkan-studios https://ashkanstudios.com/studio/ 301!
 https://ashkanmedia.com/the-team-2 https://ashkanstudios.com/studio/ 301!
-https://ashkanmedia.com/our-services https://ashkanstudios.com/services/ 301!
+https://ashkanmedia.com/our-services https://ashkanstudios.com/what-we-do/ 301!
 https://ashkanmedia.com/work-with-us https://ashkanstudios.com/contact/ 301!
 https://ashkanmedia.com/consultation https://ashkanstudios.com/contact/ 301!
-https://ashkanmedia.com/media-content-packages https://ashkanstudios.com/services/ 301!
+https://ashkanmedia.com/media-content-packages https://ashkanstudios.com/what-we-do/ 301!
 https://ashkanmedia.com/main-portfolio https://ashkanstudios.com/work/photography/ 301!
 https://ashkanmedia.com/our-work-projects https://ashkanstudios.com/work/photography/ 301!
 https://ashkanmedia.com/product-photography-portfolio https://ashkanstudios.com/work/photography/retail/ 301!

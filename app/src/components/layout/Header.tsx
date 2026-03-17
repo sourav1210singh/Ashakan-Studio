@@ -56,7 +56,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
       onNavigate("videography", href.replace("/work/videography/", "") || undefined);
     } else if (href.startsWith("/work/campaigns")) {
       onNavigate("campaigns", href.replace("/work/campaigns/", "") || undefined);
-    } else if (href === "/services") {
+    } else if (href === "/what-we-do") {
       onNavigate("services");
     } else if (href === "/studio") {
       onNavigate("studio");
@@ -75,7 +75,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const isActive = (href: string) => {
     if (href === "/" && currentView === "home") return true;
     if (href === "/work" && ["work", "photography", "videography", "campaigns"].includes(currentView || "")) return true;
-    if (href === "/services" && currentView === "services") return true;
+    if (href === "/what-we-do" && currentView === "services") return true;
     if (href === "/studio" && currentView === "studio") return true;
     if (href === "/contact" && currentView === "contact") return true;
     if (href === "/storytime" && (currentView === "storytime" || currentView === "press")) return true;
@@ -239,7 +239,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               {/* Menu item with MCJ-style hover: text slides up + accent line from left */}
               {[
                 { label: "WORK", href: "/work", delay: 0.05 },
-                { label: "WHAT WE DO", href: "/services", delay: 0.1 },
+                { label: "WHAT WE DO", href: "/what-we-do", delay: 0.1 },
                 { label: "THE STUDIO", href: "/studio", delay: 0.15 },
               ].map((item) => (
                 <div key={item.label} className="border-b border-dark/15 group relative overflow-hidden">

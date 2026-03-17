@@ -1,3 +1,12 @@
+export interface GalleryItem {
+  src: string;
+  alt: string;
+  type: "image" | "video";
+  aspectRatio?: "landscape" | "portrait" | "square";
+  /** Vimeo video ID for type="video" items */
+  vimeoId?: string;
+}
+
 export interface Project {
   id: string;
   client: string;
@@ -5,12 +14,7 @@ export interface Project {
   categories: string[];
   heroImage: string;
   description: string;
-  gallery: {
-    src: string;
-    alt: string;
-    type: "image" | "video";
-    aspectRatio?: "landscape" | "portrait" | "square";
-  }[];
+  gallery: GalleryItem[];
   relatedProjects: string[];
 }
 
@@ -40,13 +44,27 @@ export const projects: Project[] = [
     categories: ["PORTRAIT", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/cecilia-duarte.jpg",
     description:
-      "A comprehensive portrait and video session capturing the essence of Cecilia Duarte's artistic journey. Through intimate photography and cinematic videography, we documented her creative process and personal story.",
+      "A comprehensive portrait and video session capturing the essence of Cecilia Duarte's artistic journey. Through intimate photography and cinematic videography, we documented her creative process and personal story — from her second solo album promotional to live performances with Misael Barraza.",
     gallery: [
       {
         src: "/images/portfolio/cecilia-duarte.jpg",
         alt: "Portrait session",
         type: "image",
         aspectRatio: "portrait",
+      },
+      {
+        src: "",
+        alt: "Cecilia Duarte — Second Solo Album Promotional",
+        type: "video",
+        vimeoId: "1002076560",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Cecilia Duarte — Live Performance w/ Misael Barraza",
+        type: "video",
+        vimeoId: "1002076393",
+        aspectRatio: "landscape",
       },
     ],
     relatedProjects: ["fashion", "lauren-anderson"],
@@ -91,15 +109,36 @@ export const projects: Project[] = [
     id: "vitacca-ballet",
     client: "VITACCA BALLET",
     title: "Movement in Perfect Harmony",
-    categories: ["ARTS", "DANCE", "PHOTOGRAPHY"],
+    categories: ["ARTS", "DANCE", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/vitacca-ballet.jpg",
     description:
-      "Vitacca Ballet brings world-class dance to Houston. Our photography captures the grace, power, and emotion of their performances, freezing moments of extraordinary artistry in time. From rehearsal studios to grand stages, we documented the dedication and passion that drives these exceptional dancers.",
+      "Vitacca Ballet brings world-class dance to Houston. Our photography and videography captures the grace, power, and emotion of their performances — from season promos to intimate dancer profiles. We documented the dedication and passion that drives these exceptional dancers across multiple seasons.",
     gallery: [
       {
         src: "/images/portfolio/vitacca-ballet.jpg",
         alt: "Ballet performance",
         type: "image",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Vitacca Season Promo 24-25",
+        type: "video",
+        vimeoId: "1022971286",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Vitacca Ballet 23-24 — Sown / Woven / One",
+        type: "video",
+        vimeoId: "863773710",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Welcome to Vitacca Ballet",
+        type: "video",
+        vimeoId: "814758377",
         aspectRatio: "landscape",
       },
     ],
@@ -166,12 +205,19 @@ export const projects: Project[] = [
     categories: ["DOCUMENTARY", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/8-4Q7A9046-2.jpeg",
     description:
-      "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families, showcasing the transformative power of inclusive education.",
+      "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families across multiple years — from annual luncheon videos to the Chrysalis, Bridge-Butterfly, and Transition programs — showcasing the transformative power of inclusive education.",
     gallery: [
       {
         src: "/images/portfolio/5-Monarch-47-2.jpeg",
         alt: "Monarch School student portrait",
         type: "image",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Monarch Transforming Lives 2023-2024",
+        type: "video",
+        vimeoId: "896674527",
         aspectRatio: "landscape",
       },
       {
@@ -187,6 +233,13 @@ export const projects: Project[] = [
         aspectRatio: "landscape",
       },
       {
+        src: "",
+        alt: "2021 Monarch Virtual Luncheon",
+        type: "video",
+        vimeoId: "518687682",
+        aspectRatio: "landscape",
+      },
+      {
         src: "/images/portfolio/17-Monarch-199-2.jpeg",
         alt: "Teacher with students",
         type: "image",
@@ -197,6 +250,13 @@ export const projects: Project[] = [
         alt: "Student artwork",
         type: "image",
         aspectRatio: "portrait",
+      },
+      {
+        src: "",
+        alt: "The Monarch School's Upgraded Kitchen — MD Anderson Donation",
+        type: "video",
+        vimeoId: "673378712",
+        aspectRatio: "landscape",
       },
       {
         src: "/images/portfolio/17-Monarch-86-2.jpeg",
@@ -246,20 +306,41 @@ export const projects: Project[] = [
   {
     id: "weissman-elite",
     client: "WEISSMAN ELITE",
-    title: "Luxury Real Estate Marketing",
-    categories: ["ARCHITECTURE", "PHOTOGRAPHY", "VIDEOGRAPHY"],
+    title: "Dancewear That Inspires",
+    categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/weissman-elite.jpg",
     description:
-      "Weissman Elite represents the pinnacle of luxury real estate in Houston. Our architectural photography and videography showcased their stunning properties, capturing the elegance and sophistication that define their brand.",
+      "Weissman Elite is a leading name in performance dancewear. Across multiple seasons — from Spring '23 through Fall FY25 — we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
     gallery: [
       {
         src: "/images/portfolio/weissman-elite.jpg",
-        alt: "Luxury property",
+        alt: "Weissman Elite dancewear campaign",
         type: "image",
         aspectRatio: "landscape",
       },
+      {
+        src: "",
+        alt: "Weissman Elite — Fall FY25 Cross-Genre",
+        type: "video",
+        vimeoId: "950064546",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Weissman Elite — Spring 2024",
+        type: "video",
+        vimeoId: "886600264",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "Weissman Elite — Winter 2023",
+        type: "video",
+        vimeoId: "867250099",
+        aspectRatio: "landscape",
+      },
     ],
-    relatedProjects: ["elastique-athletics", "car-collections"],
+    relatedProjects: ["elastique-athletics", "eye-gallery"],
   },
   {
     id: "car-collections",
@@ -282,29 +363,36 @@ export const projects: Project[] = [
   {
     id: "kinetik",
     client: "KINETIK",
-    title: "Movement and Energy",
-    categories: ["FITNESS", "PHOTOGRAPHY", "VIDEOGRAPHY"],
+    title: "Once Upon A Time in the Delaware Basin",
+    categories: ["NARRATIVE", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/kinetik.jpg",
     description:
-      "Kinetik represents the future of fitness. Our dynamic photography and videography captured the energy and intensity of their training programs, inspiring viewers to push their limits.",
+      "A narrative video production for Kinetik, telling the story of energy, industry, and the people of the Delaware Basin. This cinematic piece blends documentary storytelling with polished production value to communicate Kinetik's vision and impact.",
     gallery: [
       {
         src: "/images/portfolio/kinetik.jpg",
-        alt: "Fitness training",
+        alt: "Kinetik production still",
         type: "image",
         aspectRatio: "landscape",
       },
+      {
+        src: "",
+        alt: "Once Upon A Time in the Delaware Basin",
+        type: "video",
+        vimeoId: "865168546",
+        aspectRatio: "landscape",
+      },
     ],
-    relatedProjects: ["elastique-athletics", "weissman-elite"],
+    relatedProjects: ["radiomedix", "car-collections"],
   },
   {
     id: "radiomedix",
     client: "RADIOMEDIX",
-    title: "Innovation in Medical Science",
+    title: "Innovating Theranostics",
     categories: ["MEDICAL", "CORPORATE", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/radiomedix.jpg",
     description:
-      "RadioMedix is at the forefront of nuclear medicine and molecular imaging. Our corporate videography documented their state-of-the-art facilities and dedicated team of researchers, creating visuals that convey both scientific precision and human compassion.",
+      "RadioMedix (now Excel Diagnostics) is at the forefront of nuclear medicine and molecular imaging — pioneering theranostic treatments. Our corporate videography documented their state-of-the-art facilities and dedicated team of researchers, creating visuals that convey both scientific precision and human compassion.",
     gallery: [
       {
         src: "/images/portfolio/radiomedix.jpg",
@@ -312,22 +400,43 @@ export const projects: Project[] = [
         type: "image",
         aspectRatio: "landscape",
       },
+      {
+        src: "",
+        alt: "Radio Medix — Innovating Theranostics",
+        type: "video",
+        vimeoId: "808109158",
+        aspectRatio: "landscape",
+      },
     ],
-    relatedProjects: ["monarch-school", "vitacca-ballet"],
+    relatedProjects: ["monarch-school", "kinetik"],
   },
   {
     id: "eye-gallery",
     client: "THE EYE GALLERY",
     title: "Eyewear That Makes a Statement",
-    categories: ["RETAIL", "PHOTOGRAPHY"],
+    categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/eye-gallery.jpg",
     description:
-      "The Eye Gallery offers curated eyewear from the world's finest designers. Our fashion photography showcased their collection with bold, editorial-style images that capture the essence of each unique frame.",
+      "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns — from edgy, designer eyewear showcases to motion editorials and seasonal trunk shows — captured each unique frame with bold, editorial-style visuals that speak to style-conscious clients.",
     gallery: [
       {
         src: "/images/portfolio/eye-gallery.jpg",
         alt: "Eyewear collection",
         type: "image",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "The Eye Gallery — Edgy, Designer, Eyewear",
+        type: "video",
+        vimeoId: "529432034",
+        aspectRatio: "landscape",
+      },
+      {
+        src: "",
+        alt: "The Eye Gallery — A Motion Editorial",
+        type: "video",
+        vimeoId: "354069394",
         aspectRatio: "landscape",
       },
     ],

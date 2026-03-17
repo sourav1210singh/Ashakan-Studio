@@ -6,13 +6,18 @@
       "statusCode": 301
     },
     {
+      "source": "/services",
+      "destination": "/what-we-do",
+      "statusCode": 301
+    },
+    {
       "source": "/production-studio-in-houston-2",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
       "source": "/houston-production-studio",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
@@ -152,17 +157,17 @@
     },
     {
       "source": "/our-process",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
       "source": "/session-pricing",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
       "source": "/photography-services",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
@@ -297,7 +302,7 @@
     },
     {
       "source": "/live-session-workshop",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
@@ -912,7 +917,7 @@
     },
     {
       "source": "/projects/headshots",
-      "destination": "/work/photography",
+      "destination": "/work/photography/headshots",
       "statusCode": 301
     },
     {
@@ -1117,7 +1122,7 @@
     },
     {
       "source": "/our-services",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {
@@ -1132,7 +1137,7 @@
     },
     {
       "source": "/media-content-packages",
-      "destination": "/services",
+      "destination": "/what-we-do",
       "statusCode": 301
     },
     {

@@ -43,7 +43,7 @@ export const mainNavigation: NavItem[] = [
       },
     ],
   },
-  { label: "WHAT WE DO", href: "/services" },
+  { label: "WHAT WE DO", href: "/what-we-do" },
   { label: "THE STUDIO", href: "/studio" },
   { label: "CONTACT", href: "/contact" },
   {
