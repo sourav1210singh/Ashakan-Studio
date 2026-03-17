@@ -22,13 +22,18 @@ const categoryVideos: Record<string, { vimeoId: string; title: string }[]> = {
   retail: [
     { vimeoId: "529432034", title: "The Eye Gallery — Edgy, Designer, Eyewear" },
     { vimeoId: "354069394", title: "The Eye Gallery — A Motion Editorial" },
+    { vimeoId: "1002121348", title: "The Eye Gallery — Project Reel" },
     { vimeoId: "950064546", title: "Weissman Elite — Fall FY25" },
     { vimeoId: "886600264", title: "Weissman Elite — Spring 2024" },
+    { vimeoId: "867250099", title: "Weissman Elite — Winter 2023" },
+    { vimeoId: "806042416", title: "Weissman Elite — Spring '23" },
   ],
   documentary: [
     { vimeoId: "896674527", title: "Monarch — Transforming Lives 2023-2024" },
     { vimeoId: "518687682", title: "Monarch — 2021 Virtual Luncheon" },
     { vimeoId: "673378712", title: "Monarch School — Kitchen Donation" },
+    { vimeoId: "395268120", title: "Monarch — The Chrysalis Program" },
+    { vimeoId: "308492765", title: "The 2019 Monarch School Luncheon" },
   ],
   narrative: [
     { vimeoId: "865168546", title: "Kinetik — Once Upon A Time in the Delaware Basin" },
