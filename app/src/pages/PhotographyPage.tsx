@@ -20,7 +20,8 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/portfolio/vitacca-ballet.jpg", alt: "Vitacca Ballet — dance performance" },
     { src: "/images/portfolio/cecilia-duarte.jpg", alt: "Cecilia Duarte — portrait" },
     { src: "/images/portfolio/lauren-anderson.jpg", alt: "Lauren Anderson — dance portrait" },
-    { src: "/images/gallery/the-arts/arts-2.jpg", alt: "Dance audition photography" },
+    { src: "/images/gallery/the-arts/arts-1.jpg", alt: "Kaylee Chew — dance photography" },
+    { src: "/images/portfolio/elastique-athletics.jpg", alt: "Élastique Athletics — dance fashion" },
   ],
   retail: [
     { src: "/images/portfolio/brandon-blackwood.jpg", alt: "Brandon Blackwood — luxury handbags" },
