@@ -536,11 +536,6 @@
       "statusCode": 301
     },
     {
-      "source": "/commercial-photography-houston",
-      "destination": "/work/photography/retail",
-      "statusCode": 301
-    },
-    {
       "source": "/studio-lighting-workshop",
       "destination": "/storytime",
       "statusCode": 301
@@ -991,11 +986,6 @@
       "statusCode": 301
     },
     {
-      "source": "/commercial-photographer-houston",
-      "destination": "/work/photography/retail",
-      "statusCode": 301
-    },
-    {
       "source": "/projects/style-in-motion",
       "destination": "/work/photography/the-arts",
       "statusCode": 301
@@ -1267,21 +1257,6 @@
     },
     {
       "source": "/curated-content-reel",
-      "destination": "/work/videography",
-      "statusCode": 301
-    },
-    {
-      "source": "/vsl-arts-industry",
-      "destination": "/work/videography",
-      "statusCode": 301
-    },
-    {
-      "source": "/vsl-retail-industry",
-      "destination": "/work/videography",
-      "statusCode": 301
-    },
-    {
-      "source": "/vsl-li-industry",
       "destination": "/work/videography",
       "statusCode": 301
     },

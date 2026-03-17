@@ -1,5 +1,5 @@
 # ============================================================
-# Ashkan Studios — 301 Redirect Map (SEO Migration)
+# Ashkan Studios ï¿½ 301 Redirect Map (SEO Migration)
 # Generated from 3 old domains -> ashkanstudios.com
 # All 301 redirect rules MUST appear ABOVE the SPA fallback
 # ============================================================
@@ -287,9 +287,9 @@ https://ashkanmedia.com/videographer-in-houston https://ashkanstudios.com/videog
 https://ashkanmedia.com/commercial-videography-in-houston https://ashkanstudios.com/commercial-videography-in-houston/ 301!
 https://ashkanmedia.com/dancer-reel-texas https://ashkanstudios.com/work/videography/the-arts/ 301!
 https://ashkanmedia.com/curated-content-reel https://ashkanstudios.com/work/videography/ 301!
-https://ashkanmedia.com/vsl-arts-industry https://ashkanstudios.com/work/videography/ 301!
-https://ashkanmedia.com/vsl-retail-industry https://ashkanstudios.com/work/videography/ 301!
-https://ashkanmedia.com/vsl-li-industry https://ashkanstudios.com/work/videography/ 301!
+https://ashkanmedia.com/vsl-arts-industry https://ashkanstudios.com/vsl-arts-industry/ 301!
+https://ashkanmedia.com/vsl-retail-industry https://ashkanstudios.com/vsl-retail-industry/ 301!
+https://ashkanmedia.com/vsl-li-industry https://ashkanstudios.com/vsl-li-industry/ 301!
 https://ashkanmedia.com/chosen-project-eye-gallery https://ashkanstudios.com/work/campaigns/eye-gallery/ 301!
 https://ashkanmedia.com/project-the-eye-gallery-houston https://ashkanstudios.com/work/campaigns/eye-gallery/ 301!
 https://ashkanmedia.com/eye-gallery-monthly-deliverables https://ashkanstudios.com/work/campaigns/eye-gallery/ 301!
@@ -322,6 +322,6 @@ https://ashkanmedia.com/category/videography https://ashkanstudios.com/work/vide
 https://ashkanmedia.com/author/admin https://ashkanstudios.com/studio/ 301!
 
 # ============================================================
-# SPA Fallback — MUST be the LAST rule
+# SPA Fallback ï¿½ MUST be the LAST rule
 # ============================================================
 /*    /index.html   200

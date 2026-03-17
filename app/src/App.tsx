@@ -12,6 +12,8 @@ import { StorytimePage } from "@/pages/StorytimePage";
 import { PortfolioPage } from "@/pages/PortfolioPage";
 import { PressPage } from "@/pages/PressPage";
 import { getProjectById } from "@/data/projects";
+import { SeoPage } from "@/pages/SeoPage";
+import { getSeoPageBySlug } from "@/data/seo-pages";
 
 export type View =
   | "home"
@@ -24,7 +26,8 @@ export type View =
   | "contact"
   | "storytime"
   | "press"
-  | "portfolio";
+  | "portfolio"
+  | "seo";
 
 /* ── Route parsing (shared by initial load + popstate) ── */
 interface ParsedRoute {
@@ -76,6 +79,12 @@ function parseRoute(rawPathname: string): ParsedRoute {
     return { view: pageMap[pathname], slug: null, category: null };
   }
 
+  // SEO landing pages (top-level slugs like /product-photography-in-houston/)
+  const seoSlug = pathname.replace(/^\//, "");
+  if (seoSlug && getSeoPageBySlug(seoSlug)) {
+    return { view: "seo", slug: seoSlug, category: null };
+  }
+
   return { view: "home", slug: null, category: null };
 }
 
@@ -92,6 +101,7 @@ const pathMap: Record<View, string> = {
   storytime: "/storytime/",
   press: "/press/",
   portfolio: "/",
+  seo: "/",
 };
 
 function App() {
@@ -129,7 +139,12 @@ function App() {
 
   // ── Navigation ──
   const navigateTo = useCallback((view: View, slug?: string) => {
-    if (view === "portfolio" && slug) {
+    if (view === "seo" && slug) {
+      setSelectedProjectSlug(slug);
+      setSelectedCategory(null);
+      setCurrentView("seo");
+      window.history.pushState(null, "", `/${slug}/`);
+    } else if (view === "portfolio" && slug) {
       setSelectedProjectSlug(slug);
       setSelectedCategory(null);
       setCurrentView("portfolio");
@@ -192,6 +207,13 @@ function App() {
           );
         }
         return <WorkPage onNavigate={navigateTo} />;
+      case "seo": {
+        const seoData = selectedProjectSlug ? getSeoPageBySlug(selectedProjectSlug) : null;
+        if (seoData) {
+          return <SeoPage data={seoData} onNavigate={navigateTo} />;
+        }
+        return <HomePage onNavigate={navigateTo} />;
+      }
       default:
         return <HomePage onNavigate={navigateTo} />;
     }
