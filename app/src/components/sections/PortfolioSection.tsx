@@ -148,12 +148,7 @@ function LeafCard({
         </div>
       )}
 
-      {/* ---- Type badge (Image / Video) ---- */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none">
-        <span className="text-[10px] font-semibold tracking-widest uppercase text-white/90 bg-dark/40 backdrop-blur-sm px-3 py-1 rounded-full">
-          {card.type === "video" ? "Video" : "Image"}
-        </span>
-      </div>
+      {/* Type badge hidden */}
 
       {/* ---- Vertical brand name — bottom right ---- */}
       <div className="absolute bottom-8 right-3 pointer-events-none">
@@ -234,11 +229,7 @@ function TabletLeafCard({
           <div className="w-0 h-0 border-t-[7px] border-t-transparent border-l-[12px] border-l-dark border-b-[7px] border-b-transparent ml-1" />
         </div>
       )}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2">
-        <span className="text-[10px] font-semibold tracking-widest uppercase text-white/90 bg-dark/40 backdrop-blur-sm px-3 py-1 rounded-full">
-          {card.type === "video" ? "Video" : "Image"}
-        </span>
-      </div>
+      {/* Type badge hidden */}
       <div className="absolute bottom-6 right-2 pointer-events-none">
         <span
           className="font-display text-white text-base tracking-[0.15em] uppercase"
@@ -313,11 +304,7 @@ function MobileLeafCard({
           <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-dark border-b-[6px] border-b-transparent ml-1" />
         </div>
       )}
-      <div className="absolute top-3 left-1/2 -translate-x-1/2">
-        <span className="text-[9px] font-semibold tracking-widest uppercase text-white/90 bg-dark/40 backdrop-blur-sm px-2 py-0.5 rounded-full">
-          {card.type === "video" ? "Video" : "Image"}
-        </span>
-      </div>
+      {/* Type badge hidden */}
       <div className="absolute bottom-5 right-2 pointer-events-none">
         <span
           className="font-display text-white text-base tracking-[0.15em] uppercase"
