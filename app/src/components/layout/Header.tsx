@@ -233,9 +233,9 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
           className="fixed inset-0 z-[45] bg-cream"
           style={{ animation: "fadeIn 0.3s ease-out" }}
         >
-          <div className="flex flex-col justify-between h-full pt-20 sm:pt-24">
+          <div className="flex flex-col justify-between h-full pt-16 sm:pt-20">
             {/* Nav Items */}
-            <nav className="w-full flex-1 flex flex-col justify-end">
+            <nav className="w-full flex-1 flex flex-col justify-center">
               {[
                 { label: "THE WORK", href: "/work", delay: 0.05, color: "#2563eb", image: "/images/hero/cameraman-cutout.png" },
                 { label: "WHAT WE DO", href: "/what-we-do", delay: 0.1, color: "#16a34a", image: "/images/hero/dance-cutout.png" },
@@ -257,7 +257,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   />
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="relative z-20 w-full text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-6 transition-colors duration-300 group-hover:text-white uppercase"
+                    className="relative z-20 w-full text-left font-hero-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-3 sm:py-4 lg:py-5 transition-colors duration-300 group-hover:text-white uppercase"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {item.label}
