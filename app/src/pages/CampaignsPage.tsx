@@ -10,13 +10,8 @@ interface CampaignsPageProps {
   activeCategory?: string | null;
 }
 
-export function CampaignsPage({ onNavigate, activeCategory }: CampaignsPageProps) {
-  // If a specific campaign is selected, filter to just that one
-  const campaignList = activeCategory
-    ? campaigns.filter((c) => c.id === activeCategory)
-    : campaigns;
-
-  const campaignData = campaignList.map((c) => {
+export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
+  const campaignData = campaigns.map((c) => {
     const project = portfolioItems.find((p) => p.campaign === c.id || p.id === c.id);
     return {
       ...c,
@@ -27,59 +22,28 @@ export function CampaignsPage({ onNavigate, activeCategory }: CampaignsPageProps
 
   return (
     <>
-      <main className="pt-20">
+      <main className="pt-20 bg-dark min-h-screen">
         {/* Header */}
-        <section className="py-12 sm:py-16 bg-cream border-b border-dark/10">
+        <section className="py-12 sm:py-16 border-b border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <button
                 onClick={() => onNavigate("work")}
                 className="group flex items-center gap-3 mb-8"
               >
-                <div className="w-10 h-10 rounded-full border border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+                <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
-                <span className="text-sm font-medium tracking-wider text-dark">BACK TO WORK</span>
+                <span className="text-sm font-medium tracking-wider text-white/70">BACK TO WORK</span>
               </button>
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-dark tracking-tight">
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
                 CAMPAIGNS
               </h1>
-              <p className="text-lg sm:text-xl text-dark/70 max-w-2xl mt-6">
+              <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6">
                 Full-scale production campaigns that combine photography, videography,
                 and creative direction to tell complete brand stories.
               </p>
             </FadeIn>
-          </div>
-        </section>
-
-        {/* Campaign Filter Tabs */}
-        <section className="py-8 border-b border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => onNavigate("campaigns")}
-                className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
-                  !activeCategory
-                    ? "bg-dark text-white border-dark"
-                    : "text-dark border-dark/30 hover:bg-dark hover:text-white"
-                }`}
-              >
-                ALL
-              </button>
-              {campaigns.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => onNavigate("campaigns", c.id)}
-                  className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
-                    activeCategory === c.id
-                      ? "bg-dark text-white border-dark"
-                      : "text-dark border-dark/30 hover:bg-dark hover:text-white"
-                  }`}
-                >
-                  {c.name}
-                </button>
-              ))}
-            </div>
           </div>
         </section>
 
