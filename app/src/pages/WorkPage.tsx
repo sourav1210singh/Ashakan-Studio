@@ -172,15 +172,15 @@ function VideoLeafWorkCard({
 export function WorkPage({ onNavigate }: WorkPageProps) {
   return (
     <>
-      <main className="pt-20">
+      <main className="pt-20 bg-dark min-h-screen">
         {/* Hero Section */}
-        <section className="py-20 sm:py-32 bg-cream">
+        <section className="py-20 sm:py-32">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[180px] text-dark tracking-tight leading-none mb-8">
+              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[150px] xl:text-[180px] text-white tracking-tight leading-none mb-8">
                 THE WORK
               </h1>
-              <p className="text-lg sm:text-xl text-dark/70 max-w-2xl" style={{ textWrap: "balance" } as React.CSSProperties}>
+              <p className="text-lg sm:text-xl text-white/60 max-w-2xl" style={{ textWrap: "balance" } as React.CSSProperties}>
                 Explore our portfolio of photography, videography, and full-scale campaigns.
                 Each project tells a unique story crafted with precision and creativity.
               </p>
@@ -189,19 +189,19 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
         </section>
 
         {/* Photography Section */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
+        <section className="py-16 sm:py-24 border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <div className="flex items-center justify-between mb-12">
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight">
+                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight">
                   PHOTOGRAPHY
                 </h2>
                 <button
                   onClick={() => onNavigate("photography")}
                   className="group flex items-center gap-3"
                 >
-                  <span className="text-sm font-medium tracking-wider text-dark">VIEW ALL</span>
-                  <div className="w-10 h-10 rounded-full border border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+                  <span className="text-sm font-medium tracking-wider text-white">VIEW ALL</span>
+                  <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </button>
@@ -223,19 +223,19 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
         </section>
 
         {/* Videography Section */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
+        <section className="py-16 sm:py-24 border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <div className="flex items-center justify-between mb-12">
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight">
+                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight">
                   VIDEOGRAPHY
                 </h2>
                 <button
                   onClick={() => onNavigate("videography")}
                   className="group flex items-center gap-3"
                 >
-                  <span className="text-sm font-medium tracking-wider text-dark">VIEW ALL</span>
-                  <div className="w-10 h-10 rounded-full border border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+                  <span className="text-sm font-medium tracking-wider text-white">VIEW ALL</span>
+                  <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </button>
@@ -258,19 +258,19 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
         </section>
 
         {/* Campaigns Section */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
+        <section className="py-16 sm:py-24 border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <div className="flex items-center justify-between mb-12">
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight">
+                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight">
                   CAMPAIGNS
                 </h2>
                 <button
                   onClick={() => onNavigate("campaigns")}
                   className="group flex items-center gap-3"
                 >
-                  <span className="text-sm font-medium tracking-wider text-dark">VIEW ALL</span>
-                  <div className="w-10 h-10 rounded-full border border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+                  <span className="text-sm font-medium tracking-wider text-white">VIEW ALL</span>
+                  <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </button>
