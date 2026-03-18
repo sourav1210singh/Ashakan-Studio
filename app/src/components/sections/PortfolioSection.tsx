@@ -155,8 +155,8 @@ function LeafCard({
         </span>
       </div>
 
-      {/* ---- Vertical brand name ---- */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      {/* ---- Vertical brand name — bottom right ---- */}
+      <div className="absolute bottom-8 right-3 pointer-events-none">
         <span
           className="font-display text-white text-lg lg:text-xl tracking-[0.15em] uppercase"
           style={{
@@ -239,7 +239,7 @@ function TabletLeafCard({
           {card.type === "video" ? "Video" : "Image"}
         </span>
       </div>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute bottom-6 right-2 pointer-events-none">
         <span
           className="font-display text-white text-base tracking-[0.15em] uppercase"
           style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
@@ -318,7 +318,7 @@ function MobileLeafCard({
           {card.type === "video" ? "Video" : "Image"}
         </span>
       </div>
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute bottom-5 right-2 pointer-events-none">
         <span
           className="font-display text-white text-base tracking-[0.15em] uppercase"
           style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
