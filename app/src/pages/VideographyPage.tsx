@@ -1,7 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
-import { videographyCategories } from "@/data/navigation";
 import type { View } from "@/App";
 
 /** All Vimeo videos organized by category */
@@ -39,12 +38,8 @@ const categoryVideos: Record<string, { vimeoId: string; title: string }[]> = {
   ],
 };
 
-/** Get videos based on active category — all (deduplicated) or filtered */
-function getVideos(activeCategory?: string | null) {
-  if (activeCategory && categoryVideos[activeCategory]) {
-    return categoryVideos[activeCategory];
-  }
-  // ALL: combine all categories, deduplicate by vimeoId
+/** Get ALL videos deduplicated */
+function getAllVideos() {
   const seen = new Set<string>();
   const all: { vimeoId: string; title: string }[] = [];
   for (const videos of Object.values(categoryVideos)) {
@@ -63,76 +58,45 @@ interface VideographyPageProps {
   activeCategory?: string | null;
 }
 
-export function VideographyPage({ onNavigate, activeCategory }: VideographyPageProps) {
-  const videos = getVideos(activeCategory);
+export function VideographyPage({ onNavigate }: VideographyPageProps) {
+  const videos = getAllVideos();
 
   return (
     <>
-      <main className="pt-20">
+      <main className="pt-20 bg-dark min-h-screen">
         {/* Header */}
-        <section className="py-12 sm:py-16 bg-cream border-b border-dark/10">
+        <section className="py-12 sm:py-16 border-b border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <button
                 onClick={() => onNavigate("work")}
                 className="group flex items-center gap-3 mb-8"
               >
-                <div className="w-10 h-10 rounded-full border border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+                <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
-                <span className="text-sm font-medium tracking-wider text-dark">BACK TO WORK</span>
+                <span className="text-sm font-medium tracking-wider text-white/70">BACK TO WORK</span>
               </button>
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-dark tracking-tight">
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
                 VIDEOGRAPHY
               </h1>
             </FadeIn>
           </div>
         </section>
 
-        {/* Categories */}
-        <section className="py-8 border-b border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() => onNavigate("videography")}
-                className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
-                  !activeCategory
-                    ? "bg-dark text-white border-dark"
-                    : "text-dark border-dark/30 hover:bg-dark hover:text-white"
-                }`}
-              >
-                ALL
-              </button>
-              {videographyCategories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => onNavigate("videography", cat.id)}
-                  className={`text-sm font-medium tracking-wider px-4 py-2 rounded-full border transition-colors ${
-                    activeCategory === cat.id
-                      ? "bg-dark text-white border-dark"
-                      : "text-dark border-dark/30 hover:bg-dark hover:text-white"
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Videos Grid — actual Vimeo embeds */}
+        {/* Videos Grid — all Vimeo embeds */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
             {videos.length === 0 ? (
               <div className="text-center py-20">
-                <p className="text-lg text-dark/50">No videos found in this category.</p>
+                <p className="text-lg text-white/50">No videos found.</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 {videos.map((video, index) => (
                   <FadeIn key={video.vimeoId} delay={index * 0.08}>
                     <div>
-                      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-video bg-dark">
+                      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-video bg-white/5">
                         <iframe
                           src={`https://player.vimeo.com/video/${video.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}
                           className="w-full h-full"
@@ -142,7 +106,7 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                           title={video.title}
                         />
                       </div>
-                      <p className="mt-3 text-sm font-medium tracking-wider text-dark/70">
+                      <p className="mt-3 text-sm font-medium tracking-wider text-white/60">
                         {video.title}
                       </p>
                     </div>
