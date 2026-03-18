@@ -9,11 +9,16 @@ interface HeaderProps {
   currentView?: View;
 }
 
+/** Pages that use a dark background — header needs white text initially */
+const DARK_PAGES: View[] = ["work", "photography", "videography", "campaigns"];
+
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubDropdown, setActiveSubDropdown] = useState<string | null>(null);
+
+  const isDarkPage = DARK_PAGES.includes(currentView as View);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,8 +108,8 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         onClick={() => handleNavClick(item.href)}
         className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium tracking-wider transition-colors flex items-center gap-1 whitespace-nowrap ${
           isActive(item.href)
-            ? "text-dark"
-            : "text-dark/70 hover:text-dark"
+            ? isDarkPage && !isScrolled ? "text-white" : "text-dark"
+            : isDarkPage && !isScrolled ? "text-white/70 hover:text-white" : "text-dark/70 hover:text-dark"
         }`}
       >
         {item.label}
@@ -112,7 +117,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
           <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`} />
         )}
         {isActive(item.href) && (
-          <span className="absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px bg-dark" />
+          <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled ? "bg-white" : "bg-dark"}`} />
         )}
       </button>
 
@@ -167,7 +172,9 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-cream/95 backdrop-blur-sm shadow-sm"
-            : "bg-transparent"
+            : isDarkPage
+              ? "bg-transparent"
+              : "bg-transparent"
         }`}
         style={{
           opacity: 1,
@@ -192,7 +199,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               <img
                 src="/images/logo.png"
                 alt="Ashkan Studios"
-                className="h-16 sm:h-20 md:h-24 lg:h-[120px] xl:h-[140px] w-auto"
+                className="h-16 sm:h-20 md:h-24 lg:h-[120px] xl:h-[140px] w-auto transition-all duration-300"
+                style={{
+                  filter: isDarkPage && !isScrolled ? "brightness(0) invert(1)" : "none",
+                }}
               />
             </button>
 
@@ -205,7 +215,9 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               {/* Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="flex items-center gap-2 text-dark hover:opacity-70 transition-opacity ml-4"
+                className={`flex items-center gap-2 hover:opacity-70 transition-all ml-4 ${
+                  isDarkPage && !isScrolled ? "text-white" : "text-dark"
+                }`}
                 aria-label="Toggle menu"
               >
                 <span className="text-sm font-medium tracking-wider hidden sm:inline">
@@ -218,7 +230,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   {isMenuOpen ? (
                     <X className="w-5 h-5" />
                   ) : (
-                    <div className="w-5 h-5 bg-dark" />
+                    <div className={`w-5 h-5 ${isDarkPage && !isScrolled ? "bg-white" : "bg-dark"}`} />
                   )}
                 </div>
               </button>
