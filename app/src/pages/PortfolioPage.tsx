@@ -48,14 +48,14 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center">
+      <div className="min-h-screen bg-dark flex items-center justify-center">
         <div className="text-center">
-          <h1 className="font-display text-4xl text-dark mb-4">
+          <h1 className="font-display text-4xl text-white mb-4">
             Project Not Found
           </h1>
           <button
             onClick={onBack}
-            className="text-dark underline hover:no-underline"
+            className="text-white underline hover:no-underline"
           >
             Return Home
           </button>
@@ -65,7 +65,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
   }
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-dark">
       <Header onLogoClick={onBack} onNavigate={handleNavigateToView} currentView="portfolio" />
 
       <main>
@@ -123,16 +123,16 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
         </section>
 
         {/* About Section */}
-        <section className="py-12 sm:py-16 border-b border-dark/10">
+        <section className="py-12 sm:py-16 border-b border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <button
               onClick={() => setShowDescription(!showDescription)}
               className="w-full flex items-center justify-between py-4 group"
             >
-              <span className="text-sm sm:text-base font-medium tracking-wider text-dark">
+              <span className="text-sm sm:text-base font-medium tracking-wider text-white">
                 ABOUT THIS PROJECT
               </span>
-              <div className="w-10 h-10 rounded-full border border-dark/30 flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+              <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                 {showDescription ? (
                   <ChevronUp className="w-5 h-5" />
                 ) : (
@@ -148,7 +148,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                   animation: "fadeIn 0.3s ease-out",
                 }}
               >
-                <p className="text-base sm:text-lg lg:text-xl text-dark/80 leading-relaxed max-w-3xl">
+                <p className="text-base sm:text-lg lg:text-xl text-white/80 leading-relaxed max-w-3xl">
                   {project.description}
                 </p>
               </div>
@@ -175,7 +175,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                   className="break-inside-avoid mb-4 sm:mb-6"
                 >
                   <div
-                    className={`relative overflow-hidden rounded-xl sm:rounded-2xl bg-dark/5 ${
+                    className={`relative overflow-hidden rounded-xl sm:rounded-2xl bg-white/5 ${
                       item.aspectRatio === "portrait"
                         ? "aspect-[3/4]"
                         : item.aspectRatio === "square"
@@ -217,7 +217,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
         </section>
 
         {/* Navigation Section */}
-        <section className="py-12 sm:py-16 border-t border-dark/10">
+        <section className="py-12 sm:py-16 border-t border-white/10">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 sm:gap-8">
               {/* Previous Project */}
@@ -226,14 +226,14 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                   onClick={() => onNavigate(prevProject.id)}
                   className="group flex items-center gap-4"
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors flex-shrink-0 text-white">
                     <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                   <div className="text-left">
-                    <p className="text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-1">
+                    <p className="text-xs sm:text-sm font-medium tracking-wider text-white/50 mb-1">
                       PREVIOUS PROJECT
                     </p>
-                    <p className="font-display text-lg sm:text-xl text-dark">
+                    <p className="font-display text-lg sm:text-xl text-white">
                       {prevProject.client}
                     </p>
                   </div>
@@ -245,7 +245,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
               {/* Back to Work */}
               <button
                 onClick={onBack}
-                className="text-sm sm:text-base font-medium tracking-wider text-dark hover:text-dark/70 transition-colors"
+                className="text-sm sm:text-base font-medium tracking-wider text-white hover:text-white/70 transition-colors"
               >
                 BACK TO ALL WORK
               </button>
@@ -257,14 +257,14 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                   className="group flex items-center gap-4 text-right"
                 >
                   <div className="text-right">
-                    <p className="text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-1">
+                    <p className="text-xs sm:text-sm font-medium tracking-wider text-white/50 mb-1">
                       NEXT PROJECT
                     </p>
-                    <p className="font-display text-lg sm:text-xl text-dark">
+                    <p className="font-display text-lg sm:text-xl text-white">
                       {nextProject.client}
                     </p>
                   </div>
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors flex-shrink-0 text-white">
                     <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                 </button>
