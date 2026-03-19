@@ -108,8 +108,8 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         onClick={() => handleNavClick(item.href)}
         className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium tracking-wider transition-colors flex items-center gap-1 whitespace-nowrap ${
           isActive(item.href)
-            ? isDarkPage && !isScrolled ? "text-white" : "text-dark"
-            : isDarkPage && !isScrolled ? "text-white/70 hover:text-white" : "text-dark/70 hover:text-dark"
+            ? isDarkPage && !isScrolled && !isMenuOpen ? "text-white" : "text-dark"
+            : isDarkPage && !isScrolled && !isMenuOpen ? "text-white/70 hover:text-white" : "text-dark/70 hover:text-dark"
         }`}
       >
         {item.label}
@@ -117,7 +117,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
           <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`} />
         )}
         {isActive(item.href) && (
-          <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled ? "bg-white" : "bg-dark"}`} />
+          <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled && !isMenuOpen ? "bg-white" : "bg-dark"}`} />
         )}
       </button>
 
@@ -170,10 +170,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-cream/95 backdrop-blur-sm shadow-sm"
-            : isDarkPage
-              ? "bg-transparent"
+          isMenuOpen
+            ? "bg-cream"
+            : isScrolled
+              ? "bg-cream/95 backdrop-blur-sm shadow-sm"
               : "bg-transparent"
         }`}
         style={{
@@ -201,7 +201,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                 alt="Ashkan Studios"
                 className="h-16 sm:h-20 md:h-24 lg:h-[120px] xl:h-[140px] w-auto transition-all duration-300"
                 style={{
-                  filter: isDarkPage && !isScrolled ? "brightness(0) invert(1)" : "none",
+                  filter: isDarkPage && !isScrolled && !isMenuOpen ? "brightness(0) invert(1)" : "none",
                 }}
               />
             </button>
@@ -216,7 +216,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`flex items-center gap-2 hover:opacity-70 transition-all ml-4 ${
-                  isDarkPage && !isScrolled ? "text-white" : "text-dark"
+                  isDarkPage && !isScrolled && !isMenuOpen ? "text-white" : "text-dark"
                 }`}
                 aria-label="Toggle menu"
               >
@@ -230,7 +230,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   {isMenuOpen ? (
                     <X className="w-5 h-5" />
                   ) : (
-                    <div className={`w-5 h-5 ${isDarkPage && !isScrolled ? "bg-white" : "bg-dark"}`} />
+                    <div className={`w-5 h-5 ${isDarkPage && !isScrolled && !isMenuOpen ? "bg-white" : "bg-dark"}`} />
                   )}
                 </div>
               </button>
@@ -247,29 +247,31 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         >
           <div className="flex flex-col justify-between h-full pt-16 sm:pt-20">
             {/* Nav Items */}
-            <nav className="w-full flex-1 flex flex-col justify-center">
+            <nav className="w-full flex-1 flex flex-col justify-end">
               {[
                 { label: "THE WORK", href: "/work", delay: 0.05, color: "#2563eb", image: "/images/hero/cameraman-cutout.png" },
                 { label: "WHAT WE DO", href: "/what-we-do", delay: 0.1, color: "#16a34a", image: "/images/hero/dance-cutout.png" },
                 { label: "THE STUDIO", href: "/studio", delay: 0.15, color: "#eab308", image: "/images/hero/portrait-cutout.png" },
                 { label: "STORYTIME", href: "/storytime", delay: 0.2, color: "#ec4899", image: "/images/hero/dance-cutout.png" },
               ].map((item) => (
-                <div key={item.label} className="border-b border-dark/10 group relative overflow-hidden">
-                  {/* Color sweep — slides from right to left on hover */}
-                  <div
-                    className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]"
-                    style={{ backgroundColor: item.color }}
-                  />
+                <div key={item.label} className="border-b border-dark/10 group relative">
+                  {/* Color sweep wrapper — overflow-hidden only on the sweep, not the image */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div
+                      className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]"
+                      style={{ backgroundColor: item.color }}
+                    />
+                  </div>
                   {/* Cutout image — fades in on hover */}
                   <img
                     src={item.image}
                     alt=""
-                    className="absolute right-[10%] top-1/2 -translate-y-1/2 h-[80%] w-auto object-contain opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out group-hover:translate-x-0 translate-x-8 pointer-events-none select-none z-10"
+                    className="absolute right-[25%] top-1/2 -translate-y-1/2 h-[220%] w-auto object-contain opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out group-hover:translate-x-0 translate-x-8 pointer-events-none select-none z-10"
                     style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.15))" }}
                   />
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="relative z-20 w-full text-left font-hero-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-3 sm:py-4 lg:py-5 transition-colors duration-300 group-hover:text-white uppercase"
+                    className="relative z-20 w-full text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-6 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {item.label}
@@ -286,42 +288,28 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               <div className="flex flex-col sm:flex-row border-t border-dark/10">
                 {/* Social Links */}
                 {[
-                  { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", color: "#ec4899" },
-                  { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", color: "#2563eb" },
-                  { label: "TIKTOK", href: "https://tiktok.com/@ashkanstudios", color: "#16a34a" },
+                  { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", color: "#ec4899", external: true },
+                  { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", color: "#2563eb", external: true },
+                  { label: "TIKTOK", href: "https://tiktok.com/@ashkanstudios", color: "#16a34a", external: true },
+                  { label: "T — +1 (713) 555-1234", href: "tel:+17135551234", color: "#eab308", external: false },
+                  { label: "E — hello@ashkanstudios.com", href: "mailto:hello@ashkanstudios.com", color: "#dc2626", external: false },
                 ].map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/link relative overflow-hidden flex-1 border-r border-dark/10 last:border-r-0"
+                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="group/link overflow-hidden flex-1 border-r border-dark/10 last:border-r-0 relative"
                   >
-                    <div
-                      className="absolute inset-0 origin-right scale-x-0 group-hover/link:scale-x-100 group-hover/link:origin-left transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)]"
-                      style={{ backgroundColor: link.color }}
-                    />
-                    <span className="relative z-10 block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 group-hover/link:text-white transition-colors duration-300">
+                    {/* Static text — visible by default, hidden on hover */}
+                    <span className="block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 transition-opacity duration-300 group-hover/link:opacity-0">
                       {link.label}
                     </span>
-                  </a>
-                ))}
-                {/* Contact */}
-                {[
-                  { label: "T — +1 (713) 555-1234", href: "tel:+17135551234", color: "#eab308" },
-                  { label: "E — hello@ashkanstudios.com", href: "mailto:hello@ashkanstudios.com", color: "#1A1A1A" },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="group/link relative overflow-hidden flex-1 border-r border-dark/10 last:border-r-0"
-                  >
-                    <div
-                      className="absolute inset-0 origin-right scale-x-0 group-hover/link:scale-x-100 group-hover/link:origin-left transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)]"
-                      style={{ backgroundColor: link.color }}
-                    />
-                    <span className="relative z-10 block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 group-hover/link:text-white transition-colors duration-300">
-                      {link.label}
+                    {/* Continuous marquee — hidden by default, plays on hover */}
+                    <span className="absolute inset-0 flex items-center overflow-hidden opacity-0 group-hover/link:opacity-100 transition-opacity duration-300">
+                      <span className={`flex whitespace-nowrap ${link.external ? "menu-marquee-fast" : "menu-marquee-track"}`} style={{ color: link.color }}>
+                        <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>
+                        <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>
+                      </span>
                     </span>
                   </a>
                 ))}
@@ -343,6 +331,16 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(40px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes marqueeLoop {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .group\\/link:hover .menu-marquee-track {
+          animation: marqueeLoop 1.2s linear infinite;
+        }
+        .group\\/link:hover .menu-marquee-fast {
+          animation: marqueeLoop 0.6s linear infinite;
         }
       `}</style>
     </>

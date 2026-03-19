@@ -71,6 +71,9 @@ function LeafCard({
       ? "80px 6px 80px 6px"
       : "6px 80px 6px 80px";
 
+  /* Video card expands visually on hover WITHOUT pushing siblings */
+  const videoExpanded = isVideo && isHovered;
+
   return (
     <button
       ref={cardRef}
@@ -79,10 +82,9 @@ function LeafCard({
       onMouseLeave={() => setIsHovered(false)}
       className="group relative flex-shrink-0 text-left focus:outline-none"
       style={{
+        /* Layout width stays fixed — no siblings shift */
         width: "clamp(120px, 13vw, 180px)",
         height: "clamp(400px, 48vw, 540px)",
-        borderRadius: leafRadius,
-        overflow: "hidden",
         scrollSnapAlign: "start",
         opacity: isVisible ? 1 : 0,
         transform: isVisible
@@ -91,78 +93,96 @@ function LeafCard({
         transition: isVisible
           ? "transform 0.3s ease-out, box-shadow 0.3s ease-out"
           : `opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`,
-        boxShadow: isHovered
-          ? "0 24px 56px rgba(0,0,0,0.18)"
-          : "0 4px 24px rgba(0,0,0,0.08)",
         willChange: "transform, opacity",
+        /* Raise video card above neighbors when expanded */
+        zIndex: videoExpanded ? 20 : 1,
       }}
     >
-      {/* ---- Image ---- */}
-      <img
-        src={card.image}
-        alt={card.label}
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{
-          transition: "transform 0.7s ease-out",
-          transform: isHovered && !isVideo ? "scale(1.06)" : "scale(1)",
-        }}
-      />
-
-      {/* ---- Vimeo video on hover (video cards only) ---- */}
-      {/* iframe is sized to maintain 16:9 aspect while covering the tall narrow leaf */}
-      {isVideo && isHovered && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <iframe
-            src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0`}
-            className="absolute pointer-events-none"
-            style={{
-              top: "50%",
-              left: "50%",
-              width: "300%",
-              height: "300%",
-              transform: "translate(-50%, -50%)",
-            }}
-            frameBorder="0"
-            allow="autoplay"
-            title={card.label}
-          />
-        </div>
-      )}
-
-      {/* ---- Gradient overlay ---- */}
+      {/* Inner visual container — pops out for video cards */}
       <div
-        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,${isHovered ? 0.55 : 0.3}) 100%)`,
-          transition: "background 0.4s ease-out",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          width: videoExpanded ? "clamp(380px, 35vw, 500px)" : "100%",
+          height: videoExpanded ? "clamp(450px, 50vw, 580px)" : "100%",
+          borderRadius: leafRadius,
+          overflow: "hidden",
+          transform: videoExpanded
+            ? "translate(-50%, -50%) scale(1.05)"
+            : "translate(-50%, -50%) scale(1)",
+          transition: "width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease-out",
+          boxShadow: videoExpanded
+            ? "0 32px 64px rgba(0,0,0,0.25)"
+            : isHovered
+              ? "0 24px 56px rgba(0,0,0,0.18)"
+              : "0 4px 24px rgba(0,0,0,0.08)",
         }}
-      />
-
-      {/* ---- Play icon for video cards ---- */}
-      {card.type === "video" && (
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 flex items-center justify-center transition-opacity duration-300 pointer-events-none"
-          style={{ opacity: isHovered ? 0 : 1 }}
-        >
-          <div className="w-0 h-0 border-t-[7px] border-t-transparent border-l-[12px] border-l-dark border-b-[7px] border-b-transparent ml-1" />
-        </div>
-      )}
-
-      {/* Type badge hidden */}
-
-      {/* ---- Vertical brand name — bottom right ---- */}
-      <div className="absolute bottom-8 right-3 pointer-events-none">
-        <span
-          className="font-display text-white text-lg lg:text-xl tracking-[0.15em] uppercase"
+      >
+        {/* ---- Image ---- */}
+        <img
+          src={card.image}
+          alt={card.label}
+          className="absolute inset-0 w-full h-full object-cover"
           style={{
-            writingMode: "vertical-rl",
-            textOrientation: "mixed",
-            opacity: isHovered ? 1 : 0.9,
-            transition: "opacity 0.3s ease-out",
+            transition: "transform 0.7s ease-out",
+            transform: isHovered && !isVideo ? "scale(1.06)" : "scale(1)",
           }}
-        >
-          {card.label}
-        </span>
+        />
+
+        {/* ---- Vimeo video on hover (video cards only) ---- */}
+        {isVideo && isHovered && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <iframe
+              src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0`}
+              className="absolute pointer-events-none"
+              style={{
+                top: "50%",
+                left: "50%",
+                width: "300%",
+                height: "300%",
+                transform: "translate(-50%, -50%)",
+              }}
+              frameBorder="0"
+              allow="autoplay"
+              title={card.label}
+            />
+          </div>
+        )}
+
+        {/* ---- Gradient overlay ---- */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(180deg, transparent 30%, rgba(0,0,0,${isHovered ? 0.55 : 0.3}) 100%)`,
+            transition: "background 0.4s ease-out",
+          }}
+        />
+
+        {/* ---- Play icon for video cards ---- */}
+        {card.type === "video" && (
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 flex items-center justify-center transition-opacity duration-300 pointer-events-none"
+            style={{ opacity: isHovered ? 0 : 1 }}
+          >
+            <div className="w-0 h-0 border-t-[7px] border-t-transparent border-l-[12px] border-l-dark border-b-[7px] border-b-transparent ml-1" />
+          </div>
+        )}
+
+        {/* ---- Vertical brand name — bottom right ---- */}
+        <div className="absolute bottom-8 right-3 pointer-events-none">
+          <span
+            className="font-display text-white text-lg lg:text-xl tracking-[0.15em] uppercase"
+            style={{
+              writingMode: "vertical-rl",
+              textOrientation: "mixed",
+              opacity: isHovered ? 1 : 0.9,
+              transition: "opacity 0.3s ease-out",
+            }}
+          >
+            {card.label}
+          </span>
+        </div>
       </div>
     </button>
   );
@@ -377,7 +397,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
   };
 
   return (
-    <section id="work" className="py-14 sm:py-24 lg:py-28 bg-cream overflow-hidden">
+    <section id="work" className="py-14 sm:py-24 lg:py-28 bg-cream overflow-x-clip">
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* ============================================================ */}
         {/*  Animated Heading — subtle letter-spacing expansion + fade    */}
@@ -404,7 +424,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         <div className="hidden lg:block">
           <div
             ref={scrollRef}
-            className="leaf-scroll flex items-start gap-6 xl:gap-8 overflow-x-auto pb-8"
+            className="leaf-scroll flex items-start gap-6 xl:gap-8 overflow-x-auto pb-8 pt-16"
             style={{
               scrollSnapType: "x proximity",
               WebkitOverflowScrolling: "touch",
