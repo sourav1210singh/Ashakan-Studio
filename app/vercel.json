@@ -1,6 +1,72 @@
 {
   "redirects": [
     {
+      "source": "/mail-chimp-sign-up",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/contact/",
+      "statusCode": 301
+    },
+    {
+      "source": "/buildyoursession",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/contact/booking/",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-teacher-in-houston",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/contact/booking/",
+      "statusCode": 301
+    },
+    {
+      "source": "/photography-coaching-in-houston",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/contact/booking/",
+      "statusCode": 301
+    },
+    {
+      "source": "/lighting-design-workshop",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/contact/booking/",
+      "statusCode": 301
+    },
+    {
+      "source": "/dance-photography-workshops",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/contact/booking/",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-portrait-studio",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/work/photography/headshots/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/",
+      "statusCode": 301
+    },
+    {
       "source": "/portfolios",
       "destination": "/work/photography",
       "statusCode": 301

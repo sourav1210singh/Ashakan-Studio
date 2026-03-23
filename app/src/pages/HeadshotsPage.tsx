@@ -10,24 +10,24 @@ interface HeadshotsPageProps {
 export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
   return (
     <>
-      <main className="pt-20">
+      <main className="pt-20 bg-dark min-h-screen">
         {/* Hero */}
-        <section className="relative py-20 sm:py-32 bg-cream overflow-hidden">
+        <section className="relative py-20 sm:py-32 overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <button
                 onClick={() => onNavigate("photography")}
                 className="group flex items-center gap-3 mb-8"
               >
-                <div className="w-10 h-10 rounded-full border border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
+                <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
-                <span className="text-sm font-medium tracking-wider text-dark">BACK TO PHOTOGRAPHY</span>
+                <span className="text-sm font-medium tracking-wider text-white">BACK TO PHOTOGRAPHY</span>
               </button>
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-dark tracking-tight leading-none mb-6">
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-none mb-6">
                 HEADSHOTS
               </h1>
-              <p className="text-lg sm:text-xl text-dark/70 max-w-2xl">
+              <p className="text-lg sm:text-xl text-white/60 max-w-2xl">
                 Professional headshot photography for executives, actors, dancers, and creatives.
                 Crafted in our Houston studio with expert lighting and direction.
               </p>
@@ -71,7 +71,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                       alt={img.alt}
                       className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/10 transition-colors duration-300" />
+                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
                   </div>
                 </FadeIn>
               ))}
@@ -80,20 +80,20 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
         </section>
 
         {/* What We Offer */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
+        <section className="py-16 sm:py-24 border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 sm:gap-20">
               <FadeIn>
                 <div>
-                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-8">
+                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
                     HEADSHOT SESSIONS
                   </h2>
-                  <p className="text-lg text-dark/70 leading-relaxed mb-8">
+                  <p className="text-lg text-white/60 leading-relaxed mb-8">
                     Whether you need corporate headshots for your team, acting headshots for auditions,
                     or personal branding portraits that capture your unique identity — our studio
                     delivers polished, professional results that make a lasting impression.
                   </p>
-                  <p className="text-lg text-dark/70 leading-relaxed">
+                  <p className="text-lg text-white/60 leading-relaxed">
                     Every session includes professional lighting, expert direction, and a curated
                     selection of retouched final images. We work with individuals, small teams,
                     and large corporate groups at our Sawyer Yards studio in Houston.
@@ -103,7 +103,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
 
               <FadeIn delay={0.15}>
                 <div>
-                  <h3 className="font-display text-2xl sm:text-3xl text-dark tracking-tight mb-10">
+                  <h3 className="font-display text-2xl sm:text-3xl text-white tracking-tight mb-10">
                     SESSION TYPES
                   </h3>
                   <ul className="space-y-4">
@@ -119,7 +119,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                     ].map((item) => (
                       <li
                         key={item}
-                        className="text-base sm:text-lg text-dark/70 leading-relaxed border-b border-dark/5 pb-4"
+                        className="text-base sm:text-lg text-white/60 leading-relaxed border-b border-white/10 pb-4"
                       >
                         {item}
                       </li>
@@ -132,10 +132,10 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
         </section>
 
         {/* Process */}
-        <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
+        <section className="py-16 sm:py-24 bg-dark border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-16">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-16">
                 HOW IT WORKS
               </h2>
             </FadeIn>
@@ -159,13 +159,13 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
               ].map((item, index) => (
                 <FadeIn key={item.step} delay={index * 0.12}>
                   <div>
-                    <span className="font-display text-5xl sm:text-6xl text-dark/10 tracking-tight block mb-4">
+                    <span className="font-display text-5xl sm:text-6xl text-white/10 tracking-tight block mb-4">
                       {item.step}
                     </span>
-                    <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight mb-4">
+                    <h3 className="font-display text-xl sm:text-2xl text-white tracking-tight mb-4">
                       {item.title}
                     </h3>
-                    <p className="text-base text-dark/60 leading-relaxed">
+                    <p className="text-base text-white/50 leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -176,13 +176,13 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
         </section>
 
         {/* CTA */}
-        <section className="py-20 sm:py-32 bg-dark text-white">
+        <section className="py-20 sm:py-32 border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-6">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight mb-6">
                 BOOK YOUR SESSION
               </h2>
-              <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
+              <p className="text-lg text-white/50 mb-10 max-w-xl mx-auto">
                 Ready for headshots that make an impact? Let's talk about your vision.
               </p>
               <button

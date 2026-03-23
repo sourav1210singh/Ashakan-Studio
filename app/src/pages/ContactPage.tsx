@@ -217,19 +217,28 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
               <h2 className="font-display text-3xl sm:text-4xl tracking-tight mb-6">
-                PREFER TO BOOK A CALL?
+                PREFER TO BOOK A SESSION?
               </h2>
               <p className="text-white/70 mb-8 max-w-xl mx-auto">
-                Schedule a consultation at a time that works for you.
+                Explore our session types — photography, videography, coaching, and workshops.
+                Schedule a free consultation at a time that works for you.
               </p>
-              <a
-                href="https://calendly.com/ashkanstudios"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm"
-              >
-                BOOK A CONSULTATION
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => onNavigate("booking")}
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm hover:bg-white/90 transition-colors"
+                >
+                  VIEW SESSION TYPES
+                </button>
+                <a
+                  href="https://calendly.com/ashkanstudios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/30 text-white font-medium tracking-wider text-sm hover:bg-white/10 transition-colors"
+                >
+                  SCHEDULE A CALL
+                </a>
+              </div>
             </FadeIn>
           </div>
         </section>

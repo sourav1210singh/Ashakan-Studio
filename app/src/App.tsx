@@ -14,6 +14,7 @@ import { PressPage } from "@/pages/PressPage";
 import { getProjectById } from "@/data/projects";
 import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
+import { BookingPage } from "@/pages/BookingPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
 
 export type View =
@@ -28,7 +29,8 @@ export type View =
   | "storytime"
   | "press"
   | "portfolio"
-  | "seo";
+  | "seo"
+  | "booking";
 
 /* ── Route parsing (shared by initial load + popstate) ── */
 interface ParsedRoute {
@@ -54,15 +56,15 @@ function parseRoute(rawPathname: string): ParsedRoute {
   // Work sub-routes
   if (pathname === "/work" || pathname.startsWith("/work/")) {
     if (pathname.startsWith("/work/photography")) {
-      const catMatch = pathname.match(/^\/work\/photography\/(.+)$/);
+      const catMatch = pathname.match(/^\/work\/photography\/([^/]+)/);
       return { view: "photography", slug: null, category: catMatch ? catMatch[1] : null };
     }
     if (pathname.startsWith("/work/videography")) {
-      const catMatch = pathname.match(/^\/work\/videography\/(.+)$/);
+      const catMatch = pathname.match(/^\/work\/videography\/([^/]+)/);
       return { view: "videography", slug: null, category: catMatch ? catMatch[1] : null };
     }
     if (pathname.startsWith("/work/campaigns")) {
-      const catMatch = pathname.match(/^\/work\/campaigns\/(.+)$/);
+      const catMatch = pathname.match(/^\/work\/campaigns\/([^/]+)/);
       return { view: "campaigns", slug: null, category: catMatch ? catMatch[1] : null };
     }
     return { view: "work", slug: null, category: null };
@@ -72,6 +74,7 @@ function parseRoute(rawPathname: string): ParsedRoute {
   const pageMap: Record<string, View> = {
     "/what-we-do": "services",
     "/studio": "studio",
+    "/contact/booking": "booking",
     "/contact": "contact",
     "/storytime": "storytime",
     "/press": "press",
@@ -99,6 +102,7 @@ const pathMap: Record<View, string> = {
   services: "/what-we-do/",
   studio: "/studio/",
   contact: "/contact/",
+  booking: "/contact/booking/",
   storytime: "/storytime/",
   press: "/press/",
   portfolio: "/",
@@ -196,6 +200,8 @@ function App() {
         return <StudioPage onNavigate={navigateTo} />;
       case "contact":
         return <ContactPage onNavigate={navigateTo} />;
+      case "booking":
+        return <BookingPage onNavigate={navigateTo} />;
       case "storytime":
         return <StorytimePage onNavigate={navigateTo} />;
       case "press":

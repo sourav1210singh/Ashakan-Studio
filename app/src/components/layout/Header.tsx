@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 /** Pages that use a dark background — header needs white text initially */
-const DARK_PAGES: View[] = ["work", "photography", "videography", "campaigns", "portfolio"];
+const DARK_PAGES: View[] = ["work", "photography", "videography", "campaigns", "portfolio", "booking"];
 
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,15 +56,20 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     } else if (href === "/work") {
       onNavigate("work");
     } else if (href.startsWith("/work/photography")) {
-      onNavigate("photography", href.replace("/work/photography/", "") || undefined);
+      const cat = href.replace(/^\/work\/photography\/?/, "") || undefined;
+      onNavigate("photography", cat);
     } else if (href.startsWith("/work/videography")) {
-      onNavigate("videography", href.replace("/work/videography/", "") || undefined);
+      const cat = href.replace(/^\/work\/videography\/?/, "") || undefined;
+      onNavigate("videography", cat);
     } else if (href.startsWith("/work/campaigns")) {
-      onNavigate("campaigns", href.replace("/work/campaigns/", "") || undefined);
+      const cat = href.replace(/^\/work\/campaigns\/?/, "") || undefined;
+      onNavigate("campaigns", cat);
     } else if (href === "/what-we-do") {
       onNavigate("services");
     } else if (href === "/studio") {
       onNavigate("studio");
+    } else if (href === "/contact/booking") {
+      onNavigate("booking");
     } else if (href === "/contact") {
       onNavigate("contact");
     } else if (href === "/storytime") {
