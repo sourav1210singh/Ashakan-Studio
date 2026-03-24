@@ -14,7 +14,7 @@ interface CampaignDetailPageProps {
 /* ── Vimeo embed ─────────────────────────────────── */
 function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const thumbUrl = `https://vumbnail.com/${vimeoId}.jpg`;
+  const thumbUrl = `https://vumbnail.com/${vimeoId}_large.jpg`;
 
   if (!isPlaying) {
     return (
