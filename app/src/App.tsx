@@ -15,6 +15,7 @@ import { getProjectById } from "@/data/projects";
 import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
 import { BookingPage } from "@/pages/BookingPage";
+import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
 
 export type View =
@@ -193,6 +194,9 @@ function App() {
       case "videography":
         return <VideographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "campaigns":
+        if (selectedCategory) {
+          return <CampaignDetailPage campaignSlug={selectedCategory} onNavigate={navigateTo} />;
+        }
         return <CampaignsPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "services":
         return <ServicesPage onNavigate={navigateTo} />;
