@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { getProjectById, getAllProjects, type GalleryItem } from "@/data/projects";
 import { FadeIn } from "@/components/animations/FadeIn";
@@ -17,7 +17,23 @@ interface PortfolioPageProps {
 
 function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const thumbUrl = `https://vumbnail.com/${vimeoId}_large.jpg`;
+  const [hdThumb, setHdThumb] = useState<string | null>(null);
+  const fallbackUrl = `https://vumbnail.com/${vimeoId}_large.jpg`;
+
+  // Fetch HD thumbnail from Vimeo oEmbed API
+  useEffect(() => {
+    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}&width=1920`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.thumbnail_url) {
+          const hd = data.thumbnail_url.replace(/-d_\d+x\d+/, "-d_1920x1080").replace(/_\d+x\d+/, "_1920x1080");
+          setHdThumb(hd);
+        }
+      })
+      .catch(() => {});
+  }, [vimeoId]);
+
+  const thumbUrl = hdThumb || fallbackUrl;
 
   if (!isPlaying) {
     return (

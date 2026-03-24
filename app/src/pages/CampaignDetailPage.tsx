@@ -23,7 +23,7 @@ function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
       .then((data) => {
         if (data.thumbnail_url) {
           // Replace size suffix to get max resolution
-          const hdUrl = data.thumbnail_url.replace(/-d_\d+x?\d*$/, "-d_1920x1080");
+          const hdUrl = data.thumbnail_url.replace(/-d_\d+x\d+/, "-d_1920x1080").replace(/_\d+x\d+/, "_1920x1080");
           setThumbUrl(hdUrl);
         }
       })
