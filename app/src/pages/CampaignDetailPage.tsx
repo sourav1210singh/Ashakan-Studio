@@ -339,16 +339,40 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         )}
 
         {/* ━━━ SECTION 5: Quote / Highlight ━━━ */}
-        <section className="py-20 sm:py-32 bg-dark border-t border-white/10">
-          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
+        <section
+          className="relative py-32 sm:py-44 lg:py-52 overflow-hidden"
+          style={{ background: "linear-gradient(180deg, #0a0a0a 0%, #151515 50%, #0a0a0a 100%)" }}
+        >
+          {/* Subtle gradient divider lines */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+          <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
-              <span className="text-white/20 font-display text-8xl sm:text-9xl leading-none select-none">"</span>
-              <p className="font-display text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight leading-snug -mt-12 sm:-mt-16">
+              {/* Elegant oversized quote mark */}
+              <span
+                className="block font-serif leading-none select-none"
+                style={{ fontSize: "clamp(120px, 15vw, 200px)", color: "rgba(255,255,255,0.06)" }}
+              >
+                &ldquo;
+              </span>
+
+              {/* Quote text — elegant serif italic */}
+              <p
+                className="font-serif italic text-white/90 leading-relaxed -mt-16 sm:-mt-24 lg:-mt-28"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 3rem)", letterSpacing: "-0.01em" }}
+              >
                 Every frame tells a story. Every detail matters. We craft visuals that resonate and inspire.
               </p>
-              <p className="text-white/40 text-sm tracking-widest mt-8 uppercase">
-                Ashkan Studios
-              </p>
+
+              {/* Attribution — minimal with lines */}
+              <div className="mt-12 sm:mt-16 flex items-center justify-center gap-4">
+                <span className="w-8 h-px bg-white/30" />
+                <p className="text-white/30 text-xs sm:text-sm tracking-[0.3em] uppercase font-light">
+                  Ashkan Studios
+                </p>
+                <span className="w-8 h-px bg-white/30" />
+              </div>
             </FadeIn>
           </div>
         </section>
