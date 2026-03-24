@@ -1,9 +1,10 @@
-import { ArrowLeft, ArrowRight, Play } from "lucide-react";
+import type { ReactElement } from "react";
+import { ArrowRight, Play } from "lucide-react";
 import { useState } from "react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
-import { getProjectById, type Project, type GalleryItem } from "@/data/projects";
+import { getProjectById, type GalleryItem } from "@/data/projects";
 
 interface CampaignDetailPageProps {
   campaignSlug: string;
@@ -91,7 +92,7 @@ function getAdjacentCampaigns(slug: string) {
 
 /** Renders a creative masonry layout from gallery items */
 function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTitle?: string }) {
-  const rows: JSX.Element[] = [];
+  const rows: ReactElement[] = [];
   let i = 0;
 
   if (sectionTitle) {
