@@ -339,10 +339,15 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         )}
 
         {/* ━━━ SECTION 5: Quote / Highlight ━━━ */}
-        <section
-          className="relative py-32 sm:py-44 lg:py-52 overflow-hidden"
-          style={{ background: "linear-gradient(180deg, #0a0a0a 0%, #151515 50%, #0a0a0a 100%)" }}
-        >
+        <section className="relative py-32 sm:py-44 lg:py-52 overflow-hidden">
+          {/* Background image with dark overlay */}
+          <img
+            src={project.heroImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/75" />
+
           {/* Subtle gradient divider lines */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
