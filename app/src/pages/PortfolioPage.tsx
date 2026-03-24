@@ -185,7 +185,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                   >
                     {item.type === "video" && item.vimeoId ? (
                       <iframe
-                        src={`https://player.vimeo.com/video/${item.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}
+                        src={`https://player.vimeo.com/video/${item.vimeoId}?dnt=1&quality=1080p&title=0&byline=0&portrait=0`}
                         className="w-full h-full"
                         frameBorder="0"
                         allow="autoplay; fullscreen; picture-in-picture"

@@ -39,7 +39,7 @@ function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
   return (
     <div className="relative w-full aspect-video">
       <iframe
-        src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`}
+        src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&quality=1080p&title=0&byline=0&portrait=0`}
         className="absolute inset-0 w-full h-full"
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture"

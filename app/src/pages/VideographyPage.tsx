@@ -98,7 +98,7 @@ export function VideographyPage({ onNavigate }: VideographyPageProps) {
                     <div>
                       <div className="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-video bg-white/5">
                         <iframe
-                          src={`https://player.vimeo.com/video/${video.vimeoId}?dnt=1&title=0&byline=0&portrait=0`}
+                          src={`https://player.vimeo.com/video/${video.vimeoId}?dnt=1&quality=1080p&title=0&byline=0&portrait=0`}
                           className="w-full h-full"
                           frameBorder="0"
                           allow="autoplay; fullscreen; picture-in-picture"

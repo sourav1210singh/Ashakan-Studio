@@ -141,7 +141,7 @@ function VideoLeafWorkCard({
         {/* Vimeo iframe — loads on hover, scaled up to fill narrow card */}
         {hovered && (
           <iframe
-            src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0`}
+            src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&muted=1&loop=1&quality=1080p&title=0&byline=0&portrait=0&controls=0`}
             className="absolute inset-0 w-full h-full pointer-events-none"
             style={{ transform: "scale(2.5)", transformOrigin: "center center" }}
             frameBorder="0"

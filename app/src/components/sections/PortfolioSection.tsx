@@ -134,7 +134,7 @@ function LeafCard({
         {isVideo && isHovered && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <iframe
-              src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0`}
+              src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&quality=1080p&title=0&byline=0&portrait=0&controls=0`}
               className="absolute pointer-events-none"
               style={{
                 top: "50%",
