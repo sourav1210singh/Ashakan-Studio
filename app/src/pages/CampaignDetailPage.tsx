@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import { ArrowRight, Play } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
@@ -14,7 +14,21 @@ interface CampaignDetailPageProps {
 /* ── Vimeo embed ─────────────────────────────────── */
 function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const thumbUrl = `https://vumbnail.com/${vimeoId}_large.jpg`;
+  const [thumbUrl, setThumbUrl] = useState(`https://vumbnail.com/${vimeoId}_large.jpg`);
+
+  // Fetch HD thumbnail from Vimeo oEmbed API (1920px)
+  useEffect(() => {
+    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}&width=1920`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.thumbnail_url) {
+          // Replace size suffix to get max resolution
+          const hdUrl = data.thumbnail_url.replace(/-d_\d+x?\d*$/, "-d_1920x1080");
+          setThumbUrl(hdUrl);
+        }
+      })
+      .catch(() => { /* keep fallback */ });
+  }, [vimeoId]);
 
   if (!isPlaying) {
     return (
