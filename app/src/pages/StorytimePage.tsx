@@ -165,7 +165,7 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
               {blogPosts.map((post, index) => (
                 <FadeIn key={post.id} delay={index * 0.1}>
                   <article className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6">
+                    <div className="relative overflow-hidden aspect-[4/3] mb-6">
                       <img
                         src={post.image}
                         alt={post.title}

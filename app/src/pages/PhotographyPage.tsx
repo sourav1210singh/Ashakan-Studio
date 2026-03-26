@@ -88,7 +88,7 @@ export function PhotographyPage({ onNavigate }: PhotographyPageProps) {
             <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
               {allImages.map((img, index) => (
                 <FadeIn key={`photo-${index}`} delay={index * 0.06} className="break-inside-avoid mb-4 sm:mb-6">
-                  <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
+                  <div className="relative overflow-hidden">
                     <img
                       src={img.src}
                       alt={img.alt}

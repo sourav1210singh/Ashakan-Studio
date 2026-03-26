@@ -172,18 +172,18 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   <img
                     src="/images/studio/studio-interior-2.jpg"
                     alt="Ashkan Studios cyclorama and lighting setup"
-                    className="w-full rounded-2xl object-cover aspect-[4/3]"
+                    className="w-full object-cover aspect-[4/3]"
                   />
                   <div className="grid grid-cols-2 gap-4">
                     <img
                       src="/images/studio/studio-wide.jpg"
                       alt="Studio wide angle view"
-                      className="w-full rounded-xl object-cover aspect-square"
+                      className="w-full object-cover aspect-square"
                     />
                     <img
                       src="/images/studio/studio-sample-2.jpg"
                       alt="Studio sample work"
-                      className="w-full rounded-xl object-cover aspect-square"
+                      className="w-full object-cover aspect-square"
                     />
                   </div>
                 </div>
@@ -270,7 +270,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                 <img
                   src="/images/studio/studio-process.jpg"
                   alt="Studio production in progress"
-                  className="w-full rounded-2xl object-cover aspect-[4/3]"
+                  className="w-full object-cover aspect-[4/3]"
                 />
               </FadeIn>
               <FadeIn delay={0.1}>
@@ -322,7 +322,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
               {team.map((member, index) => (
                 <FadeIn key={member.name} delay={index * 0.1}>
-                  <div className="aspect-[3/4] rounded-2xl overflow-hidden bg-dark/5 mb-5">
+                  <div className="aspect-[3/4] overflow-hidden bg-dark/5 mb-5">
                     {member.image ? (
                       <img
                         src={member.image}
@@ -386,7 +386,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                 </a>
               </FadeIn>
               <FadeIn delay={0.1}>
-                <div className="aspect-video rounded-2xl overflow-hidden">
+                <div className="aspect-video overflow-hidden">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3463.8!2d-95.3766!3d29.7716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c0f1b7cfffff%3A0x5f0f3a1b1c1b1b1b!2s1502+Sawyer+St+%23108%2C+Houston%2C+TX+77007!5e0!3m2!1sen!2sus!4v1"
                     width="100%"

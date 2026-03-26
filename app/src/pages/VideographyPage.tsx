@@ -96,7 +96,7 @@ export function VideographyPage({ onNavigate }: VideographyPageProps) {
                 {videos.map((video, index) => (
                   <FadeIn key={video.vimeoId} delay={index * 0.08}>
                     <div>
-                      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-video bg-white/5">
+                      <div className="relative overflow-hidden aspect-video bg-white/5">
                         <iframe
                           src={`https://player.vimeo.com/video/${video.vimeoId}?dnt=1&quality=1080p&title=0&byline=0&portrait=0`}
                           className="w-full h-full"

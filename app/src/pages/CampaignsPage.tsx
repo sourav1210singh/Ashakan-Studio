@@ -58,7 +58,7 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                       const project = portfolioItems.find((p) => p.campaign === campaign.id || p.id === campaign.id);
                       if (project) onNavigate("portfolio", project.id);
                     }}
-                    className="group block relative overflow-hidden rounded-2xl sm:rounded-3xl w-full text-left"
+                    className="group block relative overflow-hidden w-full text-left"
                   >
                     <div className="relative overflow-hidden aspect-[16/10]">
                       <img

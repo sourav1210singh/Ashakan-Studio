@@ -65,7 +65,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                 { src: "/images/portfolio/lauren-anderson.jpg", alt: "Lauren Anderson — headshot", aspect: "aspect-[3/4]" },
               ].map((img, index) => (
                 <FadeIn key={img.alt} delay={index * 0.08}>
-                  <div className={`relative overflow-hidden rounded-2xl ${img.aspect} group`}>
+                  <div className={`relative overflow-hidden ${img.aspect} group`}>
                     <img
                       src={img.src}
                       alt={img.alt}

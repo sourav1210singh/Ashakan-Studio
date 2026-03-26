@@ -77,7 +77,7 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
           <section className="py-16 sm:py-24 border-t border-dark/10 bg-dark/[0.02]">
             <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-10">
               <FadeIn>
-                <div className="aspect-video rounded-lg overflow-hidden">
+                <div className="aspect-video overflow-hidden">
                   <iframe
                     src={data.videoEmbed}
                     className="w-full h-full"
@@ -131,7 +131,7 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
                 {section.image && (
                   <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                     <FadeIn delay={0.15}>
-                      <div className="aspect-[4/3] overflow-hidden rounded-lg">
+                      <div className="aspect-[4/3] overflow-hidden">
                         <img
                           src={section.image}
                           alt={section.imageAlt || section.heading}

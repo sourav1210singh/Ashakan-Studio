@@ -104,7 +104,7 @@ export function AboutSection() {
           {/* ============================================================ */}
           <div className="order-1 lg:order-2 relative">
             <FadeIn direction="left" delay={0.2}>
-              <div className="relative aspect-[3/2] rounded-2xl sm:rounded-3xl overflow-hidden">
+              <div className="relative aspect-[3/2] overflow-hidden">
                 <div
                   className="absolute inset-0"
                   style={{ transform: `translateY(${imageY}%)` }}

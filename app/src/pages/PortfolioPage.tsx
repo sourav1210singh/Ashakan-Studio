@@ -206,16 +206,6 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
       ? project.gallery.filter((g) => g.type === "video")
       : project.gallery;
 
-  const midpoint = Math.ceil(allMedia.length / 2);
-  const firstHalf = allMedia.slice(0, midpoint);
-  const secondHalf = allMedia.slice(midpoint);
-
-  // Featured item based on media type
-  const featuredItem = mediaType === "video"
-    ? allMedia.find((g) => g.type === "video" && g.vimeoId) || allMedia[0]
-    : mediaType === "photo"
-      ? allMedia[0]
-      : allMedia.find((g) => g.type === "video" && g.vimeoId) || allMedia[0];
 
   return (
     <div className="min-h-screen bg-dark">
@@ -245,76 +235,11 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
           </div>
         </section>
 
-        {/* ━━━ SECTION 2: The Story (text right-aligned) ━━━ */}
-        <section className="py-20 sm:py-32 bg-dark">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="flex justify-end">
-              <FadeIn className="lg:max-w-2xl">
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
-                  The Story
-                </h2>
-                <p className="text-lg sm:text-xl text-white/60 leading-relaxed">
-                  {project.description}
-                </p>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* ━━━ SECTION 3: Featured Video/Image ━━━ */}
-        {featuredItem && (
-          <section className="bg-dark py-4 sm:py-8">
-            <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
-              <FadeIn>
-                {featuredItem.type === "video" && featuredItem.vimeoId ? (
-                  <VimeoEmbed vimeoId={featuredItem.vimeoId} alt={featuredItem.alt} />
-                ) : (
-                  <div className="relative w-full aspect-video overflow-hidden ">
-                    <img src={featuredItem.src} alt={featuredItem.alt} className="w-full h-full object-cover" />
-                  </div>
-                )}
-              </FadeIn>
-            </div>
-          </section>
-        )}
-
-        {/* ━━━ SECTION 4: Creative Media Grid ━━━ */}
-        {firstHalf.length > 0 && (
+        {/* ━━━ SECTION 2: Full Gallery (gallery-focused, no story/quote) ━━━ */}
+        {allMedia.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={firstHalf} sectionTitle="The Work" />
-            </div>
-          </section>
-        )}
-
-        {/* ━━━ SECTION 5: Quote ━━━ */}
-        <section className="relative py-32 sm:py-44 lg:py-52 overflow-hidden">
-          <img src={project.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-black/75" />
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <div className="relative max-w-[900px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
-            <FadeIn>
-              <span className="block font-serif leading-none select-none" style={{ fontSize: "clamp(120px, 15vw, 200px)", color: "rgba(255,255,255,0.06)" }}>
-                &ldquo;
-              </span>
-              <p className="font-serif italic text-white/90 leading-relaxed -mt-16 sm:-mt-24 lg:-mt-28" style={{ fontSize: "clamp(1.5rem, 3vw, 3rem)", letterSpacing: "-0.01em" }}>
-                Every frame tells a story. Every detail matters. We craft visuals that resonate and inspire.
-              </p>
-              <div className="mt-12 sm:mt-16 flex items-center justify-center gap-4">
-                <span className="w-8 h-px bg-white/30" />
-                <p className="text-white/30 text-xs sm:text-sm tracking-[0.3em] uppercase font-light">Ashkan Studios</p>
-                <span className="w-8 h-px bg-white/30" />
-              </div>
-            </FadeIn>
-          </div>
-        </section>
-
-        {/* ━━━ SECTION 6: More Media ━━━ */}
-        {secondHalf.length > 0 && (
-          <section className="py-16 sm:py-24 bg-dark">
-            <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={secondHalf} sectionTitle="Behind the Scenes" />
+              <CreativeGrid items={allMedia} />
             </div>
           </section>
         )}

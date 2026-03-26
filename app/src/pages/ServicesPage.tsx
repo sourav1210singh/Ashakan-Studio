@@ -226,7 +226,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
               {packages.map((pkg, index) => (
                 <FadeIn key={pkg.name} delay={index * 0.1}>
                   <div
-                    className={`relative p-6 sm:p-8 rounded-2xl border ${
+                    className={`relative p-6 sm:p-8 border ${
                       pkg.popular
                         ? "border-dark bg-dark text-white"
                         : "border-dark/10 bg-white text-dark"
