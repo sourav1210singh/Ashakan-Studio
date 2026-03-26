@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { getProjectById, getAllProjects, type GalleryItem } from "@/data/projects";
+import { portfolioItems } from "@/data/portfolio";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -39,7 +40,7 @@ function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
     return (
       <button
         onClick={() => setIsPlaying(true)}
-        className="relative w-full aspect-video overflow-hidden rounded-xl sm:rounded-2xl group cursor-pointer"
+        className="relative w-full aspect-video overflow-hidden  group cursor-pointer"
       >
         <img src={thumbUrl} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
@@ -53,7 +54,7 @@ function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
   }
 
   return (
-    <div className="relative w-full aspect-video overflow-hidden rounded-xl sm:rounded-2xl">
+    <div className="relative w-full aspect-video overflow-hidden ">
       <iframe
         src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&dnt=1&quality=1080p&title=0&byline=0&portrait=0`}
         className="w-full h-full"
@@ -69,7 +70,7 @@ function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
 function ImageBlock({ src, alt, aspect }: { src: string; alt: string; aspect?: string }) {
   const cls = aspect === "portrait" ? "aspect-[3/4]" : aspect === "square" ? "aspect-square" : "aspect-[4/3]";
   return (
-    <div className={`relative overflow-hidden rounded-xl sm:rounded-2xl ${cls} group`}>
+    <div className={`relative overflow-hidden  ${cls} group`}>
       <img src={src} alt={alt} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
     </div>
   );
@@ -192,14 +193,29 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
     );
   }
 
-  // Split gallery into two halves for creative layout
-  const allMedia = project.gallery;
+  // Get portfolio metadata (mediaType, industry)
+  const portfolioMeta = portfolioItems.find((p) => p.id === slug);
+  const mediaType = portfolioMeta?.mediaType || "both";
+  const industry = portfolioMeta?.category || "";
+  const mediaLabel = mediaType === "photo" ? "PHOTOGRAPHY" : mediaType === "video" ? "VIDEOGRAPHY" : "PHOTOGRAPHY / VIDEOGRAPHY";
+
+  // Filter gallery based on portfolio mediaType
+  const allMedia = mediaType === "photo"
+    ? project.gallery.filter((g) => g.type === "image")
+    : mediaType === "video"
+      ? project.gallery.filter((g) => g.type === "video")
+      : project.gallery;
+
   const midpoint = Math.ceil(allMedia.length / 2);
   const firstHalf = allMedia.slice(0, midpoint);
   const secondHalf = allMedia.slice(midpoint);
 
-  // Featured item (first video, or first item)
-  const featuredItem = allMedia.find((g) => g.type === "video" && g.vimeoId) || allMedia[0];
+  // Featured item based on media type
+  const featuredItem = mediaType === "video"
+    ? allMedia.find((g) => g.type === "video" && g.vimeoId) || allMedia[0]
+    : mediaType === "photo"
+      ? allMedia[0]
+      : allMedia.find((g) => g.type === "video" && g.vimeoId) || allMedia[0];
 
   return (
     <div className="min-h-screen bg-dark">
@@ -213,6 +229,11 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
           <div className="absolute inset-0 flex flex-col justify-end">
             <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-10 pb-16 sm:pb-24">
               <FadeIn>
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">{mediaLabel}</span>
+                  <span className="w-8 h-px bg-white/30" />
+                  <span className="text-xs font-medium tracking-[0.2em] text-white/70 uppercase">{industry}</span>
+                </div>
                 <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.9] mb-4">
                   {project.client}
                 </h1>
@@ -248,7 +269,7 @@ export function PortfolioPage({ slug, onBack, onNavigate }: PortfolioPageProps) 
                 {featuredItem.type === "video" && featuredItem.vimeoId ? (
                   <VimeoEmbed vimeoId={featuredItem.vimeoId} alt={featuredItem.alt} />
                 ) : (
-                  <div className="relative w-full aspect-video overflow-hidden rounded-xl sm:rounded-2xl">
+                  <div className="relative w-full aspect-video overflow-hidden ">
                     <img src={featuredItem.src} alt={featuredItem.alt} className="w-full h-full object-cover" />
                   </div>
                 )}
