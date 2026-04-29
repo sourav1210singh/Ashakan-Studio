@@ -122,11 +122,29 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
   while (i < items.length) {
     const remaining = items.length - i;
     const rowIndex = rows.length;
+    const current = items[i];
+    const nextItem = i + 1 < items.length ? items[i + 1] : null;
+
+    // Smart layout: if two consecutive videos, always pair them in 2-col
+    const bothVideos = current.type === "video" && nextItem?.type === "video" && remaining >= 2;
 
     // Pattern: alternate between different layouts
     const pattern = rowIndex % 5;
 
-    if (pattern === 0 && remaining >= 1) {
+    if (bothVideos) {
+      // Two videos side by side — always looks good
+      rows.push(
+        <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <FadeIn delay={0.1}>
+            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <VimeoEmbed vimeoId={nextItem!.vimeoId!} alt={nextItem!.alt} />
+          </FadeIn>
+        </div>
+      );
+      i += 2;
+    } else if (pattern === 0 && remaining >= 1) {
       // Full-width single item
       const item = items[i];
       rows.push(
@@ -391,7 +409,49 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </section>
         )}
 
-        {/* ━━━ SECTION 7: CTA (DARK) ━━━ */}
+        {/* ━━━ SECTION 7: Project Details — Case Study Info (DARK) ━━━ */}
+        <section className="py-20 sm:py-32 bg-dark border-t border-white/10">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+              <FadeIn>
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
+                  Project Details
+                </h2>
+                <p className="text-lg text-white/60 leading-relaxed">
+                  This campaign was a collaborative effort between our full creative team and {project.client}.
+                  From concept development through final delivery, every element was carefully crafted to
+                  align with the brand&rsquo;s vision and objectives. The result is a cohesive body of work
+                  that showcases both creative excellence and strategic thinking.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.15}>
+                <div className="space-y-8 lg:pt-8">
+                  <div>
+                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">Services</span>
+                    <p className="font-display text-lg text-white mt-2">{project.categories.join(" / ")}</p>
+                  </div>
+                  <div className="h-px bg-white/10" />
+                  <div>
+                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">Deliverables</span>
+                    <p className="font-display text-lg text-white mt-2">
+                      {allMedia.filter((g) => g.type === "image").length} Photos, {allMedia.filter((g) => g.type === "video").length} Videos
+                    </p>
+                  </div>
+                  <div className="h-px bg-white/10" />
+                  <div>
+                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">Approach</span>
+                    <p className="text-base text-white/60 mt-2 leading-relaxed">
+                      Full-service production including creative direction, photography, videography,
+                      styling, and post-production. Shot on location and in studio.
+                    </p>
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
+
+        {/* ━━━ SECTION 8: CTA (DARK) ━━━ */}
         <section className="py-20 sm:py-32 bg-dark">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
