@@ -30,7 +30,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
       ticking = true;
       requestAnimationFrame(() => {
         const y = window.scrollY;
-        setIsScrolled(y > 100);
+
+        // On home page, keep header transparent for the entire door-portal
+        // intro section (~3 viewports tall). Other pages use the small
+        // 100px threshold as before.
+        const opaqueThreshold =
+          currentView === "home" ? window.innerHeight * 2.6 : 100;
+        setIsScrolled(y > opaqueThreshold);
 
         // Hide on scroll-down past threshold; show on scroll-up
         const delta = y - lastY;
@@ -44,9 +50,12 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
       });
     };
 
+    // Run once on mount/view-change so threshold is correct after navigation
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [currentView]);
 
   // Always show header when menu is open
   const headerHidden = isHidden && !isMenuOpen;

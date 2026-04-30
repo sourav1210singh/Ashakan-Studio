@@ -25,11 +25,13 @@ export function LensIntroSection() {
   });
 
   /* Smooth out scroll progress with spring physics so all transforms
-     glide rather than snap to scroll position. */
+     glide rather than snap to scroll position. Lower stiffness + higher
+     damping = more luxurious, gradual motion (especially on big scale). */
   const scrollYProgress = useSpring(rawProgress, {
-    stiffness: 120,
-    damping: 28,
-    restDelta: 0.0005,
+    stiffness: 70,
+    damping: 32,
+    mass: 0.9,
+    restDelta: 0.0002,
   });
 
   /* ─── Sequential scroll choreography (gradual + smooth) ────
@@ -51,8 +53,13 @@ export function LensIntroSection() {
   // Door opens AFTER both texts are gone — POSITIVE rotateY = swings open from LEFT
   const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, 92]);
 
-  // Portal scales toward viewer (overlaps end of door open)
-  const portalScale = useTransform(scrollYProgress, [0.65, 0.95], [1, 14]);
+  // Portal scales toward viewer — wider range + intermediate stops
+  // so the zoom ramps gradually instead of accelerating abruptly.
+  const portalScale = useTransform(
+    scrollYProgress,
+    [0.55, 0.70, 0.85, 0.98],
+    [1, 2.4, 6, 16]
+  );
 
   // Portal fades near the end so hero shows through
   const portalOpacity = useTransform(scrollYProgress, [0.88, 1], [1, 0]);
@@ -165,8 +172,11 @@ export function LensIntroSection() {
           </h2>
         </motion.div>
 
-        {/* ─── Door portal (centered, scales with scroll) ─── */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* ─── Door portal (centered + slight downward offset) ─── */}
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ paddingTop: "4vh" }}
+        >
           <motion.div
             className="relative"
             style={{
