@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from "react";
+import { useId, useRef, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import {
   motion,
@@ -8,6 +8,113 @@ import {
   useSpring,
   type MotionValue,
 } from "framer-motion";
+
+/* Vimeo BTS reel that plays inside the bold text letters */
+const HERO_VIDEO_ID = "1022971286"; // Vitacca Ballet — Season Promo (motion + texture)
+
+/* ────────────────────────────────────────────────────────────
+   VideoTextWord — bold word whose letter shapes act as a
+   "window" through which a Vimeo BTS reel plays continuously.
+   Implementation: an SVG <mask> built from the text shape clips
+   a <foreignObject> hosting the Vimeo iframe — so the video is
+   only visible inside the letters; everything around stays cream.
+   ──────────────────────────────────────────────────────────── */
+interface VideoTextWordProps {
+  children: string;
+  className?: string;
+  style?: React.CSSProperties;
+  /** Vimeo numeric ID — defaults to HERO_VIDEO_ID */
+  vimeoId?: string;
+}
+
+function VideoTextWord({
+  children,
+  className = "",
+  style = {},
+  vimeoId = HERO_VIDEO_ID,
+}: VideoTextWordProps) {
+  const maskId = useId().replace(/:/g, "");
+
+  return (
+    <span
+      className={className}
+      style={{
+        position: "relative",
+        display: "inline-block",
+        verticalAlign: "baseline",
+        ...style,
+      }}
+    >
+      {/* Layout placeholder — invisible, but determines width/height */}
+      <span style={{ visibility: "hidden", whiteSpace: "pre" }}>{children}</span>
+
+      {/* Fallback letter color (visible if SVG/foreignObject fails) */}
+      <span
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          color: "#1A1A1A",
+          pointerEvents: "none",
+        }}
+      >
+        {children}
+      </span>
+
+      {/* SVG with masked video — covers the layout box exactly */}
+      <svg
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "visible",
+          pointerEvents: "none",
+        }}
+      >
+        <defs>
+          <mask id={maskId} maskUnits="userSpaceOnUse">
+            <rect width="100%" height="100%" fill="black" />
+            <text
+              x="50%"
+              y="50%"
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill="white"
+              style={{
+                font: "inherit",
+                letterSpacing: "inherit",
+              }}
+            >
+              {children}
+            </text>
+          </mask>
+        </defs>
+        <foreignObject
+          x="-15%"
+          y="-50%"
+          width="130%"
+          height="200%"
+          mask={`url(#${maskId})`}
+        >
+          <iframe
+            src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&dnt=1&controls=0`}
+            title={children}
+            allow="autoplay; fullscreen"
+            style={{
+              width: "100%",
+              height: "100%",
+              border: 0,
+              display: "block",
+              pointerEvents: "none",
+            }}
+          />
+        </foreignObject>
+      </svg>
+    </span>
+  );
+}
 
 /* ────────────────────────────────────────────────────────────
    MagneticWord — pulls the wrapped word toward the cursor
@@ -328,7 +435,7 @@ export function HeroSection() {
             }}
           >
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -336,7 +443,16 @@ export function HeroSection() {
               }}
               strength={0.2}
             >
-              VISUAL
+              <VideoTextWord
+                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                style={{
+                  fontWeight: 900,
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.9,
+                }}
+              >
+                VISUAL
+              </VideoTextWord>
             </MagneticWord>
             <InlineCutout
               src="/images/hero/cameraman-cutout.png"
@@ -353,7 +469,7 @@ export function HeroSection() {
             />
             <span className="md:hidden"> </span>
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -361,7 +477,16 @@ export function HeroSection() {
               }}
               strength={0.2}
             >
-              STORIES
+              <VideoTextWord
+                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                style={{
+                  fontWeight: 900,
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.9,
+                }}
+              >
+                STORIES
+              </VideoTextWord>
             </MagneticWord>
           </motion.div>
 
@@ -386,7 +511,7 @@ export function HeroSection() {
               THAT
             </MagneticWord>
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase text-dark"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -394,7 +519,16 @@ export function HeroSection() {
               }}
               strength={0.2}
             >
-              INSPIRE
+              <VideoTextWord
+                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                style={{
+                  fontWeight: 900,
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.9,
+                }}
+              >
+                INSPIRE
+              </VideoTextWord>
             </MagneticWord>
             <InlineCutout
               src="/images/hero/portrait-cutout.png"
