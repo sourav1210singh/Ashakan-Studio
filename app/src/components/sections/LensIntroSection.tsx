@@ -64,191 +64,22 @@ export function LensIntroSection() {
     >
       {/* Sticky pinned viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* ─── Sky gradient (top) → Sea gradient (bottom) ─── */}
+        {/* ─── Real photo background: clouds + ocean ─── */}
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             opacity: skyOpacity,
-            background:
-              "linear-gradient(180deg," +
-              "  #6BA8D6 0%," +     /* deep sky top */
-              "  #A8CDE6 30%," +    /* mid sky */
-              "  #E8F1F5 55%," +    /* horizon haze */
-              "  #C8DDE8 60%," +    /* horizon line */
-              "  #7FA8C0 75%," +    /* shallow sea */
-              "  #4A7A98 95%," +    /* deeper sea */
-              "  #2E5575 100%" +
-              ")",
+            backgroundImage: "url('/images/hero/sky-ocean.jpg')",
           }}
         />
 
-        {/* ─── Real clouds (top half — fluffy SVG shapes) ─── */}
-        <motion.svg
-          className="absolute inset-x-0 top-0 pointer-events-none w-full"
-          style={{ opacity: skyOpacity, height: "55%" }}
-          viewBox="0 0 1600 500"
-          preserveAspectRatio="xMidYMid slice"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <filter id="cloudBlur">
-              <feGaussianBlur stdDeviation="6" />
-            </filter>
-            <radialGradient id="cloudGrad">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-              <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-
-          {/* Distant haze clouds (smaller, softer) */}
-          <g filter="url(#cloudBlur)" opacity="0.6">
-            <ellipse cx="200" cy="120" rx="140" ry="35" fill="#FFFFFF" />
-            <ellipse cx="900" cy="80" rx="180" ry="32" fill="#FFFFFF" />
-            <ellipse cx="1400" cy="140" rx="160" ry="38" fill="#FFFFFF" />
-          </g>
-
-          {/* Mid clouds (puffy) */}
-          <g opacity="0.85">
-            {/* Cloud 1 — left */}
-            <ellipse cx="180" cy="200" rx="80" ry="32" fill="#FFFFFF" />
-            <ellipse cx="240" cy="190" rx="70" ry="40" fill="#FFFFFF" />
-            <ellipse cx="300" cy="200" rx="60" ry="30" fill="#FFFFFF" />
-            <ellipse cx="220" cy="215" rx="100" ry="22" fill="#FFFFFF" />
-
-            {/* Cloud 2 — center-left */}
-            <ellipse cx="600" cy="160" rx="70" ry="28" fill="#FFFFFF" />
-            <ellipse cx="660" cy="148" rx="55" ry="35" fill="#FFFFFF" />
-            <ellipse cx="720" cy="158" rx="60" ry="26" fill="#FFFFFF" />
-            <ellipse cx="640" cy="172" rx="90" ry="18" fill="#FFFFFF" />
-
-            {/* Cloud 3 — center-right */}
-            <ellipse cx="1080" cy="220" rx="90" ry="36" fill="#FFFFFF" />
-            <ellipse cx="1150" cy="205" rx="75" ry="42" fill="#FFFFFF" />
-            <ellipse cx="1220" cy="218" rx="65" ry="32" fill="#FFFFFF" />
-            <ellipse cx="1130" cy="235" rx="110" ry="22" fill="#FFFFFF" />
-
-            {/* Cloud 4 — right edge */}
-            <ellipse cx="1480" cy="180" rx="60" ry="26" fill="#FFFFFF" />
-            <ellipse cx="1540" cy="172" rx="50" ry="32" fill="#FFFFFF" />
-            <ellipse cx="1600" cy="180" rx="55" ry="28" fill="#FFFFFF" />
-          </g>
-
-          {/* Foreground wisps (lighter, near horizon) */}
-          <g opacity="0.5" filter="url(#cloudBlur)">
-            <ellipse cx="350" cy="320" rx="180" ry="18" fill="#FFFFFF" />
-            <ellipse cx="900" cy="310" rx="220" ry="16" fill="#FFFFFF" />
-            <ellipse cx="1350" cy="330" rx="180" ry="20" fill="#FFFFFF" />
-          </g>
-        </motion.svg>
-
-        {/* ─── Sea / water (bottom — wave ripples) ─── */}
-        <motion.svg
-          className="absolute inset-x-0 bottom-0 pointer-events-none w-full"
-          style={{ opacity: skyOpacity, height: "32%" }}
-          viewBox="0 0 1600 300"
-          preserveAspectRatio="xMidYMax slice"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#A8C5D8" stopOpacity="0" />
-              <stop offset="20%" stopColor="#8FB0C8" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#3F6B8C" stopOpacity="0.85" />
-            </linearGradient>
-            <linearGradient id="waveLight" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-
-          {/* Sea body */}
-          <rect x="0" y="0" width="1600" height="300" fill="url(#seaGrad)" />
-
-          {/* Wave ripples — distant (subtle horizontal lines) */}
-          <g opacity="0.4">
-            <path
-              d="M 0 35 Q 200 30 400 35 T 800 35 T 1200 35 T 1600 35"
-              stroke="#FFFFFF"
-              strokeWidth="1"
-              fill="none"
-              opacity="0.5"
-            />
-            <path
-              d="M 0 65 Q 250 60 500 65 T 1000 65 T 1500 65 L 1600 65"
-              stroke="#FFFFFF"
-              strokeWidth="1"
-              fill="none"
-              opacity="0.4"
-            />
-            <path
-              d="M 0 95 Q 180 92 360 95 T 720 95 T 1080 95 T 1440 95 L 1600 95"
-              stroke="#FFFFFF"
-              strokeWidth="1"
-              fill="none"
-              opacity="0.35"
-            />
-          </g>
-
-          {/* Mid waves */}
-          <g opacity="0.55">
-            <path
-              d="M 0 140 Q 150 128 300 140 T 600 140 T 900 140 T 1200 140 T 1500 140 L 1600 140"
-              stroke="#FFFFFF"
-              strokeWidth="1.5"
-              fill="none"
-            />
-            <path
-              d="M 0 175 Q 200 162 400 175 T 800 175 T 1200 175 T 1600 175"
-              stroke="#FFFFFF"
-              strokeWidth="1.5"
-              fill="none"
-              opacity="0.6"
-            />
-          </g>
-
-          {/* Closer wave crests with subtle highlight */}
-          <g opacity="0.7">
-            <path
-              d="M 0 215 Q 150 200 320 215 T 640 215 T 980 215 T 1320 215 T 1600 215 L 1600 240 Q 1300 235 980 240 T 640 240 T 320 240 T 0 240 Z"
-              fill="url(#waveLight)"
-              opacity="0.45"
-            />
-            <path
-              d="M 0 215 Q 150 200 320 215 T 640 215 T 980 215 T 1320 215 T 1600 215"
-              stroke="#FFFFFF"
-              strokeWidth="2"
-              fill="none"
-              opacity="0.7"
-            />
-          </g>
-
-          {/* Foreground swell with reflective sheen */}
-          <g opacity="0.85">
-            <path
-              d="M 0 270 Q 200 250 420 270 T 820 270 T 1180 270 T 1600 270 L 1600 300 L 0 300 Z"
-              fill="#3F6B8C"
-              opacity="0.4"
-            />
-            <path
-              d="M 0 270 Q 200 250 420 270 T 820 270 T 1180 270 T 1600 270"
-              stroke="#FFFFFF"
-              strokeWidth="2"
-              fill="none"
-              opacity="0.55"
-            />
-          </g>
-        </motion.svg>
-
-        {/* Soft horizon haze — blends sky and sea */}
+        {/* Subtle warm tone overlay so the door reads against the image */}
         <motion.div
-          className="absolute inset-x-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none"
           style={{
             opacity: skyOpacity,
-            top: "53%",
-            height: "8%",
             background:
-              "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)",
+              "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 30%, transparent 70%, rgba(20,40,80,0.10) 100%)",
           }}
         />
 
@@ -280,14 +111,22 @@ export function LensIntroSection() {
           className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-end pb-32 xl:pb-40"
           style={{ y: rightTextY, opacity: rightTextOpacity, width: "30%" }}
         >
-          <div className="px-10 xl:px-16 text-right ml-auto">
-            <p className="text-base xl:text-lg text-dark/70 leading-relaxed mb-6">
+          <div className="px-10 xl:px-16 text-right ml-auto max-w-md">
+            <p
+              className="font-display text-dark/85 mb-8"
+              style={{
+                fontSize: "clamp(15px, 1.05vw, 19px)",
+                lineHeight: 1.55,
+                letterSpacing: "0.005em",
+                fontWeight: 500,
+              }}
+            >
               A Houston-based production studio crafting commercial photography,
               cinematic videography, and brand campaigns that command attention.
             </p>
             <div className="flex justify-end">
-              <span className="inline-flex items-center gap-3 text-xs font-medium tracking-[0.3em] text-dark/60 uppercase">
-                <span className="w-8 h-px bg-dark/30" />
+              <span className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase">
+                <span className="w-8 h-px bg-dark/40" />
                 Enter the Studio
               </span>
             </div>

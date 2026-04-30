@@ -14,6 +14,7 @@ const DARK_PAGES: View[] = ["work", "photography", "videography", "campaigns", "
 
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubDropdown, setActiveSubDropdown] = useState<string | null>(null);
@@ -21,13 +22,34 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const isDarkPage = DARK_PAGES.includes(currentView as View);
 
   useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        setIsScrolled(y > 100);
+
+        // Hide on scroll-down past threshold; show on scroll-up
+        const delta = y - lastY;
+        if (y > 80 && delta > 4) {
+          setIsHidden(true); // scrolling DOWN → hide
+        } else if (delta < -4 || y < 80) {
+          setIsHidden(false); // scrolling UP (or near top) → show
+        }
+        lastY = y;
+        ticking = false;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Always show header when menu is open
+  const headerHidden = isHidden && !isMenuOpen;
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -174,7 +196,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isMenuOpen
             ? "bg-cream"
             : isScrolled
@@ -182,9 +204,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               : "bg-transparent"
         }`}
         style={{
-          opacity: 1,
-          transform: "translateY(0)",
+          opacity: headerHidden ? 0 : 1,
+          transform: headerHidden ? "translateY(-100%)" : "translateY(0)",
           animation: "fadeInDown 0.6s ease-out 0.2s both",
+          pointerEvents: headerHidden ? "none" : "auto",
         }}
       >
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
