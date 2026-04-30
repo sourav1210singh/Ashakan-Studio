@@ -24,24 +24,36 @@ export function LensIntroSection() {
     offset: ["start start", "end end"],
   });
 
-  // Door swings open on left hinge (0% → 35% scroll)
-  const doorRotateY = useTransform(scrollYProgress, [0, 0.4], [0, -88]);
+  /* ─── Sequential scroll choreography ───────────────────────
+     Phase 1 (0% → 10%):  Left text scrolls up
+     Phase 2 (10% → 22%): Right text scrolls up
+     Phase 3 (22% → 60%): Door opens smoothly (38% scroll range)
+     Phase 4 (60% → 90%): Portal zooms toward viewer
+     Phase 5 (85% → 98%): Portal fades, hero revealed
+     ─────────────────────────────────────────────────────────── */
 
-  // Door + frame scales toward viewer (15% → 85% scroll)
-  const portalScale = useTransform(scrollYProgress, [0.15, 0.85], [1, 14]);
+  // Left text — fades + scrolls up first
+  const leftTextY = useTransform(scrollYProgress, [0, 0.10], [0, -350]);
+  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.06, 0.10], [1, 0.6, 0]);
+
+  // Right text — fades + scrolls up after left
+  const rightTextY = useTransform(scrollYProgress, [0.08, 0.22], [0, -350]);
+  const rightTextOpacity = useTransform(scrollYProgress, [0.10, 0.18, 0.22], [1, 0.5, 0]);
+
+  // Door opens smoothly across a wide scroll range (= slow & smooth)
+  const doorRotateY = useTransform(scrollYProgress, [0.22, 0.60], [0, -88]);
+
+  // Portal scales toward viewer (after door is fully open)
+  const portalScale = useTransform(scrollYProgress, [0.55, 0.92], [1, 14]);
 
   // Portal fades near the end so hero shows through
-  const portalOpacity = useTransform(scrollYProgress, [0.78, 0.95], [1, 0]);
+  const portalOpacity = useTransform(scrollYProgress, [0.85, 0.98], [1, 0]);
 
-  // Sky background fades out as we "pass through"
-  const skyOpacity = useTransform(scrollYProgress, [0.7, 1], [1, 0]);
+  // Sky + sea fade out as we "pass through"
+  const skyOpacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
 
-  // Hint fades quickly
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
-
-  // Side text: scrolls UP and fades as user scrolls into the portal
-  const textTranslateY = useTransform(scrollYProgress, [0, 0.5], [0, -400]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4], [1, 0.7, 0]);
+  // Hint fades during phase 1
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
 
   return (
     <section
@@ -52,31 +64,198 @@ export function LensIntroSection() {
     >
       {/* Sticky pinned viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* ─── Sky gradient + cloud blobs ─── */}
+        {/* ─── Sky gradient (top) → Sea gradient (bottom) ─── */}
         <motion.div
           className="absolute inset-0"
           style={{
             opacity: skyOpacity,
             background:
-              "linear-gradient(180deg, #B5D4E8 0%, #DCE9F0 35%, #F0EDE3 75%, #F5F1E8 100%)",
+              "linear-gradient(180deg," +
+              "  #6BA8D6 0%," +     /* deep sky top */
+              "  #A8CDE6 30%," +    /* mid sky */
+              "  #E8F1F5 55%," +    /* horizon haze */
+              "  #C8DDE8 60%," +    /* horizon line */
+              "  #7FA8C0 75%," +    /* shallow sea */
+              "  #4A7A98 95%," +    /* deeper sea */
+              "  #2E5575 100%" +
+              ")",
           }}
         />
-        {/* Cloud blobs (very soft) */}
+
+        {/* ─── Real clouds (top half — fluffy SVG shapes) ─── */}
+        <motion.svg
+          className="absolute inset-x-0 top-0 pointer-events-none w-full"
+          style={{ opacity: skyOpacity, height: "55%" }}
+          viewBox="0 0 1600 500"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <filter id="cloudBlur">
+              <feGaussianBlur stdDeviation="6" />
+            </filter>
+            <radialGradient id="cloudGrad">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+              <stop offset="60%" stopColor="#FFFFFF" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+
+          {/* Distant haze clouds (smaller, softer) */}
+          <g filter="url(#cloudBlur)" opacity="0.6">
+            <ellipse cx="200" cy="120" rx="140" ry="35" fill="#FFFFFF" />
+            <ellipse cx="900" cy="80" rx="180" ry="32" fill="#FFFFFF" />
+            <ellipse cx="1400" cy="140" rx="160" ry="38" fill="#FFFFFF" />
+          </g>
+
+          {/* Mid clouds (puffy) */}
+          <g opacity="0.85">
+            {/* Cloud 1 — left */}
+            <ellipse cx="180" cy="200" rx="80" ry="32" fill="#FFFFFF" />
+            <ellipse cx="240" cy="190" rx="70" ry="40" fill="#FFFFFF" />
+            <ellipse cx="300" cy="200" rx="60" ry="30" fill="#FFFFFF" />
+            <ellipse cx="220" cy="215" rx="100" ry="22" fill="#FFFFFF" />
+
+            {/* Cloud 2 — center-left */}
+            <ellipse cx="600" cy="160" rx="70" ry="28" fill="#FFFFFF" />
+            <ellipse cx="660" cy="148" rx="55" ry="35" fill="#FFFFFF" />
+            <ellipse cx="720" cy="158" rx="60" ry="26" fill="#FFFFFF" />
+            <ellipse cx="640" cy="172" rx="90" ry="18" fill="#FFFFFF" />
+
+            {/* Cloud 3 — center-right */}
+            <ellipse cx="1080" cy="220" rx="90" ry="36" fill="#FFFFFF" />
+            <ellipse cx="1150" cy="205" rx="75" ry="42" fill="#FFFFFF" />
+            <ellipse cx="1220" cy="218" rx="65" ry="32" fill="#FFFFFF" />
+            <ellipse cx="1130" cy="235" rx="110" ry="22" fill="#FFFFFF" />
+
+            {/* Cloud 4 — right edge */}
+            <ellipse cx="1480" cy="180" rx="60" ry="26" fill="#FFFFFF" />
+            <ellipse cx="1540" cy="172" rx="50" ry="32" fill="#FFFFFF" />
+            <ellipse cx="1600" cy="180" rx="55" ry="28" fill="#FFFFFF" />
+          </g>
+
+          {/* Foreground wisps (lighter, near horizon) */}
+          <g opacity="0.5" filter="url(#cloudBlur)">
+            <ellipse cx="350" cy="320" rx="180" ry="18" fill="#FFFFFF" />
+            <ellipse cx="900" cy="310" rx="220" ry="16" fill="#FFFFFF" />
+            <ellipse cx="1350" cy="330" rx="180" ry="20" fill="#FFFFFF" />
+          </g>
+        </motion.svg>
+
+        {/* ─── Sea / water (bottom — wave ripples) ─── */}
+        <motion.svg
+          className="absolute inset-x-0 bottom-0 pointer-events-none w-full"
+          style={{ opacity: skyOpacity, height: "32%" }}
+          viewBox="0 0 1600 300"
+          preserveAspectRatio="xMidYMax slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#A8C5D8" stopOpacity="0" />
+              <stop offset="20%" stopColor="#8FB0C8" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#3F6B8C" stopOpacity="0.85" />
+            </linearGradient>
+            <linearGradient id="waveLight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {/* Sea body */}
+          <rect x="0" y="0" width="1600" height="300" fill="url(#seaGrad)" />
+
+          {/* Wave ripples — distant (subtle horizontal lines) */}
+          <g opacity="0.4">
+            <path
+              d="M 0 35 Q 200 30 400 35 T 800 35 T 1200 35 T 1600 35"
+              stroke="#FFFFFF"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.5"
+            />
+            <path
+              d="M 0 65 Q 250 60 500 65 T 1000 65 T 1500 65 L 1600 65"
+              stroke="#FFFFFF"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.4"
+            />
+            <path
+              d="M 0 95 Q 180 92 360 95 T 720 95 T 1080 95 T 1440 95 L 1600 95"
+              stroke="#FFFFFF"
+              strokeWidth="1"
+              fill="none"
+              opacity="0.35"
+            />
+          </g>
+
+          {/* Mid waves */}
+          <g opacity="0.55">
+            <path
+              d="M 0 140 Q 150 128 300 140 T 600 140 T 900 140 T 1200 140 T 1500 140 L 1600 140"
+              stroke="#FFFFFF"
+              strokeWidth="1.5"
+              fill="none"
+            />
+            <path
+              d="M 0 175 Q 200 162 400 175 T 800 175 T 1200 175 T 1600 175"
+              stroke="#FFFFFF"
+              strokeWidth="1.5"
+              fill="none"
+              opacity="0.6"
+            />
+          </g>
+
+          {/* Closer wave crests with subtle highlight */}
+          <g opacity="0.7">
+            <path
+              d="M 0 215 Q 150 200 320 215 T 640 215 T 980 215 T 1320 215 T 1600 215 L 1600 240 Q 1300 235 980 240 T 640 240 T 320 240 T 0 240 Z"
+              fill="url(#waveLight)"
+              opacity="0.45"
+            />
+            <path
+              d="M 0 215 Q 150 200 320 215 T 640 215 T 980 215 T 1320 215 T 1600 215"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              fill="none"
+              opacity="0.7"
+            />
+          </g>
+
+          {/* Foreground swell with reflective sheen */}
+          <g opacity="0.85">
+            <path
+              d="M 0 270 Q 200 250 420 270 T 820 270 T 1180 270 T 1600 270 L 1600 300 L 0 300 Z"
+              fill="#3F6B8C"
+              opacity="0.4"
+            />
+            <path
+              d="M 0 270 Q 200 250 420 270 T 820 270 T 1180 270 T 1600 270"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              fill="none"
+              opacity="0.55"
+            />
+          </g>
+        </motion.svg>
+
+        {/* Soft horizon haze — blends sky and sea */}
         <motion.div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-x-0 pointer-events-none"
           style={{
             opacity: skyOpacity,
+            top: "53%",
+            height: "8%",
             background:
-              "radial-gradient(ellipse 60% 40% at 18% 28%, rgba(255,255,255,0.55) 0%, transparent 65%)," +
-              "radial-gradient(ellipse 50% 35% at 82% 35%, rgba(255,255,255,0.45) 0%, transparent 60%)," +
-              "radial-gradient(ellipse 70% 30% at 50% 90%, rgba(255,255,255,0.35) 0%, transparent 55%)",
+              "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)",
           }}
         />
 
         {/* ─── Left side text — bold headline (desktop only) ─── */}
         <motion.div
           className="absolute left-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
-          style={{ y: textTranslateY, opacity: textOpacity, width: "32%" }}
+          style={{ y: leftTextY, opacity: leftTextOpacity, width: "32%" }}
         >
           <div className="px-10 xl:px-16">
             <p className="text-xs xl:text-sm font-medium tracking-[0.3em] text-dark/50 uppercase mb-6">
@@ -99,7 +278,7 @@ export function LensIntroSection() {
         {/* ─── Right side text — descriptive paragraph (desktop only) ─── */}
         <motion.div
           className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-end pb-32 xl:pb-40"
-          style={{ y: textTranslateY, opacity: textOpacity, width: "30%" }}
+          style={{ y: rightTextY, opacity: rightTextOpacity, width: "30%" }}
         >
           <div className="px-10 xl:px-16 text-right ml-auto">
             <p className="text-base xl:text-lg text-dark/70 leading-relaxed mb-6">
@@ -118,7 +297,7 @@ export function LensIntroSection() {
         {/* ─── Mobile: small caption above the door ─── */}
         <motion.div
           className="absolute top-24 left-0 right-0 text-center pointer-events-none lg:hidden px-4"
-          style={{ y: textTranslateY, opacity: textOpacity }}
+          style={{ y: leftTextY, opacity: leftTextOpacity }}
         >
           <p className="text-[10px] font-medium tracking-[0.3em] text-dark/50 uppercase mb-3">
             Ashkan Studios
@@ -283,19 +462,6 @@ export function LensIntroSection() {
             </div>
           </motion.div>
         </div>
-
-        {/* ─── Water reflection (subtle, bottom 25% of viewport) ─── */}
-        <motion.div
-          className="absolute inset-x-0 bottom-0 pointer-events-none"
-          style={{
-            height: "25%",
-            opacity: skyOpacity,
-            background:
-              "linear-gradient(180deg, transparent 0%, rgba(120,160,200,0.18) 40%, rgba(140,170,200,0.32) 100%)",
-            backdropFilter: "blur(2px)",
-            WebkitBackdropFilter: "blur(2px)",
-          }}
-        />
 
         {/* ─── Scroll hint ─── */}
         <motion.div
