@@ -19,10 +19,10 @@ type CampaignCard = {
 };
 
 const CAMPAIGN_CARDS: CampaignCard[] = [
-  { id: "deutsch-img",    label: "DEUTSCH FINE JEWELRY",  type: "image", image: "/images/portfolio/deutsch-jewelry.jpg",    slug: "deutsch-fine-jewelry" },
-  { id: "deutsch-vid",    label: "DEUTSCH FINE JEWELRY",  type: "video", image: "/images/portfolio/deutsch-jewelry.jpg",    slug: "deutsch-fine-jewelry" },
-  { id: "weissman-img",   label: "WEISSMAN ELITE",        type: "image", image: "/images/portfolio/weissman-elite.jpg",     slug: "weissman-elite" },
-  { id: "weissman-vid",   label: "WEISSMAN ELITE",        type: "video", image: "https://vumbnail.com/950064546_large.jpg",      vimeoId: "950064546", slug: "weissman-elite" },
+  { id: "deutsch-img",    label: "DEUTSCH FINE JEWELRY",  type: "image", image: "/images/portfolio/deutsch-jewelry.jpg",    slug: "deutsch" },
+  { id: "deutsch-vid",    label: "DEUTSCH FINE JEWELRY",  type: "video", image: "/images/portfolio/deutsch-jewelry.jpg",    slug: "deutsch" },
+  { id: "weissman-img",   label: "WEISSMAN ELITE",        type: "image", image: "/images/portfolio/weissman-elite.jpg",     slug: "weissman" },
+  { id: "weissman-vid",   label: "WEISSMAN ELITE",        type: "video", image: "https://vumbnail.com/950064546_large.jpg",      vimeoId: "950064546", slug: "weissman" },
   { id: "eye-img",        label: "THE EYE GALLERY",       type: "image", image: "/images/portfolio/eye-gallery.jpg",        slug: "eye-gallery" },
   { id: "eye-vid",        label: "THE EYE GALLERY",       type: "video", image: "https://vumbnail.com/529432034_large.jpg",       vimeoId: "529432034", slug: "eye-gallery" },
   { id: "monarch-img",    label: "THE MONARCH SCHOOL",    type: "image", image: "/images/portfolio/8-4Q7A9046-2.jpeg",      slug: "monarch-school" },

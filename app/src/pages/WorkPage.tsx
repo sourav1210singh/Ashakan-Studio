@@ -215,7 +215,7 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
                   name={cat.name}
                   image={photographyImages[cat.id] || "/images/portfolio/fashion.jpg"}
                   index={index}
-                  onClick={() => onNavigate("photography")}
+                  onClick={() => onNavigate("photography", cat.id)}
                 />
               ))}
             </div>
@@ -285,7 +285,7 @@ export function WorkPage({ onNavigate }: WorkPageProps) {
                   vimeoId={campaignVideos[campaign.id] || ""}
                   image={campaignImages[campaign.id] || "/images/portfolio/deutsch-jewelry.jpg"}
                   index={index}
-                  onClick={() => onNavigate("campaigns")}
+                  onClick={() => onNavigate("campaigns", campaign.id)}
                 />
               ))}
             </div>
