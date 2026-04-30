@@ -39,6 +39,10 @@ export function LensIntroSection() {
   // Hint fades quickly
   const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
+  // Side text: scrolls UP and fades as user scrolls into the portal
+  const textTranslateY = useTransform(scrollYProgress, [0, 0.5], [0, -400]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.25, 0.4], [1, 0.7, 0]);
+
   return (
     <section
       ref={sectionRef}
@@ -68,6 +72,69 @@ export function LensIntroSection() {
               "radial-gradient(ellipse 70% 30% at 50% 90%, rgba(255,255,255,0.35) 0%, transparent 55%)",
           }}
         />
+
+        {/* ─── Left side text — bold headline (desktop only) ─── */}
+        <motion.div
+          className="absolute left-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
+          style={{ y: textTranslateY, opacity: textOpacity, width: "32%" }}
+        >
+          <div className="px-10 xl:px-16">
+            <p className="text-xs xl:text-sm font-medium tracking-[0.3em] text-dark/50 uppercase mb-6">
+              Ashkan Studios
+            </p>
+            <h2
+              className="font-display text-dark tracking-tight leading-[0.95]"
+              style={{
+                fontSize: "clamp(36px, 4vw, 64px)",
+                fontWeight: 800,
+              }}
+            >
+              Step Into <em className="font-light italic">a</em> World{" "}
+              <em className="font-light italic">of</em> Visual{" "}
+              <em className="font-light italic">Storytelling</em>
+            </h2>
+          </div>
+        </motion.div>
+
+        {/* ─── Right side text — descriptive paragraph (desktop only) ─── */}
+        <motion.div
+          className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-end pb-32 xl:pb-40"
+          style={{ y: textTranslateY, opacity: textOpacity, width: "30%" }}
+        >
+          <div className="px-10 xl:px-16 text-right ml-auto">
+            <p className="text-base xl:text-lg text-dark/70 leading-relaxed mb-6">
+              A Houston-based production studio crafting commercial photography,
+              cinematic videography, and brand campaigns that command attention.
+            </p>
+            <div className="flex justify-end">
+              <span className="inline-flex items-center gap-3 text-xs font-medium tracking-[0.3em] text-dark/60 uppercase">
+                <span className="w-8 h-px bg-dark/30" />
+                Enter the Studio
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ─── Mobile: small caption above the door ─── */}
+        <motion.div
+          className="absolute top-24 left-0 right-0 text-center pointer-events-none lg:hidden px-4"
+          style={{ y: textTranslateY, opacity: textOpacity }}
+        >
+          <p className="text-[10px] font-medium tracking-[0.3em] text-dark/50 uppercase mb-3">
+            Ashkan Studios
+          </p>
+          <h2
+            className="font-display text-dark tracking-tight leading-[0.95] mx-auto max-w-md"
+            style={{
+              fontSize: "clamp(24px, 5vw, 40px)",
+              fontWeight: 800,
+            }}
+          >
+            Step Into <em className="font-light italic">a</em> World{" "}
+            <em className="font-light italic">of</em> Visual{" "}
+            <em className="font-light italic">Storytelling</em>
+          </h2>
+        </motion.div>
 
         {/* ─── Door portal (centered, scales with scroll) ─── */}
         <div className="absolute inset-0 flex items-center justify-center">
