@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 /**
  * Door portal intro: a white door stands closed in the center of a soft
@@ -19,41 +19,49 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export function LensIntroSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: rawProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  /* ─── Sequential scroll choreography ───────────────────────
-     Phase 1 (0% → 10%):  Left text scrolls up
-     Phase 2 (10% → 22%): Right text scrolls up
-     Phase 3 (22% → 60%): Door opens smoothly (38% scroll range)
-     Phase 4 (60% → 90%): Portal zooms toward viewer
-     Phase 5 (85% → 98%): Portal fades, hero revealed
+  /* Smooth out scroll progress with spring physics so all transforms
+     glide rather than snap to scroll position. */
+  const scrollYProgress = useSpring(rawProgress, {
+    stiffness: 120,
+    damping: 28,
+    restDelta: 0.0005,
+  });
+
+  /* ─── Sequential scroll choreography (gradual + smooth) ────
+     Phase 1 (0%  → 22%): Left text drifts up + fades
+     Phase 2 (18% → 42%): Right text drifts up + fades
+     Phase 3 (40% → 70%): Door opens smoothly
+     Phase 4 (65% → 95%): Portal zooms toward viewer
+     Phase 5 (88% → 100%): Portal fades, hero revealed
      ─────────────────────────────────────────────────────────── */
 
-  // Left text — fades + scrolls up first (fully gone by 12% scroll)
-  const leftTextY = useTransform(scrollYProgress, [0, 0.12], [0, -800]);
-  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.05, 0.10], [1, 0.4, 0]);
+  // Left text — gradual upward drift, fully gone by 22%
+  const leftTextY = useTransform(scrollYProgress, [0, 0.22], [0, -500]);
+  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.10, 0.20], [1, 0.5, 0]);
 
-  // Right text — fades + scrolls up after left (fully gone by 24% scroll)
-  const rightTextY = useTransform(scrollYProgress, [0.10, 0.24], [0, -800]);
-  const rightTextOpacity = useTransform(scrollYProgress, [0.10, 0.17, 0.22], [1, 0.4, 0]);
+  // Right text — starts as left finishes; gradual drift up
+  const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -500]);
+  const rightTextOpacity = useTransform(scrollYProgress, [0.20, 0.30, 0.40], [1, 0.5, 0]);
 
-  // Door opens smoothly across a wide scroll range (= slow & smooth)
-  const doorRotateY = useTransform(scrollYProgress, [0.22, 0.60], [0, -88]);
+  // Door opens AFTER both texts are gone
+  const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, -88]);
 
-  // Portal scales toward viewer (after door is fully open)
-  const portalScale = useTransform(scrollYProgress, [0.55, 0.92], [1, 14]);
+  // Portal scales toward viewer (overlaps end of door open)
+  const portalScale = useTransform(scrollYProgress, [0.65, 0.95], [1, 14]);
 
   // Portal fades near the end so hero shows through
-  const portalOpacity = useTransform(scrollYProgress, [0.85, 0.98], [1, 0]);
+  const portalOpacity = useTransform(scrollYProgress, [0.88, 1], [1, 0]);
 
   // Sky + sea fade out as we "pass through"
-  const skyOpacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
+  const skyOpacity = useTransform(scrollYProgress, [0.78, 1], [1, 0]);
 
   // Hint fades during phase 1
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.10], [1, 0]);
 
   return (
     <section
@@ -89,14 +97,19 @@ export function LensIntroSection() {
           style={{ y: leftTextY, opacity: leftTextOpacity, width: "32%" }}
         >
           <div className="px-10 xl:px-16">
-            <p className="text-xs xl:text-sm font-medium tracking-[0.3em] text-dark/50 uppercase mb-6">
+            <p
+              className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-white uppercase mb-6"
+              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+            >
               Ashkan Studios
             </p>
             <h2
-              className="font-display text-dark tracking-tight leading-[0.95]"
+              className="font-display text-white tracking-tight leading-[0.95]"
               style={{
                 fontSize: "clamp(36px, 4vw, 64px)",
                 fontWeight: 800,
+                textShadow:
+                  "0 2px 12px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.5)",
               }}
             >
               Step Into <em className="font-light italic">a</em> World{" "}
@@ -113,20 +126,25 @@ export function LensIntroSection() {
         >
           <div className="px-10 xl:px-16 text-right ml-auto max-w-md">
             <p
-              className="font-display text-dark/85 mb-8"
+              className="font-display text-white mb-8"
               style={{
                 fontSize: "clamp(15px, 1.05vw, 19px)",
                 lineHeight: 1.55,
                 letterSpacing: "0.005em",
                 fontWeight: 500,
+                textShadow:
+                  "0 2px 10px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.4)",
               }}
             >
               A Houston-based production studio crafting commercial photography,
               cinematic videography, and brand campaigns that command attention.
             </p>
             <div className="flex justify-end">
-              <span className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase">
-                <span className="w-8 h-px bg-dark/40" />
+              <span
+                className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-white uppercase"
+                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}
+              >
+                <span className="w-8 h-px bg-white/70" />
                 Enter the Studio
               </span>
             </div>
@@ -138,14 +156,19 @@ export function LensIntroSection() {
           className="absolute top-24 left-0 right-0 text-center pointer-events-none lg:hidden px-4"
           style={{ y: leftTextY, opacity: leftTextOpacity }}
         >
-          <p className="text-[10px] font-medium tracking-[0.3em] text-dark/50 uppercase mb-3">
+          <p
+            className="text-[10px] font-semibold tracking-[0.3em] text-white uppercase mb-3"
+            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}
+          >
             Ashkan Studios
           </p>
           <h2
-            className="font-display text-dark tracking-tight leading-[0.95] mx-auto max-w-md"
+            className="font-display text-white tracking-tight leading-[0.95] mx-auto max-w-md"
             style={{
               fontSize: "clamp(24px, 5vw, 40px)",
               fontWeight: 800,
+              textShadow:
+                "0 2px 10px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.4)",
             }}
           >
             Step Into <em className="font-light italic">a</em> World{" "}

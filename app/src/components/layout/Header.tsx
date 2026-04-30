@@ -196,7 +196,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 ${
           isMenuOpen
             ? "bg-cream"
             : isScrolled
@@ -206,8 +206,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         style={{
           opacity: headerHidden ? 0 : 1,
           transform: headerHidden ? "translateY(-100%)" : "translateY(0)",
-          animation: "fadeInDown 0.6s ease-out 0.2s both",
+          transition:
+            "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease-out, background-color 0.4s ease-out, box-shadow 0.4s ease-out",
           pointerEvents: headerHidden ? "none" : "auto",
+          willChange: "transform, opacity",
         }}
       >
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
