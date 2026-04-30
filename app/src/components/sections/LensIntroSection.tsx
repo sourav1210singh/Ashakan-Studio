@@ -126,268 +126,419 @@ export function LensIntroSection() {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Highly detailed 3D-rendered-looking camera (pure SVG).
-   Uses layered radial/linear gradients to fake 3D depth:
-     • Curved metallic body with side-lit shading
-     • Recessed lens with multi-layer glass reflections
-     • Chrome lens bezel with bevel highlights
-     • Top hot-shoe with subtle inner shadow
-     • LED ring + flash bulb for realism
+   Photorealistic DSLR camera — front-facing professional rig.
+   Built like a Canon 5D / Sony Alpha:
+     • Large protruding lens (zoom telephoto)
+     • Pentaprism viewfinder hump on top
+     • Right-side grip with rubberized texture
+     • Multiple control dials, shutter, AF assist
+     • Realistic metal + matte plastic differentiation
    ───────────────────────────────────────────────────────────── */
 function CameraSVG() {
   return (
     <svg
-      width="320"
-      height="230"
-      viewBox="0 0 320 230"
+      width="380"
+      height="290"
+      viewBox="0 0 380 290"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{
         filter:
-          "drop-shadow(0 20px 30px rgba(0,0,0,0.45)) drop-shadow(0 6px 12px rgba(0,0,0,0.25))",
+          "drop-shadow(0 25px 40px rgba(0,0,0,0.5)) drop-shadow(0 8px 16px rgba(0,0,0,0.3))",
       }}
     >
       <defs>
-        {/* Body gradient — top highlight, bottom shadow */}
-        <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#3A3A3A" />
-          <stop offset="35%" stopColor="#1F1F1F" />
-          <stop offset="100%" stopColor="#080808" />
+        {/* Main body — top-down lighting */}
+        <linearGradient id="dslrBody" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stopColor="#2E2E2E" />
+          <stop offset="15%" stopColor="#1A1A1A" />
+          <stop offset="55%" stopColor="#0F0F0F" />
+          <stop offset="100%" stopColor="#050505" />
         </linearGradient>
 
-        {/* Body side curve (left edge highlight) */}
-        <linearGradient id="bodySideGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#4A4A4A" stopOpacity="0.6" />
-          <stop offset="20%" stopColor="#000" stopOpacity="0" />
-          <stop offset="80%" stopColor="#000" stopOpacity="0" />
-          <stop offset="100%" stopColor="#101010" stopOpacity="0.8" />
-        </linearGradient>
-
-        {/* Grip texture gradient */}
-        <linearGradient id="gripGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2C2C2C" />
-          <stop offset="100%" stopColor="#161616" />
-        </linearGradient>
-
-        {/* Chrome lens bezel — radial for metallic ring */}
-        <radialGradient id="bezelGrad" cx="0.5" cy="0.4" r="0.6">
-          <stop offset="0%" stopColor="#9A9A9A" />
-          <stop offset="50%" stopColor="#5A5A5A" />
-          <stop offset="100%" stopColor="#1A1A1A" />
-        </radialGradient>
-
-        {/* Inner lens ring (matte black with subtle bevel) */}
-        <radialGradient id="ringGrad" cx="0.5" cy="0.4" r="0.7">
-          <stop offset="0%" stopColor="#2A2A2A" />
-          <stop offset="60%" stopColor="#0F0F0F" />
-          <stop offset="100%" stopColor="#000" />
-        </radialGradient>
-
-        {/* Lens glass — deep blue/teal sheen */}
-        <radialGradient id="lensGlass" cx="0.32" cy="0.28" r="0.85">
-          <stop offset="0%" stopColor="#5A7080" stopOpacity="0.95" />
-          <stop offset="25%" stopColor="#243540" stopOpacity="0.85" />
-          <stop offset="60%" stopColor="#0A1218" stopOpacity="0.95" />
-          <stop offset="100%" stopColor="#000" stopOpacity="1" />
-        </radialGradient>
-
-        {/* Inner aperture darkness */}
-        <radialGradient id="innerDark" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#000" />
+        {/* Side wrap shading */}
+        <linearGradient id="dslrSide" x1="0" y1="0.5" x2="1" y2="0.5">
+          <stop offset="0%" stopColor="#3A3A3A" stopOpacity="0.5" />
+          <stop offset="12%" stopColor="#000" stopOpacity="0" />
+          <stop offset="88%" stopColor="#000" stopOpacity="0" />
           <stop offset="100%" stopColor="#000" stopOpacity="0.7" />
-        </radialGradient>
+        </linearGradient>
 
-        {/* Top hump highlight */}
-        <linearGradient id="humpGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#444" />
-          <stop offset="60%" stopColor="#1C1C1C" />
+        {/* Pentaprism (top hump) */}
+        <linearGradient id="prismGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stopColor="#3A3A3A" />
+          <stop offset="40%" stopColor="#1E1E1E" />
+          <stop offset="100%" stopColor="#0C0C0C" />
+        </linearGradient>
+
+        {/* Grip rubber */}
+        <linearGradient id="gripRubber" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#1A1A1A" />
+          <stop offset="50%" stopColor="#252525" />
           <stop offset="100%" stopColor="#0A0A0A" />
         </linearGradient>
 
-        {/* Body inner shadow filter */}
-        <filter id="innerShadow">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
-        </filter>
+        {/* Lens barrel — long zoom lens shading */}
+        <radialGradient id="lensBarrel" cx="0.5" cy="0.5" r="0.55">
+          <stop offset="0%" stopColor="#2C2C2C" />
+          <stop offset="70%" stopColor="#151515" />
+          <stop offset="100%" stopColor="#000" />
+        </radialGradient>
+
+        {/* Chrome ring (between lens sections) */}
+        <linearGradient id="chromeRing" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stopColor="#B8B8B8" />
+          <stop offset="35%" stopColor="#6E6E6E" />
+          <stop offset="65%" stopColor="#383838" />
+          <stop offset="100%" stopColor="#1A1A1A" />
+        </linearGradient>
+
+        {/* Lens front element glass */}
+        <radialGradient id="frontGlass" cx="0.32" cy="0.28" r="0.85">
+          <stop offset="0%" stopColor="#7090A8" stopOpacity="0.95" />
+          <stop offset="20%" stopColor="#2A4458" stopOpacity="0.9" />
+          <stop offset="55%" stopColor="#0A1820" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#000" stopOpacity="1" />
+        </radialGradient>
+
+        {/* Inner glass — depth tunnel */}
+        <radialGradient id="innerGlass" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="#0A1218" />
+          <stop offset="70%" stopColor="#000" />
+          <stop offset="100%" stopColor="#000" />
+        </radialGradient>
+
+        {/* Aperture iris hint */}
+        <radialGradient id="iris" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor="#000" />
+          <stop offset="80%" stopColor="#000" />
+          <stop offset="100%" stopColor="#1A2530" stopOpacity="0.5" />
+        </radialGradient>
       </defs>
 
-      {/* ── Top hump (viewfinder housing) ── */}
-      <rect x="115" y="20" width="90" height="28" rx="4" fill="url(#humpGrad)" />
-      {/* Top highlight on hump */}
-      <rect x="118" y="22" width="84" height="1.5" rx="0.5" fill="#5A5A5A" opacity="0.6" />
-      {/* Hot shoe slot */}
-      <rect x="138" y="14" width="44" height="10" rx="1" fill="#0A0A0A" />
-      <rect x="140" y="16" width="40" height="2" rx="0.5" fill="#2A2A2A" />
-      <rect x="146" y="18" width="28" height="3" rx="0.5" fill="#000" />
+      {/* ════════════════════════════════════════════════════════
+         PENTAPRISM — top viewfinder hump (iconic DSLR feature)
+         ════════════════════════════════════════════════════════ */}
+      {/* Hot shoe rails (above prism) */}
+      <rect x="170" y="20" width="38" height="14" rx="1" fill="#0A0A0A" />
+      <rect x="172" y="22" width="34" height="2" rx="0.5" fill="#2A2A2A" />
+      <rect x="178" y="26" width="22" height="2" rx="0.5" fill="#000" />
+      <rect x="182" y="30" width="14" height="2" rx="0.5" fill="#0F0F0F" />
 
-      {/* ── Camera body ── */}
-      <rect x="20" y="48" width="280" height="155" rx="14" fill="url(#bodyGrad)" />
-      {/* Body side shading overlay */}
-      <rect x="20" y="48" width="280" height="155" rx="14" fill="url(#bodySideGrad)" />
-      {/* Top body highlight strip */}
-      <rect x="26" y="50" width="268" height="1.5" rx="0.5" fill="#5A5A5A" opacity="0.5" />
-      {/* Bottom body inner shadow */}
-      <rect x="26" y="200" width="268" height="2" rx="0.5" fill="#000" opacity="0.6" />
-
-      {/* ── Right-side grip with vertical ridges ── */}
-      <rect x="248" y="58" width="46" height="135" rx="8" fill="url(#gripGrad)" />
-      {/* Grip ridges */}
-      {Array.from({ length: 9 }).map((_, i) => (
-        <rect
-          key={`grip-${i}`}
-          x="254"
-          y={66 + i * 14}
-          width="34"
-          height="1.5"
-          rx="0.75"
-          fill="#000"
-          opacity="0.7"
-        />
-      ))}
-      {/* Grip highlight */}
-      <rect x="248" y="58" width="2" height="135" rx="1" fill="#5A5A5A" opacity="0.4" />
-
-      {/* ── Brand label (top-left of body) ── */}
+      {/* Pentaprism trapezoid shape */}
+      <path
+        d="M 145 60 L 158 34 L 220 34 L 233 60 Z"
+        fill="url(#prismGrad)"
+      />
+      {/* Prism top highlight edge */}
+      <line x1="158" y1="34" x2="220" y2="34" stroke="#4A4A4A" strokeWidth="1" opacity="0.7" />
+      {/* Prism brand badge */}
       <text
-        x="38"
-        y="68"
-        fontSize="10"
+        x="189"
+        y="51"
+        fontSize="6"
         fontFamily="sans-serif"
         fontWeight="700"
-        fill="#888"
-        letterSpacing="2.5"
+        fill="#777"
+        letterSpacing="1.2"
+        textAnchor="middle"
+      >
+        ASHKAN
+      </text>
+
+      {/* ════════════════════════════════════════════════════════
+         MAIN BODY
+         ════════════════════════════════════════════════════════ */}
+      {/* Body shape with subtle right-side grip bulge */}
+      <path
+        d="M 30 60
+           L 145 60
+           L 158 60
+           L 220 60
+           L 233 60
+           L 305 60
+           Q 320 60 320 75
+           L 320 165
+           Q 320 180 305 180
+           L 280 180
+           Q 285 200 305 215
+           L 290 245
+           Q 280 255 260 250
+           L 50 250
+           Q 30 250 30 230
+           L 30 75
+           Q 30 60 30 60 Z"
+        fill="url(#dslrBody)"
+      />
+      {/* Body wrap shading */}
+      <path
+        d="M 30 60
+           L 145 60
+           L 158 60
+           L 220 60
+           L 233 60
+           L 305 60
+           Q 320 60 320 75
+           L 320 165
+           Q 320 180 305 180
+           L 280 180
+           Q 285 200 305 215
+           L 290 245
+           Q 280 255 260 250
+           L 50 250
+           Q 30 250 30 230
+           L 30 75
+           Q 30 60 30 60 Z"
+        fill="url(#dslrSide)"
+      />
+      {/* Body top highlight */}
+      <path
+        d="M 30 62 L 305 62"
+        stroke="#5A5A5A"
+        strokeWidth="1"
+        opacity="0.5"
+      />
+
+      {/* ════════════════════════════════════════════════════════
+         RIGHT GRIP (rubberized texture)
+         ════════════════════════════════════════════════════════ */}
+      <path
+        d="M 270 65
+           L 305 65
+           Q 318 65 318 78
+           L 318 175
+           Q 318 188 305 188
+           L 282 188
+           Q 287 208 302 220
+           L 286 240
+           Q 280 246 268 240
+           L 270 65 Z"
+        fill="url(#gripRubber)"
+      />
+      {/* Grip rubber dimple texture */}
+      {Array.from({ length: 24 }).map((_, i) => {
+        const row = Math.floor(i / 4);
+        const col = i % 4;
+        return (
+          <circle
+            key={`dimple-${i}`}
+            cx={278 + col * 8}
+            cy={80 + row * 18}
+            r="1.5"
+            fill="#000"
+            opacity="0.8"
+          />
+        );
+      })}
+      {/* Grip vertical highlight */}
+      <line x1="306" y1="68" x2="306" y2="180" stroke="#3A3A3A" strokeWidth="0.8" opacity="0.6" />
+
+      {/* Shutter button on top of grip */}
+      <ellipse cx="295" cy="62" rx="14" ry="6" fill="#1A1A1A" />
+      <ellipse cx="295" cy="60" rx="11" ry="4" fill="#2A2A2A" />
+      <ellipse cx="295" cy="58" rx="8" ry="2.5" fill="#4A4A4A" />
+      {/* Shutter highlight */}
+      <ellipse cx="293" cy="57" rx="5" ry="1" fill="#7A7A7A" opacity="0.7" />
+
+      {/* Front control dial (just below shutter) */}
+      <circle cx="278" cy="78" r="6" fill="#0A0A0A" />
+      <circle cx="278" cy="78" r="4" fill="url(#chromeRing)" opacity="0.5" />
+
+      {/* ════════════════════════════════════════════════════════
+         LEFT-SIDE BODY DETAILS
+         ════════════════════════════════════════════════════════ */}
+      {/* Brand text on left of body */}
+      <text
+        x="48"
+        y="82"
+        fontSize="11"
+        fontFamily="sans-serif"
+        fontWeight="800"
+        fill="#999"
+        letterSpacing="2"
       >
         ASHKAN
       </text>
       <text
-        x="38"
-        y="80"
-        fontSize="6"
+        x="48"
+        y="94"
+        fontSize="5.5"
         fontFamily="sans-serif"
         fontWeight="500"
         fill="#555"
         letterSpacing="3"
       >
-        STUDIOS
+        EOS DIGITAL
       </text>
 
-      {/* ── Mode dial (bottom-left) ── */}
-      <circle cx="62" cy="178" r="14" fill="#0A0A0A" />
-      <circle cx="62" cy="178" r="14" fill="none" stroke="#3A3A3A" strokeWidth="1" />
-      <circle cx="62" cy="178" r="9" fill="url(#ringGrad)" />
-      {/* Dial notches */}
-      {Array.from({ length: 8 }).map((_, i) => {
-        const a = (i * 45 * Math.PI) / 180;
+      {/* Lens release button (left of lens) */}
+      <circle cx="62" cy="135" r="5" fill="#0A0A0A" />
+      <circle cx="62" cy="135" r="3" fill="#2A2A2A" />
+
+      {/* AF assist beam window */}
+      <rect x="48" y="170" width="20" height="6" rx="2" fill="#220A0A" />
+      <rect x="50" y="172" width="16" height="2" rx="1" fill="#3D1010" opacity="0.8" />
+
+      {/* Mode dial (top left) */}
+      <circle cx="78" cy="56" r="14" fill="#0A0A0A" />
+      <circle cx="78" cy="56" r="14" fill="none" stroke="#383838" strokeWidth="1.5" />
+      <circle cx="78" cy="56" r="10" fill="url(#prismGrad)" />
+      {/* Mode dial markings */}
+      {["M", "AV", "TV", "P", "A", "S"].map((label, i) => {
+        const a = (i * 60 - 90) * (Math.PI / 180);
+        return (
+          <text
+            key={`mode-${i}`}
+            x={78 + Math.cos(a) * 8}
+            y={56 + Math.sin(a) * 8 + 2}
+            fontSize="3.5"
+            fontWeight="700"
+            fill="#999"
+            textAnchor="middle"
+            fontFamily="sans-serif"
+          >
+            {label}
+          </text>
+        );
+      })}
+      {/* Center indicator dot */}
+      <circle cx="78" cy="56" r="1.2" fill="#CC2A2A" />
+
+      {/* ════════════════════════════════════════════════════════
+         LENS ASSEMBLY — Large protruding zoom lens
+         ════════════════════════════════════════════════════════ */}
+      {/* Outer barrel (largest, deepest) */}
+      <circle cx="175" cy="155" r="92" fill="url(#lensBarrel)" />
+      {/* Barrel outer ring shadow */}
+      <circle cx="175" cy="155" r="92" fill="none" stroke="#000" strokeWidth="2" />
+      {/* Barrel top-left highlight */}
+      <path
+        d="M 110 110 A 92 92 0 0 1 200 70"
+        stroke="#4A4A4A"
+        strokeWidth="2"
+        fill="none"
+        opacity="0.7"
+      />
+
+      {/* Chrome ring (separates barrel sections) */}
+      <circle cx="175" cy="155" r="86" fill="none" stroke="url(#chromeRing)" strokeWidth="3" />
+
+      {/* Zoom ring (with rubber texture) */}
+      <circle cx="175" cy="155" r="82" fill="#0F0F0F" />
+      {Array.from({ length: 60 }).map((_, i) => {
+        const a = (i * 6 * Math.PI) / 180;
         return (
           <line
-            key={`dial-${i}`}
-            x1={62 + Math.cos(a) * 7}
-            y1={178 + Math.sin(a) * 7}
-            x2={62 + Math.cos(a) * 9}
-            y2={178 + Math.sin(a) * 9}
-            stroke="#666"
+            key={`zoom-${i}`}
+            x1={175 + Math.cos(a) * 78}
+            y1={155 + Math.sin(a) * 78}
+            x2={175 + Math.cos(a) * 82}
+            y2={155 + Math.sin(a) * 82}
+            stroke="#000"
             strokeWidth="0.8"
+            opacity="0.9"
           />
         );
       })}
 
-      {/* ── Shutter button (top-left of body) ── */}
-      <ellipse cx="55" cy="46" rx="9" ry="5" fill="#1A1A1A" />
-      <ellipse cx="55" cy="46" rx="9" ry="5" fill="none" stroke="#3A3A3A" strokeWidth="0.8" />
-      <ellipse cx="55" cy="44" rx="6" ry="3" fill="#404040" />
-      <ellipse cx="55" cy="43" rx="4" ry="1.5" fill="#666" opacity="0.6" />
+      {/* Focal length text on barrel */}
+      <text
+        x="175"
+        y="86"
+        fontSize="6"
+        fontFamily="sans-serif"
+        fontWeight="600"
+        fill="#999"
+        textAnchor="middle"
+        letterSpacing="1.5"
+      >
+        70-200mm f/2.8
+      </text>
 
-      {/* ── Flash bulb (top-right of body) ── */}
-      <rect x="220" y="56" width="22" height="10" rx="2" fill="#0F0F0F" />
-      <rect x="222" y="58" width="18" height="6" rx="1" fill="#F5F5DC" opacity="0.9" />
-      <rect x="223" y="59" width="16" height="2" rx="0.5" fill="#FFFFEE" opacity="0.7" />
+      {/* Inner chrome ring (between zoom & focus) */}
+      <circle cx="175" cy="155" r="74" fill="url(#chromeRing)" opacity="0.6" />
+      <circle cx="175" cy="155" r="71" fill="#0A0A0A" />
 
-      {/* ── Lens assembly ── */}
-      {/* Outer chrome bezel */}
-      <circle cx="155" cy="125" r="72" fill="url(#bezelGrad)" />
-      {/* Bezel inner edge */}
-      <circle cx="155" cy="125" r="68" fill="#1A1A1A" />
-      {/* Bezel highlight (top-left) */}
-      <path
-        d="M 105 95 A 72 72 0 0 1 175 60"
-        stroke="#B5B5B5"
-        strokeWidth="1.5"
-        fill="none"
-        opacity="0.5"
-      />
-
-      {/* Lens focus ring */}
-      <circle cx="155" cy="125" r="64" fill="url(#ringGrad)" />
-      {/* Focus ring rubber grip */}
-      <circle cx="155" cy="125" r="64" fill="none" stroke="#0A0A0A" strokeWidth="2" />
-      {Array.from({ length: 36 }).map((_, i) => {
-        const a = (i * 10 * Math.PI) / 180;
+      {/* Focus ring */}
+      <circle cx="175" cy="155" r="68" fill="#151515" />
+      {Array.from({ length: 48 }).map((_, i) => {
+        const a = (i * 7.5 * Math.PI) / 180;
         return (
           <line
             key={`focus-${i}`}
-            x1={155 + Math.cos(a) * 60}
-            y1={125 + Math.sin(a) * 60}
-            x2={155 + Math.cos(a) * 64}
-            y2={125 + Math.sin(a) * 64}
+            x1={175 + Math.cos(a) * 64}
+            y1={155 + Math.sin(a) * 64}
+            x2={175 + Math.cos(a) * 68}
+            y2={155 + Math.sin(a) * 68}
             stroke="#000"
-            strokeWidth="1"
-            opacity="0.7"
+            strokeWidth="0.7"
+            opacity="0.85"
           />
         );
       })}
 
-      {/* Aperture ring */}
-      <circle cx="155" cy="125" r="55" fill="#0A0A0A" />
-      <circle cx="155" cy="125" r="55" fill="none" stroke="#2A2A2A" strokeWidth="1" />
+      {/* Lens hood inner edge */}
+      <circle cx="175" cy="155" r="60" fill="none" stroke="url(#chromeRing)" strokeWidth="2" />
 
-      {/* Lens glass (deep) */}
-      <circle cx="155" cy="125" r="48" fill="#000" />
-      <circle cx="155" cy="125" r="48" fill="url(#lensGlass)" />
+      {/* Front element glass */}
+      <circle cx="175" cy="155" r="56" fill="#000" />
+      <circle cx="175" cy="155" r="56" fill="url(#frontGlass)" />
 
-      {/* Inner aperture blades shadow */}
-      <circle cx="155" cy="125" r="38" fill="url(#innerDark)" opacity="0.85" />
+      {/* Glass inner depth */}
+      <circle cx="175" cy="155" r="44" fill="url(#innerGlass)" />
 
-      {/* Aperture petals (subtle hexagonal highlight) */}
+      {/* Aperture iris (subtle hex blade hint) */}
+      <circle cx="175" cy="155" r="32" fill="url(#iris)" />
       <polygon
-        points="155,93 178,107 178,143 155,157 132,143 132,107"
+        points="175,123 203,139 203,171 175,187 147,171 147,139"
         fill="none"
-        stroke="#1A2530"
+        stroke="#1A2A38"
         strokeWidth="1"
-        opacity="0.5"
+        opacity="0.55"
       />
 
-      {/* Glass reflection — primary highlight */}
+      {/* Glass reflections — main highlight */}
       <ellipse
-        cx="135"
-        cy="106"
-        rx="14"
-        ry="8"
+        cx="148"
+        cy="128"
+        rx="18"
+        ry="10"
         fill="#FFFFFF"
         opacity="0.22"
-        transform="rotate(-25 135 106)"
+        transform="rotate(-25 148 128)"
       />
-      {/* Glass reflection — secondary tiny gleam */}
-      <ellipse cx="130" cy="100" rx="5" ry="2.5" fill="#FFFFFF" opacity="0.55" />
-      {/* Lens flare hint (small bright dot) */}
-      <circle cx="172" cy="142" r="2" fill="#FFFFFF" opacity="0.3" />
+      {/* Bright pinpoint */}
+      <ellipse cx="142" cy="120" rx="6" ry="3" fill="#FFFFFF" opacity="0.6" />
+      <ellipse cx="140" cy="118" rx="2" ry="1" fill="#FFFFFF" opacity="0.95" />
+      {/* Lens flare dots */}
+      <circle cx="200" cy="180" r="3" fill="#FFFFFF" opacity="0.25" />
+      <circle cx="210" cy="170" r="1.5" fill="#FFFFFF" opacity="0.4" />
 
-      {/* ── Recording LED (top-right) ── */}
-      <circle cx="270" cy="64" r="3.5" fill="#FF2A2A" />
-      <circle cx="270" cy="64" r="3.5" fill="#FF2A2A" opacity="0.5">
-        <animate
-          attributeName="r"
-          values="3.5;7;3.5"
-          dur="1.8s"
-          repeatCount="indefinite"
-        />
+      {/* Red ring (pro lens marker) — Canon-style */}
+      <circle
+        cx="175"
+        cy="155"
+        r="63"
+        fill="none"
+        stroke="#B81818"
+        strokeWidth="1.5"
+        opacity="0.9"
+      />
+
+      {/* ════════════════════════════════════════════════════════
+         LED + DETAILS
+         ════════════════════════════════════════════════════════ */}
+      {/* Recording LED (pulse) */}
+      <circle cx="50" cy="74" r="2.5" fill="#FF2A2A" />
+      <circle cx="50" cy="74" r="2.5" fill="#FF2A2A" opacity="0.5">
+        <animate attributeName="r" values="2.5;6;2.5" dur="2s" repeatCount="indefinite" />
         <animate
           attributeName="opacity"
           values="0.5;0;0.5"
-          dur="1.8s"
+          dur="2s"
           repeatCount="indefinite"
         />
       </circle>
-      {/* LED bright center */}
-      <circle cx="269" cy="63" r="1.2" fill="#FFAAAA" opacity="0.9" />
     </svg>
   );
 }
