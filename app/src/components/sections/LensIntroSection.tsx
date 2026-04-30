@@ -117,7 +117,7 @@ export function LensIntroSection() {
 
         {/* ─── Right side text — descriptive paragraph (desktop only) ─── */}
         <motion.div
-          className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
+          className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-end pb-20 xl:pb-28"
           style={{ y: rightTextY, opacity: rightTextOpacity, width: "30%" }}
         >
           <div className="px-12 xl:px-16 text-right ml-auto">
