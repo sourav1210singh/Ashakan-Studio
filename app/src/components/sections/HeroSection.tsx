@@ -97,7 +97,7 @@ function InlineCutout({
 
   return (
     <motion.span
-      className={`inline-block align-bottom pointer-events-none select-none ${className}`}
+      className={`inline-block align-bottom select-none cursor-pointer group ${className}`}
       style={{
         width,
         height,
@@ -109,12 +109,27 @@ function InlineCutout({
         y,
         ...style,
       }}
+      whileHover={{ scale: 1.08 }}
+      transition={{ type: "spring", stiffness: 260, damping: 18 }}
     >
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-contain"
-        style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))" }}
+        className="w-full h-full object-contain transition-all duration-500 group-hover:brightness-110 group-hover:saturate-110"
+        style={{
+          filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))",
+        }}
+      />
+      {/* Subtle glow halo on hover */}
+      <span
+        aria-hidden
+        className="absolute inset-0 -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(212,178,116,0.35) 0%, rgba(212,178,116,0) 70%)",
+          filter: "blur(20px)",
+          transform: "scale(1.4)",
+        }}
       />
     </motion.span>
   );
@@ -174,7 +189,8 @@ export function HeroSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen flex flex-col items-center justify-center bg-cream overflow-hidden pt-16"
+      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-24 sm:pt-32 pb-20 sm:pb-32"
+      style={{ minHeight: "115vh" }}
     >
       {/* Background Pattern — parallax slowest */}
       <motion.div
