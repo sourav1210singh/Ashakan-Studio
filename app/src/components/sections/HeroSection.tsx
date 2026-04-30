@@ -97,7 +97,7 @@ function InlineCutout({
 
   return (
     <motion.span
-      className={`inline-block align-bottom select-none cursor-pointer group ${className}`}
+      className={`inline-block align-bottom select-none group ${className}`}
       style={{
         width,
         height,
@@ -162,7 +162,23 @@ export function HeroSection() {
   // Each layer gets a different translate speed → depth illusion
   const bgY = useTransform(smoothScroll, [0, 1], ["-5%", "20%"]);     // slowest
   const textY = useTransform(smoothScroll, [0, 1], ["0%", "-12%"]);    // medium (anti-scroll for depth)
-  const cutoutFloat = useTransform(smoothScroll, [0, 1], ["0%", "-30%"]); // fastest
+
+  /* ── Premium scroll-out transition (when leaving viewport) ──
+     Each line zooms slightly + fades + softens with progressive blur.
+     Triggered between 0.55 → 0.95 of section progress (i.e. when user
+     starts scrolling past hero). */
+  const exitOpacity = useTransform(smoothScroll, [0.55, 0.85], [1, 0]);
+  const exitScale = useTransform(smoothScroll, [0.55, 0.95], [1, 0.85]);
+  const exitBlur = useTransform(
+    smoothScroll,
+    [0.55, 0.95],
+    ["blur(0px)", "blur(10px)"]
+  );
+
+  // Per-line stagger using slightly offset ranges (premium cascade)
+  const line1Lift = useTransform(smoothScroll, [0.55, 0.85], [0, -40]);
+  const line2Lift = useTransform(smoothScroll, [0.58, 0.88], [0, -55]);
+  const line3Lift = useTransform(smoothScroll, [0.61, 0.91], [0, -70]);
 
   /* ── Mouse position (normalized −1…+1) for cutout float ── */
   const mvMouseX = useMotionValue(0);
@@ -206,10 +222,15 @@ export function HeroSection() {
         />
       </motion.div>
 
-      {/* Main content — parallax medium, gets cutoutFloat for inner cutouts */}
+      {/* Main content — parallax medium + scroll-out exit */}
       <motion.div
         className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-8"
-        style={{ y: textY }}
+        style={{
+          y: textY,
+          opacity: exitOpacity,
+          scale: exitScale,
+          filter: exitBlur,
+        }}
       >
         <div className="text-center">
           {/* ───── LINE 1: [dancer] WE CREATE ───── */}
@@ -218,7 +239,7 @@ export function HeroSection() {
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.3s forwards",
-              y: cutoutFloat,
+              y: line1Lift,
             }}
           >
             <InlineCutout
@@ -253,7 +274,7 @@ export function HeroSection() {
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
-              y: cutoutFloat,
+              y: line2Lift,
             }}
           >
             <MagneticWord
@@ -299,7 +320,7 @@ export function HeroSection() {
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
-              y: cutoutFloat,
+              y: line3Lift,
             }}
           >
             <MagneticWord
@@ -308,12 +329,12 @@ export function HeroSection() {
                 fontWeight: 100,
                 letterSpacing: "-0.02em",
                 transform: "scaleX(0.9)",
+                marginRight: "0.45em",
               }}
               strength={0.15}
             >
               THAT
             </MagneticWord>
-            <span> </span>
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase text-dark"
               style={{
