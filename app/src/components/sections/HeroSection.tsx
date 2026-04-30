@@ -413,15 +413,24 @@ export function HeroSection() {
               floatStrength={22}
             />
             <MagneticWord
-              className="font-hero-thin text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
-                fontWeight: 100,
-                letterSpacing: "-0.02em",
-                transform: "scaleX(0.9)",
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                lineHeight: 0.9,
               }}
-              strength={0.15}
+              strength={0.2}
             >
-              WE CREATE
+              <VideoTextWord
+                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                style={{
+                  fontWeight: 900,
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.9,
+                }}
+              >
+                WE CREATE
+              </VideoTextWord>
             </MagneticWord>
           </motion.div>
 
@@ -499,16 +508,25 @@ export function HeroSection() {
             }}
           >
             <MagneticWord
-              className="font-hero-thin text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
-                fontWeight: 100,
-                letterSpacing: "-0.02em",
-                transform: "scaleX(0.9)",
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                lineHeight: 0.9,
                 marginRight: "0.45em",
               }}
-              strength={0.15}
+              strength={0.2}
             >
-              THAT
+              <VideoTextWord
+                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                style={{
+                  fontWeight: 900,
+                  letterSpacing: "0.02em",
+                  lineHeight: 0.9,
+                }}
+              >
+                THAT
+              </VideoTextWord>
             </MagneticWord>
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
