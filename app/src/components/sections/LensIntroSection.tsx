@@ -98,6 +98,188 @@ export function LensIntroSection() {
           }}
         />
 
+        {/* ═══════════════════════════════════════════════════════════
+            ANIMATED OCEAN — wave shimmer overlaid on the photo's water
+            ═══════════════════════════════════════════════════════════ */}
+        <motion.div
+          className="absolute inset-x-0 bottom-0 pointer-events-none overflow-hidden"
+          style={{ opacity: skyOpacity, height: "48%", mixBlendMode: "soft-light" }}
+        >
+          <svg
+            className="absolute inset-0 w-full h-full"
+            viewBox="0 0 1600 500"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="shimmerGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+                <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="darkRipple" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#0A2540" stopOpacity="0" />
+                <stop offset="100%" stopColor="#0A2540" stopOpacity="0.35" />
+              </linearGradient>
+            </defs>
+
+            {/* Far horizon ripples — fast subtle pulse */}
+            <motion.path
+              fill="url(#shimmerGrad)"
+              animate={{
+                d: [
+                  "M 0 60 Q 200 55 400 60 T 800 60 T 1200 60 T 1600 60 L 1600 75 L 0 75 Z",
+                  "M 0 60 Q 200 65 400 60 T 800 60 T 1200 60 T 1600 60 L 1600 75 L 0 75 Z",
+                  "M 0 60 Q 200 55 400 60 T 800 60 T 1200 60 T 1600 60 L 1600 75 L 0 75 Z",
+                ],
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+
+            {/* Mid waves — light + gentle */}
+            <motion.path
+              stroke="#FFFFFF"
+              strokeWidth="1.2"
+              fill="none"
+              opacity="0.45"
+              animate={{
+                d: [
+                  "M 0 150 Q 200 138 400 150 T 800 150 T 1200 150 T 1600 150",
+                  "M 0 150 Q 200 162 400 150 T 800 150 T 1200 150 T 1600 150",
+                  "M 0 150 Q 200 138 400 150 T 800 150 T 1200 150 T 1600 150",
+                ],
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.path
+              stroke="#FFFFFF"
+              strokeWidth="1.2"
+              fill="none"
+              opacity="0.4"
+              animate={{
+                d: [
+                  "M 0 195 Q 250 183 500 195 T 1000 195 T 1500 195 L 1600 195",
+                  "M 0 195 Q 250 207 500 195 T 1000 195 T 1500 195 L 1600 195",
+                  "M 0 195 Q 250 183 500 195 T 1000 195 T 1500 195 L 1600 195",
+                ],
+              }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+
+            {/* Closer wave with foam-like crest band */}
+            <motion.path
+              fill="url(#shimmerGrad)"
+              opacity="0.7"
+              animate={{
+                d: [
+                  "M 0 280 Q 180 255 360 280 T 720 280 T 1080 280 T 1440 280 L 1600 280 L 1600 320 Q 1400 305 1080 320 T 720 320 T 360 320 L 0 320 Z",
+                  "M 0 280 Q 180 305 360 280 T 720 280 T 1080 280 T 1440 280 L 1600 280 L 1600 320 Q 1400 295 1080 320 T 720 320 T 360 320 L 0 320 Z",
+                  "M 0 280 Q 180 255 360 280 T 720 280 T 1080 280 T 1440 280 L 1600 280 L 1600 320 Q 1400 305 1080 320 T 720 320 T 360 320 L 0 320 Z",
+                ],
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+
+            {/* Foreground swell — biggest motion */}
+            <motion.path
+              fill="url(#darkRipple)"
+              animate={{
+                d: [
+                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380 L 1600 500 L 0 500 Z",
+                  "M 0 380 Q 200 405 420 380 T 820 380 T 1180 380 T 1600 380 L 1600 500 L 0 500 Z",
+                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380 L 1600 500 L 0 500 Z",
+                ],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.path
+              stroke="#FFFFFF"
+              strokeWidth="1.5"
+              fill="none"
+              opacity="0.55"
+              animate={{
+                d: [
+                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380",
+                  "M 0 380 Q 200 405 420 380 T 820 380 T 1180 380 T 1600 380",
+                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380",
+                ],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </svg>
+
+          {/* Light shimmer dots — sun glints on water (rare, slow pulse) */}
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 30% 8% at 25% 65%, rgba(255,255,255,0.3) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 35% 10% at 70% 80%, rgba(255,255,255,0.25) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 20% 6% at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 70%)",
+            }}
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+
+        {/* ═══════════════════════════════════════════════════════════
+            DRIFTING CLOUDS — soft white silhouettes drift slowly across
+            the sky portion. Adds atmospheric motion without hiding the
+            photo's natural cloud shapes.
+            ═══════════════════════════════════════════════════════════ */}
+        <motion.div
+          className="absolute inset-x-0 top-0 pointer-events-none overflow-hidden"
+          style={{ opacity: skyOpacity, height: "55%", mixBlendMode: "screen" }}
+        >
+          {/* Slow far-drift cloud whisper */}
+          <motion.div
+            className="absolute"
+            style={{
+              top: "20%",
+              width: "180%",
+              height: "120px",
+              background:
+                "radial-gradient(ellipse 18% 100% at 20% 50%, rgba(255,255,255,0.45) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 22% 100% at 55% 50%, rgba(255,255,255,0.35) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 16% 100% at 85% 50%, rgba(255,255,255,0.4) 0%, transparent 70%)",
+              filter: "blur(8px)",
+            }}
+            animate={{ x: ["0%", "-44%"] }}
+            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Mid drift wisp */}
+          <motion.div
+            className="absolute"
+            style={{
+              top: "42%",
+              width: "180%",
+              height: "80px",
+              background:
+                "radial-gradient(ellipse 24% 100% at 35% 50%, rgba(255,255,255,0.3) 0%, transparent 60%)," +
+                "radial-gradient(ellipse 18% 100% at 75% 50%, rgba(255,255,255,0.25) 0%, transparent 60%)",
+              filter: "blur(10px)",
+            }}
+            animate={{ x: ["-44%", "0%"] }}
+            transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Tiny near-horizon drift */}
+          <motion.div
+            className="absolute"
+            style={{
+              top: "70%",
+              width: "180%",
+              height: "40px",
+              background:
+                "radial-gradient(ellipse 28% 100% at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)",
+              filter: "blur(6px)",
+            }}
+            animate={{ x: ["0%", "-44%"] }}
+            transition={{ duration: 140, repeat: Infinity, ease: "linear" }}
+          />
+        </motion.div>
+
         {/* ─── Left side text — bold headline (desktop only) ─── */}
         <motion.div
           className="absolute left-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
