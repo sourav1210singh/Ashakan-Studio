@@ -62,7 +62,11 @@ function MagneticWord({
 
 /* ────────────────────────────────────────────────────────────
    InlineCutout — image embedded INSIDE text flow.
-   Now with mouse-driven parallax float (subtle).
+   Layered motion:
+     • OUTER: random multi-axis drift (continuous, faster)
+     • INNER: mouse-driven parallax float
+   Drift is applied via framer-motion `animate` so it composes
+   cleanly with the mouse-follow x/y on the inner span.
    ──────────────────────────────────────────────────────────── */
 interface InlineCutoutProps {
   src: string;
@@ -70,7 +74,7 @@ interface InlineCutoutProps {
   className?: string;
   width: string;
   height: string;
-  driftName: string;
+  driftName: "driftA" | "driftB" | "driftC";
   enterDelay: number;
   style?: React.CSSProperties;
   mouseX: MotionValue<number>;
@@ -78,6 +82,33 @@ interface InlineCutoutProps {
   /** how far this cutout drifts with the mouse (px) */
   floatStrength?: number;
 }
+
+/* Random drift patterns — small amplitude (~±6px) so cutouts don't wander
+   too far from their layout position. Each has a different sequence and
+   duration for organic, non-synchronized motion. */
+const DRIFT_PATTERNS: Record<
+  "driftA" | "driftB" | "driftC",
+  { x: number[]; y: number[]; rotate: number[]; duration: number }
+> = {
+  driftA: {
+    x: [0, 4, -3, 5, -2, 3, 0],
+    y: [0, -5, -7, -3, 2, -4, 0],
+    rotate: [0, -1.2, 0.8, -0.4, 1, -0.6, 0],
+    duration: 5.5,
+  },
+  driftB: {
+    x: [0, -5, 3, -4, 6, -2, 0],
+    y: [0, 4, -4, 6, -3, 5, 0],
+    rotate: [0, 1, -0.8, 1.4, -0.6, 0.7, 0],
+    duration: 6.2,
+  },
+  driftC: {
+    x: [0, 3, -4, 2, -5, 4, 0],
+    y: [0, -4, 3, -3, 5, -2, 0],
+    rotate: [0, -0.7, 1.2, -1, 0.5, -0.3, 0],
+    duration: 4.8,
+  },
+};
 
 function InlineCutout({
   src,
@@ -92,45 +123,64 @@ function InlineCutout({
   mouseY,
   floatStrength = 18,
 }: InlineCutoutProps) {
-  const x = useTransform(mouseX, [-1, 1], [-floatStrength, floatStrength]);
-  const y = useTransform(mouseY, [-1, 1], [-floatStrength * 0.6, floatStrength * 0.6]);
+  const mx = useTransform(mouseX, [-1, 1], [-floatStrength, floatStrength]);
+  const my = useTransform(
+    mouseY,
+    [-1, 1],
+    [-floatStrength * 0.6, floatStrength * 0.6]
+  );
+
+  const drift = DRIFT_PATTERNS[driftName];
 
   return (
+    /* Outer wrapper — random multi-axis drift via framer-motion animate */
     <motion.span
       className={`inline-block align-bottom select-none group ${className}`}
       style={{
         width,
         height,
-        animation: `cutoutFadeIn 0.7s ease-out ${enterDelay}s forwards, ${driftName} 8s ease-in-out ${enterDelay + 0.7}s infinite`,
+        animation: `cutoutFadeIn 0.7s ease-out ${enterDelay}s forwards`,
         willChange: "transform, opacity",
         opacity: 0,
         position: "relative",
-        x,
-        y,
         ...style,
       }}
+      animate={{
+        x: drift.x,
+        y: drift.y,
+        rotate: drift.rotate,
+      }}
+      transition={{
+        duration: drift.duration,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: enterDelay + 0.7,
+      }}
       whileHover={{ scale: 1.08 }}
-      transition={{ type: "spring", stiffness: 260, damping: 18 }}
     >
-      <img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-contain transition-all duration-500 group-hover:brightness-110 group-hover:saturate-110"
-        style={{
-          filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))",
-        }}
-      />
-      {/* Subtle glow halo on hover */}
-      <span
-        aria-hidden
-        className="absolute inset-0 -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(212,178,116,0.35) 0%, rgba(212,178,116,0) 70%)",
-          filter: "blur(20px)",
-          transform: "scale(1.4)",
-        }}
-      />
+      {/* Inner wrapper — mouse-follow parallax (composes with outer drift) */}
+      <motion.span
+        className="block w-full h-full"
+        style={{ x: mx, y: my }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-contain transition-all duration-500 group-hover:brightness-110 group-hover:saturate-110"
+          style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))" }}
+        />
+        {/* Subtle glow halo on hover */}
+        <span
+          aria-hidden
+          className="absolute inset-0 -z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(212,178,116,0.35) 0%, rgba(212,178,116,0) 70%)",
+            filter: "blur(20px)",
+            transform: "scale(1.4)",
+          }}
+        />
+      </motion.span>
     </motion.span>
   );
 }
@@ -412,21 +462,8 @@ export function HeroSection() {
           50%      { transform: translateY(10px); }
         }
         @keyframes cutoutFadeIn {
-          from { opacity: 0; transform: translateY(12px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes driftA {
-          0%, 100% { transform: translateY(0);   }
-          50%      { transform: translateY(-6px); }
-        }
-        @keyframes driftB {
-          0%, 100% { transform: translateY(0);   }
-          50%      { transform: translateY(5px);  }
-        }
-        @keyframes driftC {
-          0%, 100% { transform: translateY(0);   }
-          40%      { transform: translateY(-5px); }
-          80%      { transform: translateY(3px);  }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
       `}</style>
     </section>
