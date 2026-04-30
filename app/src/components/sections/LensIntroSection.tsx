@@ -94,22 +94,18 @@ export function LensIntroSection() {
         {/* ─── Left side text — bold headline (desktop only) ─── */}
         <motion.div
           className="absolute left-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
-          style={{ y: leftTextY, opacity: leftTextOpacity, width: "32%" }}
+          style={{ y: leftTextY, opacity: leftTextOpacity, width: "30%" }}
         >
-          <div className="px-10 xl:px-16">
-            <p
-              className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-white uppercase mb-6"
-              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
-            >
+          <div className="px-12 xl:px-16">
+            <p className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8">
               Ashkan Studios
             </p>
             <h2
-              className="font-display text-white tracking-tight leading-[0.95]"
+              className="font-display text-dark tracking-tight"
               style={{
-                fontSize: "clamp(36px, 4vw, 64px)",
+                fontSize: "clamp(36px, 4vw, 60px)",
                 fontWeight: 800,
-                textShadow:
-                  "0 2px 12px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.5)",
+                lineHeight: 1.05,
               }}
             >
               Step Into <em className="font-light italic">a</em> World{" "}
@@ -121,30 +117,27 @@ export function LensIntroSection() {
 
         {/* ─── Right side text — descriptive paragraph (desktop only) ─── */}
         <motion.div
-          className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-end pb-32 xl:pb-40"
+          className="absolute right-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
           style={{ y: rightTextY, opacity: rightTextOpacity, width: "30%" }}
         >
-          <div className="px-10 xl:px-16 text-right ml-auto max-w-md">
+          <div className="px-12 xl:px-16 text-right ml-auto">
+            <p className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8">
+              About Us
+            </p>
             <p
-              className="font-display text-white mb-8"
+              className="font-display text-dark mb-8"
               style={{
-                fontSize: "clamp(15px, 1.05vw, 19px)",
+                fontSize: "clamp(16px, 1.15vw, 20px)",
                 lineHeight: 1.55,
-                letterSpacing: "0.005em",
                 fontWeight: 500,
-                textShadow:
-                  "0 2px 10px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.4)",
               }}
             >
               A Houston-based production studio crafting commercial photography,
               cinematic videography, and brand campaigns that command attention.
             </p>
             <div className="flex justify-end">
-              <span
-                className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-white uppercase"
-                style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}
-              >
-                <span className="w-8 h-px bg-white/70" />
+              <span className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase">
+                <span className="w-8 h-px bg-dark/40" />
                 Enter the Studio
               </span>
             </div>
@@ -156,19 +149,14 @@ export function LensIntroSection() {
           className="absolute top-24 left-0 right-0 text-center pointer-events-none lg:hidden px-4"
           style={{ y: leftTextY, opacity: leftTextOpacity }}
         >
-          <p
-            className="text-[10px] font-semibold tracking-[0.3em] text-white uppercase mb-3"
-            style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}
-          >
+          <p className="text-[10px] font-semibold tracking-[0.3em] text-dark/70 uppercase mb-3">
             Ashkan Studios
           </p>
           <h2
-            className="font-display text-white tracking-tight leading-[0.95] mx-auto max-w-md"
+            className="font-display text-dark tracking-tight leading-[0.95] mx-auto max-w-md"
             style={{
               fontSize: "clamp(24px, 5vw, 40px)",
               fontWeight: 800,
-              textShadow:
-                "0 2px 10px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.4)",
             }}
           >
             Step Into <em className="font-light italic">a</em> World{" "}
@@ -177,8 +165,8 @@ export function LensIntroSection() {
           </h2>
         </motion.div>
 
-        {/* ─── Door portal (centered, scales with scroll) ─── */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* ─── Door portal (left-shifted, scales with scroll) ─── */}
+        <div className="absolute inset-0 flex items-center justify-start pl-[34%] lg:pl-[30%] xl:pl-[28%]">
           <motion.div
             className="relative"
             style={{
@@ -193,7 +181,7 @@ export function LensIntroSection() {
               className="relative"
               style={{
                 width: "260px",
-                height: "440px",
+                height: "560px",
                 perspective: "1500px",
                 transformStyle: "preserve-3d",
               }}
