@@ -1,8 +1,69 @@
+import { useRef, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValue,
+  useSpring,
+  type MotionValue,
+} from "framer-motion";
 
-/* ------------------------------------------------------------------ */
-/*  InlineCutout — image embedded INSIDE the text flow                 */
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────
+   MagneticWord — pulls the wrapped word toward the cursor
+   while it's hovering. Used on every word in the hero copy.
+   ──────────────────────────────────────────────────────────── */
+interface MagneticWordProps {
+  children: ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  /** how strongly the word is pulled (0–1, default 0.25) */
+  strength?: number;
+}
+
+function MagneticWord({
+  children,
+  className = "",
+  style = {},
+  strength = 0.25,
+}: MagneticWordProps) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const mvX = useMotionValue(0);
+  const mvY = useMotionValue(0);
+  const x = useSpring(mvX, { stiffness: 220, damping: 16, mass: 0.6 });
+  const y = useSpring(mvY, { stiffness: 220, damping: 16, mass: 0.6 });
+
+  const handleMove = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    mvX.set((e.clientX - cx) * strength);
+    mvY.set((e.clientY - cy) * strength);
+  };
+
+  const handleLeave = () => {
+    mvX.set(0);
+    mvY.set(0);
+  };
+
+  return (
+    <motion.span
+      ref={ref}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={{ x, y, display: "inline-block", willChange: "transform", ...style }}
+      className={className}
+    >
+      {children}
+    </motion.span>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+   InlineCutout — image embedded INSIDE text flow.
+   Now with mouse-driven parallax float (subtle).
+   ──────────────────────────────────────────────────────────── */
 interface InlineCutoutProps {
   src: string;
   alt: string;
@@ -12,6 +73,10 @@ interface InlineCutoutProps {
   driftName: string;
   enterDelay: number;
   style?: React.CSSProperties;
+  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
+  /** how far this cutout drifts with the mouse (px) */
+  floatStrength?: number;
 }
 
 function InlineCutout({
@@ -23,9 +88,15 @@ function InlineCutout({
   driftName,
   enterDelay,
   style = {},
+  mouseX,
+  mouseY,
+  floatStrength = 18,
 }: InlineCutoutProps) {
+  const x = useTransform(mouseX, [-1, 1], [-floatStrength, floatStrength]);
+  const y = useTransform(mouseY, [-1, 1], [-floatStrength * 0.6, floatStrength * 0.6]);
+
   return (
-    <span
+    <motion.span
       className={`inline-block align-bottom pointer-events-none select-none ${className}`}
       style={{
         width,
@@ -34,6 +105,8 @@ function InlineCutout({
         willChange: "transform, opacity",
         opacity: 0,
         position: "relative",
+        x,
+        y,
         ...style,
       }}
     >
@@ -41,26 +114,73 @@ function InlineCutout({
         src={src}
         alt={alt}
         className="w-full h-full object-contain"
-        style={{
-          filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))",
-        }}
+        style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))" }}
       />
-    </span>
+    </motion.span>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Hero Section — Word-Integrated Cutout Composition                  */
-/*                                                                     */
-/*    [dancer] WE CREATE                                               */
-/*    VISUAL [cameraman] STORIES                                       */
-/*    THAT INSPIRE [portrait]                                          */
-/* ------------------------------------------------------------------ */
+/* ────────────────────────────────────────────────────────────
+   Hero Section — Word-Integrated Cutout Composition
+     [dancer] WE CREATE
+     VISUAL [cameraman] STORIES
+     THAT INSPIRE [portrait]
+
+   Animation layers:
+     1. Parallax scroll  — bg/text/cutouts at different speeds
+     2. Mouse float      — cutouts subtly track cursor (depth feel)
+     3. Magnetic hover   — every word tugs toward cursor on hover
+   ──────────────────────────────────────────────────────────── */
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* ── Parallax scroll progress for this section ── */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 30,
+    mass: 0.5,
+  });
+  // Each layer gets a different translate speed → depth illusion
+  const bgY = useTransform(smoothScroll, [0, 1], ["-5%", "20%"]);     // slowest
+  const textY = useTransform(smoothScroll, [0, 1], ["0%", "-12%"]);    // medium (anti-scroll for depth)
+  const cutoutFloat = useTransform(smoothScroll, [0, 1], ["0%", "-30%"]); // fastest
+
+  /* ── Mouse position (normalized −1…+1) for cutout float ── */
+  const mvMouseX = useMotionValue(0);
+  const mvMouseY = useMotionValue(0);
+  const mouseX = useSpring(mvMouseX, { stiffness: 80, damping: 22, mass: 0.7 });
+  const mouseY = useSpring(mvMouseY, { stiffness: 80, damping: 22, mass: 0.7 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;  // −1…+1
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    mvMouseX.set(x);
+    mvMouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mvMouseX.set(0);
+    mvMouseY.set(0);
+  };
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center bg-cream overflow-hidden pt-16">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-screen flex flex-col items-center justify-center bg-cream overflow-hidden pt-16"
+    >
+      {/* Background Pattern — parallax slowest */}
+      <motion.div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{ y: bgY }}
+      >
         <div
           className="absolute inset-0"
           style={{
@@ -68,24 +188,23 @@ export function HeroSection() {
             backgroundSize: "40px 40px",
           }}
         />
-      </div>
+      </motion.div>
 
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-8">
-
-        {/* ============================================================ */}
-        {/*  TEXT + INLINE CUTOUTS — tight composition                    */}
-        {/* ============================================================ */}
+      {/* Main content — parallax medium, gets cutoutFloat for inner cutouts */}
+      <motion.div
+        className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-8"
+        style={{ y: textY }}
+      >
         <div className="text-center">
-
-          {/* ---- LINE 1: [dancer] WE CREATE ---- */}
-          <div
+          {/* ───── LINE 1: [dancer] WE CREATE ───── */}
+          <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.3s forwards",
+              y: cutoutFloat,
             }}
           >
-            {/* Dancer — medium-large, aligned with text baseline */}
             <InlineCutout
               src="/images/hero/dance-cutout.png"
               alt="Dance photography"
@@ -95,30 +214,43 @@ export function HeroSection() {
               driftName="driftA"
               enterDelay={0.6}
               style={{ marginRight: "-10px", marginTop: "-25px", top: "6px" }}
+              mouseX={mouseX}
+              mouseY={mouseY}
+              floatStrength={22}
             />
-            <span
+            <MagneticWord
               className="font-hero-thin text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
-              style={{ fontWeight: 100, letterSpacing: "-0.02em", transform: "scaleX(0.9)", display: "inline-block" }}
+              style={{
+                fontWeight: 100,
+                letterSpacing: "-0.02em",
+                transform: "scaleX(0.9)",
+              }}
+              strength={0.15}
             >
               WE CREATE
-            </span>
-          </div>
+            </MagneticWord>
+          </motion.div>
 
-          {/* ---- LINE 2: VISUAL [cameraman] STORIES ---- */}
-          <div
+          {/* ───── LINE 2: VISUAL [cameraman] STORIES ───── */}
+          <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
+              y: cutoutFloat,
             }}
           >
-            <span
+            <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark uppercase"
-              style={{ fontWeight: 900, letterSpacing: "0.02em", lineHeight: 0.9, display: "inline-block" }}
+              style={{
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                lineHeight: 0.9,
+              }}
+              strength={0.2}
             >
               VISUAL
-            </span>
-            {/* Cameraman — medium, tall silhouette between words */}
+            </MagneticWord>
             <InlineCutout
               src="/images/hero/cameraman-cutout.png"
               alt="Video production"
@@ -128,36 +260,55 @@ export function HeroSection() {
               driftName="driftB"
               enterDelay={1.1}
               style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "30px" }}
+              mouseX={mouseX}
+              mouseY={mouseY}
+              floatStrength={28}
             />
-            <span className="md:hidden">{" "}</span>
-            <span
+            <span className="md:hidden"> </span>
+            <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark uppercase"
-              style={{ fontWeight: 900, letterSpacing: "0.02em", lineHeight: 0.9, display: "inline-block" }}
+              style={{
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                lineHeight: 0.9,
+              }}
+              strength={0.2}
             >
               STORIES
-            </span>
-          </div>
+            </MagneticWord>
+          </motion.div>
 
-          {/* ---- LINE 3: THAT INSPIRE [portrait] ---- */}
-          <div
+          {/* ───── LINE 3: THAT INSPIRE [portrait] ───── */}
+          <motion.div
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
+              y: cutoutFloat,
             }}
           >
-            <span
+            <MagneticWord
               className="font-hero-thin text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] text-dark leading-none uppercase"
-              style={{ fontWeight: 100, letterSpacing: "-0.02em", transform: "scaleX(0.9)", display: "inline-block" }}
+              style={{
+                fontWeight: 100,
+                letterSpacing: "-0.02em",
+                transform: "scaleX(0.9)",
+              }}
+              strength={0.15}
             >
-              THAT{" "}
-            </span>
-            <span
+              THAT
+            </MagneticWord>
+            <span> </span>
+            <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase text-dark"
-              style={{ fontWeight: 900, letterSpacing: "0.02em", lineHeight: 0.9, display: "inline-block" }}
+              style={{
+                fontWeight: 900,
+                letterSpacing: "0.02em",
+                lineHeight: 0.9,
+              }}
+              strength={0.2}
             >
               INSPIRE
-            </span>
-            {/* Portrait — medium-large, anchored to INSPIRE */}
+            </MagneticWord>
             <InlineCutout
               src="/images/hero/portrait-cutout.png"
               alt="Portrait photography"
@@ -167,8 +318,11 @@ export function HeroSection() {
               driftName="driftC"
               enterDelay={1.5}
               style={{ marginLeft: "20px", marginTop: "-25px", top: "-2px" }}
+              mouseX={mouseX}
+              mouseY={mouseY}
+              floatStrength={20}
             />
-          </div>
+          </motion.div>
         </div>
 
         {/* Subtext */}
@@ -202,7 +356,7 @@ export function HeroSection() {
             <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-dark/50" />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
         @keyframes fadeIn {
