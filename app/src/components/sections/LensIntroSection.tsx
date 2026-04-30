@@ -1,116 +1,236 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 /**
- * Cinematic intro: a 3D-looking camera floats gently in the center of the
- * viewport. Random shutter flashes fire periodically. As the user scrolls,
- * the camera rotates + zooms toward the viewer until its lens fills the
- * entire screen — then the hero section is revealed underneath.
+ * Door portal intro: a white door stands closed in the center of a soft
+ * sky-gradient sky. As the user scrolls:
+ *   1. The door swings open on its left hinge (rotateY)
+ *   2. Through the opening, a behind-the-scenes Vimeo loop plays
+ *   3. The whole door + opening zooms toward the viewer (scale up)
+ *   4. Door fades; hero section underneath is revealed
  *
- * Effects:
- *  - Idle: subtle random tilt + drift (camera "breathes")
- *  - Flash: periodic white shutter flash (~every 3–6s)
- *  - Scroll: extra flash triggered on scroll/descroll events
- *  - Dive: rotate + scale on scroll progress, lens grows huge
+ * Background is a CSS gradient (sky → cream) with subtle cloud blobs.
+ * Implementation uses sticky pinning over a 300vh runway so animation
+ * runs smoothly while user scrolls.
+ *
+ * NOTE: file is still named LensIntroSection so the existing HomePage
+ * import keeps working — we replaced the camera with a door portal.
  */
 export function LensIntroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [flashKey, setFlashKey] = useState(0);
-  const lastFlashScrollY = useRef(0);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Camera rotates + scales as user scrolls
-  const rotate = useTransform(scrollYProgress, [0, 0.7], [0, 360]);
-  const scale = useTransform(scrollYProgress, [0, 0.85], [1, 28]);
-  const cameraOpacity = useTransform(scrollYProgress, [0, 0.75, 0.95], [1, 1, 0]);
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const bgOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [0, 0.45, 0]);
+  // Door swings open on left hinge (0% → 35% scroll)
+  const doorRotateY = useTransform(scrollYProgress, [0, 0.4], [0, -88]);
 
-  /** Periodic flash — fires at random intervals between 2.5–6 seconds */
-  useEffect(() => {
-    let mounted = true;
-    const triggerFlash = () => {
-      if (!mounted) return;
-      setFlashKey((k) => k + 1);
-      const next = 2500 + Math.random() * 3500;
-      setTimeout(triggerFlash, next);
-    };
-    const initial = setTimeout(triggerFlash, 1800);
-    return () => {
-      mounted = false;
-      clearTimeout(initial);
-    };
-  }, []);
+  // Door + frame scales toward viewer (15% → 85% scroll)
+  const portalScale = useTransform(scrollYProgress, [0.15, 0.85], [1, 14]);
 
-  /** Flash on scroll/descroll — debounced so it fires roughly per 100px scrolled */
-  useEffect(() => {
-    const handler = () => {
-      const y = window.scrollY;
-      if (Math.abs(y - lastFlashScrollY.current) > 200) {
-        lastFlashScrollY.current = y;
-        setFlashKey((k) => k + 1);
-      }
-    };
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+  // Portal fades near the end so hero shows through
+  const portalOpacity = useTransform(scrollYProgress, [0.78, 0.95], [1, 0]);
+
+  // Sky background fades out as we "pass through"
+  const skyOpacity = useTransform(scrollYProgress, [0.7, 1], [1, 0]);
+
+  // Hint fades quickly
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-cream"
-      style={{ height: "250vh" }}
-      aria-label="Camera lens intro"
+      className="relative"
+      style={{ height: "300vh" }}
+      aria-label="Door portal intro"
     >
       {/* Sticky pinned viewport */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-        {/* Backdrop that darkens on dive */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* ─── Sky gradient + cloud blobs ─── */}
         <motion.div
-          className="absolute inset-0 bg-black pointer-events-none"
-          style={{ opacity: bgOpacity }}
-        />
-
-        {/* White flash overlay — keyed to retrigger animation */}
-        <motion.div
-          key={flashKey}
-          className="absolute inset-0 bg-white pointer-events-none z-20"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.95, 0] }}
-          transition={{ duration: 0.18, ease: "easeOut", times: [0, 0.15, 1] }}
-        />
-
-        {/* Camera — outer wrapper handles scroll rotate/scale */}
-        <motion.div
-          className="relative will-change-transform"
+          className="absolute inset-0"
           style={{
-            rotate,
-            scale,
-            transformOrigin: "center center",
+            opacity: skyOpacity,
+            background:
+              "linear-gradient(180deg, #B5D4E8 0%, #DCE9F0 35%, #F0EDE3 75%, #F5F1E8 100%)",
           }}
-        >
-          {/* Inner wrapper handles idle float + opacity fade */}
+        />
+        {/* Cloud blobs (very soft) */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: skyOpacity,
+            background:
+              "radial-gradient(ellipse 60% 40% at 18% 28%, rgba(255,255,255,0.55) 0%, transparent 65%)," +
+              "radial-gradient(ellipse 50% 35% at 82% 35%, rgba(255,255,255,0.45) 0%, transparent 60%)," +
+              "radial-gradient(ellipse 70% 30% at 50% 90%, rgba(255,255,255,0.35) 0%, transparent 55%)",
+          }}
+        />
+
+        {/* ─── Door portal (centered, scales with scroll) ─── */}
+        <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
-            style={{ opacity: cameraOpacity }}
-            animate={{
-              y: [0, -6, 3, -2, 0],
-              x: [0, 2, -3, 1, 0],
-              rotate: [0, 0.8, -0.6, 0.4, 0],
-            }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut",
+            className="relative"
+            style={{
+              scale: portalScale,
+              opacity: portalOpacity,
+              perspective: "1500px",
+              willChange: "transform, opacity",
             }}
           >
-            <CameraSVG />
-          </motion.div>
-        </motion.div>
+            {/* Door dimensions — taller than wide, like a real door */}
+            <div
+              className="relative"
+              style={{
+                width: "260px",
+                height: "440px",
+                perspective: "1500px",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              {/* ── Door frame (outer trim + thin shadow line) ── */}
+              <div
+                className="absolute inset-0 bg-white"
+                style={{
+                  boxShadow:
+                    "0 20px 50px -10px rgba(40,60,90,0.25), 0 6px 16px rgba(0,0,0,0.08)",
+                  border: "8px solid #FFFFFF",
+                  borderRadius: "2px",
+                }}
+              />
 
-        {/* Scroll hint */}
+              {/* ── Through-door scene: Vimeo BTS video loop ── */}
+              <div
+                className="absolute overflow-hidden bg-black"
+                style={{ inset: "8px" }}
+              >
+                <iframe
+                  src="https://player.vimeo.com/video/1022971286?background=1&autoplay=1&loop=1&muted=1&dnt=1&controls=0"
+                  className="absolute pointer-events-none"
+                  style={{
+                    top: "50%",
+                    left: "50%",
+                    width: "200%",
+                    height: "200%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  frameBorder="0"
+                  allow="autoplay; fullscreen"
+                  title="Behind the scenes"
+                />
+                {/* Subtle vignette so video edges blend into door frame */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 100%)",
+                  }}
+                />
+              </div>
+
+              {/* ── Door panel (rotates open on left hinge) ── */}
+              <motion.div
+                className="absolute"
+                style={{
+                  inset: "8px",
+                  rotateY: doorRotateY,
+                  transformOrigin: "left center",
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                  background:
+                    "linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 60%, #EAEAEA 100%)",
+                  boxShadow:
+                    "inset 0 0 0 1px rgba(0,0,0,0.04), 0 12px 30px rgba(0,0,0,0.18)",
+                }}
+              >
+                {/* Recessed top panel */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: "16px",
+                    left: "16px",
+                    right: "16px",
+                    height: "calc(48% - 12px)",
+                    border: "1.5px solid #D8D8D8",
+                    boxShadow:
+                      "inset 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px #FFF inset",
+                    borderRadius: "2px",
+                    background:
+                      "linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%)",
+                  }}
+                >
+                  {/* Inner bevel */}
+                  <div
+                    className="absolute inset-2"
+                    style={{
+                      border: "1px solid #E5E5E5",
+                      borderRadius: "1px",
+                    }}
+                  />
+                </div>
+
+                {/* Recessed bottom panel */}
+                <div
+                  className="absolute"
+                  style={{
+                    bottom: "16px",
+                    left: "16px",
+                    right: "16px",
+                    height: "calc(48% - 12px)",
+                    border: "1.5px solid #D8D8D8",
+                    boxShadow:
+                      "inset 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px #FFF inset",
+                    borderRadius: "2px",
+                    background:
+                      "linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%)",
+                  }}
+                >
+                  <div
+                    className="absolute inset-2"
+                    style={{
+                      border: "1px solid #E5E5E5",
+                      borderRadius: "1px",
+                    }}
+                  />
+                </div>
+
+                {/* Door knob — brass/amber */}
+                <div
+                  className="absolute"
+                  style={{
+                    right: "12px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    background:
+                      "radial-gradient(circle at 35% 35%, #E8B870 0%, #B87E3A 60%, #6B4515 100%)",
+                    boxShadow:
+                      "0 1px 3px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.5)",
+                  }}
+                />
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ─── Water reflection (subtle, bottom 25% of viewport) ─── */}
+        <motion.div
+          className="absolute inset-x-0 bottom-0 pointer-events-none"
+          style={{
+            height: "25%",
+            opacity: skyOpacity,
+            background:
+              "linear-gradient(180deg, transparent 0%, rgba(120,160,200,0.18) 40%, rgba(140,170,200,0.32) 100%)",
+            backdropFilter: "blur(2px)",
+            WebkitBackdropFilter: "blur(2px)",
+          }}
+        />
+
+        {/* ─── Scroll hint ─── */}
         <motion.div
           className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10"
           style={{ opacity: hintOpacity }}
@@ -122,423 +242,5 @@ export function LensIntroSection() {
         </motion.div>
       </div>
     </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Photorealistic DSLR camera — front-facing professional rig.
-   Built like a Canon 5D / Sony Alpha:
-     • Large protruding lens (zoom telephoto)
-     • Pentaprism viewfinder hump on top
-     • Right-side grip with rubberized texture
-     • Multiple control dials, shutter, AF assist
-     • Realistic metal + matte plastic differentiation
-   ───────────────────────────────────────────────────────────── */
-function CameraSVG() {
-  return (
-    <svg
-      width="380"
-      height="290"
-      viewBox="0 0 380 290"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{
-        filter:
-          "drop-shadow(0 25px 40px rgba(0,0,0,0.5)) drop-shadow(0 8px 16px rgba(0,0,0,0.3))",
-      }}
-    >
-      <defs>
-        {/* Main body — top-down lighting */}
-        <linearGradient id="dslrBody" x1="0.5" y1="0" x2="0.5" y2="1">
-          <stop offset="0%" stopColor="#2E2E2E" />
-          <stop offset="15%" stopColor="#1A1A1A" />
-          <stop offset="55%" stopColor="#0F0F0F" />
-          <stop offset="100%" stopColor="#050505" />
-        </linearGradient>
-
-        {/* Side wrap shading */}
-        <linearGradient id="dslrSide" x1="0" y1="0.5" x2="1" y2="0.5">
-          <stop offset="0%" stopColor="#3A3A3A" stopOpacity="0.5" />
-          <stop offset="12%" stopColor="#000" stopOpacity="0" />
-          <stop offset="88%" stopColor="#000" stopOpacity="0" />
-          <stop offset="100%" stopColor="#000" stopOpacity="0.7" />
-        </linearGradient>
-
-        {/* Pentaprism (top hump) */}
-        <linearGradient id="prismGrad" x1="0.5" y1="0" x2="0.5" y2="1">
-          <stop offset="0%" stopColor="#3A3A3A" />
-          <stop offset="40%" stopColor="#1E1E1E" />
-          <stop offset="100%" stopColor="#0C0C0C" />
-        </linearGradient>
-
-        {/* Grip rubber */}
-        <linearGradient id="gripRubber" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#1A1A1A" />
-          <stop offset="50%" stopColor="#252525" />
-          <stop offset="100%" stopColor="#0A0A0A" />
-        </linearGradient>
-
-        {/* Lens barrel — long zoom lens shading */}
-        <radialGradient id="lensBarrel" cx="0.5" cy="0.5" r="0.55">
-          <stop offset="0%" stopColor="#2C2C2C" />
-          <stop offset="70%" stopColor="#151515" />
-          <stop offset="100%" stopColor="#000" />
-        </radialGradient>
-
-        {/* Chrome ring (between lens sections) */}
-        <linearGradient id="chromeRing" x1="0.5" y1="0" x2="0.5" y2="1">
-          <stop offset="0%" stopColor="#B8B8B8" />
-          <stop offset="35%" stopColor="#6E6E6E" />
-          <stop offset="65%" stopColor="#383838" />
-          <stop offset="100%" stopColor="#1A1A1A" />
-        </linearGradient>
-
-        {/* Lens front element glass */}
-        <radialGradient id="frontGlass" cx="0.32" cy="0.28" r="0.85">
-          <stop offset="0%" stopColor="#7090A8" stopOpacity="0.95" />
-          <stop offset="20%" stopColor="#2A4458" stopOpacity="0.9" />
-          <stop offset="55%" stopColor="#0A1820" stopOpacity="0.95" />
-          <stop offset="100%" stopColor="#000" stopOpacity="1" />
-        </radialGradient>
-
-        {/* Inner glass — depth tunnel */}
-        <radialGradient id="innerGlass" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#0A1218" />
-          <stop offset="70%" stopColor="#000" />
-          <stop offset="100%" stopColor="#000" />
-        </radialGradient>
-
-        {/* Aperture iris hint */}
-        <radialGradient id="iris" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#000" />
-          <stop offset="80%" stopColor="#000" />
-          <stop offset="100%" stopColor="#1A2530" stopOpacity="0.5" />
-        </radialGradient>
-      </defs>
-
-      {/* ════════════════════════════════════════════════════════
-         PENTAPRISM — top viewfinder hump (iconic DSLR feature)
-         ════════════════════════════════════════════════════════ */}
-      {/* Hot shoe rails (above prism) */}
-      <rect x="170" y="20" width="38" height="14" rx="1" fill="#0A0A0A" />
-      <rect x="172" y="22" width="34" height="2" rx="0.5" fill="#2A2A2A" />
-      <rect x="178" y="26" width="22" height="2" rx="0.5" fill="#000" />
-      <rect x="182" y="30" width="14" height="2" rx="0.5" fill="#0F0F0F" />
-
-      {/* Pentaprism trapezoid shape */}
-      <path
-        d="M 145 60 L 158 34 L 220 34 L 233 60 Z"
-        fill="url(#prismGrad)"
-      />
-      {/* Prism top highlight edge */}
-      <line x1="158" y1="34" x2="220" y2="34" stroke="#4A4A4A" strokeWidth="1" opacity="0.7" />
-      {/* Prism brand badge */}
-      <text
-        x="189"
-        y="51"
-        fontSize="6"
-        fontFamily="sans-serif"
-        fontWeight="700"
-        fill="#777"
-        letterSpacing="1.2"
-        textAnchor="middle"
-      >
-        ASHKAN
-      </text>
-
-      {/* ════════════════════════════════════════════════════════
-         MAIN BODY
-         ════════════════════════════════════════════════════════ */}
-      {/* Body shape with subtle right-side grip bulge */}
-      <path
-        d="M 30 60
-           L 145 60
-           L 158 60
-           L 220 60
-           L 233 60
-           L 305 60
-           Q 320 60 320 75
-           L 320 165
-           Q 320 180 305 180
-           L 280 180
-           Q 285 200 305 215
-           L 290 245
-           Q 280 255 260 250
-           L 50 250
-           Q 30 250 30 230
-           L 30 75
-           Q 30 60 30 60 Z"
-        fill="url(#dslrBody)"
-      />
-      {/* Body wrap shading */}
-      <path
-        d="M 30 60
-           L 145 60
-           L 158 60
-           L 220 60
-           L 233 60
-           L 305 60
-           Q 320 60 320 75
-           L 320 165
-           Q 320 180 305 180
-           L 280 180
-           Q 285 200 305 215
-           L 290 245
-           Q 280 255 260 250
-           L 50 250
-           Q 30 250 30 230
-           L 30 75
-           Q 30 60 30 60 Z"
-        fill="url(#dslrSide)"
-      />
-      {/* Body top highlight */}
-      <path
-        d="M 30 62 L 305 62"
-        stroke="#5A5A5A"
-        strokeWidth="1"
-        opacity="0.5"
-      />
-
-      {/* ════════════════════════════════════════════════════════
-         RIGHT GRIP (rubberized texture)
-         ════════════════════════════════════════════════════════ */}
-      <path
-        d="M 270 65
-           L 305 65
-           Q 318 65 318 78
-           L 318 175
-           Q 318 188 305 188
-           L 282 188
-           Q 287 208 302 220
-           L 286 240
-           Q 280 246 268 240
-           L 270 65 Z"
-        fill="url(#gripRubber)"
-      />
-      {/* Grip rubber dimple texture */}
-      {Array.from({ length: 24 }).map((_, i) => {
-        const row = Math.floor(i / 4);
-        const col = i % 4;
-        return (
-          <circle
-            key={`dimple-${i}`}
-            cx={278 + col * 8}
-            cy={80 + row * 18}
-            r="1.5"
-            fill="#000"
-            opacity="0.8"
-          />
-        );
-      })}
-      {/* Grip vertical highlight */}
-      <line x1="306" y1="68" x2="306" y2="180" stroke="#3A3A3A" strokeWidth="0.8" opacity="0.6" />
-
-      {/* Shutter button on top of grip */}
-      <ellipse cx="295" cy="62" rx="14" ry="6" fill="#1A1A1A" />
-      <ellipse cx="295" cy="60" rx="11" ry="4" fill="#2A2A2A" />
-      <ellipse cx="295" cy="58" rx="8" ry="2.5" fill="#4A4A4A" />
-      {/* Shutter highlight */}
-      <ellipse cx="293" cy="57" rx="5" ry="1" fill="#7A7A7A" opacity="0.7" />
-
-      {/* Front control dial (just below shutter) */}
-      <circle cx="278" cy="78" r="6" fill="#0A0A0A" />
-      <circle cx="278" cy="78" r="4" fill="url(#chromeRing)" opacity="0.5" />
-
-      {/* ════════════════════════════════════════════════════════
-         LEFT-SIDE BODY DETAILS
-         ════════════════════════════════════════════════════════ */}
-      {/* Brand text on left of body */}
-      <text
-        x="48"
-        y="82"
-        fontSize="11"
-        fontFamily="sans-serif"
-        fontWeight="800"
-        fill="#999"
-        letterSpacing="2"
-      >
-        ASHKAN
-      </text>
-      <text
-        x="48"
-        y="94"
-        fontSize="5.5"
-        fontFamily="sans-serif"
-        fontWeight="500"
-        fill="#555"
-        letterSpacing="3"
-      >
-        EOS DIGITAL
-      </text>
-
-      {/* Lens release button (left of lens) */}
-      <circle cx="62" cy="135" r="5" fill="#0A0A0A" />
-      <circle cx="62" cy="135" r="3" fill="#2A2A2A" />
-
-      {/* AF assist beam window */}
-      <rect x="48" y="170" width="20" height="6" rx="2" fill="#220A0A" />
-      <rect x="50" y="172" width="16" height="2" rx="1" fill="#3D1010" opacity="0.8" />
-
-      {/* Mode dial (top left) */}
-      <circle cx="78" cy="56" r="14" fill="#0A0A0A" />
-      <circle cx="78" cy="56" r="14" fill="none" stroke="#383838" strokeWidth="1.5" />
-      <circle cx="78" cy="56" r="10" fill="url(#prismGrad)" />
-      {/* Mode dial markings */}
-      {["M", "AV", "TV", "P", "A", "S"].map((label, i) => {
-        const a = (i * 60 - 90) * (Math.PI / 180);
-        return (
-          <text
-            key={`mode-${i}`}
-            x={78 + Math.cos(a) * 8}
-            y={56 + Math.sin(a) * 8 + 2}
-            fontSize="3.5"
-            fontWeight="700"
-            fill="#999"
-            textAnchor="middle"
-            fontFamily="sans-serif"
-          >
-            {label}
-          </text>
-        );
-      })}
-      {/* Center indicator dot */}
-      <circle cx="78" cy="56" r="1.2" fill="#CC2A2A" />
-
-      {/* ════════════════════════════════════════════════════════
-         LENS ASSEMBLY — Large protruding zoom lens
-         ════════════════════════════════════════════════════════ */}
-      {/* Outer barrel (largest, deepest) */}
-      <circle cx="175" cy="155" r="92" fill="url(#lensBarrel)" />
-      {/* Barrel outer ring shadow */}
-      <circle cx="175" cy="155" r="92" fill="none" stroke="#000" strokeWidth="2" />
-      {/* Barrel top-left highlight */}
-      <path
-        d="M 110 110 A 92 92 0 0 1 200 70"
-        stroke="#4A4A4A"
-        strokeWidth="2"
-        fill="none"
-        opacity="0.7"
-      />
-
-      {/* Chrome ring (separates barrel sections) */}
-      <circle cx="175" cy="155" r="86" fill="none" stroke="url(#chromeRing)" strokeWidth="3" />
-
-      {/* Zoom ring (with rubber texture) */}
-      <circle cx="175" cy="155" r="82" fill="#0F0F0F" />
-      {Array.from({ length: 60 }).map((_, i) => {
-        const a = (i * 6 * Math.PI) / 180;
-        return (
-          <line
-            key={`zoom-${i}`}
-            x1={175 + Math.cos(a) * 78}
-            y1={155 + Math.sin(a) * 78}
-            x2={175 + Math.cos(a) * 82}
-            y2={155 + Math.sin(a) * 82}
-            stroke="#000"
-            strokeWidth="0.8"
-            opacity="0.9"
-          />
-        );
-      })}
-
-      {/* Focal length text on barrel */}
-      <text
-        x="175"
-        y="86"
-        fontSize="6"
-        fontFamily="sans-serif"
-        fontWeight="600"
-        fill="#999"
-        textAnchor="middle"
-        letterSpacing="1.5"
-      >
-        70-200mm f/2.8
-      </text>
-
-      {/* Inner chrome ring (between zoom & focus) */}
-      <circle cx="175" cy="155" r="74" fill="url(#chromeRing)" opacity="0.6" />
-      <circle cx="175" cy="155" r="71" fill="#0A0A0A" />
-
-      {/* Focus ring */}
-      <circle cx="175" cy="155" r="68" fill="#151515" />
-      {Array.from({ length: 48 }).map((_, i) => {
-        const a = (i * 7.5 * Math.PI) / 180;
-        return (
-          <line
-            key={`focus-${i}`}
-            x1={175 + Math.cos(a) * 64}
-            y1={155 + Math.sin(a) * 64}
-            x2={175 + Math.cos(a) * 68}
-            y2={155 + Math.sin(a) * 68}
-            stroke="#000"
-            strokeWidth="0.7"
-            opacity="0.85"
-          />
-        );
-      })}
-
-      {/* Lens hood inner edge */}
-      <circle cx="175" cy="155" r="60" fill="none" stroke="url(#chromeRing)" strokeWidth="2" />
-
-      {/* Front element glass */}
-      <circle cx="175" cy="155" r="56" fill="#000" />
-      <circle cx="175" cy="155" r="56" fill="url(#frontGlass)" />
-
-      {/* Glass inner depth */}
-      <circle cx="175" cy="155" r="44" fill="url(#innerGlass)" />
-
-      {/* Aperture iris (subtle hex blade hint) */}
-      <circle cx="175" cy="155" r="32" fill="url(#iris)" />
-      <polygon
-        points="175,123 203,139 203,171 175,187 147,171 147,139"
-        fill="none"
-        stroke="#1A2A38"
-        strokeWidth="1"
-        opacity="0.55"
-      />
-
-      {/* Glass reflections — main highlight */}
-      <ellipse
-        cx="148"
-        cy="128"
-        rx="18"
-        ry="10"
-        fill="#FFFFFF"
-        opacity="0.22"
-        transform="rotate(-25 148 128)"
-      />
-      {/* Bright pinpoint */}
-      <ellipse cx="142" cy="120" rx="6" ry="3" fill="#FFFFFF" opacity="0.6" />
-      <ellipse cx="140" cy="118" rx="2" ry="1" fill="#FFFFFF" opacity="0.95" />
-      {/* Lens flare dots */}
-      <circle cx="200" cy="180" r="3" fill="#FFFFFF" opacity="0.25" />
-      <circle cx="210" cy="170" r="1.5" fill="#FFFFFF" opacity="0.4" />
-
-      {/* Red ring (pro lens marker) — Canon-style */}
-      <circle
-        cx="175"
-        cy="155"
-        r="63"
-        fill="none"
-        stroke="#B81818"
-        strokeWidth="1.5"
-        opacity="0.9"
-      />
-
-      {/* ════════════════════════════════════════════════════════
-         LED + DETAILS
-         ════════════════════════════════════════════════════════ */}
-      {/* Recording LED (pulse) */}
-      <circle cx="50" cy="74" r="2.5" fill="#FF2A2A" />
-      <circle cx="50" cy="74" r="2.5" fill="#FF2A2A" opacity="0.5">
-        <animate attributeName="r" values="2.5;6;2.5" dur="2s" repeatCount="indefinite" />
-        <animate
-          attributeName="opacity"
-          values="0.5;0;0.5"
-          dur="2s"
-          repeatCount="indefinite"
-        />
-      </circle>
-    </svg>
   );
 }
