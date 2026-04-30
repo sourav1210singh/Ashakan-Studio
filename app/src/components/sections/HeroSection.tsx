@@ -201,19 +201,19 @@ const DRIFT_PATTERNS: Record<
     x: [0, 4, -3, 5, -2, 3, 0],
     y: [0, -5, -7, -3, 2, -4, 0],
     rotate: [0, -1.2, 0.8, -0.4, 1, -0.6, 0],
-    duration: 5.5,
+    duration: 9,
   },
   driftB: {
     x: [0, -5, 3, -4, 6, -2, 0],
     y: [0, 4, -4, 6, -3, 5, 0],
     rotate: [0, 1, -0.8, 1.4, -0.6, 0.7, 0],
-    duration: 6.2,
+    duration: 10,
   },
   driftC: {
     x: [0, 3, -4, 2, -5, 4, 0],
     y: [0, -4, 3, -3, 5, -2, 0],
     rotate: [0, -0.7, 1.2, -1, 0.5, -0.3, 0],
-    duration: 4.8,
+    duration: 8,
   },
 };
 
@@ -362,8 +362,8 @@ export function HeroSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-24 sm:pt-32 pb-20 sm:pb-32"
-      style={{ minHeight: "115vh" }}
+      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-32 sm:pt-40 pb-28 sm:pb-40"
+      style={{ minHeight: "130vh" }}
     >
       {/* Background Pattern — parallax slowest */}
       <motion.div
@@ -390,13 +390,14 @@ export function HeroSection() {
         }}
       >
         <div className="text-center">
-          {/* ───── LINE 1: [dancer] WE CREATE ───── */}
+          {/* ───── LINE 1: [dancer] WE CREATE — shifted slightly left ───── */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.3s forwards",
               y: line1Lift,
+              transform: "translateX(-5%)",
             }}
           >
             <InlineCutout
