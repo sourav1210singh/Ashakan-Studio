@@ -34,9 +34,9 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
 
         // Hide on scroll-down past threshold; show on scroll-up
         const delta = y - lastY;
-        if (y > 80 && delta > 4) {
+        if (y > 40 && delta > 1) {
           setIsHidden(true); // scrolling DOWN → hide
-        } else if (delta < -4 || y < 80) {
+        } else if (delta < -1 || y < 40) {
           setIsHidden(false); // scrolling UP (or near top) → show
         }
         lastY = y;

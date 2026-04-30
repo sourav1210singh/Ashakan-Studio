@@ -32,13 +32,13 @@ export function LensIntroSection() {
      Phase 5 (85% → 98%): Portal fades, hero revealed
      ─────────────────────────────────────────────────────────── */
 
-  // Left text — fades + scrolls up first
-  const leftTextY = useTransform(scrollYProgress, [0, 0.10], [0, -350]);
-  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.06, 0.10], [1, 0.6, 0]);
+  // Left text — fades + scrolls up first (fully gone by 12% scroll)
+  const leftTextY = useTransform(scrollYProgress, [0, 0.12], [0, -800]);
+  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.05, 0.10], [1, 0.4, 0]);
 
-  // Right text — fades + scrolls up after left
-  const rightTextY = useTransform(scrollYProgress, [0.08, 0.22], [0, -350]);
-  const rightTextOpacity = useTransform(scrollYProgress, [0.10, 0.18, 0.22], [1, 0.5, 0]);
+  // Right text — fades + scrolls up after left (fully gone by 24% scroll)
+  const rightTextY = useTransform(scrollYProgress, [0.10, 0.24], [0, -800]);
+  const rightTextOpacity = useTransform(scrollYProgress, [0.10, 0.17, 0.22], [1, 0.4, 0]);
 
   // Door opens smoothly across a wide scroll range (= slow & smooth)
   const doorRotateY = useTransform(scrollYProgress, [0.22, 0.60], [0, -88]);
