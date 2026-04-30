@@ -48,8 +48,8 @@ export function LensIntroSection() {
   const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -500]);
   const rightTextOpacity = useTransform(scrollYProgress, [0.20, 0.30, 0.40], [1, 0.5, 0]);
 
-  // Door opens AFTER both texts are gone
-  const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, -88]);
+  // Door opens AFTER both texts are gone — POSITIVE rotateY = swings open from LEFT
+  const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, 92]);
 
   // Portal scales toward viewer (overlaps end of door open)
   const portalScale = useTransform(scrollYProgress, [0.65, 0.95], [1, 14]);
@@ -165,8 +165,8 @@ export function LensIntroSection() {
           </h2>
         </motion.div>
 
-        {/* ─── Door portal (left-shifted, scales with scroll) ─── */}
-        <div className="absolute inset-0 flex items-center justify-start pl-[34%] lg:pl-[30%] xl:pl-[28%]">
+        {/* ─── Door portal (centered, scales with scroll) ─── */}
+        <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             className="relative"
             style={{
@@ -176,31 +176,56 @@ export function LensIntroSection() {
               willChange: "transform, opacity",
             }}
           >
-            {/* Door dimensions — taller than wide, like a real door */}
+            {/* Premium real door — frame, panel, hinges, knob */}
             <div
               className="relative"
               style={{
-                width: "260px",
-                height: "560px",
-                perspective: "1500px",
+                width: "280px",
+                height: "600px",
+                perspective: "1800px",
                 transformStyle: "preserve-3d",
               }}
             >
-              {/* ── Door frame (outer trim + thin shadow line) ── */}
+              {/* ── Door frame (architrave / casing — recessed jamb) ── */}
+              {/* Outer trim with bevel highlights */}
               <div
-                className="absolute inset-0 bg-white"
+                className="absolute -inset-4"
                 style={{
+                  background:
+                    "linear-gradient(135deg, #FAFAFA 0%, #E8E8E8 100%)",
                   boxShadow:
-                    "0 20px 50px -10px rgba(40,60,90,0.25), 0 6px 16px rgba(0,0,0,0.08)",
-                  border: "8px solid #FFFFFF",
+                    "0 30px 60px -15px rgba(20,40,80,0.45)," +
+                    "0 12px 24px rgba(0,0,0,0.18)," +
+                    "inset 0 1px 0 rgba(255,255,255,0.9)," +
+                    "inset 0 -1px 0 rgba(0,0,0,0.08)",
+                  borderRadius: "3px",
+                }}
+              />
+              {/* Inner frame trim (deeper) */}
+              <div
+                className="absolute -inset-1"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #FFFFFF 0%, #F2F2F2 100%)",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,1)," +
+                    "inset 1px 0 0 rgba(255,255,255,0.7)," +
+                    "inset -1px 0 0 rgba(0,0,0,0.08)," +
+                    "inset 0 -1px 0 rgba(0,0,0,0.10)",
                   borderRadius: "2px",
                 }}
               />
 
-              {/* ── Through-door scene: Vimeo BTS video loop ── */}
+              {/* ── Doorway interior (deep shadow + video) ── */}
               <div
-                className="absolute overflow-hidden bg-black"
-                style={{ inset: "8px" }}
+                className="absolute inset-0 overflow-hidden bg-black"
+                style={{
+                  boxShadow:
+                    "inset 4px 0 12px rgba(0,0,0,0.55)," +
+                    "inset -4px 0 8px rgba(0,0,0,0.35)," +
+                    "inset 0 4px 12px rgba(0,0,0,0.45)," +
+                    "inset 0 -4px 10px rgba(0,0,0,0.45)",
+                }}
               >
                 <iframe
                   src="https://player.vimeo.com/video/1022971286?background=1&autoplay=1&loop=1&muted=1&dnt=1&controls=0"
@@ -208,107 +233,268 @@ export function LensIntroSection() {
                   style={{
                     top: "50%",
                     left: "50%",
-                    width: "200%",
-                    height: "200%",
+                    width: "220%",
+                    height: "220%",
                     transform: "translate(-50%, -50%)",
                   }}
                   frameBorder="0"
                   allow="autoplay; fullscreen"
                   title="Behind the scenes"
                 />
-                {/* Subtle vignette so video edges blend into door frame */}
+                {/* Vignette so video blends into doorway shadows */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background:
-                      "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.35) 100%)",
+                      "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)",
                   }}
                 />
               </div>
 
-              {/* ── Door panel (rotates open on left hinge) ── */}
+              {/* ── Door panel — opens on RIGHT hinge (left edge swings out) ── */}
               <motion.div
-                className="absolute"
+                className="absolute inset-0"
                 style={{
-                  inset: "8px",
                   rotateY: doorRotateY,
-                  transformOrigin: "left center",
+                  transformOrigin: "right center",
                   transformStyle: "preserve-3d",
                   backfaceVisibility: "hidden",
-                  background:
-                    "linear-gradient(135deg, #FFFFFF 0%, #F5F5F5 60%, #EAEAEA 100%)",
-                  boxShadow:
-                    "inset 0 0 0 1px rgba(0,0,0,0.04), 0 12px 30px rgba(0,0,0,0.18)",
                 }}
               >
-                {/* Recessed top panel */}
+                {/* Door body — painted white wood */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #F4F4F4 0%, #FAFAFA 8%, #FFFFFF 30%, #FFFFFF 70%, #F8F8F8 92%, #ECECEC 100%)",
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,1)," +
+                      "inset 0 -1px 2px rgba(0,0,0,0.08)," +
+                      "inset 1px 0 0 rgba(255,255,255,0.7)," +
+                      "inset -1px 0 0 rgba(0,0,0,0.06)," +
+                      "0 14px 30px rgba(0,0,0,0.22)",
+                  }}
+                />
+
+                {/* Top stile (horizontal divider at top) */}
                 <div
                   className="absolute"
                   style={{
                     top: "16px",
                     left: "16px",
                     right: "16px",
-                    height: "calc(48% - 12px)",
-                    border: "1.5px solid #D8D8D8",
-                    boxShadow:
-                      "inset 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px #FFF inset",
-                    borderRadius: "2px",
+                    height: "calc(38% - 16px)",
                     background:
-                      "linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%)",
+                      "linear-gradient(135deg, #F2F2F2 0%, #E8E8E8 100%)",
+                    boxShadow:
+                      "inset 0 2px 4px rgba(0,0,0,0.10)," +
+                      "inset 0 -1px 0 rgba(255,255,255,0.85)," +
+                      "inset 1px 0 2px rgba(0,0,0,0.06)," +
+                      "inset -1px 0 0 rgba(255,255,255,0.6)",
+                    borderRadius: "1px",
                   }}
                 >
-                  {/* Inner bevel */}
+                  {/* Bevel inset 1 */}
                   <div
-                    className="absolute inset-2"
+                    className="absolute"
                     style={{
-                      border: "1px solid #E5E5E5",
-                      borderRadius: "1px",
+                      inset: "8px",
+                      background:
+                        "linear-gradient(135deg, #FAFAFA 0%, #EFEFEF 100%)",
+                      boxShadow:
+                        "inset 0 1px 1px rgba(255,255,255,0.9)," +
+                        "inset 0 -1px 1px rgba(0,0,0,0.08)",
                     }}
-                  />
+                  >
+                    {/* Bevel inset 2 (deepest recess) */}
+                    <div
+                      className="absolute"
+                      style={{
+                        inset: "6px",
+                        background:
+                          "linear-gradient(135deg, #FFFFFF 0%, #F4F4F4 100%)",
+                        boxShadow:
+                          "inset 1px 1px 2px rgba(0,0,0,0.05)," +
+                          "inset -1px -1px 1px rgba(255,255,255,0.8)",
+                      }}
+                    />
+                  </div>
                 </div>
 
-                {/* Recessed bottom panel */}
+                {/* Bottom stile */}
                 <div
                   className="absolute"
                   style={{
                     bottom: "16px",
                     left: "16px",
                     right: "16px",
-                    height: "calc(48% - 12px)",
-                    border: "1.5px solid #D8D8D8",
-                    boxShadow:
-                      "inset 0 1px 2px rgba(0,0,0,0.05), 0 0 0 1px #FFF inset",
-                    borderRadius: "2px",
+                    height: "calc(50% - 16px)",
                     background:
-                      "linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%)",
+                      "linear-gradient(135deg, #F2F2F2 0%, #E8E8E8 100%)",
+                    boxShadow:
+                      "inset 0 2px 4px rgba(0,0,0,0.10)," +
+                      "inset 0 -1px 0 rgba(255,255,255,0.85)," +
+                      "inset 1px 0 2px rgba(0,0,0,0.06)," +
+                      "inset -1px 0 0 rgba(255,255,255,0.6)",
+                    borderRadius: "1px",
                   }}
                 >
                   <div
-                    className="absolute inset-2"
+                    className="absolute"
                     style={{
-                      border: "1px solid #E5E5E5",
+                      inset: "8px",
+                      background:
+                        "linear-gradient(135deg, #FAFAFA 0%, #EFEFEF 100%)",
+                      boxShadow:
+                        "inset 0 1px 1px rgba(255,255,255,0.9)," +
+                        "inset 0 -1px 1px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    <div
+                      className="absolute"
+                      style={{
+                        inset: "6px",
+                        background:
+                          "linear-gradient(135deg, #FFFFFF 0%, #F4F4F4 100%)",
+                        boxShadow:
+                          "inset 1px 1px 2px rgba(0,0,0,0.05)," +
+                          "inset -1px -1px 1px rgba(255,255,255,0.8)",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* Hinge — RIGHT side (where door pivots) */}
+                {[0.18, 0.5, 0.82].map((pos, i) => (
+                  <div
+                    key={`hinge-${i}`}
+                    className="absolute"
+                    style={{
+                      right: "-2px",
+                      top: `calc(${pos * 100}% - 14px)`,
+                      width: "5px",
+                      height: "28px",
+                      background:
+                        "linear-gradient(90deg, #C2A472 0%, #A8884A 50%, #8A6E36 100%)",
                       borderRadius: "1px",
+                      boxShadow:
+                        "0 1px 2px rgba(0,0,0,0.4)," +
+                        "inset 0 1px 0 rgba(255,255,255,0.4)," +
+                        "inset 0 -1px 0 rgba(0,0,0,0.3)",
+                    }}
+                  >
+                    {/* Hinge screws */}
+                    <div
+                      className="absolute"
+                      style={{
+                        top: "5px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "1.5px",
+                        height: "1.5px",
+                        background: "#5A4A28",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <div
+                      className="absolute"
+                      style={{
+                        bottom: "5px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "1.5px",
+                        height: "1.5px",
+                        background: "#5A4A28",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
+                ))}
+
+                {/* Knob backplate (escutcheon) */}
+                <div
+                  className="absolute"
+                  style={{
+                    left: "14px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "22px",
+                    height: "60px",
+                    background:
+                      "linear-gradient(135deg, #E0BC7E 0%, #B58840 50%, #8A6428 100%)",
+                    borderRadius: "3px",
+                    boxShadow:
+                      "0 1px 3px rgba(0,0,0,0.3)," +
+                      "inset 0 1px 1px rgba(255,255,255,0.5)," +
+                      "inset 0 -1px 1px rgba(0,0,0,0.3)",
+                  }}
+                />
+
+                {/* Brass knob (3D ball with shine) */}
+                <div
+                  className="absolute"
+                  style={{
+                    left: "12px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "26px",
+                    height: "26px",
+                    borderRadius: "50%",
+                    background:
+                      "radial-gradient(circle at 32% 28%," +
+                      "#FFEAB8 0%," +
+                      "#E8C77A 18%," +
+                      "#C49A48 45%," +
+                      "#7A5A22 80%," +
+                      "#3F2C0E 100%)",
+                    boxShadow:
+                      "0 3px 6px rgba(0,0,0,0.4)," +
+                      "0 1px 2px rgba(0,0,0,0.3)," +
+                      "inset 0 1px 1px rgba(255,255,255,0.4)",
+                  }}
+                >
+                  {/* Bright highlight reflection */}
+                  <div
+                    className="absolute"
+                    style={{
+                      top: "4px",
+                      left: "5px",
+                      width: "8px",
+                      height: "5px",
+                      background:
+                        "radial-gradient(ellipse, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 70%)",
+                      borderRadius: "50%",
                     }}
                   />
                 </div>
 
-                {/* Door knob — brass/amber */}
+                {/* Subtle vertical paint streak (right side, near hinge — adds realism) */}
                 <div
                   className="absolute"
                   style={{
-                    right: "12px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "10px",
-                    height: "10px",
-                    borderRadius: "50%",
+                    top: "0",
+                    bottom: "0",
+                    right: "0",
+                    width: "1px",
                     background:
-                      "radial-gradient(circle at 35% 35%, #E8B870 0%, #B87E3A 60%, #6B4515 100%)",
-                    boxShadow:
-                      "0 1px 3px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.5)",
+                      "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.04) 30%, rgba(0,0,0,0.06) 70%, transparent 100%)",
                   }}
                 />
               </motion.div>
+
+              {/* ── Door floor shadow (under door, grounds it) ── */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-22px",
+                  left: "-30px",
+                  right: "-30px",
+                  height: "30px",
+                  background:
+                    "radial-gradient(ellipse at center top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 50%, transparent 80%)",
+                  filter: "blur(8px)",
+                }}
+              />
             </div>
           </motion.div>
         </div>
