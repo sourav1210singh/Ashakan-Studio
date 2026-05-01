@@ -70,6 +70,16 @@ export function LensIntroSection() {
   // Hint fades during phase 1
   const hintOpacity = useTransform(scrollYProgress, [0, 0.10], [1, 0]);
 
+  /* Water reacts to door opening — opacity of intense wave layer grows
+     with scroll, so as the door swings open the water visibly comes alive */
+  const waterIntensityOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.35, 0.7],
+    [0, 0.6, 1]
+  );
+  /* And wave layer scaleY grows so amplitude appears bigger on open */
+  const waterScaleY = useTransform(scrollYProgress, [0, 0.7], [1, 1.6]);
+
   return (
     <section
       ref={sectionRef}
@@ -79,14 +89,33 @@ export function LensIntroSection() {
     >
       {/* Sticky pinned viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* ─── Real photo background: clouds + ocean ─── */}
+        {/* ═══════════════════════════════════════════════════════════
+            REAL PHOTO BACKGROUND with subtle premium motion
+            (matches travelnextlvl.de — photographic, not cartoonish)
+            • Photo as base layer with very slow Ken-Burns zoom
+            • Subtle warm gradient overlay
+            • Faint ripple highlights ONLY on water area (very subtle)
+            ═══════════════════════════════════════════════════════════ */}
+
+        {/* Photo background — slow Ken Burns effect (very subtle zoom + drift) */}
         <motion.div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            opacity: skyOpacity,
-            backgroundImage: "url('/images/hero/sky-ocean.jpg')",
-          }}
-        />
+          className="absolute inset-0 overflow-hidden"
+          style={{ opacity: skyOpacity }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: "url('/images/hero/sky-ocean.jpg')",
+              transformOrigin: "center 40%",
+            }}
+            animate={{ scale: [1.02, 1.08, 1.02] }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
 
         {/* Subtle warm tone overlay so the door reads against the image */}
         <motion.div
@@ -94,191 +123,163 @@ export function LensIntroSection() {
           style={{
             opacity: skyOpacity,
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 30%, transparent 70%, rgba(20,40,80,0.10) 100%)",
+              "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 30%, transparent 70%, rgba(20,40,80,0.10) 100%)",
           }}
         />
 
-        {/* ═══════════════════════════════════════════════════════════
-            ANIMATED OCEAN — wave shimmer overlaid on the photo's water
-            ═══════════════════════════════════════════════════════════ */}
-        <motion.div
-          className="absolute inset-x-0 bottom-0 pointer-events-none overflow-hidden"
-          style={{ opacity: skyOpacity, height: "48%", mixBlendMode: "soft-light" }}
-        >
-          <svg
-            className="absolute inset-0 w-full h-full"
-            viewBox="0 0 1600 500"
-            preserveAspectRatio="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <linearGradient id="shimmerGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
-                <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="darkRipple" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#0A2540" stopOpacity="0" />
-                <stop offset="100%" stopColor="#0A2540" stopOpacity="0.35" />
-              </linearGradient>
-            </defs>
-
-            {/* Far horizon ripples — fast subtle pulse */}
-            <motion.path
-              fill="url(#shimmerGrad)"
-              animate={{
-                d: [
-                  "M 0 60 Q 200 55 400 60 T 800 60 T 1200 60 T 1600 60 L 1600 75 L 0 75 Z",
-                  "M 0 60 Q 200 65 400 60 T 800 60 T 1200 60 T 1600 60 L 1600 75 L 0 75 Z",
-                  "M 0 60 Q 200 55 400 60 T 800 60 T 1200 60 T 1600 60 L 1600 75 L 0 75 Z",
-                ],
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
-
-            {/* Mid waves — light + gentle */}
-            <motion.path
-              stroke="#FFFFFF"
-              strokeWidth="1.2"
-              fill="none"
-              opacity="0.45"
-              animate={{
-                d: [
-                  "M 0 150 Q 200 138 400 150 T 800 150 T 1200 150 T 1600 150",
-                  "M 0 150 Q 200 162 400 150 T 800 150 T 1200 150 T 1600 150",
-                  "M 0 150 Q 200 138 400 150 T 800 150 T 1200 150 T 1600 150",
-                ],
-              }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.path
-              stroke="#FFFFFF"
-              strokeWidth="1.2"
-              fill="none"
-              opacity="0.4"
-              animate={{
-                d: [
-                  "M 0 195 Q 250 183 500 195 T 1000 195 T 1500 195 L 1600 195",
-                  "M 0 195 Q 250 207 500 195 T 1000 195 T 1500 195 L 1600 195",
-                  "M 0 195 Q 250 183 500 195 T 1000 195 T 1500 195 L 1600 195",
-                ],
-              }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            />
-
-            {/* Closer wave with foam-like crest band */}
-            <motion.path
-              fill="url(#shimmerGrad)"
-              opacity="0.7"
-              animate={{
-                d: [
-                  "M 0 280 Q 180 255 360 280 T 720 280 T 1080 280 T 1440 280 L 1600 280 L 1600 320 Q 1400 305 1080 320 T 720 320 T 360 320 L 0 320 Z",
-                  "M 0 280 Q 180 305 360 280 T 720 280 T 1080 280 T 1440 280 L 1600 280 L 1600 320 Q 1400 295 1080 320 T 720 320 T 360 320 L 0 320 Z",
-                  "M 0 280 Q 180 255 360 280 T 720 280 T 1080 280 T 1440 280 L 1600 280 L 1600 320 Q 1400 305 1080 320 T 720 320 T 360 320 L 0 320 Z",
-                ],
-              }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            />
-
-            {/* Foreground swell — biggest motion */}
-            <motion.path
-              fill="url(#darkRipple)"
-              animate={{
-                d: [
-                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380 L 1600 500 L 0 500 Z",
-                  "M 0 380 Q 200 405 420 380 T 820 380 T 1180 380 T 1600 380 L 1600 500 L 0 500 Z",
-                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380 L 1600 500 L 0 500 Z",
-                ],
-              }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            />
-            <motion.path
-              stroke="#FFFFFF"
-              strokeWidth="1.5"
-              fill="none"
-              opacity="0.55"
-              animate={{
-                d: [
-                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380",
-                  "M 0 380 Q 200 405 420 380 T 820 380 T 1180 380 T 1600 380",
-                  "M 0 380 Q 200 355 420 380 T 820 380 T 1180 380 T 1600 380",
-                ],
-              }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </svg>
-
-          {/* Light shimmer dots — sun glints on water (rare, slow pulse) */}
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 30% 8% at 25% 65%, rgba(255,255,255,0.3) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 35% 10% at 70% 80%, rgba(255,255,255,0.25) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 20% 6% at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 70%)",
-            }}
-            animate={{ opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
-
-        {/* ═══════════════════════════════════════════════════════════
-            DRIFTING CLOUDS — soft white silhouettes drift slowly across
-            the sky portion. Adds atmospheric motion without hiding the
-            photo's natural cloud shapes.
-            ═══════════════════════════════════════════════════════════ */}
+        {/* DRIFTING CLOUDS — soft white whisps drift faster across the sky
+            portion of the photo (mix-blend screen so they enhance, not
+            replace, the photographic clouds underneath). */}
         <motion.div
           className="absolute inset-x-0 top-0 pointer-events-none overflow-hidden"
           style={{ opacity: skyOpacity, height: "55%", mixBlendMode: "screen" }}
         >
-          {/* Slow far-drift cloud whisper */}
           <motion.div
             className="absolute"
             style={{
-              top: "20%",
-              width: "180%",
-              height: "120px",
+              top: "18%",
+              width: "260%",
+              height: "100px",
               background:
-                "radial-gradient(ellipse 18% 100% at 20% 50%, rgba(255,255,255,0.45) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 22% 100% at 55% 50%, rgba(255,255,255,0.35) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 16% 100% at 85% 50%, rgba(255,255,255,0.4) 0%, transparent 70%)",
-              filter: "blur(8px)",
-            }}
-            animate={{ x: ["0%", "-44%"] }}
-            transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
-          />
-
-          {/* Mid drift wisp */}
-          <motion.div
-            className="absolute"
-            style={{
-              top: "42%",
-              width: "180%",
-              height: "80px",
-              background:
-                "radial-gradient(ellipse 24% 100% at 35% 50%, rgba(255,255,255,0.3) 0%, transparent 60%)," +
-                "radial-gradient(ellipse 18% 100% at 75% 50%, rgba(255,255,255,0.25) 0%, transparent 60%)",
-              filter: "blur(10px)",
-            }}
-            animate={{ x: ["-44%", "0%"] }}
-            transition={{ duration: 110, repeat: Infinity, ease: "linear" }}
-          />
-
-          {/* Tiny near-horizon drift */}
-          <motion.div
-            className="absolute"
-            style={{
-              top: "70%",
-              width: "180%",
-              height: "40px",
-              background:
-                "radial-gradient(ellipse 28% 100% at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)",
+                "radial-gradient(ellipse 12% 80% at 8%  60%, rgba(255,255,255,0.55) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 10% 95% at 22% 50%, rgba(255,255,255,0.65) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 14% 85% at 38% 55%, rgba(255,255,255,0.5)  0%, transparent 70%)," +
+                "radial-gradient(ellipse 11% 90% at 60% 50%, rgba(255,255,255,0.6)  0%, transparent 70%)," +
+                "radial-gradient(ellipse 10% 75% at 80% 60%, rgba(255,255,255,0.5)  0%, transparent 70%)",
               filter: "blur(6px)",
             }}
-            animate={{ x: ["0%", "-44%"] }}
-            transition={{ duration: 140, repeat: Infinity, ease: "linear" }}
+            animate={{ x: ["-60%", "0%"] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="absolute"
+            style={{
+              top: "38%",
+              width: "260%",
+              height: "60px",
+              background:
+                "radial-gradient(ellipse 18% 100% at 30% 50%, rgba(255,255,255,0.4) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 22% 100% at 70% 50%, rgba(255,255,255,0.45) 0%, transparent 70%)",
+              filter: "blur(8px)",
+            }}
+            animate={{ x: ["0%", "-60%"] }}
+            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
           />
         </motion.div>
+
+        {/* WATER RIPPLES — subtle baseline + scroll-intensified layer.
+            As user scrolls (door opens), the wave amplitude increases
+            and a second more dramatic wave layer fades in. */}
+        <motion.svg
+          className="absolute inset-x-0 bottom-0 pointer-events-none w-full"
+          style={{ opacity: skyOpacity, height: "32%" }}
+          viewBox="0 0 1600 400"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Baseline gentle ripples — always visible, photographic */}
+          <motion.path
+            stroke="#FFFFFF"
+            strokeWidth="0.9"
+            fill="none"
+            opacity="0.22"
+            animate={{
+              d: [
+                "M 0 120 Q 400 116 800 120 T 1600 120",
+                "M 0 120 Q 400 124 800 120 T 1600 120",
+                "M 0 120 Q 400 116 800 120 T 1600 120",
+              ],
+            }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.path
+            stroke="#FFFFFF"
+            strokeWidth="0.9"
+            fill="none"
+            opacity="0.2"
+            animate={{
+              d: [
+                "M 0 195 Q 350 190 700 195 T 1400 195 L 1600 195",
+                "M 0 195 Q 350 200 700 195 T 1400 195 L 1600 195",
+                "M 0 195 Q 350 190 700 195 T 1400 195 L 1600 195",
+              ],
+            }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+          />
+          <motion.path
+            stroke="#FFFFFF"
+            strokeWidth="1.1"
+            fill="none"
+            opacity="0.28"
+            animate={{
+              d: [
+                "M 0 280 Q 300 272 600 280 T 1200 280 T 1600 280",
+                "M 0 280 Q 300 288 600 280 T 1200 280 T 1600 280",
+                "M 0 280 Q 300 272 600 280 T 1200 280 T 1600 280",
+              ],
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          />
+        </motion.svg>
+
+        {/* INTENSIFIED WAVE LAYER — fades in + scales up as door opens.
+            Sits on top of baseline ripples so water visibly "comes alive"
+            in sync with the portal animation. */}
+        <motion.svg
+          className="absolute inset-x-0 bottom-0 pointer-events-none w-full"
+          style={{
+            opacity: waterIntensityOpacity,
+            height: "32%",
+            scaleY: waterScaleY,
+            transformOrigin: "bottom center",
+          }}
+          viewBox="0 0 1600 400"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <motion.path
+            stroke="#FFFFFF"
+            strokeWidth="1.3"
+            fill="none"
+            opacity="0.55"
+            animate={{
+              d: [
+                "M 0 165 Q 200 140 400 165 T 800 165 T 1200 165 T 1600 165",
+                "M 0 165 Q 200 190 400 165 T 800 165 T 1200 165 T 1600 165",
+                "M 0 165 Q 200 140 400 165 T 800 165 T 1200 165 T 1600 165",
+              ],
+            }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.path
+            stroke="#FFFFFF"
+            strokeWidth="1.5"
+            fill="none"
+            opacity="0.6"
+            animate={{
+              d: [
+                "M 0 245 Q 200 215 400 245 T 800 245 T 1200 245 T 1600 245",
+                "M 0 245 Q 200 275 400 245 T 800 245 T 1200 245 T 1600 245",
+                "M 0 245 Q 200 215 400 245 T 800 245 T 1200 245 T 1600 245",
+              ],
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+          />
+          <motion.path
+            stroke="#FFFFFF"
+            strokeWidth="1.7"
+            fill="none"
+            opacity="0.65"
+            animate={{
+              d: [
+                "M 0 330 Q 200 295 400 330 T 800 330 T 1200 330 T 1600 330",
+                "M 0 330 Q 200 365 400 330 T 800 330 T 1200 330 T 1600 330",
+                "M 0 330 Q 200 295 400 330 T 800 330 T 1200 330 T 1600 330",
+              ],
+            }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+          />
+        </motion.svg>
 
         {/* ─── Left side text — bold headline (desktop only) ─── */}
         <motion.div
@@ -674,16 +675,89 @@ export function LensIntroSection() {
                 />
               </motion.div>
 
-              {/* ── Door floor shadow (under door, grounds it) ── */}
+              {/* ── Water reflection of the door (mirror image, blurred,
+                   faded) — appears below the door as if it's standing in
+                   water. Position matches photo's water level. ── */}
+              <div
+                className="absolute pointer-events-none overflow-hidden"
+                style={{
+                  top: "calc(100% - 4px)",
+                  left: 0,
+                  right: 0,
+                  height: "55%",
+                }}
+              >
+                <motion.div
+                  className="absolute inset-x-0 top-0"
+                  style={{
+                    height: "100%",
+                    background:
+                      "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
+                    transform: "scaleY(-1)",
+                    transformOrigin: "top center",
+                    opacity: 0.35,
+                    filter: "blur(2px)",
+                    maskImage:
+                      "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 95%)",
+                    WebkitMaskImage:
+                      "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 95%)",
+                  }}
+                  animate={{ scaleX: [1, 1.008, 1, 0.992, 1] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </div>
+
+              {/* ── Ripple at door base — concentric circles emanating ── */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  bottom: "-22px",
+                  bottom: "-8px",
+                  left: "-60px",
+                  right: "-60px",
+                  height: "40px",
+                  zIndex: 5,
+                }}
+              >
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`ripple-${i}`}
+                    className="absolute left-1/2 top-1/2"
+                    style={{
+                      width: "240px",
+                      height: "30px",
+                      border: "1px solid rgba(255,255,255,0.5)",
+                      borderRadius: "50%",
+                      transform: "translate(-50%, -50%)",
+                      filter: "blur(0.5px)",
+                    }}
+                    animate={{
+                      scale: [0.7, 1.6],
+                      opacity: [0.7, 0],
+                    }}
+                    transition={{
+                      duration: 3.5,
+                      repeat: Infinity,
+                      ease: "easeOut",
+                      delay: i * 1.2,
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* ── Subtle dark splash shadow at door base (grounds it) ── */}
+              <div
+                className="absolute pointer-events-none"
+                style={{
+                  bottom: "-18px",
                   left: "-30px",
                   right: "-30px",
-                  height: "30px",
+                  height: "26px",
                   background:
-                    "radial-gradient(ellipse at center top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 50%, transparent 80%)",
+                    "radial-gradient(ellipse at center top, rgba(10,30,55,0.55) 0%, rgba(10,30,55,0.18) 50%, transparent 80%)",
                   filter: "blur(8px)",
                 }}
               />
