@@ -70,16 +70,6 @@ export function LensIntroSection() {
   // Hint fades during phase 1
   const hintOpacity = useTransform(scrollYProgress, [0, 0.10], [1, 0]);
 
-  /* Water reacts to door opening — opacity of intense wave layer grows
-     with scroll, so as the door swings open the water visibly comes alive */
-  const waterIntensityOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.35, 0.7],
-    [0, 0.6, 1]
-  );
-  /* And wave layer scaleY grows so amplitude appears bigger on open */
-  const waterScaleY = useTransform(scrollYProgress, [0, 0.7], [1, 1.6]);
-
   return (
     <section
       ref={sectionRef}
@@ -222,64 +212,6 @@ export function LensIntroSection() {
           />
         </motion.svg>
 
-        {/* INTENSIFIED WAVE LAYER — fades in + scales up as door opens.
-            Sits on top of baseline ripples so water visibly "comes alive"
-            in sync with the portal animation. */}
-        <motion.svg
-          className="absolute inset-x-0 bottom-0 pointer-events-none w-full"
-          style={{
-            opacity: waterIntensityOpacity,
-            height: "32%",
-            scaleY: waterScaleY,
-            transformOrigin: "bottom center",
-          }}
-          viewBox="0 0 1600 400"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <motion.path
-            stroke="#FFFFFF"
-            strokeWidth="1.3"
-            fill="none"
-            opacity="0.55"
-            animate={{
-              d: [
-                "M 0 165 Q 200 140 400 165 T 800 165 T 1200 165 T 1600 165",
-                "M 0 165 Q 200 190 400 165 T 800 165 T 1200 165 T 1600 165",
-                "M 0 165 Q 200 140 400 165 T 800 165 T 1200 165 T 1600 165",
-              ],
-            }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.path
-            stroke="#FFFFFF"
-            strokeWidth="1.5"
-            fill="none"
-            opacity="0.6"
-            animate={{
-              d: [
-                "M 0 245 Q 200 215 400 245 T 800 245 T 1200 245 T 1600 245",
-                "M 0 245 Q 200 275 400 245 T 800 245 T 1200 245 T 1600 245",
-                "M 0 245 Q 200 215 400 245 T 800 245 T 1200 245 T 1600 245",
-              ],
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-          />
-          <motion.path
-            stroke="#FFFFFF"
-            strokeWidth="1.7"
-            fill="none"
-            opacity="0.65"
-            animate={{
-              d: [
-                "M 0 330 Q 200 295 400 330 T 800 330 T 1200 330 T 1600 330",
-                "M 0 330 Q 200 365 400 330 T 800 330 T 1200 330 T 1600 330",
-                "M 0 330 Q 200 295 400 330 T 800 330 T 1200 330 T 1600 330",
-              ],
-            }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-          />
-        </motion.svg>
 
         {/* ─── Left side text — bold headline (desktop only) ─── */}
         <motion.div
@@ -675,90 +607,57 @@ export function LensIntroSection() {
                 />
               </motion.div>
 
-              {/* ── Water reflection of the door (mirror image, blurred,
-                   faded) — appears below the door as if it's standing in
-                   water. Position matches photo's water level. ── */}
+              {/* ── Subtle water "dip" at the door base ──
+                   The bottom ~32px of the door appears partially in water:
+                   • A soft blue tint creeps up the bottom edge (water
+                     coloring the wood that's submerged)
+                   • A very subtle horizontal blur shimmer at the waterline
+                   • A small dark splash shadow grounds the door
+                   No reflection, no concentric circles — just a natural,
+                   barely-there hint that the door is sitting in water. */}
+
+              {/* Soft water tint on the lower portion of the door */}
               <div
-                className="absolute pointer-events-none overflow-hidden"
+                className="absolute pointer-events-none"
                 style={{
-                  top: "calc(100% - 4px)",
+                  bottom: 0,
                   left: 0,
                   right: 0,
-                  height: "55%",
+                  height: "32px",
+                  background:
+                    "linear-gradient(180deg, transparent 0%, rgba(60,110,150,0.12) 60%, rgba(60,110,150,0.22) 100%)",
+                  zIndex: 4,
                 }}
-              >
-                <motion.div
-                  className="absolute inset-x-0 top-0"
-                  style={{
-                    height: "100%",
-                    background:
-                      "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
-                    transform: "scaleY(-1)",
-                    transformOrigin: "top center",
-                    opacity: 0.35,
-                    filter: "blur(2px)",
-                    maskImage:
-                      "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 95%)",
-                    WebkitMaskImage:
-                      "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 95%)",
-                  }}
-                  animate={{ scaleX: [1, 1.008, 1, 0.992, 1] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
+              />
 
-              {/* ── Ripple at door base — concentric circles emanating ── */}
-              <div
+              {/* Soft horizontal shimmer band right at the waterline */}
+              <motion.div
                 className="absolute pointer-events-none"
                 style={{
-                  bottom: "-8px",
-                  left: "-60px",
-                  right: "-60px",
-                  height: "40px",
+                  bottom: "20px",
+                  left: "-8px",
+                  right: "-8px",
+                  height: "5px",
+                  background:
+                    "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%)",
+                  filter: "blur(1.5px)",
                   zIndex: 5,
                 }}
-              >
-                {[0, 1, 2].map((i) => (
-                  <motion.div
-                    key={`ripple-${i}`}
-                    className="absolute left-1/2 top-1/2"
-                    style={{
-                      width: "240px",
-                      height: "30px",
-                      border: "1px solid rgba(255,255,255,0.5)",
-                      borderRadius: "50%",
-                      transform: "translate(-50%, -50%)",
-                      filter: "blur(0.5px)",
-                    }}
-                    animate={{
-                      scale: [0.7, 1.6],
-                      opacity: [0.7, 0],
-                    }}
-                    transition={{
-                      duration: 3.5,
-                      repeat: Infinity,
-                      ease: "easeOut",
-                      delay: i * 1.2,
-                    }}
-                  />
-                ))}
-              </div>
+                animate={{ opacity: [0.6, 1, 0.6], scaleX: [1, 1.02, 1] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
 
-              {/* ── Subtle dark splash shadow at door base (grounds it) ── */}
+              {/* Subtle dark splash shadow at door base (grounds it in water) */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  bottom: "-18px",
-                  left: "-30px",
-                  right: "-30px",
-                  height: "26px",
+                  bottom: "-12px",
+                  left: "-18px",
+                  right: "-18px",
+                  height: "18px",
                   background:
-                    "radial-gradient(ellipse at center top, rgba(10,30,55,0.55) 0%, rgba(10,30,55,0.18) 50%, transparent 80%)",
-                  filter: "blur(8px)",
+                    "radial-gradient(ellipse at center top, rgba(10,30,55,0.4) 0%, rgba(10,30,55,0.12) 50%, transparent 80%)",
+                  filter: "blur(6px)",
                 }}
               />
             </div>
