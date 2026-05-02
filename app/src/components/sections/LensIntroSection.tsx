@@ -230,8 +230,9 @@ export function LensIntroSection() {
                 lineHeight: 1.05,
               }}
             >
-              Step Into <em className="font-light italic">a</em> World{" "}
-              <em className="font-light italic">of</em> Visual{" "}
+              Step Into{" "}
+              <em className="font-light italic">a</em> World{" "}
+              <em className="font-light italic">of</em>{" "}Visual{" "}
               <em className="font-light italic">Storytelling</em>
             </h2>
           </div>
