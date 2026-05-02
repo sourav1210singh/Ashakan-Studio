@@ -167,12 +167,27 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
         </div>
       );
       i += 2;
+    } else if (isLoneVideo && nextItem && remaining >= 2) {
+      // Lone video next to an image → asymmetric 2-col grid so
+      // the video gets a wide thumbnail and the image fills the rest.
+      // Eliminates the "whitespace beside centered video" problem.
+      rows.push(
+        <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6">
+          <FadeIn delay={0.1} className="md:col-span-3">
+            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
+          </FadeIn>
+          <FadeIn delay={0.2} className="md:col-span-2">
+            <ImageBlock src={nextItem.src} alt={nextItem.alt} aspect={nextItem.aspectRatio} />
+          </FadeIn>
+        </div>
+      );
+      i += 2;
     } else if (isLoneVideo) {
-      // Single video surrounded by images — show in centered medium-width
-      // (never go full viewport width, which feels overwhelming)
+      // Single video at the end (no next image) → fill full width
+      // rather than centering with empty space around it.
       rows.push(
         <FadeIn key={`row-${i}`} delay={0.1}>
-          <div className="max-w-3xl mx-auto">
+          <div className="w-full">
             <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
           </div>
         </FadeIn>

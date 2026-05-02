@@ -362,13 +362,6 @@ export const projects: Project[] = [
         vimeoId: "308492765",
         aspectRatio: "landscape",
       },
-      {
-        src: "",
-        alt: "The 2018 Monarch School Luncheon",
-        type: "video",
-        vimeoId: "270198619",
-        aspectRatio: "landscape",
-      },
     ],
     relatedProjects: ["deutsch-fine-jewelry", "vitacca-ballet"],
   },
