@@ -1,4 +1,3 @@
-import type { ReactElement } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FadeIn } from "@/components/animations/FadeIn";
@@ -104,206 +103,36 @@ function getAdjacentCampaigns(slug: string) {
 
 /* ── Layout helpers ──────────────────────────────── */
 
-/** Renders a creative masonry layout from gallery items */
+/** Renders a true CSS-columns masonry — items flow naturally based on
+ *  their aspect ratios so adjacent items pack tightly with no whitespace.
+ *  Same approach as PhotographyPage.tsx (which Brandi already approved). */
 function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTitle?: string }) {
-  const rows: ReactElement[] = [];
-  let i = 0;
-
-  if (sectionTitle) {
-    rows.push(
-      <FadeIn key={`title-${sectionTitle}`}>
-        <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-12">
-          {sectionTitle}
-        </h3>
-      </FadeIn>
-    );
-  }
-
-  while (i < items.length) {
-    const remaining = items.length - i;
-    const rowIndex = rows.length;
-    const current = items[i];
-    const nextItem = i + 1 < items.length ? items[i + 1] : null;
-    const next2 = i + 2 < items.length ? items[i + 2] : null;
-
-    // Smart layout based on what's coming up
-    const tripleVideos =
-      current.type === "video" &&
-      nextItem?.type === "video" &&
-      next2?.type === "video" &&
-      remaining >= 3;
-    const bothVideos = current.type === "video" && nextItem?.type === "video" && remaining >= 2;
-    const isLoneVideo = current.type === "video" && (!nextItem || nextItem.type !== "video");
-
-    // Pattern: alternate between different layouts
-    const pattern = rowIndex % 5;
-
-    if (tripleVideos) {
-      // 3 videos in a row — compact, dynamic, perfect for video-heavy galleries
-      rows.push(
-        <div key={`row-${i}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <FadeIn delay={0.1}>
-            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <VimeoEmbed vimeoId={nextItem!.vimeoId!} alt={nextItem!.alt} />
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            <VimeoEmbed vimeoId={next2!.vimeoId!} alt={next2!.alt} />
-          </FadeIn>
-        </div>
-      );
-      i += 3;
-    } else if (bothVideos) {
-      // Two videos side by side — always looks good
-      rows.push(
-        <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <FadeIn delay={0.1}>
-            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <VimeoEmbed vimeoId={nextItem!.vimeoId!} alt={nextItem!.alt} />
-          </FadeIn>
-        </div>
-      );
-      i += 2;
-    } else if (isLoneVideo && nextItem && remaining >= 2) {
-      // Lone video next to an image → asymmetric 2-col grid so
-      // the video gets a wide thumbnail and the image fills the rest.
-      // Eliminates the "whitespace beside centered video" problem.
-      rows.push(
-        <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6">
-          <FadeIn delay={0.1} className="md:col-span-3">
-            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
-          </FadeIn>
-          <FadeIn delay={0.2} className="md:col-span-2">
-            <ImageBlock src={nextItem.src} alt={nextItem.alt} aspect={nextItem.aspectRatio} />
-          </FadeIn>
-        </div>
-      );
-      i += 2;
-    } else if (isLoneVideo) {
-      // Single video at the end (no next image) → fill full width
-      // rather than centering with empty space around it.
-      rows.push(
-        <FadeIn key={`row-${i}`} delay={0.1}>
-          <div className="w-full">
-            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
-          </div>
+  return (
+    <div>
+      {sectionTitle && (
+        <FadeIn>
+          <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-12">
+            {sectionTitle}
+          </h3>
         </FadeIn>
-      );
-      i += 1;
-    } else if (pattern === 0 && remaining >= 1) {
-      // Full-width single item
-      const item = items[i];
-      rows.push(
-        <FadeIn key={`row-${i}`} delay={0.1}>
-          <div className="w-full">
+      )}
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-6">
+        {items.map((item, idx) => (
+          <FadeIn
+            key={`${item.src || item.vimeoId}-${idx}`}
+            delay={Math.min(idx * 0.05, 0.6)}
+            className="break-inside-avoid mb-4 sm:mb-6"
+          >
             {item.type === "video" && item.vimeoId ? (
               <VimeoEmbed vimeoId={item.vimeoId} alt={item.alt} />
             ) : (
               <ImageBlock src={item.src} alt={item.alt} aspect={item.aspectRatio} />
             )}
-          </div>
-        </FadeIn>
-      );
-      i += 1;
-    } else if (pattern === 1 && remaining >= 2) {
-      // 2-column layout
-      const a = items[i];
-      const b = items[i + 1];
-      rows.push(
-        <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          <FadeIn delay={0.1}>
-            {a.type === "video" && a.vimeoId ? (
-              <VimeoEmbed vimeoId={a.vimeoId} alt={a.alt} />
-            ) : (
-              <ImageBlock src={a.src} alt={a.alt} aspect={a.aspectRatio} />
-            )}
           </FadeIn>
-          <FadeIn delay={0.2}>
-            {b.type === "video" && b.vimeoId ? (
-              <VimeoEmbed vimeoId={b.vimeoId} alt={b.alt} />
-            ) : (
-              <ImageBlock src={b.src} alt={b.alt} aspect={b.aspectRatio} />
-            )}
-          </FadeIn>
-        </div>
-      );
-      i += 2;
-    } else if (pattern === 2 && remaining >= 3) {
-      // 3-column layout
-      const a = items[i];
-      const b = items[i + 1];
-      const c = items[i + 2];
-      rows.push(
-        <div key={`row-${i}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <FadeIn delay={0.1}>
-            {a.type === "video" && a.vimeoId ? (
-              <VimeoEmbed vimeoId={a.vimeoId} alt={a.alt} />
-            ) : (
-              <ImageBlock src={a.src} alt={a.alt} aspect={a.aspectRatio} />
-            )}
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            {b.type === "video" && b.vimeoId ? (
-              <VimeoEmbed vimeoId={b.vimeoId} alt={b.alt} />
-            ) : (
-              <ImageBlock src={b.src} alt={b.alt} aspect={b.aspectRatio} />
-            )}
-          </FadeIn>
-          <FadeIn delay={0.3}>
-            {c.type === "video" && c.vimeoId ? (
-              <VimeoEmbed vimeoId={c.vimeoId} alt={c.alt} />
-            ) : (
-              <ImageBlock src={c.src} alt={c.alt} aspect={c.aspectRatio} />
-            )}
-          </FadeIn>
-        </div>
-      );
-      i += 3;
-    } else if (pattern === 3 && remaining >= 2) {
-      // Asymmetric: large left + small right (or portrait + landscape)
-      const a = items[i];
-      const b = items[i + 1];
-      rows.push(
-        <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-6">
-          <FadeIn delay={0.1} className="md:col-span-3">
-            {a.type === "video" && a.vimeoId ? (
-              <VimeoEmbed vimeoId={a.vimeoId} alt={a.alt} />
-            ) : (
-              <ImageBlock src={a.src} alt={a.alt} aspect={a.aspectRatio} />
-            )}
-          </FadeIn>
-          <FadeIn delay={0.2} className="md:col-span-2">
-            {b.type === "video" && b.vimeoId ? (
-              <VimeoEmbed vimeoId={b.vimeoId} alt={b.alt} />
-            ) : (
-              <ImageBlock src={b.src} alt={b.alt} aspect={b.aspectRatio} />
-            )}
-          </FadeIn>
-        </div>
-      );
-      i += 2;
-    } else {
-      // Fallback: single item
-      const item = items[i];
-      rows.push(
-        <FadeIn key={`row-${i}`} delay={0.1}>
-          <div className="w-full">
-            {item.type === "video" && item.vimeoId ? (
-              <VimeoEmbed vimeoId={item.vimeoId} alt={item.alt} />
-            ) : (
-              <ImageBlock src={item.src} alt={item.alt} aspect={item.aspectRatio} />
-            )}
-          </div>
-        </FadeIn>
-      );
-      i += 1;
-    }
-  }
-
-  return <div className="space-y-4 sm:space-y-6">{rows}</div>;
+        ))}
+      </div>
+    </div>
+  );
 }
 
 /* ── Main Page Component ─────────────────────────── */
