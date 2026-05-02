@@ -131,7 +131,7 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                 <p className="text-lg text-white/50">No videos found.</p>
               </div>
             ) : (
-              <div className={`grid grid-cols-1 ${isCategory ? "" : "md:grid-cols-2"} gap-6 sm:gap-8`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-[1400px] mx-auto">
                 {videos.map((video, index) => (
                   <FadeIn key={video.vimeoId} delay={index * 0.08}>
                     <div>
