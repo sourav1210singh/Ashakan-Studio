@@ -50,8 +50,10 @@ export function LensIntroSection() {
   const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -500]);
   const rightTextOpacity = useTransform(scrollYProgress, [0.20, 0.30, 0.40], [1, 0.5, 0]);
 
-  // Door opens AFTER both texts are gone — POSITIVE rotateY = swings open from LEFT
-  const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, 92]);
+  // Door opens AFTER both texts are gone — POSITIVE rotateY = swings open from LEFT.
+  // Cap at 85° so we never cross the 90° perpendicular line where the panel
+  // turns its back to the viewer (which would make backface-hidden flicker).
+  const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, 85]);
 
   // Portal scales toward viewer — wider range + intermediate stops
   // so the zoom ramps gradually instead of accelerating abruptly.
@@ -540,7 +542,10 @@ export function LensIntroSection() {
                 {/* Hardware wrapper — keeps all knob layers attached to the
                     door panel during 3D rotation. Uses `top: calc(50% - X)`
                     instead of translateY(-50%) so it doesn't introduce a
-                    2D transform that breaks the parent's 3D context. */}
+                    2D transform that breaks the parent's 3D context.
+                    backfaceVisibility hidden matches the door panel so the
+                    knob disappears together with the door if rotation ever
+                    crosses 90°. */}
                 <div
                   className="absolute"
                   style={{
@@ -549,6 +554,8 @@ export function LensIntroSection() {
                     width: "30px",
                     height: "70px",
                     transformStyle: "preserve-3d",
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
                   }}
                 >
                   {/* Knob backplate (escutcheon) — rectangular brass plate */}
