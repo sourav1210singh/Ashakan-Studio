@@ -315,6 +315,13 @@ export const projects: Project[] = [
         aspectRatio: "portrait",
       },
       {
+        src: "",
+        alt: "The Monarch School's Upgraded Kitchen — MD Anderson Donation",
+        type: "video",
+        vimeoId: "673378712",
+        aspectRatio: "landscape",
+      },
+      {
         src: "/images/portfolio/17-Monarch-86-2.jpeg",
         alt: "School event",
         type: "image",
