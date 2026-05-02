@@ -308,8 +308,8 @@ export function LensIntroSection() {
             <div
               className="relative"
               style={{
-                width: "280px",
-                height: "600px",
+                width: "238px",
+                height: "510px",
                 perspective: "1800px",
                 transformStyle: "preserve-3d",
               }}
@@ -539,31 +539,42 @@ export function LensIntroSection() {
                   </div>
                 ))}
 
-                {/* Hardware wrapper — keeps all knob layers attached to the
-                    door panel during 3D rotation. Uses `top: calc(50% - X)`
-                    instead of translateY(-50%) so it doesn't introduce a
-                    2D transform that breaks the parent's 3D context.
-                    backfaceVisibility hidden matches the door panel so the
-                    knob disappears together with the door if rotation ever
-                    crosses 90°. */}
+                {/* Hardware wrapper — true 3D protruding knob with cast
+                    shadow on the door surface. Stays glued to the door
+                    panel via shared `transform-style: preserve-3d`. */}
                 <div
                   className="absolute"
                   style={{
-                    left: "10px",
-                    top: "calc(50% - 35px)",
-                    width: "30px",
-                    height: "70px",
+                    left: "8px",
+                    top: "calc(50% - 32px)",
+                    width: "28px",
+                    height: "64px",
                     transformStyle: "preserve-3d",
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
                   }}
                 >
+                  {/* Cast shadow on the door (below + right of the knob) —
+                      simulates the knob protruding outward catching light */}
+                  <div
+                    className="absolute pointer-events-none"
+                    style={{
+                      top: "calc(50% - 8px)",
+                      left: "8px",
+                      width: "30px",
+                      height: "26px",
+                      background:
+                        "radial-gradient(ellipse 60% 50% at 30% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, transparent 80%)",
+                      filter: "blur(4px)",
+                    }}
+                  />
+
                   {/* Knob backplate (escutcheon) — rectangular brass plate */}
                   <div
                     className="absolute inset-x-0"
                     style={{
-                      top: "5px",
-                      bottom: "5px",
+                      top: "4px",
+                      bottom: "4px",
                       left: "4px",
                       right: "4px",
                       background:
@@ -583,7 +594,7 @@ export function LensIntroSection() {
                       className="absolute inset-1"
                       style={{
                         background:
-                          "linear-gradient(135deg, rgba(255,235,180,0.4) 0%, transparent 50%, rgba(0,0,0,0.15) 100%)",
+                          "linear-gradient(135deg, rgba(255,235,180,0.45) 0%, transparent 50%, rgba(0,0,0,0.18) 100%)",
                         borderRadius: "2px",
                       }}
                     />
@@ -619,61 +630,97 @@ export function LensIntroSection() {
                     />
                   </div>
 
-                  {/* Brass knob — proper 3D sphere look with multi-layer shading */}
+                  {/* Knob neck/stem — short cylinder connecting plate to ball.
+                      Gives the protruding-from-door feel. */}
                   <div
                     className="absolute"
                     style={{
-                      top: "calc(50% - 14px)",
-                      left: "calc(50% - 14px)",
-                      width: "28px",
-                      height: "28px",
-                      borderRadius: "50%",
-                      // Layered radial: bright top-left highlight → mid-tone → dark right-bottom shadow → ambient
+                      top: "calc(50% - 6px)",
+                      left: "calc(50% - 5px)",
+                      width: "10px",
+                      height: "12px",
                       background:
-                        "radial-gradient(circle at 30% 25%," +
-                        "rgba(255,250,220,1) 0%," +
-                        "#FFE4A0 8%," +
-                        "#F2C870 20%," +
-                        "#D4A248 38%," +
-                        "#A07028 60%," +
-                        "#5A3E14 82%," +
-                        "#2A1A08 100%)",
+                        "linear-gradient(180deg, #B89060 0%, #8A6428 50%, #5C4218 100%)",
+                      borderRadius: "2px",
                       boxShadow:
-                        // Cast shadow (knob → door)
-                        "2px 4px 8px rgba(0,0,0,0.55)," +
-                        "1px 2px 4px rgba(0,0,0,0.4)," +
-                        // Soft contact shadow
-                        "0 1px 1px rgba(0,0,0,0.35)," +
-                        // Inner rim — adds spherical illusion
-                        "inset -2px -3px 4px rgba(0,0,0,0.45)," +
-                        "inset 2px 2px 3px rgba(255,235,180,0.45)",
+                        "0 2px 3px rgba(0,0,0,0.45)," +
+                        "inset 1px 0 1px rgba(255,235,180,0.4)," +
+                        "inset -1px 0 1px rgba(0,0,0,0.35)",
+                    }}
+                  />
+
+                  {/* Brass knob — true 3D sphere look with strong protrusion */}
+                  <div
+                    className="absolute"
+                    style={{
+                      top: "calc(50% - 16px)",
+                      left: "calc(50% - 16px)",
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      // 8-stop radial gradient creates pronounced spherical depth
+                      background:
+                        "radial-gradient(circle at 28% 22%," +
+                        "rgba(255,253,235,1) 0%," +
+                        "#FFEAB0 6%," +
+                        "#F8D88C 14%," +
+                        "#F0C470 24%," +
+                        "#D49C40 40%," +
+                        "#A07028 60%," +
+                        "#5A3E14 80%," +
+                        "#1F1408 100%)",
+                      boxShadow:
+                        // Strong cast shadow on the door surface (lower-right)
+                        "5px 7px 12px rgba(0,0,0,0.55)," +
+                        "3px 4px 6px rgba(0,0,0,0.45)," +
+                        // Tight contact shadow
+                        "0 2px 2px rgba(0,0,0,0.4)," +
+                        // Inner rim — bottom-right shadow + top-left highlight
+                        "inset -3px -4px 6px rgba(0,0,0,0.55)," +
+                        "inset 3px 3px 5px rgba(255,235,180,0.55)," +
+                        // Subtle outer ring (chrome edge)
+                        "0 0 0 0.5px rgba(0,0,0,0.3)",
                     }}
                   >
-                    {/* Bright highlight reflection (sphere shine) */}
+                    {/* Primary specular highlight — bright sphere shine */}
                     <div
                       className="absolute"
                       style={{
                         top: "4px",
-                        left: "5px",
-                        width: "8px",
-                        height: "5px",
+                        left: "6px",
+                        width: "11px",
+                        height: "7px",
                         background:
-                          "radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%)",
+                          "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%)",
                         borderRadius: "50%",
-                        transform: "rotate(-25deg)",
+                        transform: "rotate(-30deg)",
                       }}
                     />
-                    {/* Tiny pinpoint glint */}
+                    {/* Pinpoint glint at the brightest spot */}
                     <div
                       className="absolute"
                       style={{
                         top: "5px",
-                        left: "6px",
-                        width: "2px",
-                        height: "2px",
+                        left: "8px",
+                        width: "3px",
+                        height: "3px",
                         background: "#FFFFFF",
                         borderRadius: "50%",
-                        opacity: 0.95,
+                        opacity: 1,
+                        boxShadow: "0 0 2px rgba(255,255,255,0.8)",
+                      }}
+                    />
+                    {/* Soft secondary highlight (rim light) */}
+                    <div
+                      className="absolute"
+                      style={{
+                        bottom: "5px",
+                        right: "7px",
+                        width: "6px",
+                        height: "3px",
+                        background:
+                          "radial-gradient(ellipse, rgba(255,200,120,0.5) 0%, transparent 70%)",
+                        borderRadius: "50%",
                       }}
                     />
                   </div>
