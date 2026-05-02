@@ -124,14 +124,37 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
     const rowIndex = rows.length;
     const current = items[i];
     const nextItem = i + 1 < items.length ? items[i + 1] : null;
+    const next2 = i + 2 < items.length ? items[i + 2] : null;
 
-    // Smart layout: if two consecutive videos, always pair them in 2-col
+    // Smart layout based on what's coming up
+    const tripleVideos =
+      current.type === "video" &&
+      nextItem?.type === "video" &&
+      next2?.type === "video" &&
+      remaining >= 3;
     const bothVideos = current.type === "video" && nextItem?.type === "video" && remaining >= 2;
+    const isLoneVideo = current.type === "video" && (!nextItem || nextItem.type !== "video");
 
     // Pattern: alternate between different layouts
     const pattern = rowIndex % 5;
 
-    if (bothVideos) {
+    if (tripleVideos) {
+      // 3 videos in a row — compact, dynamic, perfect for video-heavy galleries
+      rows.push(
+        <div key={`row-${i}`} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <FadeIn delay={0.1}>
+            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <VimeoEmbed vimeoId={nextItem!.vimeoId!} alt={nextItem!.alt} />
+          </FadeIn>
+          <FadeIn delay={0.3}>
+            <VimeoEmbed vimeoId={next2!.vimeoId!} alt={next2!.alt} />
+          </FadeIn>
+        </div>
+      );
+      i += 3;
+    } else if (bothVideos) {
       // Two videos side by side — always looks good
       rows.push(
         <div key={`row-${i}`} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -144,6 +167,17 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
         </div>
       );
       i += 2;
+    } else if (isLoneVideo) {
+      // Single video surrounded by images — show in centered medium-width
+      // (never go full viewport width, which feels overwhelming)
+      rows.push(
+        <FadeIn key={`row-${i}`} delay={0.1}>
+          <div className="max-w-3xl mx-auto">
+            <VimeoEmbed vimeoId={current.vimeoId!} alt={current.alt} />
+          </div>
+        </FadeIn>
+      );
+      i += 1;
     } else if (pattern === 0 && remaining >= 1) {
       // Full-width single item
       const item = items[i];
