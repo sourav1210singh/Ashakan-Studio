@@ -135,6 +135,81 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
   );
 }
 
+/** Build a non-uniform row pattern (2-3-2-3 alternating) so video-heavy
+ *  sections don't render as plain uniform 3×N grids. */
+function pickRowPattern(n: number): number[] {
+  // Special-cases for tidy small counts
+  if (n <= 0) return [];
+  if (n <= 3) return [n];
+  if (n === 4) return [2, 2];
+  if (n === 5) return [2, 3];
+  if (n === 6) return [3, 3];
+  if (n === 7) return [2, 3, 2];
+  if (n === 8) return [3, 2, 3];
+  if (n === 9) return [3, 3, 3];
+  // For larger sets — alternate 2/3 starting with 2, leftover joins last
+  const out: number[] = [];
+  let remaining = n;
+  let p = 0;
+  while (remaining > 3) {
+    const take = p % 2 === 0 ? 2 : 3;
+    out.push(take);
+    remaining -= take;
+    p++;
+  }
+  if (remaining > 0) out.push(remaining);
+  return out;
+}
+
+/** Renders a video-heavy section with alternating 2/3 column rows so it
+ *  feels dynamic instead of a flat uniform grid. */
+function VideoRowMasonry({ items, sectionTitle }: { items: GalleryItem[]; sectionTitle?: string }) {
+  const pattern = pickRowPattern(items.length);
+  const rows: GalleryItem[][] = [];
+  let i = 0;
+  for (const cols of pattern) {
+    rows.push(items.slice(i, i + cols));
+    i += cols;
+  }
+
+  const colsToClass = (n: number) =>
+    n === 1
+      ? "md:grid-cols-1"
+      : n === 2
+        ? "md:grid-cols-2"
+        : "md:grid-cols-3";
+
+  return (
+    <div>
+      {sectionTitle && (
+        <FadeIn>
+          <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-12">
+            {sectionTitle}
+          </h3>
+        </FadeIn>
+      )}
+      <div className="space-y-4 sm:space-y-6">
+        {rows.map((row, rowIdx) => (
+          <div
+            key={`row-${rowIdx}`}
+            className={`grid grid-cols-1 ${colsToClass(row.length)} gap-4 sm:gap-6`}
+          >
+            {row.map((item, idx) => (
+              <FadeIn key={`${item.vimeoId || item.src}-${idx}`} delay={Math.min(idx * 0.1, 0.4)}>
+                {item.type === "video" && item.vimeoId ? (
+                  <VimeoEmbed vimeoId={item.vimeoId} alt={item.alt} />
+                ) : (
+                  <ImageBlock src={item.src} alt={item.alt} aspect={item.aspectRatio} />
+                )}
+              </FadeIn>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ── Main Page Component ─────────────────────────── */
 export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailPageProps) {
   const projectId = campaignProjectMap[campaignSlug];
@@ -324,7 +399,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         {secondHalf.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={secondHalf} sectionTitle="Behind the Scenes" />
+              <VideoRowMasonry items={secondHalf} sectionTitle="Behind the Scenes" />
             </div>
           </section>
         )}
