@@ -537,61 +537,139 @@ export function LensIntroSection() {
                   </div>
                 ))}
 
-                {/* Knob backplate (escutcheon) */}
+                {/* Hardware wrapper — keeps all knob layers attached to the
+                    door panel during 3D rotation. Uses `top: calc(50% - X)`
+                    instead of translateY(-50%) so it doesn't introduce a
+                    2D transform that breaks the parent's 3D context. */}
                 <div
                   className="absolute"
                   style={{
-                    left: "14px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "22px",
-                    height: "60px",
-                    background:
-                      "linear-gradient(135deg, #E0BC7E 0%, #B58840 50%, #8A6428 100%)",
-                    borderRadius: "3px",
-                    boxShadow:
-                      "0 1px 3px rgba(0,0,0,0.3)," +
-                      "inset 0 1px 1px rgba(255,255,255,0.5)," +
-                      "inset 0 -1px 1px rgba(0,0,0,0.3)",
-                  }}
-                />
-
-                {/* Brass knob (3D ball with shine) */}
-                <div
-                  className="absolute"
-                  style={{
-                    left: "12px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "26px",
-                    height: "26px",
-                    borderRadius: "50%",
-                    background:
-                      "radial-gradient(circle at 32% 28%," +
-                      "#FFEAB8 0%," +
-                      "#E8C77A 18%," +
-                      "#C49A48 45%," +
-                      "#7A5A22 80%," +
-                      "#3F2C0E 100%)",
-                    boxShadow:
-                      "0 3px 6px rgba(0,0,0,0.4)," +
-                      "0 1px 2px rgba(0,0,0,0.3)," +
-                      "inset 0 1px 1px rgba(255,255,255,0.4)",
+                    left: "10px",
+                    top: "calc(50% - 35px)",
+                    width: "30px",
+                    height: "70px",
+                    transformStyle: "preserve-3d",
                   }}
                 >
-                  {/* Bright highlight reflection */}
+                  {/* Knob backplate (escutcheon) — rectangular brass plate */}
+                  <div
+                    className="absolute inset-x-0"
+                    style={{
+                      top: "5px",
+                      bottom: "5px",
+                      left: "4px",
+                      right: "4px",
+                      background:
+                        "linear-gradient(135deg, #E8C988 0%, #C09650 35%, #8A6428 70%, #5C4218 100%)",
+                      borderRadius: "3px",
+                      boxShadow:
+                        "0 2px 4px rgba(0,0,0,0.35)," +
+                        "0 1px 1px rgba(0,0,0,0.25)," +
+                        "inset 0 1px 1px rgba(255,255,255,0.55)," +
+                        "inset 0 -1px 1px rgba(0,0,0,0.4)," +
+                        "inset 1px 0 1px rgba(255,255,255,0.3)," +
+                        "inset -1px 0 1px rgba(0,0,0,0.3)",
+                    }}
+                  >
+                    {/* Inner bevel highlight */}
+                    <div
+                      className="absolute inset-1"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, rgba(255,235,180,0.4) 0%, transparent 50%, rgba(0,0,0,0.15) 100%)",
+                        borderRadius: "2px",
+                      }}
+                    />
+                    {/* Top screw */}
+                    <div
+                      className="absolute"
+                      style={{
+                        top: "3px",
+                        left: "50%",
+                        marginLeft: "-1.5px",
+                        width: "3px",
+                        height: "3px",
+                        background:
+                          "radial-gradient(circle at 35% 35%, #B89060 0%, #6B4818 70%, #2A1A08 100%)",
+                        borderRadius: "50%",
+                        boxShadow: "inset 0 0 1px rgba(0,0,0,0.5)",
+                      }}
+                    />
+                    {/* Bottom screw */}
+                    <div
+                      className="absolute"
+                      style={{
+                        bottom: "3px",
+                        left: "50%",
+                        marginLeft: "-1.5px",
+                        width: "3px",
+                        height: "3px",
+                        background:
+                          "radial-gradient(circle at 35% 35%, #B89060 0%, #6B4818 70%, #2A1A08 100%)",
+                        borderRadius: "50%",
+                        boxShadow: "inset 0 0 1px rgba(0,0,0,0.5)",
+                      }}
+                    />
+                  </div>
+
+                  {/* Brass knob — proper 3D sphere look with multi-layer shading */}
                   <div
                     className="absolute"
                     style={{
-                      top: "4px",
-                      left: "5px",
-                      width: "8px",
-                      height: "5px",
-                      background:
-                        "radial-gradient(ellipse, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 70%)",
+                      top: "calc(50% - 14px)",
+                      left: "calc(50% - 14px)",
+                      width: "28px",
+                      height: "28px",
                       borderRadius: "50%",
+                      // Layered radial: bright top-left highlight → mid-tone → dark right-bottom shadow → ambient
+                      background:
+                        "radial-gradient(circle at 30% 25%," +
+                        "rgba(255,250,220,1) 0%," +
+                        "#FFE4A0 8%," +
+                        "#F2C870 20%," +
+                        "#D4A248 38%," +
+                        "#A07028 60%," +
+                        "#5A3E14 82%," +
+                        "#2A1A08 100%)",
+                      boxShadow:
+                        // Cast shadow (knob → door)
+                        "2px 4px 8px rgba(0,0,0,0.55)," +
+                        "1px 2px 4px rgba(0,0,0,0.4)," +
+                        // Soft contact shadow
+                        "0 1px 1px rgba(0,0,0,0.35)," +
+                        // Inner rim — adds spherical illusion
+                        "inset -2px -3px 4px rgba(0,0,0,0.45)," +
+                        "inset 2px 2px 3px rgba(255,235,180,0.45)",
                     }}
-                  />
+                  >
+                    {/* Bright highlight reflection (sphere shine) */}
+                    <div
+                      className="absolute"
+                      style={{
+                        top: "4px",
+                        left: "5px",
+                        width: "8px",
+                        height: "5px",
+                        background:
+                          "radial-gradient(ellipse, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%)",
+                        borderRadius: "50%",
+                        transform: "rotate(-25deg)",
+                      }}
+                    />
+                    {/* Tiny pinpoint glint */}
+                    <div
+                      className="absolute"
+                      style={{
+                        top: "5px",
+                        left: "6px",
+                        width: "2px",
+                        height: "2px",
+                        background: "#FFFFFF",
+                        borderRadius: "50%",
+                        opacity: 0.95,
+                      }}
+                    />
+                  </div>
                 </div>
 
                 {/* Subtle vertical paint streak (right side, near hinge — adds realism) */}
