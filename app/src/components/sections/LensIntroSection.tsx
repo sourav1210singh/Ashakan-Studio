@@ -234,7 +234,10 @@ export function LensIntroSection() {
             >
               Step Into{" "}
               <em className="font-light italic">a</em> World{" "}
-              <em className="font-light italic">of</em>{" "}Visual{" "}
+              <em className="font-light italic" style={{ marginRight: "0.35em" }}>
+                of
+              </em>
+              Visual{" "}
               <em className="font-light italic">Storytelling</em>
             </h2>
           </div>
@@ -546,9 +549,9 @@ export function LensIntroSection() {
                   className="absolute"
                   style={{
                     left: "8px",
-                    top: "calc(50% - 32px)",
-                    width: "28px",
-                    height: "64px",
+                    top: "calc(50% - 26px)",
+                    width: "22px",
+                    height: "52px",
                     transformStyle: "preserve-3d",
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
@@ -559,13 +562,13 @@ export function LensIntroSection() {
                   <div
                     className="absolute pointer-events-none"
                     style={{
-                      top: "calc(50% - 8px)",
-                      left: "8px",
-                      width: "30px",
-                      height: "26px",
+                      top: "calc(50% - 6px)",
+                      left: "6px",
+                      width: "24px",
+                      height: "20px",
                       background:
                         "radial-gradient(ellipse 60% 50% at 30% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, transparent 80%)",
-                      filter: "blur(4px)",
+                      filter: "blur(3px)",
                     }}
                   />
 
@@ -635,10 +638,10 @@ export function LensIntroSection() {
                   <div
                     className="absolute"
                     style={{
-                      top: "calc(50% - 6px)",
-                      left: "calc(50% - 5px)",
-                      width: "10px",
-                      height: "12px",
+                      top: "calc(50% - 5px)",
+                      left: "calc(50% - 4px)",
+                      width: "8px",
+                      height: "10px",
                       background:
                         "linear-gradient(180deg, #B89060 0%, #8A6428 50%, #5C4218 100%)",
                       borderRadius: "2px",
@@ -653,10 +656,10 @@ export function LensIntroSection() {
                   <div
                     className="absolute"
                     style={{
-                      top: "calc(50% - 16px)",
-                      left: "calc(50% - 16px)",
-                      width: "32px",
-                      height: "32px",
+                      top: "calc(50% - 13px)",
+                      left: "calc(50% - 13px)",
+                      width: "26px",
+                      height: "26px",
                       borderRadius: "50%",
                       // 8-stop radial gradient creates pronounced spherical depth
                       background:
@@ -686,10 +689,10 @@ export function LensIntroSection() {
                     <div
                       className="absolute"
                       style={{
-                        top: "4px",
-                        left: "6px",
-                        width: "11px",
-                        height: "7px",
+                        top: "3px",
+                        left: "5px",
+                        width: "9px",
+                        height: "6px",
                         background:
                           "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%)",
                         borderRadius: "50%",
@@ -700,10 +703,10 @@ export function LensIntroSection() {
                     <div
                       className="absolute"
                       style={{
-                        top: "5px",
-                        left: "8px",
-                        width: "3px",
-                        height: "3px",
+                        top: "4px",
+                        left: "6px",
+                        width: "2.5px",
+                        height: "2.5px",
                         background: "#FFFFFF",
                         borderRadius: "50%",
                         opacity: 1,
@@ -714,10 +717,10 @@ export function LensIntroSection() {
                     <div
                       className="absolute"
                       style={{
-                        bottom: "5px",
-                        right: "7px",
-                        width: "6px",
-                        height: "3px",
+                        bottom: "4px",
+                        right: "6px",
+                        width: "5px",
+                        height: "2.5px",
                         background:
                           "radial-gradient(ellipse, rgba(255,200,120,0.5) 0%, transparent 70%)",
                         borderRadius: "50%",
