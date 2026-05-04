@@ -397,7 +397,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
   };
 
   return (
-    <section id="work" className="py-14 sm:py-24 lg:py-28 bg-cream overflow-x-clip">
+    <section id="work" className="pt-4 pb-14 sm:pt-6 sm:pb-24 lg:pb-28 bg-cream overflow-x-clip">
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* ============================================================ */}
         {/*  Animated Heading — subtle letter-spacing expansion + fade    */}
