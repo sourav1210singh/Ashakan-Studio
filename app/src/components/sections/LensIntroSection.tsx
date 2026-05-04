@@ -324,8 +324,8 @@ export function LensIntroSection() {
             <div
               className="relative"
               style={{
-                width: "238px",
-                height: "510px",
+                width: "202px",
+                height: "434px",
                 perspective: "1800px",
                 transformStyle: "preserve-3d",
               }}
