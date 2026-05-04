@@ -1,5 +1,4 @@
 import { Footer } from "@/components/layout/Footer";
-import { FadeIn } from "@/components/animations/FadeIn";
 import type { View } from "@/App";
 import { TestWorkSplitVariant } from "@/components/test/TestWorkSplitVariant";
 
@@ -55,9 +54,11 @@ export function TestPage({ variantSlug, onNavigate }: TestPageProps) {
       </div>
 
       <main className="bg-cream min-h-screen pt-10">
-        <FadeIn>
-          {renderVariant()}
-        </FadeIn>
+        {/* No outer FadeIn — internal sections handle their own reveal
+            animations. Wrapping a very tall variant in FadeIn caused the
+            IntersectionObserver threshold (0.1 + rootMargin -100px) to
+            never fire on long pages, leaving everything stuck at opacity 0. */}
+        {renderVariant()}
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>
