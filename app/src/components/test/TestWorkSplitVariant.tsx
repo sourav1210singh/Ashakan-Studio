@@ -463,8 +463,8 @@ function FullServiceHybridSection() {
 
         {/* ── Image (LEFT) + Discipline list (RIGHT) — equal heights ── */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-stretch">
-          {/* LEFT — Image preview (cols 1–6) */}
-          <div className="lg:col-span-6 order-1">
+          {/* LEFT — Image preview (cols 1–7, wider) */}
+          <div className="lg:col-span-7 order-1">
             <div
               className="relative overflow-hidden bg-black/30 w-full h-full min-h-[420px] sm:min-h-[520px] lg:min-h-[640px]"
             >
@@ -514,8 +514,8 @@ function FullServiceHybridSection() {
             </div>
           </div>
 
-          {/* RIGHT — Discipline list (cols 7–12) */}
-          <div className="lg:col-span-6 order-2 flex flex-col">
+          {/* RIGHT — Discipline list (cols 8–12, narrower) */}
+          <div className="lg:col-span-5 order-2 flex flex-col">
             <ul className="border-t border-white/15 flex-1 flex flex-col">
               {DISCIPLINES.map((d, i) => {
                 const isActive = activeIndex === i;
@@ -546,7 +546,7 @@ function FullServiceHybridSection() {
                       {/* Label */}
                       <div className="flex-1 min-w-0">
                         <span
-                          className="font-display text-2xl sm:text-3xl lg:text-[40px] tracking-tight uppercase block leading-tight"
+                          className="font-display text-2xl sm:text-3xl lg:text-[36px] tracking-tight uppercase block leading-tight"
                           style={{
                             color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.40)",
                             transition: "color 0.4s ease-out",
@@ -555,20 +555,6 @@ function FullServiceHybridSection() {
                           {d.label}
                         </span>
                       </div>
-
-                      {/* Arrow — fades in on active */}
-                      <span
-                        className="flex-shrink-0 hidden sm:flex items-center justify-center"
-                        style={{
-                          opacity: isActive ? 1 : 0,
-                          transform: isActive ? "translateX(0)" : "translateX(-8px)",
-                          transition:
-                            "opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                          color: "rgba(255,255,255,0.85)",
-                        }}
-                      >
-                        <ArrowRight className="w-5 h-5" />
-                      </span>
                     </div>
                   </li>
                 );
