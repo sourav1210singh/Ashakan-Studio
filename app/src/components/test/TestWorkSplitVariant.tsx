@@ -373,6 +373,265 @@ function FriendsMarqueeSection() {
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
+/*  FULL-SERVICE PRODUCTION — Hybrid (numbered editorial + bg swap)     */
+/*  Left:  numbered discipline list with hairline dividers              */
+/*  Right: sticky image that crossfades on hover/click of each item     */
+/* ──────────────────────────────────────────────────────────────────── */
+type Discipline = {
+  label: string;
+  description: string;
+  image: string;
+};
+
+const DISCIPLINES: Discipline[] = [
+  {
+    label: "PHOTOGRAPHERS",
+    description: "Editorial, fashion, retail, industrial — frames built to last.",
+    image: "/images/categories/fashion/citybook-2024-1000.jpg",
+  },
+  {
+    label: "CINEMATOGRAPHERS",
+    description: "Story-driven motion that carries the brand voice forward.",
+    image: "/images/portfolio/8-4Q7A9046-2.jpeg",
+  },
+  {
+    label: "DIRECTORS",
+    description: "Vision and craft from concept through final delivery.",
+    image: "/images/categories/industrial/venus-aerospace-24443-edit.jpg",
+  },
+  {
+    label: "HAIR / MAKEUP",
+    description: "Camera-ready beauty for every frame on set.",
+    image: "/images/portfolio/beauty-portrait-ofstylish-woman-with-colorful-tur-2023-11-27-05-34-51-utc.jpeg",
+  },
+  {
+    label: "STYLISTS",
+    description: "Wardrobe, prop, and set styling tuned to the story.",
+    image: "/images/categories/fashion/finn-hackney-62296-edit.jpg",
+  },
+  {
+    label: "SOUND / AUDIO",
+    description: "Capture, mix, and music supervision built for the cut.",
+    image: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg",
+  },
+  {
+    label: "DESIGNERS",
+    description: "Set design, graphics, and creative direction.",
+    image: "/images/categories/retail/296gtb-070.jpg",
+  },
+  {
+    label: "PRE & POST PRODUCTION",
+    description: "Planning, edit, color, and finish under one roof.",
+    image: "/images/portfolio/audaja-skincare.jpg",
+  },
+  {
+    label: "MARKETING SUPPORT",
+    description: "Brand strategy and campaign rollout that travel.",
+    image: "/images/portfolio/brandon-blackwood.jpg",
+  },
+];
+
+function FullServiceHybridSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = DISCIPLINES[activeIndex];
+
+  return (
+    <section className="bg-dark py-20 sm:py-28 lg:py-32 relative overflow-hidden">
+      {/* Soft glow accents in background */}
+      <div className="absolute inset-0 opacity-[0.07] pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[32rem] h-[32rem] bg-amber-200 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-0 w-[28rem] h-[28rem] bg-white rounded-full blur-[140px]" />
+      </div>
+
+      <div className="relative z-10 max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+        {/* ── Header ── */}
+        <div className="mb-14 sm:mb-20 max-w-3xl">
+          <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-4">
+            Our Disciplines / 03
+          </p>
+          <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
+            FULL-SERVICE
+            <br />
+            PRODUCTION
+          </h2>
+          <p className="text-base sm:text-lg text-white/60 max-w-xl mt-6 leading-relaxed">
+            From concept to delivery, our talented network of directors,
+            photographers, cinematographers, stylists, and editors bring your
+            vision to life.
+          </p>
+        </div>
+
+        {/* ── Editorial index + sticky image ── */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          {/* LEFT — Numbered discipline list (cols 1–7) */}
+          <div className="lg:col-span-7 order-2 lg:order-1">
+            <ul className="border-t border-white/15">
+              {DISCIPLINES.map((d, i) => {
+                const isActive = activeIndex === i;
+                return (
+                  <li
+                    key={d.label}
+                    className="border-b border-white/15 group"
+                    onMouseEnter={() => setActiveIndex(i)}
+                    onClick={() => setActiveIndex(i)}
+                  >
+                    <div
+                      className="flex items-baseline gap-5 sm:gap-8 py-5 sm:py-6 cursor-pointer relative"
+                      style={{
+                        transition: "padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                        paddingLeft: isActive ? "1rem" : "0",
+                      }}
+                    >
+                      {/* Active accent bar */}
+                      <span
+                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-amber-200/80"
+                        style={{
+                          width: isActive ? "8px" : "0px",
+                          height: isActive ? "60%" : "0%",
+                          transition:
+                            "width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                        }}
+                      />
+
+                      {/* Number */}
+                      <span
+                        className="font-display text-base sm:text-lg tracking-[0.2em] flex-shrink-0"
+                        style={{
+                          color: isActive ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.30)",
+                          transition: "color 0.4s ease-out",
+                          minWidth: "2.5rem",
+                        }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      {/* Label */}
+                      <div className="flex-1 min-w-0">
+                        <span
+                          className="font-display text-2xl sm:text-3xl lg:text-[44px] tracking-tight uppercase block leading-tight"
+                          style={{
+                            color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.40)",
+                            transition: "color 0.4s ease-out",
+                          }}
+                        >
+                          {d.label}
+                        </span>
+                        {/* Description — only when active, slides in */}
+                        <span
+                          className="block text-sm sm:text-base text-white/55 mt-1 sm:mt-2 leading-snug overflow-hidden"
+                          style={{
+                            maxHeight: isActive ? "3rem" : "0rem",
+                            opacity: isActive ? 1 : 0,
+                            transform: isActive ? "translateY(0)" : "translateY(-4px)",
+                            transition:
+                              "max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                          }}
+                        >
+                          {d.description}
+                        </span>
+                      </div>
+
+                      {/* Arrow — fades in on active */}
+                      <span
+                        className="flex-shrink-0 hidden sm:flex items-center justify-center"
+                        style={{
+                          opacity: isActive ? 1 : 0,
+                          transform: isActive ? "translateX(0)" : "translateX(-8px)",
+                          transition:
+                            "opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                          color: "rgba(255,255,255,0.85)",
+                        }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Hint */}
+            <p className="text-xs font-medium tracking-[0.3em] text-white/35 uppercase mt-6">
+              Hover or tap a discipline to preview
+            </p>
+          </div>
+
+          {/* RIGHT — Sticky image preview (cols 8–12) */}
+          <div className="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-24">
+            <div
+              className="relative overflow-hidden bg-black/30"
+              style={{ aspectRatio: "4 / 5" }}
+            >
+              {/* Crossfading images */}
+              {DISCIPLINES.map((d, i) => (
+                <img
+                  key={d.label}
+                  src={d.image}
+                  alt={d.label}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{
+                    opacity: activeIndex === i ? 1 : 0,
+                    transform: activeIndex === i ? "scale(1)" : "scale(1.04)",
+                    transition:
+                      "opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                />
+              ))}
+
+              {/* Bottom gradient for label legibility */}
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/75 via-black/30 to-transparent pointer-events-none" />
+
+              {/* Top-left meta tag */}
+              <div className="absolute top-5 left-5 flex items-center gap-2">
+                <span className="block w-1.5 h-1.5 rounded-full bg-amber-200 animate-pulse" />
+                <span className="text-[10px] font-semibold tracking-[0.3em] text-white/85 uppercase">
+                  Now Showing · {String(activeIndex + 1).padStart(2, "0")} / {String(DISCIPLINES.length).padStart(2, "0")}
+                </span>
+              </div>
+
+              {/* Bottom-left active label */}
+              <div className="absolute bottom-5 left-5 right-5 pointer-events-none">
+                <p
+                  className="font-display text-xl sm:text-2xl text-white tracking-tight leading-tight"
+                  style={{
+                    transition: "opacity 0.4s ease-out",
+                  }}
+                  key={`label-${activeIndex}`}
+                >
+                  {active.label}
+                </p>
+                <p className="text-xs sm:text-sm text-white/70 mt-1 leading-snug">
+                  {active.description}
+                </p>
+              </div>
+
+              {/* Subtle inner border */}
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
+            </div>
+
+            {/* Mini progress bar showing position in list */}
+            <div className="hidden lg:block mt-5">
+              <div className="h-px bg-white/10 relative overflow-hidden">
+                <div
+                  className="absolute left-0 top-0 h-full bg-amber-200/80"
+                  style={{
+                    width: `${((activeIndex + 1) / DISCIPLINES.length) * 100}%`,
+                    transition: "width 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                />
+              </div>
+              <p className="text-[10px] font-semibold tracking-[0.3em] text-white/40 uppercase mt-2">
+                {String(activeIndex + 1).padStart(2, "0")} of {String(DISCIPLINES.length).padStart(2, "0")} disciplines
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────────── */
 /*  MAIN VARIANT — two separate sections rendered back-to-back          */
 /* ──────────────────────────────────────────────────────────────────── */
 export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: VariantProps) {
@@ -475,6 +734,11 @@ export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: Variant
           ═══════════════════════════════════════════════════════════════ */}
       <FriendsMarqueeSection />
 
+      {/* ═══════════════════════════════════════════════════════════════
+          SECTION 4 — FULL-SERVICE PRODUCTION (Editorial + Hover Swap)
+          ═══════════════════════════════════════════════════════════════ */}
+      <FullServiceHybridSection />
+
       {/* ════════ Reviewer's notes block ════════ */}
       <section className="py-16 bg-cream border-t border-dark/10">
         <div className="max-w-[900px] mx-auto px-6 lg:px-10">
@@ -511,6 +775,17 @@ export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: Variant
               name is magnetic and snaps to the cursor on hover. When real
               brand logos arrive, drop them into the same marquee in place of
               the text — layout stays identical.
+            </li>
+            <li>
+              <strong>NEW — FULL-SERVICE PRODUCTION (Editorial + Hover Swap):</strong>{" "}
+              the old static "Full-Service Production" block is replaced with
+              a two-column editorial index — numbered discipline list on the
+              left (01–09 with hairline dividers), sticky image preview on
+              the right. Hover or tap a discipline and the right-side image
+              crossfades to a real Ashkan portfolio shot tied to that craft
+              (photographer → fashion editorial, cinematographer → Monarch BTS,
+              hair/makeup → beauty portrait, etc.). Adds an amber accent bar,
+              "Now Showing" tag, and a discipline-progress bar.
             </li>
           </ul>
         </div>
