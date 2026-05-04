@@ -37,9 +37,9 @@ export function LensIntroSection() {
   /* ─── Sequential scroll choreography (gradual + smooth) ────
      Phase 1 (0%  → 22%): Left text drifts up + fades
      Phase 2 (18% → 42%): Right text drifts up + fades
-     Phase 3 (40% → 70%): Door opens smoothly
-     Phase 4 (65% → 95%): Portal zooms toward viewer
-     Phase 5 (88% → 100%): Portal fades, hero revealed
+     Phase 3 (25% → 55%): Studio bulb glows progressively brighter (warm)
+     Phase 4 (50% → 85%): Flash bursts outward — turns white, fills screen
+     Phase 5 (85% → 100%): White-out fades, hero section revealed
      ─────────────────────────────────────────────────────────── */
 
   // Left text — gradual upward drift, fully gone by 22%
@@ -50,24 +50,36 @@ export function LensIntroSection() {
   const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -500]);
   const rightTextOpacity = useTransform(scrollYProgress, [0.20, 0.30, 0.40], [1, 0.5, 0]);
 
-  // Door opens AFTER both texts are gone — POSITIVE rotateY = swings open from LEFT.
-  // Cap at 85° so we never cross the 90° perpendicular line where the panel
-  // turns its back to the viewer (which would make backface-hidden flicker).
-  const doorRotateY = useTransform(scrollYProgress, [0.40, 0.70], [0, 85]);
-
-  // Portal scales toward viewer — wider range + intermediate stops
-  // so the zoom ramps gradually instead of accelerating abruptly.
-  const portalScale = useTransform(
+  // Bulb glow — warm halo charges up from 25% to 55% scroll
+  const bulbGlowScale = useTransform(scrollYProgress, [0.25, 0.55], [1, 6]);
+  const bulbGlowOpacity = useTransform(
     scrollYProgress,
-    [0.55, 0.70, 0.85, 0.98],
-    [1, 2.4, 6, 16]
+    [0.25, 0.40, 0.55],
+    [0, 0.7, 1]
   );
 
-  // Portal fades near the end so hero shows through
-  const portalOpacity = useTransform(scrollYProgress, [0.88, 1], [1, 0]);
+  // Flash burst — explosive expansion from 50% to 85%
+  // 4 stops for a charge → pop → fill curve (camera flash energy)
+  const flashScale = useTransform(
+    scrollYProgress,
+    [0.50, 0.65, 0.78, 0.85],
+    [1, 8, 35, 80]
+  );
+  const flashOpacity = useTransform(
+    scrollYProgress,
+    [0.50, 0.65, 0.78, 0.85],
+    [0, 0.6, 0.95, 1]
+  );
 
-  // Sky + sea fade out as we "pass through"
-  const skyOpacity = useTransform(scrollYProgress, [0.78, 1], [1, 0]);
+  // White-out overlay (entire screen) — peak from 78% to 95%, then fade
+  const whiteoutOpacity = useTransform(
+    scrollYProgress,
+    [0.78, 0.85, 0.95, 1],
+    [0, 1, 1, 0]
+  );
+
+  // Studio background fades during the white-out (so hero reads through)
+  const skyOpacity = useTransform(scrollYProgress, [0.75, 0.92], [1, 0]);
 
   // Hint fades during phase 1
   const hintOpacity = useTransform(scrollYProgress, [0, 0.10], [1, 0]);
@@ -306,476 +318,107 @@ export function LensIntroSection() {
           </h2>
         </motion.div>
 
-        {/* ─── Door portal (centered + slight downward offset) ─── */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ paddingTop: "4vh" }}
+        {/* ═══════════════════════════════════════════════════════════
+            CAMERA FLASH BURST — replaces the door portal.
+            Originates from the top-center spotlight in the studio image.
+            • Bulb halo glows progressively warmer (25→55% scroll)
+            • Flash explodes outward in a hot white burst (50→85%)
+            • Full-screen white-out (78→95%)
+            • White-out fades, hero section revealed (85→100%)
+            ═══════════════════════════════════════════════════════════ */}
+
+        {/* Bulb glow — warm halo around the top-center spotlight */}
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{
+            top: "8%",
+            left: "50%",
+            width: "220px",
+            height: "220px",
+            marginLeft: "-110px",
+            background:
+              "radial-gradient(circle," +
+              "rgba(255,250,235,0.95) 0%," +
+              "rgba(255,235,180,0.55) 25%," +
+              "rgba(255,200,120,0.25) 50%," +
+              "rgba(255,170,90,0.08) 75%," +
+              "transparent 100%)",
+            borderRadius: "50%",
+            mixBlendMode: "screen",
+            filter: "blur(8px)",
+            scale: bulbGlowScale,
+            opacity: bulbGlowOpacity,
+            transformOrigin: "center center",
+          }}
+        />
+
+        {/* Flash burst — explosive white expansion from the bulb */}
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{
+            top: "8%",
+            left: "50%",
+            width: "180px",
+            height: "180px",
+            marginLeft: "-90px",
+            background:
+              "radial-gradient(circle," +
+              "#FFFFFF 0%," +
+              "rgba(255,255,255,0.95) 18%," +
+              "rgba(255,250,230,0.7) 35%," +
+              "rgba(255,230,170,0.35) 60%," +
+              "rgba(255,200,120,0.1) 85%," +
+              "transparent 100%)",
+            borderRadius: "50%",
+            mixBlendMode: "screen",
+            scale: flashScale,
+            opacity: flashOpacity,
+            transformOrigin: "center center",
+          }}
+        />
+
+        {/* Spike-rays from the bulb — 8 thin white streaks for that
+            classic camera-flash starburst feel */}
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{
+            top: "8%",
+            left: "50%",
+            width: "0",
+            height: "0",
+            scale: flashScale,
+            opacity: flashOpacity,
+            mixBlendMode: "screen",
+          }}
         >
-          <motion.div
-            className="relative"
-            style={{
-              scale: portalScale,
-              opacity: portalOpacity,
-              perspective: "1500px",
-              willChange: "transform, opacity",
-            }}
-          >
-            {/* Premium real door — frame, panel, hinges, knob */}
+          {Array.from({ length: 8 }).map((_, i) => (
             <div
-              className="relative"
+              key={`ray-${i}`}
+              className="absolute"
               style={{
-                width: "202px",
-                height: "434px",
-                perspective: "1800px",
-                transformStyle: "preserve-3d",
+                top: "0",
+                left: "0",
+                width: "1.5px",
+                height: "60px",
+                marginLeft: "-0.75px",
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%)",
+                transformOrigin: "center top",
+                transform: `rotate(${i * 45}deg)`,
               }}
-            >
-              {/* ── Door frame (architrave / casing — recessed jamb) ── */}
-              {/* Outer trim with bevel highlights */}
-              <div
-                className="absolute -inset-4"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #FAFAFA 0%, #E8E8E8 100%)",
-                  boxShadow:
-                    "0 30px 60px -15px rgba(20,40,80,0.45)," +
-                    "0 12px 24px rgba(0,0,0,0.18)," +
-                    "inset 0 1px 0 rgba(255,255,255,0.9)," +
-                    "inset 0 -1px 0 rgba(0,0,0,0.08)",
-                  borderRadius: "3px",
-                }}
-              />
-              {/* Inner frame trim (deeper) */}
-              <div
-                className="absolute -inset-1"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #FFFFFF 0%, #F2F2F2 100%)",
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,1)," +
-                    "inset 1px 0 0 rgba(255,255,255,0.7)," +
-                    "inset -1px 0 0 rgba(0,0,0,0.08)," +
-                    "inset 0 -1px 0 rgba(0,0,0,0.10)",
-                  borderRadius: "2px",
-                }}
-              />
+            />
+          ))}
+        </motion.div>
 
-              {/* ── Doorway interior (deep shadow + video) ── */}
-              <div
-                className="absolute inset-0 overflow-hidden bg-black"
-                style={{
-                  boxShadow:
-                    "inset 4px 0 12px rgba(0,0,0,0.55)," +
-                    "inset -4px 0 8px rgba(0,0,0,0.35)," +
-                    "inset 0 4px 12px rgba(0,0,0,0.45)," +
-                    "inset 0 -4px 10px rgba(0,0,0,0.45)",
-                }}
-              >
-                <iframe
-                  src="https://player.vimeo.com/video/1022971286?background=1&autoplay=1&loop=1&muted=1&dnt=1&controls=0"
-                  className="absolute pointer-events-none"
-                  style={{
-                    top: "50%",
-                    left: "50%",
-                    width: "220%",
-                    height: "220%",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                  frameBorder="0"
-                  allow="autoplay; fullscreen"
-                  title="Behind the scenes"
-                />
-                {/* Vignette so video blends into doorway shadows */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)",
-                  }}
-                />
-              </div>
-
-              {/* ── Door panel — opens on RIGHT hinge (left edge swings out) ── */}
-              <motion.div
-                className="absolute inset-0"
-                style={{
-                  rotateY: doorRotateY,
-                  transformOrigin: "right center",
-                  transformStyle: "preserve-3d",
-                  backfaceVisibility: "hidden",
-                }}
-              >
-                {/* Door body — painted white wood */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, #F4F4F4 0%, #FAFAFA 8%, #FFFFFF 30%, #FFFFFF 70%, #F8F8F8 92%, #ECECEC 100%)",
-                    boxShadow:
-                      "inset 0 1px 0 rgba(255,255,255,1)," +
-                      "inset 0 -1px 2px rgba(0,0,0,0.08)," +
-                      "inset 1px 0 0 rgba(255,255,255,0.7)," +
-                      "inset -1px 0 0 rgba(0,0,0,0.06)," +
-                      "0 14px 30px rgba(0,0,0,0.22)",
-                  }}
-                />
-
-                {/* Top stile (horizontal divider at top) */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: "16px",
-                    left: "16px",
-                    right: "16px",
-                    height: "calc(38% - 16px)",
-                    background:
-                      "linear-gradient(135deg, #F2F2F2 0%, #E8E8E8 100%)",
-                    boxShadow:
-                      "inset 0 2px 4px rgba(0,0,0,0.10)," +
-                      "inset 0 -1px 0 rgba(255,255,255,0.85)," +
-                      "inset 1px 0 2px rgba(0,0,0,0.06)," +
-                      "inset -1px 0 0 rgba(255,255,255,0.6)",
-                    borderRadius: "1px",
-                  }}
-                >
-                  {/* Bevel inset 1 */}
-                  <div
-                    className="absolute"
-                    style={{
-                      inset: "8px",
-                      background:
-                        "linear-gradient(135deg, #FAFAFA 0%, #EFEFEF 100%)",
-                      boxShadow:
-                        "inset 0 1px 1px rgba(255,255,255,0.9)," +
-                        "inset 0 -1px 1px rgba(0,0,0,0.08)",
-                    }}
-                  >
-                    {/* Bevel inset 2 (deepest recess) */}
-                    <div
-                      className="absolute"
-                      style={{
-                        inset: "6px",
-                        background:
-                          "linear-gradient(135deg, #FFFFFF 0%, #F4F4F4 100%)",
-                        boxShadow:
-                          "inset 1px 1px 2px rgba(0,0,0,0.05)," +
-                          "inset -1px -1px 1px rgba(255,255,255,0.8)",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Bottom stile */}
-                <div
-                  className="absolute"
-                  style={{
-                    bottom: "16px",
-                    left: "16px",
-                    right: "16px",
-                    height: "calc(50% - 16px)",
-                    background:
-                      "linear-gradient(135deg, #F2F2F2 0%, #E8E8E8 100%)",
-                    boxShadow:
-                      "inset 0 2px 4px rgba(0,0,0,0.10)," +
-                      "inset 0 -1px 0 rgba(255,255,255,0.85)," +
-                      "inset 1px 0 2px rgba(0,0,0,0.06)," +
-                      "inset -1px 0 0 rgba(255,255,255,0.6)",
-                    borderRadius: "1px",
-                  }}
-                >
-                  <div
-                    className="absolute"
-                    style={{
-                      inset: "8px",
-                      background:
-                        "linear-gradient(135deg, #FAFAFA 0%, #EFEFEF 100%)",
-                      boxShadow:
-                        "inset 0 1px 1px rgba(255,255,255,0.9)," +
-                        "inset 0 -1px 1px rgba(0,0,0,0.08)",
-                    }}
-                  >
-                    <div
-                      className="absolute"
-                      style={{
-                        inset: "6px",
-                        background:
-                          "linear-gradient(135deg, #FFFFFF 0%, #F4F4F4 100%)",
-                        boxShadow:
-                          "inset 1px 1px 2px rgba(0,0,0,0.05)," +
-                          "inset -1px -1px 1px rgba(255,255,255,0.8)",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Hinge — RIGHT side (where door pivots) */}
-                {[0.18, 0.5, 0.82].map((pos, i) => (
-                  <div
-                    key={`hinge-${i}`}
-                    className="absolute"
-                    style={{
-                      right: "-2px",
-                      top: `calc(${pos * 100}% - 14px)`,
-                      width: "5px",
-                      height: "28px",
-                      background:
-                        "linear-gradient(90deg, #C2A472 0%, #A8884A 50%, #8A6E36 100%)",
-                      borderRadius: "1px",
-                      boxShadow:
-                        "0 1px 2px rgba(0,0,0,0.4)," +
-                        "inset 0 1px 0 rgba(255,255,255,0.4)," +
-                        "inset 0 -1px 0 rgba(0,0,0,0.3)",
-                    }}
-                  >
-                    {/* Hinge screws */}
-                    <div
-                      className="absolute"
-                      style={{
-                        top: "5px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        width: "1.5px",
-                        height: "1.5px",
-                        background: "#5A4A28",
-                        borderRadius: "50%",
-                      }}
-                    />
-                    <div
-                      className="absolute"
-                      style={{
-                        bottom: "5px",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        width: "1.5px",
-                        height: "1.5px",
-                        background: "#5A4A28",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  </div>
-                ))}
-
-                {/* Hardware wrapper — true 3D protruding knob with cast
-                    shadow on the door surface. Stays glued to the door
-                    panel via shared `transform-style: preserve-3d`. */}
-                <div
-                  className="absolute"
-                  style={{
-                    left: "8px",
-                    top: "calc(50% - 26px)",
-                    width: "22px",
-                    height: "52px",
-                    transformStyle: "preserve-3d",
-                    backfaceVisibility: "hidden",
-                    WebkitBackfaceVisibility: "hidden",
-                  }}
-                >
-                  {/* Cast shadow on the door (below + right of the knob) —
-                      simulates the knob protruding outward catching light */}
-                  <div
-                    className="absolute pointer-events-none"
-                    style={{
-                      top: "calc(50% - 6px)",
-                      left: "6px",
-                      width: "24px",
-                      height: "20px",
-                      background:
-                        "radial-gradient(ellipse 60% 50% at 30% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, transparent 80%)",
-                      filter: "blur(3px)",
-                    }}
-                  />
-
-                  {/* Knob backplate (escutcheon) — rectangular brass plate */}
-                  <div
-                    className="absolute inset-x-0"
-                    style={{
-                      top: "4px",
-                      bottom: "4px",
-                      left: "4px",
-                      right: "4px",
-                      background:
-                        "linear-gradient(135deg, #E8C988 0%, #C09650 35%, #8A6428 70%, #5C4218 100%)",
-                      borderRadius: "3px",
-                      boxShadow:
-                        "0 2px 4px rgba(0,0,0,0.35)," +
-                        "0 1px 1px rgba(0,0,0,0.25)," +
-                        "inset 0 1px 1px rgba(255,255,255,0.55)," +
-                        "inset 0 -1px 1px rgba(0,0,0,0.4)," +
-                        "inset 1px 0 1px rgba(255,255,255,0.3)," +
-                        "inset -1px 0 1px rgba(0,0,0,0.3)",
-                    }}
-                  >
-                    {/* Inner bevel highlight */}
-                    <div
-                      className="absolute inset-1"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, rgba(255,235,180,0.45) 0%, transparent 50%, rgba(0,0,0,0.18) 100%)",
-                        borderRadius: "2px",
-                      }}
-                    />
-                    {/* Top screw */}
-                    <div
-                      className="absolute"
-                      style={{
-                        top: "3px",
-                        left: "50%",
-                        marginLeft: "-1.5px",
-                        width: "3px",
-                        height: "3px",
-                        background:
-                          "radial-gradient(circle at 35% 35%, #B89060 0%, #6B4818 70%, #2A1A08 100%)",
-                        borderRadius: "50%",
-                        boxShadow: "inset 0 0 1px rgba(0,0,0,0.5)",
-                      }}
-                    />
-                    {/* Bottom screw */}
-                    <div
-                      className="absolute"
-                      style={{
-                        bottom: "3px",
-                        left: "50%",
-                        marginLeft: "-1.5px",
-                        width: "3px",
-                        height: "3px",
-                        background:
-                          "radial-gradient(circle at 35% 35%, #B89060 0%, #6B4818 70%, #2A1A08 100%)",
-                        borderRadius: "50%",
-                        boxShadow: "inset 0 0 1px rgba(0,0,0,0.5)",
-                      }}
-                    />
-                  </div>
-
-                  {/* Knob neck/stem — short cylinder connecting plate to ball.
-                      Gives the protruding-from-door feel. */}
-                  <div
-                    className="absolute"
-                    style={{
-                      top: "calc(50% - 5px)",
-                      left: "calc(50% - 4px)",
-                      width: "8px",
-                      height: "10px",
-                      background:
-                        "linear-gradient(180deg, #B89060 0%, #8A6428 50%, #5C4218 100%)",
-                      borderRadius: "2px",
-                      boxShadow:
-                        "0 2px 3px rgba(0,0,0,0.45)," +
-                        "inset 1px 0 1px rgba(255,235,180,0.4)," +
-                        "inset -1px 0 1px rgba(0,0,0,0.35)",
-                    }}
-                  />
-
-                  {/* Brass knob — true 3D sphere look with strong protrusion */}
-                  <div
-                    className="absolute"
-                    style={{
-                      top: "calc(50% - 13px)",
-                      left: "calc(50% - 13px)",
-                      width: "26px",
-                      height: "26px",
-                      borderRadius: "50%",
-                      // 8-stop radial gradient creates pronounced spherical depth
-                      background:
-                        "radial-gradient(circle at 28% 22%," +
-                        "rgba(255,253,235,1) 0%," +
-                        "#FFEAB0 6%," +
-                        "#F8D88C 14%," +
-                        "#F0C470 24%," +
-                        "#D49C40 40%," +
-                        "#A07028 60%," +
-                        "#5A3E14 80%," +
-                        "#1F1408 100%)",
-                      boxShadow:
-                        // Strong cast shadow on the door surface (lower-right)
-                        "5px 7px 12px rgba(0,0,0,0.55)," +
-                        "3px 4px 6px rgba(0,0,0,0.45)," +
-                        // Tight contact shadow
-                        "0 2px 2px rgba(0,0,0,0.4)," +
-                        // Inner rim — bottom-right shadow + top-left highlight
-                        "inset -3px -4px 6px rgba(0,0,0,0.55)," +
-                        "inset 3px 3px 5px rgba(255,235,180,0.55)," +
-                        // Subtle outer ring (chrome edge)
-                        "0 0 0 0.5px rgba(0,0,0,0.3)",
-                    }}
-                  >
-                    {/* Primary specular highlight — bright sphere shine */}
-                    <div
-                      className="absolute"
-                      style={{
-                        top: "3px",
-                        left: "5px",
-                        width: "9px",
-                        height: "6px",
-                        background:
-                          "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%)",
-                        borderRadius: "50%",
-                        transform: "rotate(-30deg)",
-                      }}
-                    />
-                    {/* Pinpoint glint at the brightest spot */}
-                    <div
-                      className="absolute"
-                      style={{
-                        top: "4px",
-                        left: "6px",
-                        width: "2.5px",
-                        height: "2.5px",
-                        background: "#FFFFFF",
-                        borderRadius: "50%",
-                        opacity: 1,
-                        boxShadow: "0 0 2px rgba(255,255,255,0.8)",
-                      }}
-                    />
-                    {/* Soft secondary highlight (rim light) */}
-                    <div
-                      className="absolute"
-                      style={{
-                        bottom: "4px",
-                        right: "6px",
-                        width: "5px",
-                        height: "2.5px",
-                        background:
-                          "radial-gradient(ellipse, rgba(255,200,120,0.5) 0%, transparent 70%)",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Subtle vertical paint streak (right side, near hinge — adds realism) */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: "0",
-                    bottom: "0",
-                    right: "0",
-                    width: "1px",
-                    background:
-                      "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.04) 30%, rgba(0,0,0,0.06) 70%, transparent 100%)",
-                  }}
-                />
-              </motion.div>
-
-              {/* ── Door grounded on studio floor ──
-                   Subtle warm shadow under the door so it sits naturally
-                   on the wooden floor of the studio scene (no water now). */}
-
-              {/* Soft contact shadow at door base (grounds it on the floor) */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  bottom: "-14px",
-                  left: "-22px",
-                  right: "-22px",
-                  height: "22px",
-                  background:
-                    "radial-gradient(ellipse at center top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 50%, transparent 80%)",
-                  filter: "blur(8px)",
-                }}
-              />
-            </div>
-          </motion.div>
-        </div>
+        {/* Full-screen white-out — peaks at climax of flash */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "#FFFFFF",
+            opacity: whiteoutOpacity,
+            zIndex: 20,
+          }}
+        />
 
         {/* ─── Scroll hint ─── */}
         <motion.div
