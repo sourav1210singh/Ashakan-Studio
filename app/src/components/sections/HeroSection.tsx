@@ -362,8 +362,8 @@ export function HeroSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-32 sm:pt-44 pb-12 sm:pb-16"
-      style={{ minHeight: "145vh" }}
+      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-28 sm:pt-36 pb-8 sm:pb-12"
+      style={{ minHeight: "100vh" }}
     >
       {/* Background Pattern — parallax slowest */}
       <motion.div
