@@ -680,57 +680,6 @@ export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: Variant
           ═══════════════════════════════════════════════════════════════ */}
       <FullServiceHybridSection />
 
-      {/* ════════ Reviewer's notes block ════════ */}
-      <section className="py-16 bg-cream border-t border-dark/10">
-        <div className="max-w-[900px] mx-auto px-6 lg:px-10">
-          <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-4">
-            Test Variant Notes
-          </p>
-          <h3 className="font-display text-2xl sm:text-3xl text-dark tracking-tight mb-6">
-            What changes from the current home page
-          </h3>
-          <ul className="space-y-3 text-base text-dark/70 leading-relaxed list-disc pl-6">
-            <li>
-              Single "THE WORK" section is split into two:{" "}
-              <strong>THE CAMPAIGN</strong> (cream bg) and{" "}
-              <strong>THE WORK</strong> (dark bg).
-            </li>
-            <li>
-              CAMPAIGN keeps the existing leaf cards (4 campaigns × 2 cards each).
-            </li>
-            <li>
-              WORK uses a different tile style — wider rectangular cards for
-              the four photography categories (Fashion, The Arts, Retail,
-              Industrial) so the two sections feel visually distinct.
-            </li>
-            <li>
-              "See All Work" link added to the WORK section header.
-            </li>
-            <li>
-              Brandi's actual icons / graphic elements still pending — these
-              are placeholder photo cards.
-            </li>
-            <li>
-              <strong>NEW — OUR FRIENDS (option F: Marquee + Magnetic):</strong>{" "}
-              client names scroll continuously in two opposite directions; each
-              name is magnetic and snaps to the cursor on hover. When real
-              brand logos arrive, drop them into the same marquee in place of
-              the text — layout stays identical.
-            </li>
-            <li>
-              <strong>NEW — FULL-SERVICE PRODUCTION (Editorial + Hover Swap):</strong>{" "}
-              the old static "Full-Service Production" block is replaced with
-              a two-column editorial index — numbered discipline list on the
-              left (01–09 with hairline dividers), sticky image preview on
-              the right. Hover or tap a discipline and the right-side image
-              crossfades to a real Ashkan portfolio shot tied to that craft
-              (photographer → fashion editorial, cinematographer → Monarch BTS,
-              hair/makeup → beauty portrait, etc.). Adds an amber accent bar,
-              "Now Showing" tag, and a discipline-progress bar.
-            </li>
-          </ul>
-        </div>
-      </section>
     </>
   );
 }
