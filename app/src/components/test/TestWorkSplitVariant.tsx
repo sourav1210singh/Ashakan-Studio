@@ -461,106 +461,12 @@ function FullServiceHybridSection() {
           </p>
         </div>
 
-        {/* ── Editorial index + sticky image ── */}
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-start">
-          {/* LEFT — Numbered discipline list (cols 1–7) */}
-          <div className="lg:col-span-7 order-2 lg:order-1">
-            <ul className="border-t border-white/15">
-              {DISCIPLINES.map((d, i) => {
-                const isActive = activeIndex === i;
-                return (
-                  <li
-                    key={d.label}
-                    className="border-b border-white/15 group"
-                    onMouseEnter={() => setActiveIndex(i)}
-                    onClick={() => setActiveIndex(i)}
-                  >
-                    <div
-                      className="flex items-baseline gap-5 sm:gap-8 py-5 sm:py-6 cursor-pointer relative"
-                      style={{
-                        transition: "padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-                        paddingLeft: isActive ? "1rem" : "0",
-                      }}
-                    >
-                      {/* Active accent bar */}
-                      <span
-                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-amber-200/80"
-                        style={{
-                          width: isActive ? "8px" : "0px",
-                          height: isActive ? "60%" : "0%",
-                          transition:
-                            "width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                        }}
-                      />
-
-                      {/* Number */}
-                      <span
-                        className="font-display text-base sm:text-lg tracking-[0.2em] flex-shrink-0"
-                        style={{
-                          color: isActive ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.30)",
-                          transition: "color 0.4s ease-out",
-                          minWidth: "2.5rem",
-                        }}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-
-                      {/* Label */}
-                      <div className="flex-1 min-w-0">
-                        <span
-                          className="font-display text-2xl sm:text-3xl lg:text-[44px] tracking-tight uppercase block leading-tight"
-                          style={{
-                            color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.40)",
-                            transition: "color 0.4s ease-out",
-                          }}
-                        >
-                          {d.label}
-                        </span>
-                        {/* Description — only when active, slides in */}
-                        <span
-                          className="block text-sm sm:text-base text-white/55 mt-1 sm:mt-2 leading-snug overflow-hidden"
-                          style={{
-                            maxHeight: isActive ? "3rem" : "0rem",
-                            opacity: isActive ? 1 : 0,
-                            transform: isActive ? "translateY(0)" : "translateY(-4px)",
-                            transition:
-                              "max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-                          }}
-                        >
-                          {d.description}
-                        </span>
-                      </div>
-
-                      {/* Arrow — fades in on active */}
-                      <span
-                        className="flex-shrink-0 hidden sm:flex items-center justify-center"
-                        style={{
-                          opacity: isActive ? 1 : 0,
-                          transform: isActive ? "translateX(0)" : "translateX(-8px)",
-                          transition:
-                            "opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                          color: "rgba(255,255,255,0.85)",
-                        }}
-                      >
-                        <ArrowRight className="w-5 h-5" />
-                      </span>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {/* Hint */}
-            <p className="text-xs font-medium tracking-[0.3em] text-white/35 uppercase mt-6">
-              Hover or tap a discipline to preview
-            </p>
-          </div>
-
-          {/* RIGHT — Sticky image preview (cols 8–12) */}
-          <div className="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-24">
+        {/* ── Image (LEFT) + Discipline list (RIGHT) — equal heights ── */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-stretch">
+          {/* LEFT — Image preview (cols 1–6) */}
+          <div className="lg:col-span-6 order-1">
             <div
-              className="relative overflow-hidden bg-black/30"
-              style={{ aspectRatio: "4 / 5" }}
+              className="relative overflow-hidden bg-black/30 w-full h-full min-h-[420px] sm:min-h-[520px] lg:min-h-[640px]"
             >
               {/* Crossfading images */}
               {DISCIPLINES.map((d, i) => (
@@ -585,7 +491,7 @@ function FullServiceHybridSection() {
               <div className="absolute top-5 left-5 flex items-center gap-2">
                 <span className="block w-1.5 h-1.5 rounded-full bg-amber-200 animate-pulse" />
                 <span className="text-[10px] font-semibold tracking-[0.3em] text-white/85 uppercase">
-                  Now Showing · {String(activeIndex + 1).padStart(2, "0")} / {String(DISCIPLINES.length).padStart(2, "0")}
+                  Now Showing
                 </span>
               </div>
 
@@ -593,9 +499,7 @@ function FullServiceHybridSection() {
               <div className="absolute bottom-5 left-5 right-5 pointer-events-none">
                 <p
                   className="font-display text-xl sm:text-2xl text-white tracking-tight leading-tight"
-                  style={{
-                    transition: "opacity 0.4s ease-out",
-                  }}
+                  style={{ transition: "opacity 0.4s ease-out" }}
                   key={`label-${activeIndex}`}
                 >
                   {active.label}
@@ -608,22 +512,73 @@ function FullServiceHybridSection() {
               {/* Subtle inner border */}
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none" />
             </div>
+          </div>
 
-            {/* Mini progress bar showing position in list */}
-            <div className="hidden lg:block mt-5">
-              <div className="h-px bg-white/10 relative overflow-hidden">
-                <div
-                  className="absolute left-0 top-0 h-full bg-amber-200/80"
-                  style={{
-                    width: `${((activeIndex + 1) / DISCIPLINES.length) * 100}%`,
-                    transition: "width 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-                  }}
-                />
-              </div>
-              <p className="text-[10px] font-semibold tracking-[0.3em] text-white/40 uppercase mt-2">
-                {String(activeIndex + 1).padStart(2, "0")} of {String(DISCIPLINES.length).padStart(2, "0")} disciplines
-              </p>
-            </div>
+          {/* RIGHT — Discipline list (cols 7–12) */}
+          <div className="lg:col-span-6 order-2 flex flex-col">
+            <ul className="border-t border-white/15 flex-1 flex flex-col">
+              {DISCIPLINES.map((d, i) => {
+                const isActive = activeIndex === i;
+                return (
+                  <li
+                    key={d.label}
+                    className="border-b border-white/15 flex-1 flex"
+                    onMouseEnter={() => setActiveIndex(i)}
+                  >
+                    <div
+                      className="flex items-center gap-5 sm:gap-8 py-4 sm:py-5 relative w-full"
+                      style={{
+                        transition: "padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                        paddingLeft: isActive ? "1rem" : "0",
+                      }}
+                    >
+                      {/* Active accent bar */}
+                      <span
+                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-amber-200/80"
+                        style={{
+                          width: isActive ? "8px" : "0px",
+                          height: isActive ? "60%" : "0%",
+                          transition:
+                            "width 0.4s cubic-bezier(0.16, 1, 0.3, 1), height 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                        }}
+                      />
+
+                      {/* Label */}
+                      <div className="flex-1 min-w-0">
+                        <span
+                          className="font-display text-2xl sm:text-3xl lg:text-[40px] tracking-tight uppercase block leading-tight"
+                          style={{
+                            color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.40)",
+                            transition: "color 0.4s ease-out",
+                          }}
+                        >
+                          {d.label}
+                        </span>
+                      </div>
+
+                      {/* Arrow — fades in on active */}
+                      <span
+                        className="flex-shrink-0 hidden sm:flex items-center justify-center"
+                        style={{
+                          opacity: isActive ? 1 : 0,
+                          transform: isActive ? "translateX(0)" : "translateX(-8px)",
+                          transition:
+                            "opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                          color: "rgba(255,255,255,0.85)",
+                        }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* Hint */}
+            <p className="text-xs font-medium tracking-[0.3em] text-white/35 uppercase mt-6">
+              Hover a discipline to preview
+            </p>
           </div>
         </div>
       </div>
