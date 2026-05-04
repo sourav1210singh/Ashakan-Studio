@@ -16,6 +16,8 @@ import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
 import { BookingPage } from "@/pages/BookingPage";
 import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
+import { TestIndexPage } from "@/pages/TestIndexPage";
+import { TestPage } from "@/pages/TestPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
 
 export type View =
@@ -31,7 +33,8 @@ export type View =
   | "press"
   | "portfolio"
   | "seo"
-  | "booking";
+  | "booking"
+  | "test";
 
 /* ── Route parsing (shared by initial load + popstate) ── */
 interface ParsedRoute {
@@ -43,6 +46,16 @@ interface ParsedRoute {
 function parseRoute(rawPathname: string): ParsedRoute {
   // Normalize: strip trailing slash (except root "/")
   const pathname = rawPathname.length > 1 ? rawPathname.replace(/\/+$/, "") : rawPathname;
+
+  // Test variants — internal preview pages, not linked from public nav
+  if (pathname === "/test" || pathname.startsWith("/test/")) {
+    const slugMatch = pathname.match(/^\/test\/([^/]+)/);
+    return {
+      view: "test",
+      slug: null,
+      category: slugMatch ? slugMatch[1] : null, // category holds variant slug
+    };
+  }
 
   // Portfolio pages
   const portfolioMatch = pathname.match(/^\/portfolio\/(.+)$/);
@@ -108,6 +121,7 @@ const pathMap: Record<View, string> = {
   press: "/press/",
   portfolio: "/",
   seo: "/",
+  test: "/test/",
 };
 
 function App() {
@@ -155,6 +169,10 @@ function App() {
       setSelectedCategory(null);
       setCurrentView("portfolio");
       window.history.pushState(null, "", `/portfolio/${slug}/`);
+    } else if (view === "test" && slug) {
+      setSelectedCategory(slug);
+      setCurrentView("test");
+      window.history.pushState(null, "", `/test/${slug}/`);
     } else if ((view === "photography" || view === "videography" || view === "campaigns") && slug) {
       setSelectedCategory(slug);
       setCurrentView(view);
@@ -210,6 +228,11 @@ function App() {
         return <StorytimePage onNavigate={navigateTo} />;
       case "press":
         return <PressPage onNavigate={navigateTo} />;
+      case "test":
+        if (selectedCategory) {
+          return <TestPage variantSlug={selectedCategory} onNavigate={navigateTo} />;
+        }
+        return <TestIndexPage onNavigate={navigateTo} />;
       case "portfolio":
         if (selectedProjectSlug) {
           return (
