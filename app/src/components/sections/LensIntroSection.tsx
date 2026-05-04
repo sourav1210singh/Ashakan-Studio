@@ -82,14 +82,16 @@ export function LensIntroSection() {
       {/* Sticky pinned viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* ═══════════════════════════════════════════════════════════
-            REAL PHOTO BACKGROUND with subtle premium motion
-            (matches travelnextlvl.de — photographic, not cartoonish)
-            • Photo as base layer with very slow Ken-Burns zoom
-            • Subtle warm gradient overlay
-            • Faint ripple highlights ONLY on water area (very subtle)
+            FILM STUDIO BACKGROUND with cinematic atmosphere
+            • Photo with slow Ken Burns zoom (subtle scene breathing)
+            • Cinematic vignette pulse (dark edges that breathe)
+            • Warm light flicker (studio-lamp ambient glow)
+            • Lens flare streak (top-left, subtle warm bloom)
+            • Drifting smoke/dust particles (atmospheric depth)
+            • Film grain texture (subtle moving noise)
             ═══════════════════════════════════════════════════════════ */}
 
-        {/* Photo background — slow Ken Burns effect (very subtle zoom + drift) */}
+        {/* Photo background — slow Ken Burns zoom */}
         <motion.div
           className="absolute inset-0 overflow-hidden"
           style={{ opacity: skyOpacity }}
@@ -97,122 +99,133 @@ export function LensIntroSection() {
           <motion.div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: "url('/images/hero/sky-ocean.jpg')",
-              transformOrigin: "center 40%",
+              backgroundImage: "url('/images/hero/film-studio.webp')",
+              transformOrigin: "center center",
             }}
-            animate={{ scale: [1.02, 1.08, 1.02] }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            animate={{ scale: [1.05, 1.12, 1.05] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
 
-        {/* Subtle warm tone overlay so the door reads against the image */}
+        {/* Cinematic vignette — dark edges that pulse softly */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
             opacity: skyOpacity,
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 30%, transparent 70%, rgba(20,40,80,0.10) 100%)",
+              "radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.45) 100%)",
           }}
+          animate={{ opacity: [0.85, 1, 0.85] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* DRIFTING CLOUDS — soft white whisps drift faster across the sky
-            portion of the photo (mix-blend screen so they enhance, not
-            replace, the photographic clouds underneath). */}
+        {/* Top warm-light bloom — simulates studio lamps spilling light */}
         <motion.div
-          className="absolute inset-x-0 top-0 pointer-events-none overflow-hidden"
-          style={{ opacity: skyOpacity, height: "55%", mixBlendMode: "screen" }}
+          className="absolute inset-x-0 top-0 pointer-events-none"
+          style={{
+            opacity: skyOpacity,
+            height: "45%",
+            background:
+              "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(255,200,130,0.18) 0%, transparent 70%)",
+            mixBlendMode: "screen",
+          }}
+          animate={{ opacity: [0.7, 1, 0.85, 1, 0.7] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* LENS FLARE — warm streak from top-left */}
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{
+            opacity: skyOpacity,
+            top: "5%",
+            left: "8%",
+            width: "320px",
+            height: "320px",
+            background:
+              "radial-gradient(circle at 30% 30%, rgba(255,220,150,0.45) 0%, rgba(255,180,100,0.15) 25%, transparent 60%)",
+            filter: "blur(20px)",
+            mixBlendMode: "screen",
+          }}
+          animate={{ opacity: [0.4, 0.8, 0.4], scale: [0.95, 1.05, 0.95] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Lens flare ghost — secondary bloom diagonally opposite */}
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{
+            opacity: skyOpacity,
+            bottom: "15%",
+            right: "12%",
+            width: "180px",
+            height: "180px",
+            background:
+              "radial-gradient(circle, rgba(255,200,140,0.25) 0%, rgba(255,180,100,0.08) 40%, transparent 70%)",
+            filter: "blur(15px)",
+            mixBlendMode: "screen",
+          }}
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+        />
+
+        {/* DRIFTING SMOKE / DUST PARTICLES — atmospheric depth */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none overflow-hidden"
+          style={{ opacity: skyOpacity, mixBlendMode: "screen" }}
         >
           <motion.div
             className="absolute"
             style={{
-              top: "18%",
+              top: "30%",
               width: "260%",
-              height: "100px",
+              height: "120px",
               background:
-                "radial-gradient(ellipse 12% 80% at 8%  60%, rgba(255,255,255,0.55) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 10% 95% at 22% 50%, rgba(255,255,255,0.65) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 14% 85% at 38% 55%, rgba(255,255,255,0.5)  0%, transparent 70%)," +
-                "radial-gradient(ellipse 11% 90% at 60% 50%, rgba(255,255,255,0.6)  0%, transparent 70%)," +
-                "radial-gradient(ellipse 10% 75% at 80% 60%, rgba(255,255,255,0.5)  0%, transparent 70%)",
-              filter: "blur(6px)",
+                "radial-gradient(ellipse 14% 80% at 12% 50%, rgba(220,210,200,0.18) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 11% 70% at 32% 60%, rgba(220,210,200,0.15) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 12% 75% at 55% 45%, rgba(220,210,200,0.20) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 10% 65% at 75% 55%, rgba(220,210,200,0.16) 0%, transparent 70%)," +
+                "radial-gradient(ellipse 13% 78% at 92% 50%, rgba(220,210,200,0.18) 0%, transparent 70%)",
+              filter: "blur(12px)",
             }}
             animate={{ x: ["-60%", "0%"] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           />
           <motion.div
             className="absolute"
             style={{
-              top: "38%",
+              top: "55%",
               width: "260%",
-              height: "60px",
+              height: "80px",
               background:
-                "radial-gradient(ellipse 18% 100% at 30% 50%, rgba(255,255,255,0.4) 0%, transparent 70%)," +
-                "radial-gradient(ellipse 22% 100% at 70% 50%, rgba(255,255,255,0.45) 0%, transparent 70%)",
-              filter: "blur(8px)",
+                "radial-gradient(ellipse 16% 100% at 25% 50%, rgba(220,210,200,0.14) 0%, transparent 65%)," +
+                "radial-gradient(ellipse 18% 100% at 65% 50%, rgba(220,210,200,0.12) 0%, transparent 65%)",
+              filter: "blur(15px)",
             }}
             animate={{ x: ["0%", "-60%"] }}
-            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
           />
         </motion.div>
 
-        {/* WATER RIPPLES — subtle baseline + scroll-intensified layer.
-            As user scrolls (door opens), the wave amplitude increases
-            and a second more dramatic wave layer fades in. */}
-        <motion.svg
-          className="absolute inset-x-0 bottom-0 pointer-events-none w-full"
-          style={{ opacity: skyOpacity, height: "32%" }}
-          viewBox="0 0 1600 400"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
+        {/* FILM GRAIN — subtle SVG noise texture for that cinematic feel */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            opacity: skyOpacity,
+            mixBlendMode: "overlay",
+          }}
         >
-          {/* Baseline gentle ripples — always visible, photographic */}
-          <motion.path
-            stroke="#FFFFFF"
-            strokeWidth="0.9"
-            fill="none"
-            opacity="0.22"
-            animate={{
-              d: [
-                "M 0 120 Q 400 116 800 120 T 1600 120",
-                "M 0 120 Q 400 124 800 120 T 1600 120",
-                "M 0 120 Q 400 116 800 120 T 1600 120",
-              ],
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              opacity: 0.18,
+              backgroundImage:
+                'url("data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%221.2%22 numOctaves=%222%22/><feColorMatrix values=%220 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22/></svg>")',
+              backgroundSize: "200px 200px",
             }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ x: [0, -20, 10, -5, 0], y: [0, 15, -10, 5, 0] }}
+            transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
           />
-          <motion.path
-            stroke="#FFFFFF"
-            strokeWidth="0.9"
-            fill="none"
-            opacity="0.2"
-            animate={{
-              d: [
-                "M 0 195 Q 350 190 700 195 T 1400 195 L 1600 195",
-                "M 0 195 Q 350 200 700 195 T 1400 195 L 1600 195",
-                "M 0 195 Q 350 190 700 195 T 1400 195 L 1600 195",
-              ],
-            }}
-            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-          />
-          <motion.path
-            stroke="#FFFFFF"
-            strokeWidth="1.1"
-            fill="none"
-            opacity="0.28"
-            animate={{
-              d: [
-                "M 0 280 Q 300 272 600 280 T 1200 280 T 1600 280",
-                "M 0 280 Q 300 288 600 280 T 1200 280 T 1600 280",
-                "M 0 280 Q 300 272 600 280 T 1200 280 T 1600 280",
-              ],
-            }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-          />
-        </motion.svg>
+        </motion.div>
 
 
         {/* ─── Left side text — bold headline (desktop only) ─── */}
@@ -743,57 +756,21 @@ export function LensIntroSection() {
                 />
               </motion.div>
 
-              {/* ── Subtle water "dip" at the door base ──
-                   The bottom ~32px of the door appears partially in water:
-                   • A soft blue tint creeps up the bottom edge (water
-                     coloring the wood that's submerged)
-                   • A very subtle horizontal blur shimmer at the waterline
-                   • A small dark splash shadow grounds the door
-                   No reflection, no concentric circles — just a natural,
-                   barely-there hint that the door is sitting in water. */}
+              {/* ── Door grounded on studio floor ──
+                   Subtle warm shadow under the door so it sits naturally
+                   on the wooden floor of the studio scene (no water now). */}
 
-              {/* Soft water tint on the lower portion of the door */}
+              {/* Soft contact shadow at door base (grounds it on the floor) */}
               <div
                 className="absolute pointer-events-none"
                 style={{
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: "32px",
+                  bottom: "-14px",
+                  left: "-22px",
+                  right: "-22px",
+                  height: "22px",
                   background:
-                    "linear-gradient(180deg, transparent 0%, rgba(60,110,150,0.12) 60%, rgba(60,110,150,0.22) 100%)",
-                  zIndex: 4,
-                }}
-              />
-
-              {/* Soft horizontal shimmer band right at the waterline */}
-              <motion.div
-                className="absolute pointer-events-none"
-                style={{
-                  bottom: "20px",
-                  left: "-8px",
-                  right: "-8px",
-                  height: "5px",
-                  background:
-                    "linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%)",
-                  filter: "blur(1.5px)",
-                  zIndex: 5,
-                }}
-                animate={{ opacity: [0.6, 1, 0.6], scaleX: [1, 1.02, 1] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              />
-
-              {/* Subtle dark splash shadow at door base (grounds it in water) */}
-              <div
-                className="absolute pointer-events-none"
-                style={{
-                  bottom: "-12px",
-                  left: "-18px",
-                  right: "-18px",
-                  height: "18px",
-                  background:
-                    "radial-gradient(ellipse at center top, rgba(10,30,55,0.4) 0%, rgba(10,30,55,0.12) 50%, transparent 80%)",
-                  filter: "blur(6px)",
+                    "radial-gradient(ellipse at center top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 50%, transparent 80%)",
+                  filter: "blur(8px)",
                 }}
               />
             </div>
