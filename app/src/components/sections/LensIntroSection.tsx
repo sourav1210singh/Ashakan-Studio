@@ -61,13 +61,16 @@ export function LensIntroSection() {
      Phase 5 (85% → 100%): White-out fades, hero section revealed
      ─────────────────────────────────────────────────────────── */
 
-  // Left text — gradual upward drift, fully gone by 22%
-  const leftTextY = useTransform(scrollYProgress, [0, 0.22], [0, -500]);
-  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.10, 0.20], [1, 0.5, 0]);
+  // Left text — travels fully off-screen, then fades only in the last 4%
+  // Opacity stays at 1 while the text is moving so it doesn't dim mid-flight.
+  // -1400px is enough to clear the tallest common viewport.
+  const leftTextY = useTransform(scrollYProgress, [0, 0.22], [0, -1400]);
+  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.18, 0.22], [1, 1, 0]);
 
-  // Right text — starts as left finishes; gradual drift up
-  const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -500]);
-  const rightTextOpacity = useTransform(scrollYProgress, [0.20, 0.30, 0.40], [1, 0.5, 0]);
+  // Right text — same pattern: travels fully up, fades only at the very end
+  // (the right block sits at viewport bottom so we need the same large travel)
+  const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -1400]);
+  const rightTextOpacity = useTransform(scrollYProgress, [0.18, 0.38, 0.42], [1, 1, 0]);
 
   // Bulb glow — warm halo charges up from 25% to 55% scroll
   const bulbGlowScale = useTransform(scrollYProgress, [0.25, 0.55], [1, 6]);
