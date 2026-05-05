@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { clients } from "@/data/portfolio";
+import { LensIntroSection } from "@/components/sections/LensIntroSection";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { AboutSection } from "@/components/sections/AboutSection";
 
 /* ════════════════════════════════════════════════════════════════════
    TEST VARIANT: split the home page leaf-card section into TWO blocks
@@ -579,6 +582,21 @@ export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: Variant
   return (
     <>
       {/* ═══════════════════════════════════════════════════════════════
+          HOME-PAGE PREVIEW MODE
+          The test page renders a full new-home-page mock so the client
+          sees changes in context. Sections from the live home page
+          (LensIntro, Hero, About) are pulled in unchanged; the three
+          test variants (CAMPAIGN+WORK split, OUR FRIENDS marquee,
+          FULL-SERVICE editorial) replace their old equivalents.
+          ═══════════════════════════════════════════════════════════════ */}
+
+      {/* Cinematic intro — same as live home page */}
+      <LensIntroSection />
+
+      {/* Hero — same as live home page */}
+      <HeroSection />
+
+      {/* ═══════════════════════════════════════════════════════════════
           SECTION 1 — CAMPAIGN
           ═══════════════════════════════════════════════════════════════ */}
       <section className="py-20 sm:py-28 bg-cream">
@@ -680,6 +698,8 @@ export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: Variant
           ═══════════════════════════════════════════════════════════════ */}
       <FullServiceHybridSection />
 
+      {/* About — same as live home page */}
+      <AboutSection />
     </>
   );
 }
