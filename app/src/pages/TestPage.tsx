@@ -42,18 +42,11 @@ export function TestPage({ variantSlug, onNavigate }: TestPageProps) {
 
   return (
     <>
-      {/* Test banner — makes it obvious this isn't production */}
-      <div className="fixed top-0 left-0 right-0 z-[60] bg-amber-500/95 text-dark py-2 text-center text-xs font-semibold tracking-[0.2em] uppercase shadow-md">
-        🧪 Test Variant — Not Live · Variant: {variantSlug}
-        <button
-          onClick={() => onNavigate("test")}
-          className="ml-6 underline hover:no-underline"
-        >
-          ← All Variants
-        </button>
-      </div>
+      {/* Banner removed — client should see the page exactly as the
+          new home page would feel. To return to the test index, use
+          the URL bar (/test/) or the regular Header navigation. */}
 
-      <main className="bg-cream min-h-screen pt-10">
+      <main className="bg-cream min-h-screen">
         {/* No outer FadeIn — internal sections handle their own reveal
             animations. Wrapping a very tall variant in FadeIn caused the
             IntersectionObserver threshold (0.1 + rootMargin -100px) to
