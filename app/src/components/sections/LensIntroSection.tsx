@@ -16,6 +16,20 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
  * NOTE: file is still named LensIntroSection so the existing HomePage
  * import keeps working — we replaced the camera with a door portal.
  */
+
+/* ────────────────────────────────────────────────────────────
+   White text-halo constants — applied to dark text overlaid on
+   the studio image. The vignette + smoke layers darken the
+   corners of the viewport, which can swallow dark glyphs. A
+   stacked white text-shadow traces a soft outline around each
+   character so it stays readable on bright AND dark patches.
+   On already-bright pixels the white halo blends in invisibly.
+   ──────────────────────────────────────────────────────────── */
+const TEXT_HALO =
+  "0 0 1px rgba(255,255,255,0.95), 0 0 3px rgba(255,255,255,0.85), 0 0 8px rgba(255,255,255,0.55)";
+const TEXT_HALO_STRONG =
+  "0 0 1px rgba(255,255,255,1), 0 0 3px rgba(255,255,255,0.95), 0 0 6px rgba(255,255,255,0.85), 0 0 14px rgba(255,255,255,0.55)";
+
 export function LensIntroSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -240,13 +254,20 @@ export function LensIntroSection() {
         </motion.div>
 
 
-        {/* ─── Left side text — bold headline (desktop only) ─── */}
+        {/* ─── Left side text — bold headline (desktop only) ───
+             Soft white halo via text-shadow so dark text stays readable
+             over the cinematic vignette / dark-corner gradient. On bright
+             areas the white glow blends into the background and disappears;
+             on darker areas it traces a clean outline around each glyph. */}
         <motion.div
           className="absolute left-0 top-0 h-full pointer-events-none hidden lg:flex items-center"
           style={{ y: leftTextY, opacity: leftTextOpacity, width: "30%" }}
         >
           <div className="px-12 xl:px-16">
-            <p className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8">
+            <p
+              className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8"
+              style={{ textShadow: TEXT_HALO }}
+            >
               Ashkan Studios
             </p>
             <h2
@@ -255,6 +276,7 @@ export function LensIntroSection() {
                 fontSize: "clamp(36px, 4vw, 60px)",
                 fontWeight: 800,
                 lineHeight: 1.05,
+                textShadow: TEXT_HALO_STRONG,
               }}
             >
               Step Into{" "}
@@ -274,7 +296,10 @@ export function LensIntroSection() {
           style={{ y: rightTextY, opacity: rightTextOpacity, width: "30%" }}
         >
           <div className="px-12 xl:px-16 text-right ml-auto">
-            <p className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8">
+            <p
+              className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8"
+              style={{ textShadow: TEXT_HALO }}
+            >
               About Us
             </p>
             <p
@@ -283,13 +308,17 @@ export function LensIntroSection() {
                 fontSize: "clamp(16px, 1.15vw, 20px)",
                 lineHeight: 1.55,
                 fontWeight: 500,
+                textShadow: TEXT_HALO,
               }}
             >
               A Houston-based production studio crafting commercial photography,
               cinematic videography, and brand campaigns that command attention.
             </p>
             <div className="flex justify-end">
-              <span className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase">
+              <span
+                className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase"
+                style={{ textShadow: TEXT_HALO }}
+              >
                 <span className="w-8 h-px bg-dark/40" />
                 Enter the Studio
               </span>
@@ -302,7 +331,10 @@ export function LensIntroSection() {
           className="absolute top-24 left-0 right-0 text-center pointer-events-none lg:hidden px-4"
           style={{ y: leftTextY, opacity: leftTextOpacity }}
         >
-          <p className="text-[10px] font-semibold tracking-[0.3em] text-dark/70 uppercase mb-3">
+          <p
+            className="text-[10px] font-semibold tracking-[0.3em] text-dark/70 uppercase mb-3"
+            style={{ textShadow: TEXT_HALO }}
+          >
             Ashkan Studios
           </p>
           <h2
@@ -310,6 +342,7 @@ export function LensIntroSection() {
             style={{
               fontSize: "clamp(24px, 5vw, 40px)",
               fontWeight: 800,
+              textShadow: TEXT_HALO_STRONG,
             }}
           >
             Step Into <em className="font-light italic">a</em> World{" "}
@@ -425,7 +458,10 @@ export function LensIntroSection() {
           className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10"
           style={{ opacity: hintOpacity }}
         >
-          <p className="text-xs font-medium tracking-[0.3em] text-dark/60 mb-3">
+          <p
+            className="text-xs font-medium tracking-[0.3em] text-dark/60 mb-3"
+            style={{ textShadow: TEXT_HALO }}
+          >
             SCROLL TO ENTER
           </p>
           <div className="w-px h-12 bg-dark/30 mx-auto animate-pulse" />
