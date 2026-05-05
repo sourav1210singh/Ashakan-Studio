@@ -18,17 +18,22 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
  */
 
 /* ────────────────────────────────────────────────────────────
-   White text-halo constants — applied to dark text overlaid on
-   the studio image. The vignette + smoke layers darken the
-   corners of the viewport, which can swallow dark glyphs. A
-   stacked white text-shadow traces a soft outline around each
-   character so it stays readable on bright AND dark patches.
-   On already-bright pixels the white halo blends in invisibly.
+   White text-border constants — applied to dark text overlaid
+   on the studio image. The vignette + smoke layers darken the
+   corners and can swallow dark glyphs. A crisp white outline
+   on each letter (not a glow) traces the character edges so
+   the text reads cleanly against any background. paintOrder
+   "stroke fill" puts the stroke behind the fill so only the
+   letter edges get the white border, not the whole shape.
    ──────────────────────────────────────────────────────────── */
-const TEXT_HALO =
-  "0 0 1px rgba(255,255,255,0.95), 0 0 3px rgba(255,255,255,0.85), 0 0 8px rgba(255,255,255,0.55)";
-const TEXT_HALO_STRONG =
-  "0 0 1px rgba(255,255,255,1), 0 0 3px rgba(255,255,255,0.95), 0 0 6px rgba(255,255,255,0.85), 0 0 14px rgba(255,255,255,0.55)";
+const TEXT_BORDER: React.CSSProperties = {
+  WebkitTextStroke: "0.6px #FFFFFF",
+  paintOrder: "stroke fill" as React.CSSProperties["paintOrder"],
+};
+const TEXT_BORDER_STRONG: React.CSSProperties = {
+  WebkitTextStroke: "1.2px #FFFFFF",
+  paintOrder: "stroke fill" as React.CSSProperties["paintOrder"],
+};
 
 export function LensIntroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -266,7 +271,7 @@ export function LensIntroSection() {
           <div className="px-12 xl:px-16">
             <p
               className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8"
-              style={{ textShadow: TEXT_HALO }}
+              style={TEXT_BORDER}
             >
               Ashkan Studios
             </p>
@@ -276,7 +281,7 @@ export function LensIntroSection() {
                 fontSize: "clamp(36px, 4vw, 60px)",
                 fontWeight: 800,
                 lineHeight: 1.05,
-                textShadow: TEXT_HALO_STRONG,
+                ...TEXT_BORDER_STRONG,
               }}
             >
               Step Into{" "}
@@ -298,7 +303,7 @@ export function LensIntroSection() {
           <div className="px-12 xl:px-16 text-right ml-auto">
             <p
               className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8"
-              style={{ textShadow: TEXT_HALO }}
+              style={TEXT_BORDER}
             >
               About Us
             </p>
@@ -308,7 +313,7 @@ export function LensIntroSection() {
                 fontSize: "clamp(16px, 1.15vw, 20px)",
                 lineHeight: 1.55,
                 fontWeight: 500,
-                textShadow: TEXT_HALO,
+                ...TEXT_BORDER,
               }}
             >
               A Houston-based production studio crafting commercial photography,
@@ -317,7 +322,7 @@ export function LensIntroSection() {
             <div className="flex justify-end">
               <span
                 className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase"
-                style={{ textShadow: TEXT_HALO }}
+                style={TEXT_BORDER}
               >
                 <span className="w-8 h-px bg-dark/40" />
                 Enter the Studio
@@ -333,7 +338,7 @@ export function LensIntroSection() {
         >
           <p
             className="text-[10px] font-semibold tracking-[0.3em] text-dark/70 uppercase mb-3"
-            style={{ textShadow: TEXT_HALO }}
+            style={TEXT_BORDER}
           >
             Ashkan Studios
           </p>
@@ -342,7 +347,7 @@ export function LensIntroSection() {
             style={{
               fontSize: "clamp(24px, 5vw, 40px)",
               fontWeight: 800,
-              textShadow: TEXT_HALO_STRONG,
+              ...TEXT_BORDER_STRONG,
             }}
           >
             Step Into <em className="font-light italic">a</em> World{" "}
@@ -460,7 +465,7 @@ export function LensIntroSection() {
         >
           <p
             className="text-xs font-medium tracking-[0.3em] text-dark/60 mb-3"
-            style={{ textShadow: TEXT_HALO }}
+            style={TEXT_BORDER}
           >
             SCROLL TO ENTER
           </p>
