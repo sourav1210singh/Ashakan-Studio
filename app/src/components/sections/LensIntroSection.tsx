@@ -44,12 +44,13 @@ export function LensIntroSection() {
   });
 
   /* Smooth out scroll progress with spring physics so all transforms
-     glide rather than snap to scroll position. Lower stiffness + higher
-     damping = more luxurious, gradual motion (especially on big scale). */
+     glide rather than snap to scroll position. Lowering stiffness +
+     raising damping makes the motion follow the scroll with a gentle
+     lag, which reads as "luxurious / cinematic" rather than mechanical. */
   const scrollYProgress = useSpring(rawProgress, {
-    stiffness: 70,
-    damping: 32,
-    mass: 0.9,
+    stiffness: 50,
+    damping: 36,
+    mass: 1.1,
     restDelta: 0.0002,
   });
 
@@ -61,16 +62,35 @@ export function LensIntroSection() {
      Phase 5 (85% → 100%): White-out fades, hero section revealed
      ─────────────────────────────────────────────────────────── */
 
-  // Left text — travels fully off-screen, then fades only in the last 4%
-  // Opacity stays at 1 while the text is moving so it doesn't dim mid-flight.
-  // -1400px is enough to clear the tallest common viewport.
-  const leftTextY = useTransform(scrollYProgress, [0, 0.22], [0, -1400]);
-  const leftTextOpacity = useTransform(scrollYProgress, [0, 0.18, 0.22], [1, 1, 0]);
+  // Left text — drifts up over a long scroll range so the motion is
+  // gentle (small pixel-per-scroll-unit ratio = silky-smooth feel).
+  // Multiple Y keyframes shape the curve: slow start, faster mid, soft end.
+  // Opacity stays at 1 until 90% of travel, then fades in the last 5%.
+  const leftTextY = useTransform(
+    scrollYProgress,
+    [0, 0.10, 0.25, 0.40],
+    [0, -120, -520, -1100]
+  );
+  const leftTextOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.36, 0.40],
+    [1, 1, 0]
+  );
 
-  // Right text — same pattern: travels fully up, fades only at the very end
-  // (the right block sits at viewport bottom so we need the same large travel)
-  const rightTextY = useTransform(scrollYProgress, [0.18, 0.42], [0, -1400]);
-  const rightTextOpacity = useTransform(scrollYProgress, [0.18, 0.38, 0.42], [1, 1, 0]);
+  // Right text — same gentle drift, offset to start later (after left
+  // is mostly clear). Right block sits at viewport bottom so it needs
+  // a bit more total travel to clear the top edge. Ends just before
+  // the flash burst phase (50%) so the two never overlap.
+  const rightTextY = useTransform(
+    scrollYProgress,
+    [0.18, 0.28, 0.40, 0.49],
+    [0, -150, -600, -1200]
+  );
+  const rightTextOpacity = useTransform(
+    scrollYProgress,
+    [0.18, 0.45, 0.49],
+    [1, 1, 0]
+  );
 
   // Bulb glow — warm halo charges up from 25% to 55% scroll
   const bulbGlowScale = useTransform(scrollYProgress, [0.25, 0.55], [1, 6]);
@@ -273,7 +293,7 @@ export function LensIntroSection() {
         >
           <div className="px-12 xl:px-16">
             <p
-              className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8"
+              className="text-xs xl:text-sm font-bold tracking-[0.3em] text-dark/70 uppercase mb-8"
               style={TEXT_BORDER}
             >
               Ashkan Studios
@@ -305,7 +325,7 @@ export function LensIntroSection() {
         >
           <div className="px-12 xl:px-16 text-right ml-auto">
             <p
-              className="text-xs xl:text-sm font-semibold tracking-[0.3em] text-dark/70 uppercase mb-8"
+              className="text-xs xl:text-sm font-bold tracking-[0.3em] text-dark/70 uppercase mb-8"
               style={TEXT_BORDER}
             >
               About Us
@@ -324,7 +344,7 @@ export function LensIntroSection() {
             </p>
             <div className="flex justify-end">
               <span
-                className="inline-flex items-center gap-3 text-xs font-semibold tracking-[0.3em] text-dark/70 uppercase"
+                className="inline-flex items-center gap-3 text-xs font-bold tracking-[0.3em] text-dark/70 uppercase"
                 style={TEXT_BORDER}
               >
                 <span className="w-8 h-px bg-dark/40" />
@@ -340,7 +360,7 @@ export function LensIntroSection() {
           style={{ y: leftTextY, opacity: leftTextOpacity }}
         >
           <p
-            className="text-[10px] font-semibold tracking-[0.3em] text-dark/70 uppercase mb-3"
+            className="text-[10px] font-bold tracking-[0.3em] text-dark/70 uppercase mb-3"
             style={TEXT_BORDER}
           >
             Ashkan Studios
@@ -467,7 +487,7 @@ export function LensIntroSection() {
           style={{ opacity: hintOpacity }}
         >
           <p
-            className="text-xs font-medium tracking-[0.3em] text-dark/60 mb-3"
+            className="text-xs font-bold tracking-[0.3em] text-dark/60 mb-3"
             style={TEXT_BORDER}
           >
             SCROLL TO ENTER
