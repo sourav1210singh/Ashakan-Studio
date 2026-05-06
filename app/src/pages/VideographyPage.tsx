@@ -2,32 +2,17 @@ import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
+import {
+  BRANDI_VIDEOS,
+  getVideosByPortfolio,
+  buildVimeoEmbedUrl,
+  type BrandiVideo,
+  type PortfolioCategory,
+} from "@/data/brandi-videos";
 
-/** All Vimeo videos organized by category */
-const categoryVideos: Record<string, { vimeoId: string; title: string }[]> = {
-  industrial: [
-    { vimeoId: "808109158", title: "Industrial — Theranostics innovation" },
-    { vimeoId: "437963536", title: "Industrial — Innovation to intervention" },
-  ],
-  "the-arts": [
-    { vimeoId: "1022971286", title: "The Arts — Dance season promo" },
-    { vimeoId: "1002076560", title: "The Arts — Solo album promotional" },
-  ],
-  retail: [
-    { vimeoId: "529432034", title: "Retail — Designer eyewear motion" },
-    { vimeoId: "950064546", title: "Retail — Dancewear campaign" },
-  ],
-  documentary: [
-    { vimeoId: "896674527", title: "Documentary — Education impact" },
-    { vimeoId: "673378712", title: "Documentary — Community story" },
-  ],
-  narrative: [
-    { vimeoId: "865168546", title: "Narrative — Cinematic short film" },
-  ],
-};
-
-/** Category-specific titles and descriptions */
-const categoryMeta: Record<string, { title: string; description: string }> = {
+/* Category-specific titles and descriptions — keys must match
+   PortfolioCategory union in brandi-videos.ts */
+const categoryMeta: Record<PortfolioCategory, { title: string; description: string }> = {
   "the-arts": {
     title: "THE ARTS",
     description:
@@ -55,19 +40,19 @@ const categoryMeta: Record<string, { title: string; description: string }> = {
   },
 };
 
-/** Get ALL videos deduplicated */
-function getAllVideos() {
+const VALID_CATEGORIES = Object.keys(categoryMeta) as PortfolioCategory[];
+
+/** Deduplicate by vimeoId so the main "all videos" view doesn't repeat */
+function uniqueByVimeoId(list: BrandiVideo[]): BrandiVideo[] {
   const seen = new Set<string>();
-  const all: { vimeoId: string; title: string }[] = [];
-  for (const videos of Object.values(categoryVideos)) {
-    for (const v of videos) {
-      if (!seen.has(v.vimeoId)) {
-        seen.add(v.vimeoId);
-        all.push(v);
-      }
+  const out: BrandiVideo[] = [];
+  for (const v of list) {
+    if (!seen.has(v.vimeoId)) {
+      seen.add(v.vimeoId);
+      out.push(v);
     }
   }
-  return all;
+  return out;
 }
 
 interface VideographyPageProps {
@@ -76,21 +61,22 @@ interface VideographyPageProps {
 }
 
 export function VideographyPage({ onNavigate, activeCategory }: VideographyPageProps) {
-  const isCategory = activeCategory && activeCategory in categoryVideos;
+  const isCategory =
+    activeCategory && (VALID_CATEGORIES as string[]).includes(activeCategory);
 
-  let videos: { vimeoId: string; title: string }[] = [];
+  let videos: BrandiVideo[] = [];
   let pageTitle = "VIDEOGRAPHY";
   let pageDescription = "";
 
   if (isCategory) {
-    // Category page — show only that category (max 2 videos per Brandi)
-    videos = (categoryVideos[activeCategory!] || []).slice(0, 2);
-    const meta = categoryMeta[activeCategory!];
-    pageTitle = meta?.title || activeCategory!.toUpperCase();
-    pageDescription = meta?.description || "";
+    const cat = activeCategory as PortfolioCategory;
+    videos = getVideosByPortfolio(cat);
+    pageTitle = categoryMeta[cat].title;
+    pageDescription = categoryMeta[cat].description;
   } else {
-    // Main videography page — show all
-    videos = getAllVideos();
+    /* Main videography page — show every video in the catalog,
+       deduplicated since some titles span multiple portfolios. */
+    videos = uniqueByVimeoId(BRANDI_VIDEOS);
   }
 
   return (
@@ -119,6 +105,9 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                   {pageDescription}
                 </p>
               )}
+              <p className="text-xs font-semibold tracking-[0.3em] text-white/40 uppercase mt-6">
+                {videos.length} {videos.length === 1 ? "Video" : "Videos"}
+              </p>
             </FadeIn>
           </div>
         </section>
@@ -133,11 +122,13 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-[1400px] mx-auto">
                 {videos.map((video, index) => (
-                  <FadeIn key={video.vimeoId} delay={index * 0.08}>
+                  <FadeIn key={video.id} delay={Math.min(index * 0.06, 0.4)}>
                     <div>
                       <div className="relative overflow-hidden aspect-video bg-white/5">
                         <iframe
-                          src={`https://player.vimeo.com/video/${video.vimeoId}?dnt=1&quality=1080p&title=0&byline=0&portrait=0`}
+                          src={buildVimeoEmbedUrl(video.vimeoId, video.vimeoHash, {
+                            quality: "1080p",
+                          })}
                           className="w-full h-full"
                           frameBorder="0"
                           allow="autoplay; fullscreen; picture-in-picture"

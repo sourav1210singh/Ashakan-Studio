@@ -11,23 +11,39 @@ interface CampaignDetailPageProps {
 }
 
 /* ── Vimeo embed ─────────────────────────────────── */
-function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
+function VimeoEmbed({
+  vimeoId,
+  vimeoHash,
+  alt,
+}: {
+  vimeoId: string;
+  vimeoHash?: string;
+  alt: string;
+}) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [thumbUrl, setThumbUrl] = useState(`https://vumbnail.com/${vimeoId}_large.jpg`);
 
-  // Fetch HD thumbnail from Vimeo oEmbed API (1920px)
+  // Fetch HD thumbnail from Vimeo oEmbed API (1920px). For private/unlisted
+  // videos the hash must be appended to the source URL or oEmbed 403s — we
+  // include it so Brandi's private clips return a real thumbnail.
   useEffect(() => {
-    fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}&width=1920`)
+    const sourceUrl = vimeoHash
+      ? `https://vimeo.com/${vimeoId}/${vimeoHash}`
+      : `https://vimeo.com/${vimeoId}`;
+    fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(sourceUrl)}&width=1920`)
       .then((r) => r.json())
       .then((data) => {
         if (data.thumbnail_url) {
-          // Replace size suffix to get max resolution
           const hdUrl = data.thumbnail_url.replace(/-d_\d+x\d+/, "-d_1920x1080").replace(/_\d+x\d+/, "_1920x1080");
           setThumbUrl(hdUrl);
         }
       })
       .catch(() => { /* keep fallback */ });
-  }, [vimeoId]);
+  }, [vimeoId, vimeoHash]);
+
+  // Build embed URL. Hash is required for Brandi's private videos —
+  // without ?h=<hash> the iframe shows "Private video" error.
+  const hashParam = vimeoHash ? `&h=${vimeoHash}` : "";
 
   if (!isPlaying) {
     return (
@@ -53,7 +69,7 @@ function VimeoEmbed({ vimeoId, alt }: { vimeoId: string; alt: string }) {
   return (
     <div className="relative w-full aspect-video">
       <iframe
-        src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&quality=1080p&title=0&byline=0&portrait=0`}
+        src={`https://player.vimeo.com/video/${vimeoId}?autoplay=1&quality=1080p&title=0&byline=0&portrait=0${hashParam}`}
         className="absolute inset-0 w-full h-full"
         frameBorder="0"
         allow="autoplay; fullscreen; picture-in-picture"
@@ -124,7 +140,7 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
             className="break-inside-avoid mb-4 sm:mb-6"
           >
             {item.type === "video" && item.vimeoId ? (
-              <VimeoEmbed vimeoId={item.vimeoId} alt={item.alt} />
+              <VimeoEmbed vimeoId={item.vimeoId} vimeoHash={item.vimeoHash} alt={item.alt} />
             ) : (
               <ImageBlock src={item.src} alt={item.alt} aspect={item.aspectRatio} />
             )}
@@ -197,7 +213,7 @@ function VideoRowMasonry({ items, sectionTitle }: { items: GalleryItem[]; sectio
             {row.map((item, idx) => (
               <FadeIn key={`${item.vimeoId || item.src}-${idx}`} delay={Math.min(idx * 0.1, 0.4)}>
                 {item.type === "video" && item.vimeoId ? (
-                  <VimeoEmbed vimeoId={item.vimeoId} alt={item.alt} />
+                  <VimeoEmbed vimeoId={item.vimeoId} vimeoHash={item.vimeoHash} alt={item.alt} />
                 ) : (
                   <ImageBlock src={item.src} alt={item.alt} aspect={item.aspectRatio} />
                 )}
@@ -290,7 +306,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
               <FadeIn>
                 {featuredItem.type === "video" && featuredItem.vimeoId ? (
-                  <VimeoEmbed vimeoId={featuredItem.vimeoId} alt={featuredItem.alt} />
+                  <VimeoEmbed vimeoId={featuredItem.vimeoId} vimeoHash={featuredItem.vimeoHash} alt={featuredItem.alt} />
                 ) : (
                   <ImageBlock src={featuredItem.src} alt={featuredItem.alt} aspect="landscape" />
                 )}

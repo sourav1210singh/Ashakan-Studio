@@ -5,6 +5,8 @@ export interface GalleryItem {
   aspectRatio?: "landscape" | "portrait" | "square";
   /** Vimeo video ID for type="video" items */
   vimeoId?: string;
+  /** Vimeo privacy hash — required for Brandi's private/unlisted videos */
+  vimeoHash?: string;
 }
 
 export interface Project {
@@ -268,7 +270,9 @@ export const projects: Project[] = [
     categories: ["DOCUMENTARY", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/8-4Q7A9046-2.jpeg",
     description:
-      "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families across multiple years — from annual luncheon videos to the Chrysalis, Bridge-Butterfly, and Transition programs — showcasing the transformative power of inclusive education.",
+      "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families across multiple years — from the Transforming Lives series to the Gala Event and the MD Anderson kitchen donation — showcasing the transformative power of inclusive education.",
+    /* Videos sourced from Brandi's catalog (2026-05-05) — see brandi-videos.ts.
+       Photos kept from earlier delivery; intermixed with the 6 official videos. */
     gallery: [
       {
         src: "/images/portfolio/5-Monarch-47-2.jpeg",
@@ -278,9 +282,10 @@ export const projects: Project[] = [
       },
       {
         src: "",
-        alt: "Monarch Transforming Lives 2023-2024",
+        alt: "Monarch Transforming Lives 25-26",
         type: "video",
-        vimeoId: "896674527",
+        vimeoId: "1151967437",
+        vimeoHash: "000a715e4a",
         aspectRatio: "landscape",
       },
       {
@@ -290,6 +295,14 @@ export const projects: Project[] = [
         aspectRatio: "portrait",
       },
       {
+        src: "",
+        alt: "Monarch Gala Event 24-25",
+        type: "video",
+        vimeoId: "1189136524",
+        vimeoHash: "6456e78744",
+        aspectRatio: "landscape",
+      },
+      {
         src: "/images/portfolio/Monarch_30-copy.jpeg",
         alt: "Outdoor learning",
         type: "image",
@@ -297,9 +310,9 @@ export const projects: Project[] = [
       },
       {
         src: "",
-        alt: "2021 Monarch Virtual Luncheon",
+        alt: "Monarch Transforming Lives 24-25",
         type: "video",
-        vimeoId: "518687682",
+        vimeoId: "1043541721",
         aspectRatio: "landscape",
       },
       {
@@ -309,6 +322,14 @@ export const projects: Project[] = [
         aspectRatio: "square",
       },
       {
+        src: "",
+        alt: "Monarch's Upgraded Kitchen — MD Anderson Donation",
+        type: "video",
+        vimeoId: "673378712",
+        vimeoHash: "f3572605d9",
+        aspectRatio: "landscape",
+      },
+      {
         src: "/images/portfolio/10-Monarch-116-2.jpeg",
         alt: "Student artwork",
         type: "image",
@@ -316,9 +337,9 @@ export const projects: Project[] = [
       },
       {
         src: "",
-        alt: "The Monarch School's Upgraded Kitchen — MD Anderson Donation",
+        alt: "Monarch Transforming Lives 23-24",
         type: "video",
-        vimeoId: "673378712",
+        vimeoId: "896674527",
         aspectRatio: "landscape",
       },
       {
@@ -329,44 +350,9 @@ export const projects: Project[] = [
       },
       {
         src: "",
-        alt: "Start Smart with Monarch — COVID Precautions 2020",
+        alt: "Monarch Transforming Lives Virtual Luncheon 21",
         type: "video",
-        vimeoId: "463252152",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "2020 Monarch Luncheon — The Chrysalis Program",
-        type: "video",
-        vimeoId: "395268120",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "2020 Monarch Luncheon — The Bridge-Butterfly Program",
-        type: "video",
-        vimeoId: "395272308",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "2020 Monarch Luncheon — The Transition Program",
-        type: "video",
-        vimeoId: "395288526",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "The 2019 Monarch School Luncheon",
-        type: "video",
-        vimeoId: "308492765",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "The 2018 Monarch School Luncheon",
-        type: "video",
-        vimeoId: "270198619",
+        vimeoId: "518687682",
         aspectRatio: "landscape",
       },
     ],
@@ -415,7 +401,9 @@ export const projects: Project[] = [
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/weissman-elite.jpg",
     description:
-      "Weissman Elite is a leading name in performance dancewear. Across multiple seasons — from Spring '23 through Fall FY25 — we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
+      "Weissman Elite is a leading name in performance dancewear. Across multiple seasons — Winter 2022 through Spring 2026 — we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
+    /* Videos sourced from Brandi's catalog (2026-05-05) — full 20-video set,
+       grouped chronologically. See brandi-videos.ts for canonical list. */
     gallery: [
       {
         src: "/images/portfolio/weissman-elite.jpg",
@@ -423,76 +411,26 @@ export const projects: Project[] = [
         type: "image",
         aspectRatio: "landscape",
       },
-      {
-        src: "",
-        alt: "Weissman Elite — Fall FY25 Cross-Genre",
-        type: "video",
-        vimeoId: "950064546",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Spring 2024",
-        type: "video",
-        vimeoId: "886600264",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Winter 2023",
-        type: "video",
-        vimeoId: "867250099",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Winter 2023 Back Cover",
-        type: "video",
-        vimeoId: "851437556",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Spring '23",
-        type: "video",
-        vimeoId: "806042416",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Spring 2024 Quirky",
-        type: "video",
-        vimeoId: "894189739",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Fall 2023 Front Cover",
-        type: "video",
-        vimeoId: "824223043",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Fall 2023 Back Cover",
-        type: "video",
-        vimeoId: "824219543",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Customize — Spring 2024",
-        type: "video",
-        vimeoId: "915615103",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "Weissman Elite — Winter 2022",
-        type: "video",
-        vimeoId: "740849869",
-        aspectRatio: "landscape",
-      },
+      { src: "", alt: "Weissman Spring 2026 Season Cross Genre", type: "video", vimeoId: "1145783498", vimeoHash: "6e07bd9e26", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2025 Season Cross Genre", type: "video", vimeoId: "1094764251", vimeoHash: "17dfb40e13", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2025 Season Cross Genre", type: "video", vimeoId: "1030112459", vimeoHash: "3a116c25a3", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2024 Season Cross Genre", type: "video", vimeoId: "950064546", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2024 Bright Suiting", type: "video", vimeoId: "950064503", vimeoHash: "7b6c207cac", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2024 Red Hip Hop", type: "video", vimeoId: "950064549", vimeoHash: "bdaa506f69", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2024 Mixify", type: "video", vimeoId: "950064513", vimeoHash: "530165a338", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2024 Season Cross Genre", type: "video", vimeoId: "1145746235", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2024 Gothic Glam", type: "video", vimeoId: "1003351680", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2024 Create Your Own Spotlight", type: "video", vimeoId: "999687742", vimeoHash: "88aae298bd", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2024 Neon Hip Hop", type: "video", vimeoId: "999687723", vimeoHash: "db85e5ad2b", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2024 Season Cross Genre", type: "video", vimeoId: "886600264", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2024 Quirky / Stripes", type: "video", vimeoId: "894189739", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2024 Neons", type: "video", vimeoId: "894189648", vimeoHash: "dcc8da9197", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2023 Season Cross Genre", type: "video", vimeoId: "824868764", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2023 Front Cover Light Wall", type: "video", vimeoId: "824868764", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2023 Back Cover Light Floor", type: "video", vimeoId: "824219543", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2023 Acro", type: "video", vimeoId: "824219420", vimeoHash: "9cfb4b79e8", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2023 Season Cross Genre", type: "video", vimeoId: "867250099", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2022 Season Cross Genre", type: "video", vimeoId: "740849869", aspectRatio: "landscape" },
     ],
     relatedProjects: ["elastique-athletics", "eye-gallery"],
   },
@@ -585,7 +523,8 @@ export const projects: Project[] = [
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     heroImage: "/images/portfolio/eye-gallery.jpg",
     description:
-      "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns — from edgy, designer eyewear showcases to motion editorials and seasonal trunk shows — captured each unique frame with bold, editorial-style visuals that speak to style-conscious clients.",
+      "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns — from in-store ads and seasonal Sunglass Sale spots to scale-driven SASS reels and the Jacques Marie Mage trunk show — captured each unique frame with bold, editorial visuals. 1-2 more videos coming from Brandi.",
+    /* Videos sourced from Brandi's catalog (2026-05-05). See brandi-videos.ts. */
     gallery: [
       {
         src: "/images/portfolio/eye-gallery.jpg",
@@ -593,27 +532,16 @@ export const projects: Project[] = [
         type: "image",
         aspectRatio: "landscape",
       },
-      {
-        src: "",
-        alt: "The Eye Gallery — Edgy, Designer, Eyewear",
-        type: "video",
-        vimeoId: "529432034",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "The Eye Gallery — A Motion Editorial",
-        type: "video",
-        vimeoId: "354069394",
-        aspectRatio: "landscape",
-      },
-      {
-        src: "",
-        alt: "The Eye Gallery Houston — Project Reel",
-        type: "video",
-        vimeoId: "1002121348",
-        aspectRatio: "landscape",
-      },
+      { src: "", alt: "The Eye Gallery Mix Reel 001", type: "video", vimeoId: "1002121348", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery — Summer 2025 Campaign Ad H", type: "video", vimeoId: "1145748255", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery Summer Sunglass Sale Ad H", type: "video", vimeoId: "1189130989", vimeoHash: "3148f2df70", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery In-Store Ad 001 H", type: "video", vimeoId: "1189138937", vimeoHash: "9d970d79b7", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery Jacques Marie Mage Trunk Show Store Ad H", type: "video", vimeoId: "1189140629", vimeoHash: "294990893e", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery Dog Month Campaign", type: "video", vimeoId: "1189130986", vimeoHash: "c229954ac0", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery In-store Service & Care Reel", type: "video", vimeoId: "1189131472", vimeoHash: "42147d4bc3", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery Scale SASS 001 Reel", type: "video", vimeoId: "1189131771", vimeoHash: "49584fc6ca", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel", type: "video", vimeoId: "1189131500", vimeoHash: "f87548f64b", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery Scale SASS 003 Reel", type: "video", vimeoId: "1189130987", vimeoHash: "6d5b53a3d1", aspectRatio: "landscape" },
     ],
     relatedProjects: ["audaja-skincare", "deutsch-fine-jewelry"],
   },
@@ -643,6 +571,8 @@ export const projects: Project[] = [
       { src: "/images/campaigns/deutsch/deutsch-brandi-791.jpg", alt: "Brandi for Deutsch — styling", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/deutsch/deutsch-brandi-871.jpg", alt: "Brandi for Deutsch — close detail", type: "image", aspectRatio: "square" },
       { src: "/images/campaigns/deutsch/deutsch-brandi-872.jpg", alt: "Brandi for Deutsch — final frame", type: "image", aspectRatio: "portrait" },
+      /* Video from Brandi's catalog (2026-05-05) */
+      { src: "", alt: "Behind the Scenes at Deutsch Campaign Shoot", type: "video", vimeoId: "1147057440", aspectRatio: "landscape" },
     ],
     relatedProjects: ["monarch-school", "fashion"],
   },
