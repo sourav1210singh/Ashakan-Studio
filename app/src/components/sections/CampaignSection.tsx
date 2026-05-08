@@ -15,18 +15,36 @@ type CampaignCard = {
   type: "image" | "video";
   image: string;
   vimeoId?: string;
+  /** Vimeo privacy hash — required for Brandi's private videos.
+   *  Without this the hover iframe shows "Private video" error. */
+  vimeoHash?: string;
   slug: string;
 };
 
+/* Latest assets per campaign (refreshed 2026-05-07).
+   Each campaign has TWO cards:
+     • image card  → a hero photo from Brandi's most recent delivery
+     • video card  → the most recent video from Brandi's catalog,
+                     thumbnail = a real campaign photo so private-video
+                     vumbnail.com 404s never appear before hover.
+
+   Local thumbnails come from app/public/images/campaigns/<slug>/. */
 const CAMPAIGN_CARDS: CampaignCard[] = [
-  { id: "deutsch-img",  label: "DEUTSCH FINE JEWELRY", type: "image", image: "/images/portfolio/deutsch-jewelry.jpg",         slug: "deutsch" },
-  { id: "deutsch-vid",  label: "DEUTSCH FINE JEWELRY", type: "video", image: "/images/portfolio/deutsch-jewelry.jpg",         slug: "deutsch" },
-  { id: "weissman-img", label: "WEISSMAN ELITE",       type: "image", image: "/images/portfolio/weissman-elite.jpg",          slug: "weissman" },
-  { id: "weissman-vid", label: "WEISSMAN ELITE",       type: "video", image: "https://vumbnail.com/950064546_large.jpg",      vimeoId: "950064546", slug: "weissman" },
-  { id: "eye-img",      label: "THE EYE GALLERY",      type: "image", image: "/images/portfolio/eye-gallery.jpg",             slug: "eye-gallery" },
-  { id: "eye-vid",      label: "THE EYE GALLERY",      type: "video", image: "https://vumbnail.com/529432034_large.jpg",      vimeoId: "529432034", slug: "eye-gallery" },
-  { id: "monarch-img",  label: "THE MONARCH SCHOOL",   type: "image", image: "/images/portfolio/8-4Q7A9046-2.jpeg",           slug: "monarch-school" },
-  { id: "monarch-vid",  label: "THE MONARCH SCHOOL",   type: "video", image: "https://vumbnail.com/896674527_large.jpg",      vimeoId: "896674527", slug: "monarch-school" },
+  // Deutsch — image: 2025 Holiday signature piece, video: BTS at the shoot
+  { id: "deutsch-img",  label: "DEUTSCH FINE JEWELRY", type: "image", image: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg", slug: "deutsch" },
+  { id: "deutsch-vid",  label: "DEUTSCH FINE JEWELRY", type: "video", image: "/images/campaigns/deutsch/deutsch-brandi-871.jpg",       vimeoId: "1147057440", slug: "deutsch" },
+
+  // Weissman — image: latest cover styling, video: Spring 2026 (the newest season Brandi delivered)
+  { id: "weissman-img", label: "WEISSMAN ELITE",       type: "image", image: "/images/campaigns/weissman/weissman-01.jpg",  slug: "weissman" },
+  { id: "weissman-vid", label: "WEISSMAN ELITE",       type: "video", image: "/images/campaigns/weissman/weissman-06.jpg",  vimeoId: "1145783498", vimeoHash: "6e07bd9e26", slug: "weissman" },
+
+  // Eye Gallery — image: Aug 2025 cover, video: Summer 2025 Campaign Ad (most recent finished spot)
+  { id: "eye-img",      label: "THE EYE GALLERY",      type: "image", image: "/images/campaigns/eye-gallery/eye-gallery-01.jpg", slug: "eye-gallery" },
+  { id: "eye-vid",      label: "THE EYE GALLERY",      type: "video", image: "/images/campaigns/eye-gallery/eye-gallery-05.jpg", vimeoId: "1145748255", slug: "eye-gallery" },
+
+  // Monarch — image: Gala 25 venue wide, video: Transforming Lives 25-26 (the newest annual film)
+  { id: "monarch-img",  label: "THE MONARCH SCHOOL",   type: "image", image: "/images/campaigns/monarch/monarch-09.jpg", slug: "monarch-school" },
+  { id: "monarch-vid",  label: "THE MONARCH SCHOOL",   type: "video", image: "/images/campaigns/monarch/monarch-10.jpg", vimeoId: "1151967437", vimeoHash: "000a715e4a", slug: "monarch-school" },
 ];
 
 /* ──────────────────────────────────────────────────────────────────── */
@@ -105,7 +123,9 @@ function LeafCard({
       {isVideo && isHovered && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <iframe
-            src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0`}
+            src={`https://player.vimeo.com/video/${card.vimeoId}?autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0&controls=0${
+              card.vimeoHash ? `&h=${card.vimeoHash}` : ""
+            }`}
             className="absolute pointer-events-none"
             style={{
               top: "50%",
