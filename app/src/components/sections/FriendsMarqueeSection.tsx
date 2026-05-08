@@ -59,8 +59,11 @@ function MagneticItem({
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  LogoItem — single logo image with grayscale-by-default + colour on  */
-/*  hover. Helps visually unify a logo set with mixed colour palettes.  */
+/*  LogoItem — single logo image. Brandi's logos are dark-on-transparent,
+    so on the dark section background we force them white via brightness(0)
+    + invert(1). Default: 55% opacity (subtle); hover: 100% opacity (pops).
+    Keeping the monochrome treatment (no original colour even on hover)
+    gives the marquee a uniform premium agency feel.                    */
 /* ──────────────────────────────────────────────────────────────────── */
 function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
   const [hover, setHover] = useState(false);
@@ -81,7 +84,9 @@ function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
       onMouseLeave={() => setHover(false)}
       className={`${heightClass} w-auto select-none transition-all duration-500 cursor-pointer`}
       style={{
-        filter: hover ? "grayscale(0) opacity(1)" : "grayscale(1) opacity(0.6)",
+        filter: hover
+          ? "brightness(0) invert(1) opacity(1)"
+          : "brightness(0) invert(1) opacity(0.55)",
         maxWidth: "none",
       }}
     />
@@ -135,20 +140,20 @@ export function FriendsMarqueeSection() {
   const rowB = clientLogos.filter((l) => !l.priority);
 
   return (
-    <section className="py-20 sm:py-28 bg-cream relative overflow-hidden">
-      {/* Soft glow blobs in background — subdued for cream theme */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[28rem] h-[28rem] bg-amber-200/40 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-dark/10 rounded-full blur-3xl" />
+    <section className="py-20 sm:py-28 bg-dark relative overflow-hidden">
+      {/* Soft glow blobs in background — warmer accents on the dark theme */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[28rem] h-[28rem] bg-amber-200/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-white/20 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10">
         {/* Section header — center */}
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center mb-10 sm:mb-14">
-          <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-4">
+          <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-4">
             Brands We've Worked With
           </p>
-          <h2 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[105px] xl:text-[132px] text-dark tracking-tight leading-none">
+          <h2 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[105px] xl:text-[132px] text-white tracking-tight leading-none">
             OUR FRIENDS
           </h2>
         </div>
@@ -156,8 +161,8 @@ export function FriendsMarqueeSection() {
         {/* Two marquee rows — opposite directions, larger logos on top */}
         <div className="space-y-2 sm:space-y-4">
           <MarqueeRow logos={rowA} direction="left"  speedSec={55} size="lg" />
-          {/* Thin divider line — dark variant for the cream background */}
-          <div className="h-px bg-gradient-to-r from-transparent via-dark/15 to-transparent" />
+          {/* Thin divider line — light variant for the dark background */}
+          <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
           <MarqueeRow logos={rowB} direction="right" speedSec={65} size="sm" />
         </div>
       </div>
