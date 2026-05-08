@@ -9,9 +9,7 @@ import { ServicesPage } from "@/pages/ServicesPage";
 import { StudioPage } from "@/pages/StudioPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { StorytimePage } from "@/pages/StorytimePage";
-import { PortfolioPage } from "@/pages/PortfolioPage";
 import { PressPage } from "@/pages/PressPage";
-import { getProjectById } from "@/data/projects";
 import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
 import { BookingPage } from "@/pages/BookingPage";
@@ -31,7 +29,6 @@ export type View =
   | "contact"
   | "storytime"
   | "press"
-  | "portfolio"
   | "seo"
   | "booking"
   | "test";
@@ -57,15 +54,12 @@ function parseRoute(rawPathname: string): ParsedRoute {
     };
   }
 
-  // Portfolio pages
-  const portfolioMatch = pathname.match(/^\/portfolio\/(.+)$/);
-  if (portfolioMatch) {
-    const slug = portfolioMatch[1];
-    const project = getProjectById(slug);
-    if (project) {
-      return { view: "portfolio", slug, category: null };
-    }
-  }
+  /* Brand-specific /portfolio/<slug>/ pages were removed on 2026-05-07 per
+     Brandi's instruction to keep only category-based portfolio pages
+     (/work/photography/<cat>/ and /work/videography/<cat>/) plus the four
+     featured campaign pages (/work/campaigns/<slug>/). Old /portfolio/...
+     URLs now fall through to the home page; we may add 301 redirects in
+     vercel.json for the most-linked ones in a later cleanup pass. */
 
   // Work sub-routes
   if (pathname === "/work" || pathname.startsWith("/work/")) {
@@ -119,7 +113,6 @@ const pathMap: Record<View, string> = {
   booking: "/contact/booking/",
   storytime: "/storytime/",
   press: "/press/",
-  portfolio: "/",
   seo: "/",
   test: "/test/",
 };
@@ -164,11 +157,6 @@ function App() {
       setSelectedCategory(null);
       setCurrentView("seo");
       window.history.pushState(null, "", `/${slug}/`);
-    } else if (view === "portfolio" && slug) {
-      setSelectedProjectSlug(slug);
-      setSelectedCategory(null);
-      setCurrentView("portfolio");
-      window.history.pushState(null, "", `/portfolio/${slug}/`);
     } else if (view === "test" && slug) {
       setSelectedCategory(slug);
       setCurrentView("test");
@@ -233,17 +221,6 @@ function App() {
           return <TestPage variantSlug={selectedCategory} onNavigate={navigateTo} />;
         }
         return <TestIndexPage onNavigate={navigateTo} />;
-      case "portfolio":
-        if (selectedProjectSlug) {
-          return (
-            <PortfolioPage
-              slug={selectedProjectSlug}
-              onBack={() => navigateTo("work")}
-              onNavigate={(slug) => navigateTo("portfolio", slug)}
-            />
-          );
-        }
-        return <WorkPage onNavigate={navigateTo} />;
       case "seo": {
         const seoData = selectedProjectSlug ? getSeoPageBySlug(selectedProjectSlug) : null;
         if (seoData) {
