@@ -57,15 +57,18 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
 ];
 
 /* Card sizing.
-   Width reverted to the pre-pinning values per user request — the
-   original narrow leaf shape reads more "card" than "poster".
-   Height is capped to (100vh - 240px) so cards always fit between
-   the section header and the bottom of the pinned viewport, even
-   on shorter laptop screens. The clamp gives a sensible floor and
-   ceiling but the viewport-aware middle term prevents bottom clipping. */
-const COMPACT_W = "clamp(120px, 13vw, 180px)";
-const HOVERED_W = "clamp(280px, 26vw, 360px)";
-const CARD_H    = "clamp(360px, calc(100vh - 240px), 600px)";
+   Width — bumped back up so each leaf has more horizontal presence.
+   With wider cards the strip outgrows the viewport on every common
+   desktop size, which gives the pinned scroll a longer runway and
+   makes the "ek ek karke" reveal of every leaf actually meaningful.
+   Height — capped at calc(100vh - 380px) which reserves enough room
+   for: lg:pt-16 (64px) + header (~210px) + mb-10 (40px) +
+   lg:pb-12 (48px) + a small safety buffer (~18px) = 380px total.
+   On a 728px laptop this resolves to ~348px so the full leaf shape
+   fits inside the pinned viewport with no bottom clipping. */
+const COMPACT_W = "clamp(160px, 16vw, 230px)";
+const HOVERED_W = "clamp(300px, 28vw, 400px)";
+const CARD_H    = "clamp(300px, calc(100vh - 380px), 580px)";
 
 /* Leaf corner radius — bumped from 80 to 110 so the rounded
    "horizontal part" of each leaf reads more pronounced. */
@@ -254,15 +257,20 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
     <section
       ref={sectionRef}
       id="campaign"
-      className="relative bg-cream lg:h-[300vh]"
+      className="relative bg-cream lg:h-[300vh] mb-12 sm:mb-16 lg:mb-24"
     >
       {/* On desktop this inner container is sticky and pinned to the
-          viewport for the duration of the 300vh runway. On mobile the
-          sticky/h-screen classes drop, the section becomes a normal
-          flow block, and the strip swipes horizontally on touch. */}
-      <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:justify-center lg:overflow-hidden py-20 sm:py-28 lg:py-0">
+          viewport for the duration of the 300vh runway. justify-start
+          puts the header at the top with a fixed lg:pt-16 of breathing
+          room; the strip falls below with a predictable amount of
+          space. lg:pb-12 leaves a small bottom buffer so the last
+          curve of each leaf isn't right against the section edge.
+          On mobile the sticky/h-screen classes drop, the section
+          becomes a normal flow block, and the strip swipes
+          horizontally on touch. */}
+      <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:overflow-hidden py-20 sm:py-28 lg:pt-16 lg:pb-12">
         {/* Header */}
-        <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-16">
+        <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-10">
           <div className="flex items-end justify-between flex-wrap gap-6">
             <div>
               <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-3">
