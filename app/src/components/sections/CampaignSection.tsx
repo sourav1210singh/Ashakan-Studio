@@ -59,11 +59,18 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
 /* Card sizing.
    Width reverted to the pre-pinning values per user request — the
    original narrow leaf shape reads more "card" than "poster".
-   Height is given a small bump (+40px max) so cards feel a touch
-   taller without changing their slim, leaf-like silhouette. */
+   Height is capped to (100vh - 240px) so cards always fit between
+   the section header and the bottom of the pinned viewport, even
+   on shorter laptop screens. The clamp gives a sensible floor and
+   ceiling but the viewport-aware middle term prevents bottom clipping. */
 const COMPACT_W = "clamp(120px, 13vw, 180px)";
 const HOVERED_W = "clamp(280px, 26vw, 360px)";
-const CARD_H    = "clamp(440px, 52vw, 580px)";
+const CARD_H    = "clamp(360px, calc(100vh - 240px), 600px)";
+
+/* Leaf corner radius — bumped from 80 to 110 so the rounded
+   "horizontal part" of each leaf reads more pronounced. */
+const LEAF_RADIUS_EVEN = "110px 6px 110px 6px";
+const LEAF_RADIUS_ODD  = "6px 110px 6px 110px";
 
 /* ──────────────────────────────────────────────────────────────────── */
 /*  Leaf card — alternating border-radius + hover video for video cards */
@@ -98,8 +105,7 @@ function LeafCard({
     return () => observer.disconnect();
   }, []);
 
-  const leafRadius =
-    index % 2 === 0 ? "80px 6px 80px 6px" : "6px 80px 6px 80px";
+  const leafRadius = index % 2 === 0 ? LEAF_RADIUS_EVEN : LEAF_RADIUS_ODD;
 
   return (
     <button
