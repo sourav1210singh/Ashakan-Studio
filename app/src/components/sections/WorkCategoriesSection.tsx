@@ -2,176 +2,192 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 
 /* ════════════════════════════════════════════════════════════════════
-   THE WORK — premium expanding-band accordion of photography
-   categories. Four bands fill the full container width on lg+; on
-   hover one band expands and the others compress (cinematic
-   Locomotive / Hello Monday style). On mobile this collapses to a
-   simple 2×2 grid so the layout remains touch-friendly.
+   THE WORK — nine static category tiles (mixed Photography +
+   Videography), arranged in a 3x3 grid on lg+ and 2-col on mobile.
 
-   This section was upgraded from a horizontal scroll strip on
-   2026-05-07 to give it a more editorial, premium feel and to use
-   the full container width (the previous strip left a lot of empty
-   space on the right).
+   Brandi's 5/7/26 review notes for this section (page 8):
+     • Replace description with: 'Browse our photography and videography
+       by industry — fashion/editorial, performing arts, retail,
+       industrial, documentary and more.'
+     • Tile list (in this exact order):
+         P/Retail · V/Retail · P/The Arts · V/The Arts · P/Fashion ·
+         V/Documentary · P/Industrial · V/Industrial · V/Narrative
+
+   The previous expanding-accordion-band layout (4 photography-only
+   tiles) was replaced on 2026-05-08. With nine tiles a 3-column grid
+   reads cleaner than narrow accordion bands, and the static 4:5
+   aspect tiles visually match THE CAMPAIGN section directly above.
    ════════════════════════════════════════════════════════════════════ */
 
 interface WorkCategoriesSectionProps {
   onSeeMoreClick?: () => void;
 }
 
-type WorkCard = {
+type WorkTile = {
   id: string;
-  label: string;
-  /** One-line teaser shown when the band expands on hover */
+  /** PHOTOGRAPHY or VIDEOGRAPHY — shown as a small caps tag at top */
+  type: "PHOTOGRAPHY" | "VIDEOGRAPHY";
+  /** Category label shown big at the bottom of the tile */
+  category: string;
+  /** One-line teaser shown subtly on hover */
   description: string;
   image: string;
   href: string;
 };
 
-const WORK_CARDS: WorkCard[] = [
+const WORK_TILES: WorkTile[] = [
+  // P/Retail
   {
-    id: "fashion",
-    label: "FASHION",
+    id: "photo-retail",
+    type: "PHOTOGRAPHY",
+    category: "RETAIL",
+    description: "Editorial product and lifestyle imagery for premium retail brands.",
+    image: "/images/categories/retail/mustang-095.jpg",
+    href: "/work/photography/retail/",
+  },
+  // V/Retail
+  {
+    id: "video-retail",
+    type: "VIDEOGRAPHY",
+    category: "RETAIL",
+    description: "Brand films and product motion for retail clients.",
+    image: "/images/categories/retail/296gtb-070.jpg",
+    href: "/work/videography/retail/",
+  },
+  // P/The Arts
+  {
+    id: "photo-the-arts",
+    type: "PHOTOGRAPHY",
+    category: "THE ARTS",
+    description: "Performance and portrait photography for dancers, musicians, and artists.",
+    image: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg",
+    href: "/work/photography/the-arts/",
+  },
+  // V/The Arts
+  {
+    id: "video-the-arts",
+    type: "VIDEOGRAPHY",
+    category: "THE ARTS",
+    description: "Cinematic videography of performances, dance, and artistic expression.",
+    image: "/images/categories/the-arts/_east-side-perfromming-art-584-edit.jpg",
+    href: "/work/videography/the-arts/",
+  },
+  // P/Fashion
+  {
+    id: "photo-fashion",
+    type: "PHOTOGRAPHY",
+    category: "FASHION",
     description: "Editorial fashion stories with cinematic light and bold styling.",
     image: "/images/categories/fashion/citybook-2024-1000.jpg",
     href: "/work/photography/fashion/",
   },
+  // V/Documentary
   {
-    id: "the-arts",
-    label: "THE ARTS",
-    description: "Performance and portrait work for dancers, musicians, and artists.",
-    image: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg",
-    href: "/work/photography/the-arts/",
+    id: "video-documentary",
+    type: "VIDEOGRAPHY",
+    category: "DOCUMENTARY",
+    description: "Mission-driven storytelling for nonprofits, organizations, and communities.",
+    image: "/images/portfolio/8-4Q7A9046-2.jpeg",
+    href: "/work/videography/documentary/",
   },
+  // P/Industrial
   {
-    id: "retail",
-    label: "RETAIL",
-    description: "Product and lifestyle imagery for premium retail brands.",
-    image: "/images/categories/retail/mustang-095.jpg",
-    href: "/work/photography/retail/",
-  },
-  {
-    id: "industrial",
-    label: "INDUSTRIAL",
-    description: "Clean, purposeful visuals for industrial and corporate brands.",
+    id: "photo-industrial",
+    type: "PHOTOGRAPHY",
+    category: "INDUSTRIAL",
+    description: "Clean, purposeful imagery for industrial and corporate brands.",
     image: "/images/categories/industrial/venus-aerospace-24443-edit.jpg",
     href: "/work/photography/industrial/",
+  },
+  // V/Industrial
+  {
+    id: "video-industrial",
+    type: "VIDEOGRAPHY",
+    category: "INDUSTRIAL",
+    description: "Corporate, medical, and industrial videography that highlights process and precision.",
+    image: "/images/categories/industrial/2venus-aerospace-24470-2.jpg",
+    href: "/work/videography/industrial/",
+  },
+  // V/Narrative
+  {
+    id: "video-narrative",
+    type: "VIDEOGRAPHY",
+    category: "NARRATIVE",
+    description: "Story-driven short films and brand narratives for organizations.",
+    image: "/images/categories/industrial/4q7a0824.jpg",
+    href: "/work/videography/narrative/",
   },
 ];
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  Single accordion band — expands when hovered, compresses when      */
-/*  another band is hovered                                             */
+/*  Single tile — 4:5 aspect, click-to-navigate, static hover           */
 /* ──────────────────────────────────────────────────────────────────── */
-function WorkBand({
-  card,
-  index,
-  isHovered,
-  anyHovered,
-  onHoverChange,
-  onClick,
-}: {
-  card: WorkCard;
-  index: number;
-  isHovered: boolean;
-  anyHovered: boolean;
-  onHoverChange: (h: boolean) => void;
-  onClick: () => void;
-}) {
-  /* Flex grow values:
-     - hovered band: 2.5 (takes up most of the row)
-     - sibling when something else is hovered: 0.7 (compresses)
-     - default state: 1 (equal share)                            */
-  const flexGrow = isHovered ? 2.5 : anyHovered ? 0.7 : 1;
-
+function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }) {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <button
       type="button"
       onClick={onClick}
-      onMouseEnter={() => onHoverChange(true)}
-      onMouseLeave={() => onHoverChange(false)}
-      className="group relative overflow-hidden text-left aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-[68vh] min-w-0 w-full"
-      style={{
-        flex: `${flexGrow} 1 0%`,
-        transition: "flex 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative overflow-hidden text-left aspect-[3/4] sm:aspect-[4/5] min-w-0 w-full"
     >
       {/* Image with slow Ken-Burns zoom on hover */}
       <img
-        src={card.image}
-        alt={card.label}
+        src={tile.image}
+        alt={`${tile.type} — ${tile.category}`}
+        loading="lazy"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1100ms] ease-out"
         style={{ transform: isHovered ? "scale(1.06)" : "scale(1)" }}
       />
 
-      {/* Dark gradient — top-and-bottom darken so big white type stays
-          legible regardless of underlying image brightness */}
+      {/* Top + bottom dark gradient for white-text legibility */}
       <div
         className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.20) 65%, rgba(0,0,0,0.85) 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.10) 35%, rgba(0,0,0,0.20) 65%, rgba(0,0,0,0.85) 100%)",
         }}
       />
 
-      {/* Subtle vignette on the inactive bands so the active one pops */}
-      <div
-        className="absolute inset-0 bg-black pointer-events-none transition-opacity duration-500"
-        style={{ opacity: anyHovered && !isHovered ? 0.35 : 0 }}
-      />
+      {/* Top-left — type tag (PHOTOGRAPHY / VIDEOGRAPHY) */}
+      <div className="absolute top-5 left-5 sm:top-6 sm:left-6 lg:top-7 lg:left-7">
+        <p
+          className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] uppercase transition-colors duration-500"
+          style={{ color: isHovered ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.7)" }}
+        >
+          {tile.type}
+        </p>
+      </div>
 
-      {/* Editorial content overlay */}
-      <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 lg:p-9">
-        {/* Top — oversized serif/display number with discipline tag */}
-        <div>
-          <p
-            className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight transition-colors duration-500"
-            style={{ color: isHovered ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.45)" }}
-          >
-            0{index + 1}
+      {/* Bottom — big category name + description teaser */}
+      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 lg:p-7">
+        <h3
+          className="font-display text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight uppercase leading-[0.95]"
+          style={{
+            letterSpacing: isHovered ? "0.01em" : "0",
+            transition: "letter-spacing 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          {tile.category}
+        </h3>
+        {/* Description — collapses to 0 height when not hovered */}
+        <div
+          className="overflow-hidden transition-all duration-[600ms] ease-out"
+          style={{
+            maxHeight: isHovered ? "5rem" : "0",
+            opacity: isHovered ? 1 : 0,
+          }}
+        >
+          <p className="text-xs sm:text-sm text-white/75 leading-snug mt-2 sm:mt-3">
+            {tile.description}
           </p>
-          <p className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] text-white/55 uppercase mt-2">
-            Photography
-          </p>
-        </div>
-
-        {/* Bottom — label + reveal-on-hover description + arrow */}
-        <div>
-          <h3
-            className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white tracking-tight uppercase leading-[0.95]"
-            style={{
-              transform: isHovered ? "translateY(0)" : "translateY(0)",
-              letterSpacing: isHovered ? "0.01em" : "0",
-              transition:
-                "letter-spacing 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-            }}
-          >
-            {card.label}
-          </h3>
-
-          {/* Description — collapses to 0 height when not hovered */}
-          <div
-            className="overflow-hidden transition-all duration-[600ms] ease-out"
-            style={{
-              maxHeight: isHovered ? "8rem" : "0",
-              opacity: isHovered ? 1 : 0,
-            }}
-          >
-            <p className="text-sm sm:text-base text-white/75 leading-snug mt-3 sm:mt-4 max-w-md">
-              {card.description}
-            </p>
-            <div className="flex items-center gap-3 mt-4 text-[11px] font-semibold tracking-[0.3em] text-white uppercase">
-              <span className="block w-8 h-px bg-white/70" />
-              Explore
-              <ArrowRight className="w-4 h-4" />
-            </div>
-          </div>
         </div>
       </div>
 
-      {/* Top-edge thin accent line that brightens on hover — gives
-          each band a defined silhouette without a hard border */}
+      {/* Hairline accent at top — brightens on hover */}
       <span
-        className="absolute top-0 left-0 right-0 h-px transition-colors duration-500"
+        className="absolute top-0 left-0 right-0 h-px transition-colors duration-500 pointer-events-none"
         style={{ backgroundColor: isHovered ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.12)" }}
       />
     </button>
@@ -182,8 +198,6 @@ function WorkBand({
 /*  Section wrapper                                                     */
 /* ──────────────────────────────────────────────────────────────────── */
 export function WorkCategoriesSection({ onSeeMoreClick }: WorkCategoriesSectionProps) {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
   const navigate = (href: string) => {
     window.history.pushState(null, "", href);
     window.dispatchEvent(new PopStateEvent("popstate"));
@@ -202,8 +216,8 @@ export function WorkCategoriesSection({ onSeeMoreClick }: WorkCategoriesSectionP
               THE WORK
             </h2>
             <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
-              Browse our photography by industry — fashion editorial,
-              performing arts, retail product, and industrial.
+              Browse our photography and videography by industry — fashion/editorial,
+              performing arts, retail, industrial, documentary and more.
             </p>
           </div>
           {onSeeMoreClick && (
@@ -217,23 +231,14 @@ export function WorkCategoriesSection({ onSeeMoreClick }: WorkCategoriesSectionP
           )}
         </div>
 
-        {/* Accordion bands — full row width, expand on hover.
-            On lg+ this is a single horizontal flex row at 70vh height.
-            Below lg it collapses to a 2-column grid that's still
-            premium but works on touch (no accordion expand). */}
-        <div
-          className="grid grid-cols-2 gap-2 sm:gap-3 lg:flex lg:flex-row lg:gap-3 lg:items-stretch"
-          onMouseLeave={() => setHoveredIdx(null)}
-        >
-          {WORK_CARDS.map((card, i) => (
-            <WorkBand
-              key={card.id}
-              card={card}
-              index={i}
-              isHovered={hoveredIdx === i}
-              anyHovered={hoveredIdx !== null}
-              onHoverChange={(h) => setHoveredIdx(h ? i : null)}
-              onClick={() => navigate(card.href)}
+        {/* 3x3 grid on lg+, 2-column grid on mobile / sm. Tile order
+            follows Brandi's exact spec on page 8 of her review notes. */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
+          {WORK_TILES.map((tile) => (
+            <WorkTileCard
+              key={tile.id}
+              tile={tile}
+              onClick={() => navigate(tile.href)}
             />
           ))}
         </div>
