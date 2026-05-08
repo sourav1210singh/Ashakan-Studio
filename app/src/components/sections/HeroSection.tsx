@@ -418,7 +418,7 @@ export function HeroSection() {
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
-                fontWeight: 500,
+                fontWeight: 300,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
               }}
@@ -427,7 +427,7 @@ export function HeroSection() {
               <span
                 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
-                  fontWeight: 500,
+                  fontWeight: 300,
                   letterSpacing: "0.02em",
                   lineHeight: 0.9,
                   color: "#1A1A1A",
@@ -518,7 +518,7 @@ export function HeroSection() {
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
-                fontWeight: 500,
+                fontWeight: 300,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
                 marginRight: "0.45em",
@@ -528,7 +528,7 @@ export function HeroSection() {
               <span
                 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
-                  fontWeight: 500,
+                  fontWeight: 300,
                   letterSpacing: "0.02em",
                   lineHeight: 0.9,
                   color: "#1A1A1A",
