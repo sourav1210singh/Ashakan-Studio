@@ -56,13 +56,14 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
   { id: "monarch-vid",  label: "THE MONARCH SCHOOL",   type: "video", image: "/images/campaigns/monarch/monarch-10.jpg", vimeoId: "1151967437", vimeoHash: "000a715e4a", slug: "monarch-school" },
 ];
 
-/* Card sizing — bumped on 2026-05-07 per user request to make cards
-   feel taller and more poster-like. Compact width also bumped so
-   the strip becomes wider than the viewport, which gives the
-   pinned horizontal scroll something meaningful to translate. */
-const COMPACT_W = "clamp(160px, 17vw, 240px)";
-const HOVERED_W = "clamp(320px, 30vw, 420px)";
-const CARD_H    = "clamp(460px, 56vw, 640px)";
+/* Card sizing.
+   Width reverted to the pre-pinning values per user request — the
+   original narrow leaf shape reads more "card" than "poster".
+   Height is given a small bump (+40px max) so cards feel a touch
+   taller without changing their slim, leaf-like silhouette. */
+const COMPACT_W = "clamp(120px, 13vw, 180px)";
+const HOVERED_W = "clamp(280px, 26vw, 360px)";
+const CARD_H    = "clamp(440px, 52vw, 580px)";
 
 /* ──────────────────────────────────────────────────────────────────── */
 /*  Leaf card — alternating border-radius + hover video for video cards */
