@@ -1,5 +1,4 @@
 import { HeroSection } from "@/components/sections/HeroSection";
-import { LensIntroSection } from "@/components/sections/LensIntroSection";
 import { CampaignSection } from "@/components/sections/CampaignSection";
 import { WorkCategoriesSection } from "@/components/sections/WorkCategoriesSection";
 import { FriendsMarqueeSection } from "@/components/sections/FriendsMarqueeSection";
@@ -16,18 +15,14 @@ interface HomePageProps {
  * Home page — promoted from /test/work-split/ on 2026-05-07 after Brandi
  * approved the new layout in her May 5 feedback.
  *
- * Section order:
- *   1. LensIntroSection         cinematic flash burst intro (unchanged)
- *   2. HeroSection              "WE CREATE VISUAL STORIES" + video-in-text (unchanged)
- *   3. CampaignSection          NEW — was the unified PortfolioSection;
- *                                now THE CAMPAIGN on cream background with leaf cards
- *   4. WorkCategoriesSection    NEW — split off as THE WORK
- *                                on dark background with photography category tiles
- *   5. FriendsMarqueeSection    NEW — was ClientsSection (static text grid);
- *                                now an infinite marquee + magnetic items
- *   6. FullServiceHybridSection NEW — was ServicesSection (static block);
- *                                now editorial layout with hover image swap
- *   7. AboutSection             Houston / 2 Departments (unchanged)
+ * Section order (LensIntroSection was removed 2026-05-08 per Brandi's
+ * second-round notes — page now starts directly with the hero):
+ *   1. HeroSection              "WE CREATE VISUAL STORIES" + video-in-text on STORIES only
+ *   2. CampaignSection          THE CAMPAIGN on cream background with leaf cards
+ *   3. WorkCategoriesSection    THE WORK — expanding accordion bands on dark
+ *   4. FriendsMarqueeSection    OUR FRIENDS — magnetic marquee of client logos
+ *   5. FullServiceHybridSection FULL-SERVICE PRODUCTION — editorial + hover swap
+ *   6. AboutSection             Houston / 2 Departments
  *
  * The old PortfolioSection / ClientsSection / ServicesSection components
  * are no longer referenced from the home page. They remain in the
@@ -38,7 +33,6 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       <main>
-        <LensIntroSection />
         <HeroSection />
         <CampaignSection
           onProjectClick={(slug) => onNavigate("campaigns", slug)}
