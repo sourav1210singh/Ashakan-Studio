@@ -1,13 +1,15 @@
 import { useState, useRef, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { clients } from "@/data/portfolio";
+import { clientLogos, priorityClientLogos, type ClientLogo } from "@/data/portfolio";
 
 /* ════════════════════════════════════════════════════════════════════
    OUR FRIENDS — Marquee + Magnetic combo. Two infinite-scrolling rows
-   in opposite directions; each name is magnetic and snaps to the
-   cursor on hover. When real client logos arrive from Brandi, drop
-   them into the same MarqueeRow in place of the text — layout stays
-   identical. Approved on /test/work-split/.
+   in opposite directions; each logo is magnetic and snaps toward the
+   cursor on hover.
+
+   Updated 2026-05-07 to render real client logos instead of text.
+   Brandi delivered 41 PNGs (~410 KB total); the 20 priority ones
+   ride the top row, the rest fill the bottom row.
    ════════════════════════════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────────────────────────── */
@@ -57,47 +59,65 @@ function MagneticItem({
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  MarqueeRow — infinite horizontal scroll with magnetic items inside  */
+/*  LogoItem — single logo image with grayscale-by-default + colour on  */
+/*  hover. Helps visually unify a logo set with mixed colour palettes.  */
 /* ──────────────────────────────────────────────────────────────────── */
-function MarqueeRow({
-  items,
-  direction = "left",
-  speedSec = 40,
-}: {
-  items: string[];
-  direction?: "left" | "right";
-  speedSec?: number;
-}) {
-  // Duplicate the list so the loop is seamless
-  const repeated = [...items, ...items, ...items, ...items];
-  const fromX = direction === "left" ? "0%" : "-50%";
-  const toX = direction === "left" ? "-50%" : "0%";
+function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
+  const [hover, setHover] = useState(false);
+  /* Priority logos render bigger (top row); secondary logos slightly
+     smaller (bottom row) so the visual hierarchy mirrors Brandi's
+     priority list at a glance. */
+  const heightClass =
+    size === "lg"
+      ? "h-12 sm:h-14 lg:h-16 xl:h-20"
+      : "h-10 sm:h-12 lg:h-14 xl:h-16";
 
   return (
-    <div className="overflow-hidden py-3">
+    <img
+      src={logo.src}
+      alt={logo.name}
+      loading="lazy"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className={`${heightClass} w-auto select-none transition-all duration-500 cursor-pointer`}
+      style={{
+        filter: hover ? "grayscale(0) opacity(1)" : "grayscale(1) opacity(0.6)",
+        maxWidth: "none",
+      }}
+    />
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────────── */
+/*  MarqueeRow — infinite horizontal scroll with magnetic logos inside  */
+/* ──────────────────────────────────────────────────────────────────── */
+function MarqueeRow({
+  logos,
+  direction = "left",
+  speedSec = 50,
+  size = "lg",
+}: {
+  logos: ClientLogo[];
+  direction?: "left" | "right";
+  speedSec?: number;
+  size?: "lg" | "sm";
+}) {
+  /* Duplicate the list so the marquee loops seamlessly */
+  const repeated = [...logos, ...logos, ...logos];
+  const fromX = direction === "left" ? "0%" : "-66.6667%";
+  const toX = direction === "left" ? "-66.6667%" : "0%";
+
+  return (
+    <div className="overflow-hidden py-4">
       <motion.div
-        className="flex items-center gap-12 sm:gap-16 lg:gap-20 whitespace-nowrap"
+        className="flex items-center gap-10 sm:gap-14 lg:gap-16 xl:gap-20 whitespace-nowrap"
         animate={{ x: [fromX, toX] }}
         transition={{ duration: speedSec, repeat: Infinity, ease: "linear" }}
         style={{ width: "max-content", willChange: "transform" }}
       >
-        {repeated.map((name, idx) => (
-          <MagneticItem key={`${name}-${idx}`} strength={0.35}>
-            <span
-              className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-tight uppercase select-none transition-colors duration-300"
-              style={{
-                color: "rgba(26,26,26,0.55)",
-                cursor: "pointer",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "#1A1A1A";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "rgba(26,26,26,0.55)";
-              }}
-            >
-              {name}
-            </span>
+        {repeated.map((logo, idx) => (
+          <MagneticItem key={`${logo.name}-${idx}`} strength={0.3}>
+            <LogoItem logo={logo} size={size} />
           </MagneticItem>
         ))}
       </motion.div>
@@ -109,10 +129,10 @@ function MarqueeRow({
 /*  Section wrapper                                                     */
 /* ──────────────────────────────────────────────────────────────────── */
 export function FriendsMarqueeSection() {
-  // Split the client list into two halves so each row has different names
-  const half = Math.ceil(clients.length / 2);
-  const rowA = clients.slice(0, half);
-  const rowB = clients.slice(half).concat(clients.slice(0, half).reverse());
+  /* Top row — priority logos (Brandi's top 20)
+     Bottom row — remaining logos */
+  const rowA = priorityClientLogos;
+  const rowB = clientLogos.filter((l) => !l.priority);
 
   return (
     <section className="py-20 sm:py-28 bg-cream relative overflow-hidden">
@@ -133,12 +153,12 @@ export function FriendsMarqueeSection() {
           </h2>
         </div>
 
-        {/* Two marquee rows — opposite directions */}
-        <div className="space-y-4 sm:space-y-6">
-          <MarqueeRow items={rowA} direction="left" speedSec={45} />
+        {/* Two marquee rows — opposite directions, larger logos on top */}
+        <div className="space-y-2 sm:space-y-4">
+          <MarqueeRow logos={rowA} direction="left"  speedSec={55} size="lg" />
           {/* Thin divider line — dark variant for the cream background */}
           <div className="h-px bg-gradient-to-r from-transparent via-dark/15 to-transparent" />
-          <MarqueeRow items={rowB} direction="right" speedSec={55} />
+          <MarqueeRow logos={rowB} direction="right" speedSec={65} size="sm" />
         </div>
       </div>
     </section>
