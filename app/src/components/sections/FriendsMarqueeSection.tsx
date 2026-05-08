@@ -86,14 +86,14 @@ function MarqueeRow({
             <span
               className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-tight uppercase select-none transition-colors duration-300"
               style={{
-                color: "rgba(255,255,255,0.55)",
+                color: "rgba(26,26,26,0.55)",
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "#FFFFFF";
+                (e.currentTarget as HTMLElement).style.color = "#1A1A1A";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.55)";
+                (e.currentTarget as HTMLElement).style.color = "rgba(26,26,26,0.55)";
               }}
             >
               {name}
@@ -115,20 +115,20 @@ export function FriendsMarqueeSection() {
   const rowB = clients.slice(half).concat(clients.slice(0, half).reverse());
 
   return (
-    <section className="py-20 sm:py-28 bg-dark relative overflow-hidden">
-      {/* Soft glow blobs in background */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[28rem] h-[28rem] bg-amber-200/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-white/30 rounded-full blur-3xl" />
+    <section className="py-20 sm:py-28 bg-cream relative overflow-hidden">
+      {/* Soft glow blobs in background — subdued for cream theme */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[28rem] h-[28rem] bg-amber-200/40 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-dark/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10">
         {/* Section header — center */}
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center mb-10 sm:mb-14">
-          <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-4">
+          <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-4">
             Brands We've Worked With
           </p>
-          <h2 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[105px] xl:text-[132px] text-white tracking-tight leading-none">
+          <h2 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[105px] xl:text-[132px] text-dark tracking-tight leading-none">
             OUR FRIENDS
           </h2>
         </div>
@@ -136,16 +136,9 @@ export function FriendsMarqueeSection() {
         {/* Two marquee rows — opposite directions */}
         <div className="space-y-4 sm:space-y-6">
           <MarqueeRow items={rowA} direction="left" speedSec={45} />
-          {/* Thin divider line */}
-          <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+          {/* Thin divider line — dark variant for the cream background */}
+          <div className="h-px bg-gradient-to-r from-transparent via-dark/15 to-transparent" />
           <MarqueeRow items={rowB} direction="right" speedSec={55} />
-        </div>
-
-        {/* Hint text */}
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center mt-12 sm:mt-16">
-          <p className="text-xs font-medium tracking-[0.3em] text-white/40 uppercase">
-            Hover to engage · Names will become logos when delivered
-          </p>
         </div>
       </div>
     </section>
