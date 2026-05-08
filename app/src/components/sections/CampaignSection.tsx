@@ -1,8 +1,17 @@
 import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 /* ════════════════════════════════════════════════════════════════════
    THE CAMPAIGN — featured campaigns shown as alternating image+video
-   leaf cards. Approved on /test/work-split/ before promotion to home.
+   leaf cards.
+
+   Desktop (lg+): the section is pinned to the viewport and a
+   horizontal strip of cards translates left as the user scrolls
+   vertically — every leaf card passes through the centre of the
+   viewport before the page continues to THE WORK section.
+
+   Mobile / tablet: pinning is disabled (it conflicts with touch
+   scrolling); the strip is a regular swipeable horizontal scroller.
    ════════════════════════════════════════════════════════════════════ */
 
 interface CampaignSectionProps {
@@ -46,6 +55,14 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
   { id: "monarch-img",  label: "THE MONARCH SCHOOL",   type: "image", image: "/images/campaigns/monarch/monarch-09.jpg", slug: "monarch-school" },
   { id: "monarch-vid",  label: "THE MONARCH SCHOOL",   type: "video", image: "/images/campaigns/monarch/monarch-10.jpg", vimeoId: "1151967437", vimeoHash: "000a715e4a", slug: "monarch-school" },
 ];
+
+/* Card sizing — bumped on 2026-05-07 per user request to make cards
+   feel taller and more poster-like. Compact width also bumped so
+   the strip becomes wider than the viewport, which gives the
+   pinned horizontal scroll something meaningful to translate. */
+const COMPACT_W = "clamp(160px, 17vw, 240px)";
+const HOVERED_W = "clamp(320px, 30vw, 420px)";
+const CARD_H    = "clamp(460px, 56vw, 640px)";
 
 /* ──────────────────────────────────────────────────────────────────── */
 /*  Leaf card — alternating border-radius + hover video for video cards */
@@ -91,9 +108,8 @@ function LeafCard({
       onMouseLeave={() => setIsHovered(false)}
       className="group relative flex-shrink-0 text-left focus:outline-none"
       style={{
-        width:
-          isVideo && isHovered ? "clamp(280px, 26vw, 360px)" : "clamp(120px, 13vw, 180px)",
-        height: "clamp(400px, 48vw, 540px)",
+        width: isVideo && isHovered ? HOVERED_W : COMPACT_W,
+        height: CARD_H,
         borderRadius: leafRadius,
         overflow: "hidden",
         scrollSnapAlign: "start",
@@ -176,41 +192,105 @@ function LeafCard({
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  Section wrapper                                                     */
+/*  Section wrapper — pinned horizontal scroll on lg+, swipe on mobile  */
 /* ──────────────────────────────────────────────────────────────────── */
 export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const [translateRange, setTranslateRange] = useState(0);
+
+  /* Measure the strip and figure out how far it must translate so
+     the LAST card lines up with the right edge of the viewport. We
+     re-measure on resize and whenever the strip's intrinsic width
+     changes (e.g. a card's hover-expand). */
+  useEffect(() => {
+    const measure = () => {
+      const isDesktop = window.innerWidth >= 1024;
+      if (!isDesktop || !stripRef.current) {
+        setTranslateRange(0);
+        return;
+      }
+      const stripW = stripRef.current.scrollWidth;
+      const viewW = window.innerWidth;
+      // 80px buffer so the last card has a small gap from the right edge
+      setTranslateRange(Math.max(0, stripW - viewW + 80));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    let resizeObs: ResizeObserver | null = null;
+    if (stripRef.current && typeof ResizeObserver !== "undefined") {
+      resizeObs = new ResizeObserver(measure);
+      resizeObs.observe(stripRef.current);
+    }
+    return () => {
+      window.removeEventListener("resize", measure);
+      resizeObs?.disconnect();
+    };
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  /* Spring softens the mapping so the cards glide rather than snapping
+     to scroll position — feels cinematic, less mechanical. */
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 28,
+    mass: 0.6,
+  });
+
+  const x = useTransform(smoothProgress, [0, 1], [0, -translateRange]);
+
   return (
-    <section id="campaign" className="py-20 sm:py-28 bg-cream">
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+    <section
+      ref={sectionRef}
+      id="campaign"
+      className="relative bg-cream lg:h-[300vh]"
+    >
+      {/* On desktop this inner container is sticky and pinned to the
+          viewport for the duration of the 300vh runway. On mobile the
+          sticky/h-screen classes drop, the section becomes a normal
+          flow block, and the strip swipes horizontally on touch. */}
+      <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:justify-center lg:overflow-hidden py-20 sm:py-28 lg:py-0">
         {/* Header */}
-        <div className="flex items-end justify-between mb-12 sm:mb-16">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-3">
-              Featured / 01
-            </p>
-            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-dark tracking-tight leading-[0.9]">
-              THE CAMPAIGN
-            </h2>
-            <p className="text-base sm:text-lg text-dark/60 max-w-xl mt-4">
-              Brand-defining campaigns we've produced end-to-end —
-              photography, videography, and creative direction in one body of work.
+        <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-16">
+          <div className="flex items-end justify-between flex-wrap gap-6">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-3">
+                Featured / 01
+              </p>
+              <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-dark tracking-tight leading-[0.9]">
+                THE CAMPAIGN
+              </h2>
+              <p className="text-base sm:text-lg text-dark/60 max-w-xl mt-4">
+                Brand-defining campaigns we've produced end-to-end —
+                photography, videography, and creative direction in one body of work.
+              </p>
+            </div>
+            <p className="hidden lg:block text-xs font-semibold tracking-[0.3em] text-dark/40 uppercase">
+              Scroll to explore →
             </p>
           </div>
         </div>
 
-        {/* Horizontal scroll strip */}
-        <div
-          className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 leaf-scroll"
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          {CAMPAIGN_CARDS.map((c, i) => (
-            <LeafCard
-              key={c.id}
-              card={c}
-              index={i}
-              onClick={() => onProjectClick(c.slug)}
-            />
-          ))}
+        {/* Horizontal strip — translates with scroll on lg+, swipe on mobile */}
+        <div className="overflow-x-auto lg:overflow-hidden leaf-scroll">
+          <motion.div
+            ref={stripRef}
+            style={{ x }}
+            className="flex gap-4 sm:gap-6 px-4 sm:px-6 lg:px-10 pb-6 lg:pb-0 will-change-transform"
+          >
+            {CAMPAIGN_CARDS.map((c, i) => (
+              <LeafCard
+                key={c.id}
+                card={c}
+                index={i}
+                onClick={() => onProjectClick(c.slug)}
+              />
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
