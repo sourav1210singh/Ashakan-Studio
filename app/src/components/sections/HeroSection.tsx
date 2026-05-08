@@ -413,25 +413,28 @@ export function HeroSection() {
               mouseY={mouseY}
               floatStrength={22}
             />
+            {/* WE CREATE — Inter (font-sans), no video-in-text per
+                Brandi's 5/7/26 notes ('we, create, that' use Inter) */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
-                fontWeight: 900,
+                fontWeight: 500,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
               }}
               strength={0.2}
             >
-              <VideoTextWord
-                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              <span
+                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
-                  fontWeight: 900,
+                  fontWeight: 500,
                   letterSpacing: "0.02em",
                   lineHeight: 0.9,
+                  color: "#1A1A1A",
                 }}
               >
                 WE CREATE
-              </VideoTextWord>
+              </span>
             </MagneticWord>
           </motion.div>
 
@@ -444,6 +447,8 @@ export function HeroSection() {
               y: line2Lift,
             }}
           >
+            {/* VISUAL — kept in display font (Bebas Neue), no video.
+                Brandi: STORIES is the only word with video behind. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
@@ -453,16 +458,17 @@ export function HeroSection() {
               }}
               strength={0.2}
             >
-              <VideoTextWord
+              <span
                 className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
                   fontWeight: 900,
                   letterSpacing: "0.02em",
                   lineHeight: 0.9,
+                  color: "#1A1A1A",
                 }}
               >
                 VISUAL
-              </VideoTextWord>
+              </span>
             </MagneticWord>
             <InlineCutout
               src="/images/hero/cameraman-cutout.png"
@@ -508,27 +514,30 @@ export function HeroSection() {
               y: line3Lift,
             }}
           >
+            {/* THAT — Inter (font-sans), no video-in-text. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
-                fontWeight: 900,
+                fontWeight: 500,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
                 marginRight: "0.45em",
               }}
               strength={0.2}
             >
-              <VideoTextWord
-                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              <span
+                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
-                  fontWeight: 900,
+                  fontWeight: 500,
                   letterSpacing: "0.02em",
                   lineHeight: 0.9,
+                  color: "#1A1A1A",
                 }}
               >
                 THAT
-              </VideoTextWord>
+              </span>
             </MagneticWord>
+            {/* INSPIRE — kept in display font, no video. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
@@ -538,16 +547,17 @@ export function HeroSection() {
               }}
               strength={0.2}
             >
-              <VideoTextWord
+              <span
                 className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
                   fontWeight: 900,
                   letterSpacing: "0.02em",
                   lineHeight: 0.9,
+                  color: "#1A1A1A",
                 }}
               >
                 INSPIRE
-              </VideoTextWord>
+              </span>
             </MagneticWord>
             <InlineCutout
               src="/images/hero/portrait-cutout.png"

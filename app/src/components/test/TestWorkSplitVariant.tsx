@@ -1,4 +1,3 @@
-import { LensIntroSection } from "@/components/sections/LensIntroSection";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { CampaignSection } from "@/components/sections/CampaignSection";
@@ -23,7 +22,6 @@ interface VariantProps {
 export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: VariantProps) {
   return (
     <>
-      <LensIntroSection />
       <HeroSection />
       <CampaignSection onProjectClick={onProjectClick} />
       <WorkCategoriesSection onSeeMoreClick={onSeeMoreClick} />
