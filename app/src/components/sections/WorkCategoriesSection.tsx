@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 /* ════════════════════════════════════════════════════════════════════
    THE WORK — nine static category tiles (mixed Photography +
-   Videography), arranged in a 3x3 grid on lg+ and 2-col on mobile.
+   Videography), arranged in a single horizontal row.
 
    Brandi's 5/7/26 review notes for this section (page 8):
-     • Replace description with: 'Browse our photography and videography
-       by industry — fashion/editorial, performing arts, retail,
-       industrial, documentary and more.'
      • Tile list (in this exact order):
          P/Retail · V/Retail · P/The Arts · V/The Arts · P/Fashion ·
          V/Documentary · P/Industrial · V/Industrial · V/Narrative
+     • Description copy provided.
 
-   The previous expanding-accordion-band layout (4 photography-only
-   tiles) was replaced on 2026-05-08. With nine tiles a 3-column grid
-   reads cleaner than narrow accordion bands, and the static 4:5
-   aspect tiles visually match THE CAMPAIGN section directly above.
+   Layout (rebuilt 2026-05-08 per user request):
+     • Desktop (lg+): scroll-pinned horizontal strip — section is
+       sticky to the viewport while the row of 9 tiles translates
+       left as the user scrolls vertically. Every tile passes the
+       centre of the screen before the page continues.
+     • Mobile / tablet: regular swipeable horizontal scroller
+       (sticky pinning conflicts with touch scrolling).
    ════════════════════════════════════════════════════════════════════ */
 
 interface WorkCategoriesSectionProps {
@@ -120,7 +122,7 @@ const WORK_TILES: WorkTile[] = [
 ];
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  Single tile — 4:5 aspect, click-to-navigate, static hover           */
+/*  Single tile — 4:5 aspect, fixed width inside the strip              */
 /* ──────────────────────────────────────────────────────────────────── */
 function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -130,7 +132,11 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden text-left aspect-[3/4] sm:aspect-[4/5] min-w-0 w-full"
+      className="group relative overflow-hidden text-left flex-shrink-0 aspect-[4/5]"
+      style={{
+        width: "clamp(240px, 22vw, 340px)",
+        scrollSnapAlign: "start",
+      }}
     >
       {/* Image with slow Ken-Burns zoom on hover */}
       <img
@@ -195,52 +201,119 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  Section wrapper                                                     */
+/*  Section wrapper — scroll-pinned horizontal strip on lg, swipe row   */
+/*  on mobile / tablet                                                  */
 /* ──────────────────────────────────────────────────────────────────── */
 export function WorkCategoriesSection({ onSeeMoreClick }: WorkCategoriesSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const [translateRange, setTranslateRange] = useState(0);
+
+  /* Measure the strip and figure out how far it must translate so the
+     LAST tile lines up with the right edge of the viewport. We re-
+     measure on resize and whenever the strip's intrinsic width changes. */
+  useEffect(() => {
+    const measure = () => {
+      const isDesktop = window.innerWidth >= 1024;
+      if (!isDesktop || !stripRef.current) {
+        setTranslateRange(0);
+        return;
+      }
+      const stripW = stripRef.current.scrollWidth;
+      const viewW = window.innerWidth;
+      // 80px buffer so the last tile has a small gap from the right edge
+      setTranslateRange(Math.max(0, stripW - viewW + 80));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    let resizeObs: ResizeObserver | null = null;
+    if (stripRef.current && typeof ResizeObserver !== "undefined") {
+      resizeObs = new ResizeObserver(measure);
+      resizeObs.observe(stripRef.current);
+    }
+    return () => {
+      window.removeEventListener("resize", measure);
+      resizeObs?.disconnect();
+    };
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  /* Spring-smoothed scroll progress so the strip glides instead of
+     snapping to the raw scroll position. */
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 28,
+    mass: 0.6,
+  });
+
+  const x = useTransform(smoothProgress, [0, 1], [0, -translateRange]);
+
   const navigate = (href: string) => {
     window.history.pushState(null, "", href);
     window.dispatchEvent(new PopStateEvent("popstate"));
   };
 
   return (
-    <section id="work" className="py-20 sm:py-28 bg-dark relative">
-      <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+    <section
+      ref={sectionRef}
+      id="work"
+      className="relative bg-dark lg:h-[400vh] mb-12 sm:mb-16 lg:mb-20"
+    >
+      {/* On desktop this inner is sticky and pinned for the duration of
+          the 400vh runway. lg:pt-16 + lg:pb-12 gives the header a
+          predictable position, the strip falls below with a known
+          amount of space. On mobile the sticky/h-screen classes drop
+          and the strip becomes a regular swipeable horizontal scroller. */}
+      <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:overflow-hidden py-20 sm:py-28 lg:pt-16 lg:pb-12">
         {/* Header */}
-        <div className="flex items-end justify-between mb-12 sm:mb-16 flex-wrap gap-6">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-3">
-              Portfolio / 02
-            </p>
-            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
-              THE WORK
-            </h2>
-            <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
-              Browse our photography and videography by industry — fashion/editorial,
-              performing arts, retail, industrial, documentary and more.
-            </p>
+        <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-10">
+          <div className="flex items-end justify-between flex-wrap gap-6">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-3">
+                Portfolio / 02
+              </p>
+              <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
+                THE WORK
+              </h2>
+              <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
+                Browse our photography and videography by industry — fashion/editorial,
+                performing arts, retail, industrial, documentary and more.
+              </p>
+            </div>
+            {onSeeMoreClick && (
+              <button
+                onClick={onSeeMoreClick}
+                className="group inline-flex items-center gap-3 text-sm font-semibold tracking-[0.3em] text-white hover:text-white/70 uppercase border-b border-white/40 hover:border-white/70 pb-1 transition-colors"
+              >
+                See All Work
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            )}
           </div>
-          {onSeeMoreClick && (
-            <button
-              onClick={onSeeMoreClick}
-              className="group inline-flex items-center gap-3 text-sm font-semibold tracking-[0.3em] text-white hover:text-white/70 uppercase border-b border-white/40 hover:border-white/70 pb-1 transition-colors"
-            >
-              See All Work
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-          )}
         </div>
 
-        {/* 3x3 grid on lg+, 2-column grid on mobile / sm. Tile order
-            follows Brandi's exact spec on page 8 of her review notes. */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
-          {WORK_TILES.map((tile) => (
-            <WorkTileCard
-              key={tile.id}
-              tile={tile}
-              onClick={() => navigate(tile.href)}
-            />
-          ))}
+        {/* Horizontal strip — translates with scroll on lg+, swipe on mobile */}
+        <div
+          className="overflow-x-auto lg:overflow-hidden leaf-scroll"
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          <motion.div
+            ref={stripRef}
+            style={{ x }}
+            className="flex gap-3 sm:gap-4 px-4 sm:px-6 lg:px-10 pb-6 lg:pb-0 will-change-transform"
+          >
+            {WORK_TILES.map((tile) => (
+              <WorkTileCard
+                key={tile.id}
+                tile={tile}
+                onClick={() => navigate(tile.href)}
+              />
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
