@@ -54,10 +54,7 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
               {campaignData.map((campaign, index) => (
                 <FadeIn key={campaign.id} delay={index * 0.15}>
                   <button
-                    onClick={() => {
-                      const project = portfolioItems.find((p) => p.campaign === campaign.id || p.id === campaign.id);
-                      if (project) onNavigate("portfolio", project.id);
-                    }}
+                    onClick={() => onNavigate("campaigns", campaign.id)}
                     className="group block relative overflow-hidden w-full text-left"
                   >
                     <div className="relative overflow-hidden aspect-[16/10]">
