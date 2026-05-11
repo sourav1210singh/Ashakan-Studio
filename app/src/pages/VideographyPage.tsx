@@ -11,32 +11,34 @@ import {
 } from "@/data/brandi-videos";
 
 /* Category-specific titles and descriptions — keys must match
-   PortfolioCategory union in brandi-videos.ts */
+   PortfolioCategory union in brandi-videos.ts.
+   Description copy verbatim from Brandi's 5/7/26 review notes
+   (pages 27-28). */
 const categoryMeta: Record<PortfolioCategory, { title: string; description: string }> = {
-  "the-arts": {
-    title: "THE ARTS",
-    description:
-      "Cinematic videography for performers, dancers, and artists. Capturing movement, emotion, and the artistry of live performance.",
-  },
   retail: {
     title: "RETAIL",
     description:
-      "Brand films and product videography that showcase merchandise in motion. From fashion campaigns to product launches.",
+      "Product and brand videography that transforms merchandise into living moments — combining polished commercial production with storytelling designed for impact across digital platforms.",
+  },
+  "the-arts": {
+    title: "THE ARTS",
+    description:
+      "Cinematic videography for performers, dancers, and artists. Capturing movement, emotion, and the artistry of performance, as well as the excellence in their craft.",
   },
   industrial: {
     title: "INDUSTRIAL",
     description:
-      "Corporate, medical, and industrial videography. Clean, purposeful storytelling that highlights innovation and craftsmanship.",
+      "Visual storytelling for corporate, medical, and industrial clients — ranging from cinematic narratives to structured brand and investor content that highlights purpose and process.",
   },
   documentary: {
     title: "DOCUMENTARY",
     description:
-      "Documentary-style videography capturing real stories, real people, and meaningful impact. Long-form narrative filmmaking.",
+      "Documentary filmmaking for organizations, communities, and individuals — crafted to translate mission into purposeful storytelling that drives impact through fundraising, awareness, broadcast, and long-term growth.",
   },
   narrative: {
     title: "NARRATIVE",
     description:
-      "Cinematic narrative films with story-driven production. Conceptual short films and brand-led storytelling.",
+      "Narrative storytelling for brands and organizations — crafted across short film concepts, character-driven pieces, and educational content that brings ideas, services, and culture to life.",
   },
 };
 
