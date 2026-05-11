@@ -28,13 +28,13 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <button
-                onClick={() => onNavigate("work")}
+                onClick={() => onNavigate("home")}
                 className="group flex items-center gap-3 mb-8"
               >
                 <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
-                <span className="text-sm font-medium tracking-wider text-white/70">BACK TO WORK</span>
+                <span className="text-sm font-medium tracking-wider text-white/70">BACK TO HOME</span>
               </button>
               <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
                 CAMPAIGNS
