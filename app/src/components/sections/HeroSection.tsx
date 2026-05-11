@@ -401,8 +401,8 @@ export function HeroSection() {
             }}
           >
             <InlineCutout
-              src="/images/hero/dance-cutout.png"
-              alt="Dance photography"
+              src="/images/hero/cutouts/vitacca-dancer.png"
+              alt="Vitacca dance cutout"
               className="hidden md:inline-block"
               width="clamp(100px, 11.5vw, 180px)"
               height="clamp(80px, 9.5vw, 145px)"
@@ -471,8 +471,8 @@ export function HeroSection() {
               </span>
             </MagneticWord>
             <InlineCutout
-              src="/images/hero/cameraman-cutout.png"
-              alt="Video production"
+              src="/images/hero/cutouts/ferrari-296gtb.png"
+              alt="Ferrari 296GTB cutout"
               className="hidden md:inline-block"
               width="clamp(88px, 9.5vw, 145px)"
               height="clamp(125px, 15vw, 230px)"
@@ -560,8 +560,8 @@ export function HeroSection() {
               </span>
             </MagneticWord>
             <InlineCutout
-              src="/images/hero/portrait-cutout.png"
-              alt="Portrait photography"
+              src="/images/hero/cutouts/isabella-decandido.png"
+              alt="Isabella DeCandido portrait cutout"
               className="hidden md:inline-block"
               width="clamp(65px, 7.5vw, 115px)"
               height="clamp(80px, 9.5vw, 145px)"
