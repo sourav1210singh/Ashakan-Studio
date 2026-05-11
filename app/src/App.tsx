@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Header } from "@/components/layout/Header";
 import { HomePage } from "@/pages/HomePage";
-import { WorkPage } from "@/pages/WorkPage";
 import { PhotographyPage } from "@/pages/PhotographyPage";
 import { VideographyPage } from "@/pages/VideographyPage";
 import { CampaignsPage } from "@/pages/CampaignsPage";
@@ -20,7 +19,6 @@ import { getSeoPageBySlug } from "@/data/seo-pages";
 
 export type View =
   | "home"
-  | "work"
   | "photography"
   | "videography"
   | "campaigns"
@@ -75,7 +73,12 @@ function parseRoute(rawPathname: string): ParsedRoute {
       const catMatch = pathname.match(/^\/work\/campaigns\/([^/]+)/);
       return { view: "campaigns", slug: null, category: catMatch ? catMatch[1] : null };
     }
-    return { view: "work", slug: null, category: null };
+    /* The standalone /work/ landing page was removed 2026-05-08 per
+       Brandi's review notes (pages 14-18 — 'NO WORK PAGE' repeated
+       multiple times). Bare /work or /work/ now falls through to the
+       home page; the WORK dropdown in the header still exposes the
+       photography / videography / campaigns sub-routes. */
+    return { view: "home", slug: null, category: null };
   }
 
   // Top-level pages
@@ -103,7 +106,6 @@ function parseRoute(rawPathname: string): ParsedRoute {
 /* ── Path map: View → clean URL ── */
 const pathMap: Record<View, string> = {
   home: "/",
-  work: "/work/",
   photography: "/work/photography/",
   videography: "/work/videography/",
   campaigns: "/work/campaigns/",
@@ -190,8 +192,6 @@ function App() {
     switch (currentView) {
       case "home":
         return <HomePage onNavigate={navigateTo} />;
-      case "work":
-        return <WorkPage onNavigate={navigateTo} />;
       case "photography":
         if (selectedCategory === "headshots") {
           return <HeadshotsPage onNavigate={navigateTo} />;

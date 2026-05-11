@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 /* ════════════════════════════════════════════════════════════════════
@@ -21,9 +20,11 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
        (sticky pinning conflicts with touch scrolling).
    ════════════════════════════════════════════════════════════════════ */
 
-interface WorkCategoriesSectionProps {
-  onSeeMoreClick?: () => void;
-}
+/* No props — the section is self-contained. The previous
+   'See All Work' button + onSeeMoreClick prop were removed
+   2026-05-08 because the /work/ landing page no longer exists
+   (Brandi: 'NO WORK PAGE' across pages 14-18 of her review notes). */
+interface WorkCategoriesSectionProps {}
 
 type WorkTile = {
   id: string;
@@ -204,7 +205,7 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
 /*  Section wrapper — scroll-pinned horizontal strip on lg, swipe row   */
 /*  on mobile / tablet                                                  */
 /* ──────────────────────────────────────────────────────────────────── */
-export function WorkCategoriesSection({ onSeeMoreClick }: WorkCategoriesSectionProps) {
+export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const [translateRange, setTranslateRange] = useState(0);
@@ -271,28 +272,17 @@ export function WorkCategoriesSection({ onSeeMoreClick }: WorkCategoriesSectionP
       <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:overflow-hidden py-20 sm:py-28 lg:pt-16 lg:pb-12">
         {/* Header */}
         <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-10">
-          <div className="flex items-end justify-between flex-wrap gap-6">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-3">
-                Portfolio / 02
-              </p>
-              <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
-                THE WORK
-              </h2>
-              <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
-                Browse our photography and videography by industry — fashion/editorial,
-                performing arts, retail, industrial, documentary and more.
-              </p>
-            </div>
-            {onSeeMoreClick && (
-              <button
-                onClick={onSeeMoreClick}
-                className="group inline-flex items-center gap-3 text-sm font-semibold tracking-[0.3em] text-white hover:text-white/70 uppercase border-b border-white/40 hover:border-white/70 pb-1 transition-colors"
-              >
-                See All Work
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            )}
+          <div>
+            <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-3">
+              Portfolio / 02
+            </p>
+            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
+              THE WORK
+            </h2>
+            <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
+              Browse our photography and videography by industry — fashion/editorial,
+              performing arts, retail, industrial, documentary and more.
+            </p>
           </div>
         </div>
 

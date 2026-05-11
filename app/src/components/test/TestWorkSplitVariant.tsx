@@ -16,15 +16,14 @@ import { FullServiceHybridSection } from "@/components/sections/FullServiceHybri
 
 interface VariantProps {
   onProjectClick: (slug: string) => void;
-  onSeeMoreClick?: () => void;
 }
 
-export function TestWorkSplitVariant({ onProjectClick, onSeeMoreClick }: VariantProps) {
+export function TestWorkSplitVariant({ onProjectClick }: VariantProps) {
   return (
     <>
       <HeroSection />
       <CampaignSection onProjectClick={onProjectClick} />
-      <WorkCategoriesSection onSeeMoreClick={onSeeMoreClick} />
+      <WorkCategoriesSection />
       <FriendsMarqueeSection />
       <FullServiceHybridSection />
       <AboutSection />

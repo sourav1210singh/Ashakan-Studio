@@ -19,7 +19,6 @@ export function TestPage({ variantSlug, onNavigate }: TestPageProps) {
         return (
           <TestWorkSplitVariant
             onProjectClick={(slug) => onNavigate("campaigns", slug)}
-            onSeeMoreClick={() => onNavigate("work")}
           />
         );
       default:

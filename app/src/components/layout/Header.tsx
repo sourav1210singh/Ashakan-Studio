@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 /** Pages that use a dark background — header needs white text initially */
-const DARK_PAGES: View[] = ["work", "photography", "videography", "campaigns", "booking"];
+const DARK_PAGES: View[] = ["photography", "videography", "campaigns", "booking"];
 
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -85,7 +85,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     if (href === "/") {
       onNavigate("home");
     } else if (href === "/work") {
-      onNavigate("work");
+      /* Standalone /work/ page was removed 2026-05-08 per Brandi.
+         Clicking the WORK label should not navigate anywhere; the
+         dropdown shows the sub-routes (photography / videography /
+         campaigns) which still work. We close any open dropdown
+         below at the end of this function so a tap on mobile still
+         feels responsive. */
+      return;
     } else if (href.startsWith("/work/photography")) {
       const cat = href.replace(/^\/work\/photography\/?/, "") || undefined;
       onNavigate("photography", cat);
@@ -115,7 +121,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
 
   const isActive = (href: string) => {
     if (href === "/" && currentView === "home") return true;
-    if (href === "/work" && ["work", "photography", "videography", "campaigns"].includes(currentView || "")) return true;
+    if (href === "/work" && ["photography", "videography", "campaigns"].includes(currentView || "")) return true;
     if (href === "/what-we-do" && currentView === "services") return true;
     if (href === "/studio" && currentView === "studio") return true;
     if (href === "/contact" && currentView === "contact") return true;
