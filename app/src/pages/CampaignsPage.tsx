@@ -16,7 +16,7 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
     return {
       ...c,
       image: project?.image || "/images/portfolio/placeholder.jpg",
-      category: project?.category || "CASE STUDY",
+      category: project?.category || "CAMPAIGN",
     };
   });
 
@@ -40,8 +40,9 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                 CAMPAIGNS
               </h1>
               <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6">
-                Full-scale production campaigns that combine photography, videography,
-                and creative direction to tell complete brand stories.
+                A deeper dive into brand-defining campaigns, highlighting the
+                full scale of work — creative production, execution, and
+                overall campaign impact.
               </p>
             </FadeIn>
           </div>
@@ -66,7 +67,7 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                       <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                         <p className="text-xs sm:text-sm font-medium tracking-wider text-white/60 mb-2">
-                          CASE STUDY
+                          CAMPAIGN
                         </p>
                         <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
                           {campaign.name}
