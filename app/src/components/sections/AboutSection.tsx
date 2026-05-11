@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { Lightbox } from "@/components/ui/Lightbox";
+
+const ABOUT_IMAGE = {
+  src: "/images/sections/studio-2026.jpg",
+  alt: "Ashkan Studios — studio interior",
+};
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [imageY, setImageY] = useState(10);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,22 +111,38 @@ export function AboutSection() {
           {/* ============================================================ */}
           <div className="order-1 lg:order-2 relative">
             <FadeIn direction="left" delay={0.2}>
-              <div className="relative aspect-[3/2] overflow-hidden">
+              {/* Click the studio photo to open it large in the lightbox.
+                  Single-image lightbox (no thumbnails or arrows shown
+                  because there's only one image to view here). */}
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                aria-label="Enlarge studio photo"
+                className="block w-full relative aspect-[3/2] overflow-hidden cursor-zoom-in group"
+              >
                 <div
                   className="absolute inset-0"
                   style={{ transform: `translateY(${imageY}%)` }}
                 >
                   <img
-                    src="/images/sections/studio-2026.jpg"
-                    alt="Ashkan Studios"
-                    className="w-full h-[120%] object-cover"
+                    src={ABOUT_IMAGE.src}
+                    alt={ABOUT_IMAGE.alt}
+                    className="w-full h-[120%] object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                 </div>
-              </div>
+                <span className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
+              </button>
             </FadeIn>
           </div>
         </div>
       </div>
+
+      {/* Lightbox — single-image */}
+      <Lightbox
+        images={[ABOUT_IMAGE]}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </section>
   );
 }

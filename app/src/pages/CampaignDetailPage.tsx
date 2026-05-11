@@ -2,6 +2,7 @@ import { ArrowRight, Play } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { Lightbox } from "@/components/ui/Lightbox";
 import type { View } from "@/App";
 import { getProjectById, type GalleryItem } from "@/data/projects";
 
@@ -81,20 +82,41 @@ function VimeoEmbed({
 }
 
 /* ── Image block ─────────────────────────────────── */
-function ImageBlock({ src, alt, aspect = "landscape" }: { src: string; alt: string; aspect?: string }) {
+/* Now clickable — opens the page-level Lightbox at this image's index
+   in the images-only gallery list. Brandi's 5/7/26 review notes:
+   'Every photo in any gallery should be clickable to a lightbox'. */
+function ImageBlock({
+  src,
+  alt,
+  aspect = "landscape",
+  onClick,
+}: {
+  src: string;
+  alt: string;
+  aspect?: string;
+  onClick?: () => void;
+}) {
   const aspectClass =
     aspect === "portrait" ? "aspect-[3/4]" :
     aspect === "square" ? "aspect-square" :
     "aspect-video";
 
+  const Tag = onClick ? "button" : "div";
   return (
-    <div className={`relative overflow-hidden ${aspectClass} group`}>
+    <Tag
+      type={onClick ? "button" : undefined}
+      onClick={onClick}
+      className={`relative overflow-hidden ${aspectClass} group block w-full text-left ${onClick ? "cursor-zoom-in" : ""}`}
+    >
       <img
         src={src}
         alt={alt}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
-    </div>
+      {onClick && (
+        <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
+      )}
+    </Tag>
   );
 }
 
@@ -122,7 +144,17 @@ function getAdjacentCampaigns(slug: string) {
 /** Renders a true CSS-columns masonry — items flow naturally based on
  *  their aspect ratios so adjacent items pack tightly with no whitespace.
  *  Same approach as PhotographyPage.tsx (which Brandi already approved). */
-function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTitle?: string }) {
+function CreativeGrid({
+  items,
+  sectionTitle,
+  onImageClick,
+}: {
+  items: GalleryItem[];
+  sectionTitle?: string;
+  /** Given an image src, return its index in the page-level lightbox list
+      (so the lightbox opens on the correct picture). */
+  onImageClick?: (src: string) => void;
+}) {
   return (
     <div>
       {sectionTitle && (
@@ -142,7 +174,12 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
             {item.type === "video" && item.vimeoId ? (
               <VimeoEmbed vimeoId={item.vimeoId} vimeoHash={item.vimeoHash} alt={item.alt} />
             ) : (
-              <ImageBlock src={item.src} alt={item.alt} aspect={item.aspectRatio} />
+              <ImageBlock
+                src={item.src}
+                alt={item.alt}
+                aspect={item.aspectRatio}
+                onClick={onImageClick ? () => onImageClick(item.src) : undefined}
+              />
             )}
           </FadeIn>
         ))}
@@ -160,6 +197,9 @@ function CreativeGrid({ items, sectionTitle }: { items: GalleryItem[]; sectionTi
 
 /* ── Main Page Component ─────────────────────────── */
 export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailPageProps) {
+  /* Lightbox state — opens when any image in the page is clicked. */
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   const projectId = campaignProjectMap[campaignSlug];
   const project = projectId ? getProjectById(projectId) : undefined;
 
@@ -186,6 +226,21 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
   const featuredItem = allMedia.find((g) => g.type === "video") || allMedia[0];
   const remainingMedia = allMedia.filter((g) => g !== featuredItem);
 
+  /* Images-only flat list used by the lightbox. The hero photo at the
+     top of the page is also clickable, so we include it first. */
+  const lightboxImages = [
+    { src: project.heroImage, alt: project.client },
+    ...allMedia
+      .filter((g) => g.type === "image" && g.src)
+      .map((g) => ({ src: g.src, alt: g.alt })),
+  ];
+
+  /** Open the lightbox at the position of `src` (or 0 if not found). */
+  const openLightboxAt = (src: string) => {
+    const i = lightboxImages.findIndex((img) => img.src === src);
+    setLightboxIndex(i === -1 ? 0 : i);
+  };
+
   // Split remaining into two halves for alternating dark/light sections
   const midPoint = Math.ceil(remainingMedia.length / 2);
   const firstHalf = remainingMedia.slice(0, midPoint);
@@ -196,13 +251,20 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
       <main>
         {/* ━━━ SECTION 1: Full-width Hero (DARK) ━━━ */}
         <section className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
-          <img
-            src={project.heroImage}
-            alt={project.client}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
-          <div className="absolute inset-0 flex flex-col justify-end">
+          <button
+            type="button"
+            onClick={() => openLightboxAt(project.heroImage)}
+            className="absolute inset-0 w-full h-full cursor-zoom-in group"
+            aria-label={`Enlarge ${project.client} hero image`}
+          >
+            <img
+              src={project.heroImage}
+              alt={project.client}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
+          </button>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 pointer-events-none" />
+          <div className="absolute inset-0 flex flex-col justify-end pointer-events-none">
             <div className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-10 pb-16 sm:pb-24">
               <FadeIn>
                 <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.9] mb-4">
@@ -240,7 +302,12 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                 {featuredItem.type === "video" && featuredItem.vimeoId ? (
                   <VimeoEmbed vimeoId={featuredItem.vimeoId} vimeoHash={featuredItem.vimeoHash} alt={featuredItem.alt} />
                 ) : (
-                  <ImageBlock src={featuredItem.src} alt={featuredItem.alt} aspect="landscape" />
+                  <ImageBlock
+                    src={featuredItem.src}
+                    alt={featuredItem.alt}
+                    aspect="landscape"
+                    onClick={() => openLightboxAt(featuredItem.src)}
+                  />
                 )}
                 <p className="text-white/40 text-sm mt-4 tracking-wider">{featuredItem.alt}</p>
               </FadeIn>
@@ -294,7 +361,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         {firstHalf.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={firstHalf} sectionTitle="The Campaign" />
+              <CreativeGrid items={firstHalf} sectionTitle="The Campaign" onImageClick={openLightboxAt} />
             </div>
           </section>
         )}
@@ -351,7 +418,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         {secondHalf.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={secondHalf} sectionTitle="Behind the Scenes" />
+              <CreativeGrid items={secondHalf} sectionTitle="Behind the Scenes" onImageClick={openLightboxAt} />
             </div>
           </section>
         )}
@@ -422,6 +489,18 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         </section>
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
+
+      {/* Full-screen lightbox — opens when the hero or any gallery photo
+          is clicked. Includes ALL images from the campaign (hero +
+          gallery images) in their on-page order so the user can browse
+          through the entire campaign in a large view. Videos are not
+          included — they already play in place. */}
+      <Lightbox
+        images={lightboxImages}
+        isOpen={lightboxIndex !== null}
+        initialIndex={lightboxIndex ?? 0}
+        onClose={() => setLightboxIndex(null)}
+      />
     </>
   );
 }
