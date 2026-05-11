@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { Lightbox } from "@/components/ui/Lightbox";
 import { portfolioItems } from "@/data/portfolio";
 import type { View } from "@/App";
 
@@ -122,7 +124,7 @@ const categoryMeta: Record<string, { title: string; description: string }> = {
   retail: {
     title: "RETAIL",
     description:
-      "Product and brand photography that elevates retail merchandise. From luxury goods to everyday essentials — visuals that drive desire and build brand identity.",
+      "Product and brand photography that turns merchandise into visual experiences — blending polished commercial imagery with storytelling that strengthens brand presence and consumer connection.",
   },
   fashion: {
     title: "FASHION",
@@ -142,6 +144,10 @@ interface PhotographyPageProps {
 }
 
 export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageProps) {
+  /* Lightbox state — click any gallery photo to enlarge per Brandi's
+     'every photo in any gallery should be clickable' direction. */
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
   /* Determine images to display: category-specific OR all combined */
   const isCategory = activeCategory && activeCategory in categoryGallery;
 
@@ -237,14 +243,21 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
             ) : (
               <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
                 {displayImages.map((img, index) => (
-                  <FadeIn key={`photo-${index}`} delay={index * 0.06} className="break-inside-avoid mb-4 sm:mb-6">
-                    <div className="relative overflow-hidden">
+                  <FadeIn key={`photo-${index}`} delay={Math.min(index * 0.06, 0.6)} className="break-inside-avoid mb-4 sm:mb-6">
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(index)}
+                      aria-label={`Open ${img.alt} in lightbox`}
+                      className="block relative overflow-hidden cursor-zoom-in w-full group"
+                    >
                       <img
                         src={img.src}
                         alt={img.alt}
-                        className="w-full h-auto object-cover transition-transform duration-700 ease-out hover:scale-105"
+                        className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
-                    </div>
+                      {/* Subtle dark overlay on hover so cursor:zoom-in feels intentional */}
+                      <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
+                    </button>
                   </FadeIn>
                 ))}
               </div>
@@ -253,6 +266,14 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
         </section>
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
+
+      {/* Full-screen lightbox — opens when any gallery photo is clicked */}
+      <Lightbox
+        images={displayImages}
+        isOpen={lightboxIndex !== null}
+        initialIndex={lightboxIndex ?? 0}
+        onClose={() => setLightboxIndex(null)}
+      />
     </>
   );
 }
