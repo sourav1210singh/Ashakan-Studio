@@ -9,6 +9,23 @@ export interface GalleryItem {
   vimeoHash?: string;
 }
 
+/**
+ * Optional reference to a magazine spread PDF (e.g., Deutsch's
+ * 8-page PaperCity Houston spread). Rendered as an inline scrollable
+ * iframe near the bottom of the campaign detail page.
+ */
+export interface MagazineSpread {
+  /** Public path to the PDF (under app/public/). */
+  src: string;
+  /** Heading shown above the embed. */
+  title: string;
+  /** Page count, used in the heading subtitle ('8-page spread'). */
+  pages: number;
+  /** Disclosure shown under the heading — typically credits client
+   *  vs. studio contributions (per Brandi's 5/7/26 notes for Deutsch). */
+  note: string;
+}
+
 export interface Project {
   id: string;
   client: string;
@@ -18,6 +35,43 @@ export interface Project {
   description: string;
   gallery: GalleryItem[];
   relatedProjects: string[];
+
+  /* ── Brandi's 5/7/26 review-notes additions ──────────────────────
+     These are optional so older campaigns without the new copy keep
+     rendering against the original CampaignDetailPage layout. */
+
+  /** Override the 'The Story' / 'Story & Intent' paragraph (renamed
+   *  per Brandi for the new campaign page layout). */
+  storyAndIntent?: string;
+
+  /** Multi-paragraph copy for the new 'Creative & Production Approach'
+   *  section (replaces the old 'Project Details' description). */
+  creativeAndProductionApproach?: string[];
+
+  /** Multi-paragraph copy for the new 'IMPACT' section
+   *  (renamed from 'Approach' in the right column). */
+  impact?: string[];
+
+  /** Right-column 'Services' value (e.g., 'PHOTOGRAPHY / DESIGN'). */
+  servicesLabel?: string;
+
+  /** Right-column 'Deliverables' value
+   *  (e.g., 'PHOTOS, 8 PG MAGAZINE SPREAD, 1 MAGAZINE AD, 3 BILLBOARDS, 6 EMAILS'). */
+  deliverablesLabel?: string;
+
+  /** Horizontal photo shown in the 'Featured' spot right after the
+   *  Story section. Brandi wants a photo here (not a video) for the
+   *  Deutsch campaign. If absent, the page falls back to the first
+   *  gallery video like before. */
+  featuredImage?: string;
+
+  /** If true, the 'Behind the Scenes' section will only render video
+   *  items from the gallery; all images move up into the main
+   *  campaign gallery. Used for Deutsch. */
+  btsVideosOnly?: boolean;
+
+  /** Optional inline magazine spread (PDF). */
+  magazineSpread?: MagazineSpread;
 }
 
 export const projects: Project[] = [
@@ -533,10 +587,44 @@ export const projects: Project[] = [
     id: "deutsch-fine-jewelry",
     client: "DEUTSCH FINE JEWELRY",
     title: "Timeless Elegance, Modern Luxury",
-    categories: ["PHOTOGRAPHY", "VIDEOGRAPHY", "PRODUCT"],
-    heroImage: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
+    categories: ["PHOTOGRAPHY", "DESIGN"],
+    /* Hero swapped to a wide horizontal shot from the gallery per
+       Brandi's 5/7/26 note ('Obviously this needs to change to photo
+       from gallery, horizontal'). 595 is the bracelet-styling
+       landscape — more atmospheric than the previous signature piece. */
+    heroImage: "/images/campaigns/deutsch/deutsch-2025-holiday-595.jpg",
     description:
       "Deutsch Fine Jewelry represents the pinnacle of luxury craftsmanship. Our photography and videography campaign captured the intricate details and timeless beauty of their collection, creating imagery that speaks to discerning clients seeking exceptional pieces.",
+
+    /* ── Brandi's 5/7/26 review-notes copy for Deutsch ───────────── */
+    storyAndIntent:
+      "Deutsch Fine Jewelry is a luxury jewelry brand that represents the pinnacle of luxury craftsmanship. Our campaign brought together photography and videography to highlight the detail and character of their collection, creating imagery used across brand and client-facing platforms.",
+    creativeAndProductionApproach: [
+      "Shot on location at the Lancaster Hotel in downtown Houston, this campaign was built as a lifestyle-editorial interpretation of holiday indulgence — blending romance, celebration, and product storytelling within a refined party atmosphere. Designed around a series of curated set pieces, including oyster spreads and seasonal entertaining moments, the creative direction emphasized warmth, intimacy, and elevated lifestyle context for the jewelry.",
+      "Talent-driven scenes were paired with on-set hair and makeup to support a cohesive visual narrative, allowing the collection to exist naturally within moments of connection and celebration. High-end professional flash photography was used throughout to maintain precise control over light, texture, and reflection — critical when working with exceptionally high-value pieces.",
+      "Every detail of the production was carefully managed to balance editorial storytelling with product integrity, ensuring the final body of work could perform seamlessly across campaign platforms while maintaining the precision and trust required for luxury jewelry presentation.",
+    ],
+    impact: [
+      "The campaign was deployed across a wide-reaching mix of platforms — including social media, email marketing, magazine placements in Modern Luxury and PaperCity Houston, three high-visibility billboard locations in the Houston market, and a suite of print and digital assets such as an 8-page magazine spread, full-page advertisement, and multi-touch email campaign. Together, these placements created a consistent brand presence across both lifestyle media and direct consumer channels.",
+      "The result was a cohesive, multi-platform campaign that expanded visibility, strengthened brand perception, and supported seasonal performance goals. The client response reflected strong satisfaction with the final body of work and its ability to translate luxury product into a unified, high-impact brand narrative across every touchpoint.",
+    ],
+    servicesLabel: "PHOTOGRAPHY / DESIGN",
+    deliverablesLabel:
+      "PHOTOS, 8 PG MAGAZINE SPREAD, 1 MAGAZINE AD, 3 BILLBOARDS, 6 EMAILS",
+    /* Featured spot (after Story section) — a different horizontal
+       photo from the gallery so it doesn't duplicate the hero. */
+    featuredImage: "/images/campaigns/deutsch/deutsch-2025-holiday-636.jpg",
+    /* Brandi: 'should only be the video here for Behind the Scenes'.
+       All photos move up into the main campaign gallery. */
+    btsVideosOnly: true,
+    /* 8-page PaperCity Houston magazine spread — Brandi delivered
+       a 1.5 MB compressed PDF on 2026-05-11. */
+    magazineSpread: {
+      src: "/assets/deutsch-papercity-spread.pdf",
+      title: "PaperCity Magazine Spread",
+      pages: 8,
+      note: "An 8-page editorial feature published in PaperCity Houston. The spread includes some product photography provided by Deutsch; all lifestyle imagery, layout, and design direction were developed in-house at Ashkan Studios.",
+    },
     gallery: [
       { src: "/images/campaigns/deutsch/deutsch-2025-holiday-029.jpg", alt: "Deutsch Holiday 2025 — campaign opener", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/deutsch/deutsch-2025-holiday-096.jpg", alt: "Deutsch Holiday 2025 — luxury detail", type: "image", aspectRatio: "landscape" },

@@ -221,30 +221,68 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
 
   const { prev, next } = getAdjacentCampaigns(campaignSlug);
 
-  // Split gallery into sections for creative layout
+  /* ── Gallery + featured-item splitting ──────────────────────────
+     The new layout (Brandi's 5/7/26 review notes) gives each campaign
+     three optional knobs:
+       • featuredImage   — explicit horizontal photo for the 'Featured'
+                            spot right after the Story section. Overrides
+                            the legacy 'first video' fallback.
+       • btsVideosOnly   — when true, the Behind-the-Scenes section
+                            only shows videos; all images live in the
+                            main 'The Campaign' gallery.
+     If neither knob is set, the page falls back to the original 50/50
+     split used by the other (older) campaigns. */
   const allMedia = project.gallery;
-  const featuredItem = allMedia.find((g) => g.type === "video") || allMedia[0];
+
+  let featuredItem: GalleryItem | undefined;
+  if (project.featuredImage) {
+    featuredItem = allMedia.find((g) => g.src === project.featuredImage) ?? {
+      src: project.featuredImage,
+      alt: `${project.client} featured photo`,
+      type: "image",
+      aspectRatio: "landscape",
+    };
+  } else {
+    featuredItem = allMedia.find((g) => g.type === "video") ?? allMedia[0];
+  }
   const remainingMedia = allMedia.filter((g) => g !== featuredItem);
 
+  let mainGalleryItems: GalleryItem[];
+  let btsItems: GalleryItem[];
+  if (project.btsVideosOnly) {
+    mainGalleryItems = remainingMedia.filter((g) => g.type === "image");
+    btsItems = remainingMedia.filter((g) => g.type === "video");
+  } else {
+    const midPoint = Math.ceil(remainingMedia.length / 2);
+    mainGalleryItems = remainingMedia.slice(0, midPoint);
+    btsItems = remainingMedia.slice(midPoint);
+  }
+
   /* Images-only flat list used by the lightbox. The hero photo at the
-     top of the page is also clickable, so we include it first. */
-  const lightboxImages = [
-    { src: project.heroImage, alt: project.client },
-    ...allMedia
-      .filter((g) => g.type === "image" && g.src)
-      .map((g) => ({ src: g.src, alt: g.alt })),
-  ];
+     top of the page is also clickable, so we include it first.
+     Featured image is included too. Set used to skip duplicates so the
+     lightbox doesn't show the same picture twice. */
+  const lightboxSet = new Set<string>();
+  const lightboxImages: { src: string; alt: string }[] = [];
+  const addLightboxImg = (src: string, alt: string) => {
+    if (src && !lightboxSet.has(src)) {
+      lightboxSet.add(src);
+      lightboxImages.push({ src, alt });
+    }
+  };
+  addLightboxImg(project.heroImage, project.client);
+  if (project.featuredImage) {
+    addLightboxImg(project.featuredImage, `${project.client} featured photo`);
+  }
+  for (const g of allMedia) {
+    if (g.type === "image" && g.src) addLightboxImg(g.src, g.alt);
+  }
 
   /** Open the lightbox at the position of `src` (or 0 if not found). */
   const openLightboxAt = (src: string) => {
     const i = lightboxImages.findIndex((img) => img.src === src);
     setLightboxIndex(i === -1 ? 0 : i);
   };
-
-  // Split remaining into two halves for alternating dark/light sections
-  const midPoint = Math.ceil(remainingMedia.length / 2);
-  const firstHalf = remainingMedia.slice(0, midPoint);
-  const secondHalf = remainingMedia.slice(midPoint);
 
   return (
     <>
@@ -278,16 +316,19 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </div>
         </section>
 
-        {/* ━━━ SECTION 2: Backstory (DARK) ━━━ */}
+        {/* ━━━ SECTION 2: Story & Intent (DARK) ━━━
+            Brandi: section title renamed from 'The Story' to 'Story & Intent'.
+            Body uses project.storyAndIntent if Brandi supplied new copy,
+            otherwise falls back to the original project.description. */}
         <section className="py-20 sm:py-32 bg-dark">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="flex justify-end">
               <FadeIn className="lg:max-w-2xl">
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
-                  The Story
+                  {project.storyAndIntent ? "Story & Intent" : "The Story"}
                 </h2>
                 <p className="text-lg sm:text-xl text-white/60 leading-relaxed">
-                  {project.description}
+                  {project.storyAndIntent ?? project.description}
                 </p>
               </FadeIn>
             </div>
@@ -315,41 +356,69 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </section>
         )}
 
-        {/* ━━━ SECTION 4: Project Details — Case Study Info (DARK) ━━━ */}
+        {/* ━━━ SECTION 4: Creative & Production Approach (DARK) ━━━
+            Brandi renames this section's heading from 'Project Details'
+            to 'Creative & Production Approach' when she provides the
+            new multi-paragraph body copy. The right column renames
+            'Approach' to 'IMPACT' and accepts custom Services /
+            Deliverables / Impact strings or paragraphs. */}
         <section className="py-20 sm:py-32 bg-dark border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
               <FadeIn>
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
-                  Project Details
+                  {project.creativeAndProductionApproach
+                    ? "Creative & Production Approach"
+                    : "Project Details"}
                 </h2>
-                <p className="text-lg text-white/60 leading-relaxed">
-                  This campaign was a collaborative effort between our full creative team and {project.client}.
-                  From concept development through final delivery, every element was carefully crafted to
-                  align with the brand&rsquo;s vision and objectives. The result is a cohesive body of work
-                  that showcases both creative excellence and strategic thinking.
-                </p>
+                {project.creativeAndProductionApproach ? (
+                  <div className="space-y-5 text-lg text-white/65 leading-relaxed">
+                    {project.creativeAndProductionApproach.map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-lg text-white/60 leading-relaxed">
+                    This campaign was a collaborative effort between our full creative team and {project.client}.
+                    From concept development through final delivery, every element was carefully crafted to
+                    align with the brand&rsquo;s vision and objectives. The result is a cohesive body of work
+                    that showcases both creative excellence and strategic thinking.
+                  </p>
+                )}
               </FadeIn>
               <FadeIn delay={0.15}>
                 <div className="space-y-8 lg:pt-8">
                   <div>
                     <span className="text-xs font-medium tracking-widest text-white/40 uppercase">Services</span>
-                    <p className="font-display text-lg text-white mt-2">{project.categories.join(" / ")}</p>
+                    <p className="font-display text-lg text-white mt-2">
+                      {project.servicesLabel ?? project.categories.join(" / ")}
+                    </p>
                   </div>
                   <div className="h-px bg-white/10" />
                   <div>
                     <span className="text-xs font-medium tracking-widest text-white/40 uppercase">Deliverables</span>
                     <p className="font-display text-lg text-white mt-2">
-                      {allMedia.filter((g) => g.type === "image").length} Photos, {allMedia.filter((g) => g.type === "video").length} Videos
+                      {project.deliverablesLabel ??
+                        `${allMedia.filter((g) => g.type === "image").length} Photos, ${allMedia.filter((g) => g.type === "video").length} Videos`}
                     </p>
                   </div>
                   <div className="h-px bg-white/10" />
                   <div>
-                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">Approach</span>
-                    <p className="text-base text-white/60 mt-2 leading-relaxed">
-                      Full-service production including creative direction, photography, videography,
-                      styling, and post-production. Shot on location and in studio.
-                    </p>
+                    <span className="text-xs font-medium tracking-widest text-white/40 uppercase">
+                      {project.impact ? "Impact" : "Approach"}
+                    </span>
+                    {project.impact ? (
+                      <div className="space-y-3 mt-2 text-base text-white/65 leading-relaxed">
+                        {project.impact.map((para, i) => (
+                          <p key={i}>{para}</p>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-base text-white/60 mt-2 leading-relaxed">
+                        Full-service production including creative direction, photography, videography,
+                        styling, and post-production. Shot on location and in studio.
+                      </p>
+                    )}
                   </div>
                 </div>
               </FadeIn>
@@ -357,11 +426,60 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </div>
         </section>
 
-        {/* ━━━ SECTION 5: First Media Grid (DARK) ━━━ */}
-        {firstHalf.length > 0 && (
+        {/* ━━━ SECTION 5: Main Campaign Gallery (DARK) ━━━
+            For campaigns with btsVideosOnly = true (e.g., Deutsch) this
+            contains every image. For the older campaigns this is just
+            the first half of the gallery, with the second half rendered
+            below as 'Behind the Scenes'. */}
+        {mainGalleryItems.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={firstHalf} sectionTitle="The Campaign" onImageClick={openLightboxAt} />
+              <CreativeGrid items={mainGalleryItems} sectionTitle="The Campaign" onImageClick={openLightboxAt} />
+            </div>
+          </section>
+        )}
+
+        {/* ━━━ SECTION 5b: Magazine Spread (DARK) — Deutsch only ━━━
+            Brandi's 5/7/26 note for Deutsch: 'find a place to show off
+            the 8pg spread (PDF) that they can scroll through'. Rendered
+            as an inline iframe so the user can flip through pages
+            without leaving the campaign page; a download link is shown
+            below for mobile browsers that prompt instead of embed. */}
+        {project.magazineSpread && (
+          <section className="py-16 sm:py-24 bg-dark border-t border-white/10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
+              <FadeIn>
+                <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-3">
+                  Editorial Feature · {project.magazineSpread.pages}-Page Spread
+                </p>
+                <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-6">
+                  {project.magazineSpread.title}
+                </h3>
+                <p className="text-base sm:text-lg text-white/65 leading-relaxed max-w-3xl mb-10">
+                  {project.magazineSpread.note}
+                </p>
+                <div
+                  className="relative w-full overflow-hidden bg-black/40 ring-1 ring-inset ring-white/10"
+                  style={{ height: "min(85vh, 1100px)" }}
+                >
+                  <iframe
+                    src={`${project.magazineSpread.src}#toolbar=0&navpanes=0&view=FitH`}
+                    className="absolute inset-0 w-full h-full"
+                    title={project.magazineSpread.title}
+                    loading="lazy"
+                  />
+                </div>
+                <p className="text-xs sm:text-sm text-white/45 mt-4 text-center">
+                  <a
+                    href={project.magazineSpread.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white/80 underline underline-offset-4 transition-colors"
+                  >
+                    Open the full spread in a new window →
+                  </a>
+                </p>
+              </FadeIn>
             </div>
           </section>
         )}
@@ -410,15 +528,15 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </div>
         </section>
 
-        {/* ━━━ SECTION 6: Second Media Grid (DARK) — Behind the Scenes ━━━
-            Switched from VideoRowMasonry (fixed-column CSS Grid) to
-            CreativeGrid (CSS columns masonry) so mixed aspect ratios
-            (portrait images + 16:9 videos) pack tightly with no empty
-            black space below shorter cells. */}
-        {secondHalf.length > 0 && (
+        {/* ━━━ SECTION 6: Behind the Scenes (DARK) ━━━
+            For campaigns with btsVideosOnly = true (Deutsch) this only
+            renders the BTS video(s). For older campaigns it renders the
+            second half of the gallery (mixed photos + videos), packed
+            with CSS-columns masonry. */}
+        {btsItems.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={secondHalf} sectionTitle="Behind the Scenes" onImageClick={openLightboxAt} />
+              <CreativeGrid items={btsItems} sectionTitle="Behind the Scenes" onImageClick={openLightboxAt} />
             </div>
           </section>
         )}
