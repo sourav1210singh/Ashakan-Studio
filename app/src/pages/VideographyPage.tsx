@@ -108,6 +108,33 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
               <p className="text-xs font-semibold tracking-[0.3em] text-white/40 uppercase mt-6">
                 {videos.length} {videos.length === 1 ? "Video" : "Videos"}
               </p>
+
+              {/* EXPLORE pills — shown only on the all-videography view,
+                  let visitors jump directly to a sub-category page per
+                  Brandi's page-21/22 review note. Hidden on the category
+                  pages themselves (where they'd be redundant). */}
+              {!isCategory && (
+                <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                  <span className="text-xs font-semibold tracking-[0.3em] text-white/45 uppercase">
+                    Explore
+                  </span>
+                  {[
+                    { label: "RETAIL", slug: "retail" },
+                    { label: "THE ARTS", slug: "the-arts" },
+                    { label: "INDUSTRIAL", slug: "industrial" },
+                    { label: "DOCUMENTARY", slug: "documentary" },
+                    { label: "NARRATIVE", slug: "narrative" },
+                  ].map((cat) => (
+                    <button
+                      key={cat.slug}
+                      onClick={() => onNavigate("videography", cat.slug)}
+                      className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-4 sm:px-5 py-2 sm:py-2.5 transition-colors duration-300"
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </FadeIn>
           </div>
         </section>

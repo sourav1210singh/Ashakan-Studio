@@ -197,6 +197,32 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                   {pageDescription}
                 </p>
               )}
+
+              {/* EXPLORE pills — shown only on the all-photography view,
+                  let visitors jump directly to a sub-category page per
+                  Brandi's page-19/20 review note. Hidden on the category
+                  pages themselves (where they'd be redundant). */}
+              {!isCategory && (
+                <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
+                  <span className="text-xs font-semibold tracking-[0.3em] text-white/45 uppercase">
+                    Explore
+                  </span>
+                  {[
+                    { label: "RETAIL", slug: "retail" },
+                    { label: "THE ARTS", slug: "the-arts" },
+                    { label: "FASHION", slug: "fashion" },
+                    { label: "INDUSTRIAL", slug: "industrial" },
+                  ].map((cat) => (
+                    <button
+                      key={cat.slug}
+                      onClick={() => onNavigate("photography", cat.slug)}
+                      className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-4 sm:px-5 py-2 sm:py-2.5 transition-colors duration-300"
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </FadeIn>
           </div>
         </section>
