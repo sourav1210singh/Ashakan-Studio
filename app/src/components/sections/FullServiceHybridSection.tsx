@@ -71,10 +71,6 @@ export function FullServiceHybridSection() {
 
       {/* ── Centered content ── */}
       <div className="relative z-10 max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-10 py-20 sm:py-28 text-center">
-        <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-white/55 uppercase mb-5">
-          Our Disciplines / 03
-        </p>
-
         <h2 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-[105px] xl:text-[132px] text-white tracking-tight leading-[0.9] mb-6 sm:mb-8">
           FULL-SERVICE
           <br />
