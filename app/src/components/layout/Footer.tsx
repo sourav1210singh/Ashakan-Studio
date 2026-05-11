@@ -47,10 +47,10 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 info@ashkanstudios.com
               </a>
               <a
-                href="tel:+17135551234"
+                href="tel:+13463357973"
                 className="block text-base sm:text-lg font-medium hover:text-warmbeige transition-colors"
               >
-                +1 (713) 555-1234
+                (346) 335-7973
               </a>
             </div>
           </FadeIn>
@@ -78,12 +78,12 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 FIND US
               </p>
               <a
-                href="https://maps.google.com/?q=1502+Sawyer+St+%23908,+Houston,+TX+77007"
+                href="https://maps.google.com/?q=1502+Sawyer+St+%23108,+Houston,+TX+77007"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm sm:text-base text-white/80 hover:text-white transition-colors leading-relaxed"
               >
-                1502 Sawyer St #908
+                1502 Sawyer St #108
                 <br />
                 Houston, TX 77007
               </a>
@@ -97,7 +97,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         <div className="pt-6 border-t border-white/10 mb-6">
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
             <button onClick={() => handleNavClick("home")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">HOME</button>
-            <button onClick={() => handleNavClick("work")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">WORK</button>
+            <button onClick={() => handleNavClick("campaigns")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CAMPAIGNS</button>
             <button onClick={() => handleNavClick("services")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">WHAT WE DO</button>
             <button onClick={() => handleNavClick("studio")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">THE STUDIO</button>
             <button onClick={() => handleNavClick("contact")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CONTACT</button>

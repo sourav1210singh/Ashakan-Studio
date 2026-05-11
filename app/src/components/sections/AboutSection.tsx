@@ -110,7 +110,7 @@ export function AboutSection() {
                   style={{ transform: `translateY(${imageY}%)` }}
                 >
                   <img
-                    src="/images/sections/studio.jpg"
+                    src="/images/sections/studio-2026.jpg"
                     alt="Ashkan Studios"
                     className="w-full h-[120%] object-cover"
                   />
