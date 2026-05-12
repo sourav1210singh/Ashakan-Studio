@@ -599,40 +599,92 @@ export const projects: Project[] = [
     client: "THE EYE GALLERY",
     title: "Eyewear That Makes a Statement",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    heroImage: "/images/portfolio/eye-gallery.jpg",
+    /* Hero swapped per Brandi's 5/7/26 note ('Obviously this needs to
+       change to photo from gallery, horizontal'). eye-gallery-04 is the
+       Q3 Scale best-frame landscape — wide editorial, brand-energetic. */
+    heroImage: "/images/campaigns/eye-gallery/eye-gallery-04.jpg",
     description:
-      "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns — from in-store ads and seasonal Sunglass Sale spots to scale-driven SASS reels and the Jacques Marie Mage trunk show — captured each unique frame with bold, editorial visuals. 1-2 more videos coming from Brandi.",
+      "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns — from in-store ads and seasonal Sunglass Sale spots to scale-driven SASS reels and the Jacques Marie Mage trunk show — captured each unique frame with bold, editorial visuals.",
+
+    /* ── Brandi's 5/7/26 review-notes copy for Eye Gallery ───────────
+       PDF pages 45-51. Story & Intent + Creative & Production Approach
+       + IMPACT all verbatim from Brandi. */
+    storyAndIntent:
+      "The Eye Gallery is a curated optical boutique in Houston blending fashion, vision, and personal style into a luxury retail experience. Since 2018, we have been a long-term creative partner producing photography, videography, and ongoing marketing support across campaigns, sales, and brand development. Our work includes continuous content production across studio, in-store, and lifestyle settings, extended into social media, digital ads, email, print, SEO, and blog content. The partnership spans editorial, fashion, and documentary approaches — centered on eyewear as both product and expression — built on long-term trust and consistency within the luxury eyewear community.",
+    creativeAndProductionApproach: [
+      "Production operates on a quarterly cadence with full-day shoots supported by monthly content sessions as needed for new arrivals, promotions, and in-store moments. Work is produced across studio setups and on-location at The Eye Gallery, allowing for a mix of controlled editorial imagery and real-time retail storytelling.",
+      "Each production is intentionally lean, typically supported by a small crew alongside in-store staff, with models and HMUA brought in as needed. This flexible structure allows for both planned campaign execution and on-the-spot content creation tied to new product drops and seasonal priorities.",
+      "Performance insights from quarterly reporting across social, ads, and website analytics directly inform future creative direction, ensuring the content remains both visually consistent and strategically responsive to audience engagement.",
+    ],
+    impact: [
+      "Ongoing analytics reflect a consistent increase in social engagement across both organic content and paid advertising, supported by a steady improvement in overall digital visibility. The content has helped maintain a strong connection with The Eye Gallery's audience while expanding brand awareness across Houston's luxury community.",
+      "Customer feedback frequently references the strength and enjoyment of the visual content, reinforcing its role in shaping perception and engagement. In addition to local impact, targeted regional advertising has also contributed to select out-of-state reach and sales, extending the brand's presence beyond the Houston market.",
+    ],
+    servicesLabel: "PHOTOGRAPHY / VIDEOGRAPHY / EMAIL & SOCIAL / WEB / DESIGN",
+    deliverablesLabel:
+      "BRANDED PHOTOS/VIDEOS, SOCIAL MEDIA REELS, DIGITAL ADS LOOKBOOKS, SEO/BLOG CONTENT, PRINT, EMAIL",
+    /* Featured spot — horizontal photo (not video) per Brandi's
+       'Obviously this needs to change to photo from gallery, horizontal'.
+       eye-gallery-15 is the April '26 JMM acetate alt — clean product hero. */
+    featuredImage: "/images/campaigns/eye-gallery/eye-gallery-15.jpg",
+    /* Brandi: 'Hide this section for now, we will create a new single
+       video compilation of behind the scene footage for this purpose'.
+       All photos AND videos render in the main gallery. */
+    hideBts: true,
+    /* Custom quote — pulled from Brandi's new Story & Intent copy. */
+    quote: {
+      text: "The partnership spans editorial, fashion, and documentary approaches — centered on eyewear as both product and expression.",
+      attribution: "Ashkan Studios — The Eye Gallery Partnership",
+    },
+
     /* Videos from Brandi's catalog (2026-05-05).
-       Imagery delivered by Brandi 2026-05-07 (19 photos in /images/campaigns/eye-gallery/).
-       Distributed in clusters between the 10 videos for masonry rhythm. */
+       Photos delivered in pre-numbered source order (001, 002, 002a,
+       003, 004, 005, 006, 007, 007a, 008, 009, 010, 011, 012, 013,
+       014, 014b, 015, 016) — Brandi's exact sequence preserved here.
+
+       Brandi's 5/7/26 note: 'PLEASE make sure the gallery looks even
+       in style, no two styles of imagery or video next to one another,
+       the photos have been put in a specific order'. Pattern is
+       img-img-vid (3-item groups), keeping videos spread evenly with
+       no two adjacent and respecting Brandi's photo sequence. */
     gallery: [
+      /* 001 + 002 → Mix Reel intro */
       { src: "/images/campaigns/eye-gallery/eye-gallery-01.jpg", alt: "Eye Gallery — Aug 2025 cover styling", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-02.jpg", alt: "Eye Gallery — April '26 JMM acetate", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "The Eye Gallery Mix Reel 001", type: "video", vimeoId: "1002121348", aspectRatio: "landscape" },
+      /* 002a + 003 → Summer 2025 Campaign */
       { src: "/images/campaigns/eye-gallery/eye-gallery-03.jpg", alt: "Eye Gallery — Tina + Fikri design feature", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-04.jpg", alt: "Eye Gallery — Q3 Scale best frame", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery — Summer 2025 Campaign Ad H", type: "video", vimeoId: "1145748255", aspectRatio: "landscape" },
+      /* 004 + 005 → Summer Sunglass Sale */
       { src: "/images/campaigns/eye-gallery/eye-gallery-05.jpg", alt: "Eye Gallery — Q3 Doggy month best", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-06.jpg", alt: "Eye Gallery — Q1 Valentines featured", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery Summer Sunglass Sale Ad H", type: "video", vimeoId: "1189130989", vimeoHash: "3148f2df70", aspectRatio: "landscape" },
+      /* 006 + 007 → In-Store Ad */
       { src: "/images/campaigns/eye-gallery/eye-gallery-07.jpg", alt: "Eye Gallery — Q1 April topless edit", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-08.jpg", alt: "Eye Gallery — editorial detail", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery In-Store Ad 001 H", type: "video", vimeoId: "1189138937", vimeoHash: "9d970d79b7", aspectRatio: "landscape" },
+      /* 007a + 008 → JMM Trunk Show */
       { src: "/images/campaigns/eye-gallery/eye-gallery-09.jpg", alt: "Eye Gallery — Tina + Fikri trunk piece", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-10.jpg", alt: "Eye Gallery — Q1 Valentines pair", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery Jacques Marie Mage Trunk Show Store Ad H", type: "video", vimeoId: "1189140629", vimeoHash: "294990893e", aspectRatio: "landscape" },
+      /* 009 + 010 → Dog Month Campaign */
       { src: "/images/campaigns/eye-gallery/eye-gallery-11.jpg", alt: "Eye Gallery — moody close-up", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-12.jpg", alt: "Eye Gallery — Q1 April topless edit alt", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery Dog Month Campaign", type: "video", vimeoId: "1189130986", vimeoHash: "c229954ac0", aspectRatio: "landscape" },
+      /* 011 + 012 → In-store Service & Care Reel */
       { src: "/images/campaigns/eye-gallery/eye-gallery-13.jpg", alt: "Eye Gallery — Q3 Juicy collection", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-14.jpg", alt: "Eye Gallery — Q3 Scale square", type: "image", aspectRatio: "square" },
       { src: "", alt: "The Eye Gallery In-store Service & Care Reel", type: "video", vimeoId: "1189131472", vimeoHash: "42147d4bc3", aspectRatio: "landscape" },
+      /* 013 + 014 → Scale SASS 001 */
       { src: "/images/campaigns/eye-gallery/eye-gallery-15.jpg", alt: "Eye Gallery — April '26 JMM acetate alt", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-16.jpg", alt: "Eye Gallery — Tina + Fikri lineup", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "The Eye Gallery Scale SASS 001 Reel", type: "video", vimeoId: "1189131771", vimeoHash: "49584fc6ca", aspectRatio: "landscape" },
+      /* 014b + 015 → Scale Oversized SASS 002 */
       { src: "/images/campaigns/eye-gallery/eye-gallery-17.jpg", alt: "Eye Gallery — Aug 2025 alternate", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-18.jpg", alt: "Eye Gallery — Q3 Juicy square", type: "image", aspectRatio: "square" },
       { src: "", alt: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel", type: "video", vimeoId: "1189131500", vimeoHash: "f87548f64b", aspectRatio: "landscape" },
+      /* 016 → Scale SASS 003 closer */
       { src: "/images/campaigns/eye-gallery/eye-gallery-19.jpg", alt: "Eye Gallery — Q3 Scale best alt frame", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery Scale SASS 003 Reel", type: "video", vimeoId: "1189130987", vimeoHash: "6d5b53a3d1", aspectRatio: "landscape" },
     ],
