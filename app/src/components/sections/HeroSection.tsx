@@ -390,19 +390,21 @@ export function HeroSection() {
         }}
       >
         <div className="text-center">
-          {/* ───── LINE 1: [dancer] WE CREATE — shifted slightly left ───── */}
+          {/* ───── LINE 1: [vitacca-pro-868] WE CREATE [isabella-decandido-22138] ─────
+              User-directed swap (2026-05-12): replace the old cameraman cutout
+              left of WE with the Vitacca Pro-868 dancer, and add an Isabella
+              DeCandido portrait to the right of CREATE. */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.3s forwards",
               y: line1Lift,
-              transform: "translateX(-5%)",
             }}
           >
             <InlineCutout
-              src="/images/hero/cutouts/vitacca-dancer.png"
-              alt="Vitacca dance cutout"
+              src="/images/hero/cutouts/vitacca-pro-868.png"
+              alt="Vitacca Pro dancer cutout"
               className="hidden md:inline-block"
               width="clamp(100px, 11.5vw, 180px)"
               height="clamp(80px, 9.5vw, 145px)"
@@ -436,6 +438,19 @@ export function HeroSection() {
                 WE CREATE
               </span>
             </MagneticWord>
+            <InlineCutout
+              src="/images/hero/cutouts/isabella-decandido-22138.png"
+              alt="Isabella DeCandido portrait cutout"
+              className="hidden md:inline-block"
+              width="clamp(70px, 8vw, 125px)"
+              height="clamp(90px, 10.5vw, 160px)"
+              driftName="driftC"
+              enterDelay={0.85}
+              style={{ marginLeft: "12px", marginTop: "-25px", top: "4px" }}
+              mouseX={mouseX}
+              mouseY={mouseY}
+              floatStrength={20}
+            />
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ───── */}
@@ -470,9 +485,12 @@ export function HeroSection() {
                 VISUAL
               </span>
             </MagneticWord>
+            {/* User-directed swap (2026-05-12): the car between VISUAL and
+                STORIES is replaced with the 8Q1A1315 cutout. The Ferrari
+                moves to line 3 (left of THAT) per the same brief. */}
             <InlineCutout
-              src="/images/hero/cutouts/ferrari-296gtb.png"
-              alt="Ferrari 296GTB cutout"
+              src="/images/hero/cutouts/cutout-8Q1A1315.png"
+              alt="Editorial product cutout"
               className="hidden md:inline-block"
               width="clamp(88px, 9.5vw, 145px)"
               height="clamp(125px, 15vw, 230px)"
@@ -506,7 +524,10 @@ export function HeroSection() {
             </MagneticWord>
           </motion.div>
 
-          {/* ───── LINE 3: THAT INSPIRE [portrait] ───── */}
+          {/* ───── LINE 3: [car-296gtb-121] THAT INSPIRE [deutsch-brandi-615] ─────
+              User-directed swap (2026-05-12): add the Ferrari 296GTB to the
+              left of THAT (moved here from line 2) and replace the previous
+              portrait right of INSPIRE with the Deutsch Brandi-615 portrait. */}
           <motion.div
             style={{
               opacity: 0,
@@ -514,6 +535,19 @@ export function HeroSection() {
               y: line3Lift,
             }}
           >
+            <InlineCutout
+              src="/images/hero/cutouts/car-296gtb-121.png"
+              alt="Ferrari 296GTB cutout"
+              className="hidden md:inline-block"
+              width="clamp(95px, 10.5vw, 165px)"
+              height="clamp(70px, 8vw, 125px)"
+              driftName="driftA"
+              enterDelay={1.3}
+              style={{ marginRight: "14px", marginTop: "-15px", top: "8px" }}
+              mouseX={mouseX}
+              mouseY={mouseY}
+              floatStrength={26}
+            />
             {/* THAT — Inter (font-sans), no video-in-text. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
@@ -560,11 +594,11 @@ export function HeroSection() {
               </span>
             </MagneticWord>
             <InlineCutout
-              src="/images/hero/cutouts/isabella-decandido.png"
-              alt="Isabella DeCandido portrait cutout"
+              src="/images/hero/cutouts/deutsch-brandi-615.png"
+              alt="Deutsch Brandi portrait cutout"
               className="hidden md:inline-block"
-              width="clamp(65px, 7.5vw, 115px)"
-              height="clamp(80px, 9.5vw, 145px)"
+              width="clamp(70px, 8vw, 125px)"
+              height="clamp(90px, 10.5vw, 160px)"
               driftName="driftC"
               enterDelay={1.5}
               style={{ marginLeft: "20px", marginTop: "-25px", top: "-2px" }}
