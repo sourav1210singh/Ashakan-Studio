@@ -481,18 +481,19 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12 (fourth pass): user said the
-              gap between WE CREATE and VISUAL STORIES STILL felt
-              too tall — requested another ~60% reduction. marginTop
-              pulled from -50px → -80px so this gap shrinks dramatically.
-              Line 3 below received a milder ~20% reduction (-70 → -78). */}
+              Position nudge 2026-05-12 (fifth pass): user said the
+              gap is STILL too tall and wants the lines tight against
+              each other. marginTop pulled aggressively from -80px →
+              -130px (~50px more negative) so line 2 sits right
+              against line 1 — the only remaining separation is the
+              intrinsic line-height of the text. */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-80px",
+              marginTop: "-130px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
