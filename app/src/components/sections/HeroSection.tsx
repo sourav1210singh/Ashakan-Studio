@@ -416,12 +416,15 @@ export function HeroSection() {
               floatStrength={22}
             />
             {/* WE CREATE — Inter (font-sans), no video-in-text per
-                Brandi's 5/7/26 notes ('we, create, that' use Inter) */}
+                Brandi's 5/7/26 notes ('we, create, that' use Inter).
+                letterSpacing tightened 40% (0.02em → 0.012em) per
+                user request 2026-05-12 to close the gaps between
+                letters in the Inter-font words. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 300,
-                letterSpacing: "0.02em",
+                letterSpacing: "0.012em",
                 lineHeight: 0.9,
               }}
               strength={0.2}
@@ -430,7 +433,7 @@ export function HeroSection() {
                 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
                   fontWeight: 300,
-                  letterSpacing: "0.02em",
+                  letterSpacing: "0.012em",
                   lineHeight: 0.9,
                   color: "#1A1A1A",
                 }}
@@ -548,12 +551,15 @@ export function HeroSection() {
               mouseY={mouseY}
               floatStrength={26}
             />
-            {/* THAT — Inter (font-sans), no video-in-text. */}
+            {/* THAT — Inter (font-sans), no video-in-text.
+                letterSpacing tightened 40% (0.02em → 0.012em) per
+                user request 2026-05-12, matching the WE CREATE
+                treatment on line 1. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 300,
-                letterSpacing: "0.02em",
+                letterSpacing: "0.012em",
                 lineHeight: 0.9,
                 marginRight: "0.45em",
               }}
@@ -563,7 +569,7 @@ export function HeroSection() {
                 className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
                 style={{
                   fontWeight: 300,
-                  letterSpacing: "0.02em",
+                  letterSpacing: "0.012em",
                   lineHeight: 0.9,
                   color: "#1A1A1A",
                 }}
