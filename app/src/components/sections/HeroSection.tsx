@@ -470,19 +470,18 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12 (third pass): user said the
-              gap between WE CREATE and VISUAL STORIES still felt
-              too tall — marginTop tightened a further ~30% from
-              -35px → -50px so the lines pull noticeably closer.
-              Line 3 received an even larger nudge below (its gap
-              was flagged for a 50% reduction). */}
+              Position nudge 2026-05-12 (fourth pass): user said the
+              gap between WE CREATE and VISUAL STORIES STILL felt
+              too tall — requested another ~60% reduction. marginTop
+              pulled from -50px → -80px so this gap shrinks dramatically.
+              Line 3 below received a milder ~20% reduction (-70 → -78). */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-50px",
+              marginTop: "-80px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
@@ -563,17 +562,15 @@ export function HeroSection() {
               left of THAT (moved here from line 2) and replace the previous
               portrait right of INSPIRE with the Deutsch Brandi-615 portrait.
 
-              Position nudge 2026-05-12 (third pass): user flagged
-              the VISUAL STORIES → THAT INSPIRE gap as the largest
-              of the two — requested a 50% reduction. marginTop
-              pushed from -35px → -70px so this gap is now visibly
-              tighter than the line 1 → line 2 gap above. */}
+              Position nudge 2026-05-12 (fourth pass): user asked
+              for a milder ~20% reduction on the VISUAL STORIES →
+              THAT INSPIRE gap. marginTop pushed -70px → -78px. */}
           <motion.div
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
               y: line3Lift,
-              marginTop: "-70px",
+              marginTop: "-78px",
             }}
           >
             <InlineCutout
