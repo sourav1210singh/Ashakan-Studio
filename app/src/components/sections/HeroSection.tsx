@@ -467,13 +467,11 @@ export function HeroSection() {
               height="clamp(140px, 16vw, 252px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position 2026-05-12 (fifth pass): user asked for a
-                 small left + down nudge on ONLY this cutout.
-                 marginLeft -60 → -80 pulls Isabella ~20px further
-                 left; top: 0 → 20px drops her ~20px down (uses
-                 relative positioning so the layout flow of line 1
-                 is untouched and the rest of the hero stays put). */
-              style={{ marginLeft: "-80px", marginTop: "-80px", top: "20px" }}
+              /* Position 2026-05-12 (sixth pass): another small
+                 left + down nudge on ONLY this cutout.
+                 marginLeft -80 → -100 (~20px more left);
+                 top 20 → 40 (~20px more down). */
+              style={{ marginLeft: "-100px", marginTop: "-80px", top: "40px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
