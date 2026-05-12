@@ -467,13 +467,13 @@ export function HeroSection() {
               height="clamp(140px, 16vw, 252px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position 2026-05-12 (fourth pass): user still sees
-                 a horizontal gap between CREATE and this cutout —
-                 likely transparent padding on the left edge of the
-                 source PNG. Pulled the cutout further left with
-                 marginLeft: 0 → -60px so the visible figure sits
-                 tight against CREATE. */
-              style={{ marginLeft: "-60px", marginTop: "-80px", top: "0" }}
+              /* Position 2026-05-12 (fifth pass): user asked for a
+                 small left + down nudge on ONLY this cutout.
+                 marginLeft -60 → -80 pulls Isabella ~20px further
+                 left; top: 0 → 20px drops her ~20px down (uses
+                 relative positioning so the layout flow of line 1
+                 is untouched and the rest of the hero stays put). */
+              style={{ marginLeft: "-80px", marginTop: "-80px", top: "20px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
