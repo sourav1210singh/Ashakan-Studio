@@ -650,13 +650,23 @@ export function HeroSection() {
               height="clamp(140px, 16.2vw, 250px)"
               driftName="driftC"
               enterDelay={1.5}
-              /* Position nudge 2026-05-12 (second pass): only this
-                 cutout moves further down — user explicitly asked
-                 that line 3 (THAT INSPIRE) and the 4th cutout stay
-                 put. Changed only `top` (relative positioning on
-                 the cutout's own box) so the layout flow of the
-                 line is unaffected: 15px → 35px. */
-              style={{ marginLeft: "20px", marginTop: "-10px", top: "35px" }}
+              /* Position 2026-05-12 (third pass): user asked this
+                 cutout to sit at the VERTICAL CENTER of the INSPIRE
+                 text rather than hanging off the baseline. Switched
+                 from the default `align-bottom` behaviour to
+                 verticalAlign: "middle" via inline style (overrides
+                 the InlineCutout component's hardcoded class).
+                 Reset `top` and `marginTop` so vertical-align:middle
+                 alone drives the placement — no extra offsets fighting
+                 the alignment. Horizontal spacing (marginLeft 20px)
+                 unchanged. Layout flow untouched, so line 3 text and
+                 the 4th cutout stay exactly where they are. */
+              style={{
+                marginLeft: "20px",
+                marginTop: 0,
+                top: 0,
+                verticalAlign: "middle",
+              }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
