@@ -411,10 +411,14 @@ export function HeroSection() {
               height="clamp(104px, 12.5vw, 189px)"
               driftName="driftA"
               enterDelay={0.6}
-              /* Position nudge 2026-05-12 (second pass): pulled
-                 further up + right per user feedback that it still
-                 sat too far left. marginRight -30 → -55, top -10 → -25. */
-              style={{ marginRight: "-55px", marginTop: "-25px", top: "-25px" }}
+              /* Position 2026-05-12 (page-6-reference pass): Brandi's
+                 design shows the Vitacca dancer floating ABOVE the
+                 WE CREATE line with the body high and the arm/leg
+                 extending down through the WE letters. marginTop is
+                 now -100px so the cutout hangs well above the line,
+                 and marginRight is -90px so the dancer overlaps the
+                 left side of WE rather than sitting beside it. */
+              style={{ marginRight: "-90px", marginTop: "-100px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={22}
@@ -455,14 +459,23 @@ export function HeroSection() {
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
               className="hidden md:inline-block"
-              /* +30% on every clamp value */
-              width="clamp(91px, 10.5vw, 163px)"
-              height="clamp(117px, 13.5vw, 208px)"
+              /* Page-6-reference pass 2026-05-12: in Brandi's design
+                 this is the TALLEST cutout — Isabella's head sits
+                 above WE CREATE and her dress flows down past the
+                 line toward the VISUAL STORIES level. Width grown
+                 ~35% and height grown ~73% so the figure can span
+                 roughly two text-line heights. */
+              width="clamp(120px, 14vw, 220px)"
+              height="clamp(200px, 23vw, 360px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position nudge 2026-05-12 (second pass): pulled
-                 further left per user feedback. marginLeft -10 → -30. */
-              style={{ marginLeft: "-30px", marginTop: "-25px", top: "4px" }}
+              /* Position 2026-05-12 (page-6-reference pass):
+                 marginTop -110px lifts the head above WE CREATE;
+                 marginLeft -50px overlaps slightly with the end
+                 of CREATE so the figure sits in the top-right of
+                 the composition, dress flowing down into the
+                 line-1/line-2 gap. */
+              style={{ marginLeft: "-50px", marginTop: "-110px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
@@ -582,9 +595,15 @@ export function HeroSection() {
               height="clamp(91px, 10.5vw, 163px)"
               driftName="driftA"
               enterDelay={1.3}
-              /* Position nudge 2026-05-12 (second pass): pulled
-                 further right per user feedback. marginRight -10 → -30. */
-              style={{ marginRight: "-30px", marginTop: "-15px", top: "8px" }}
+              /* Position 2026-05-12 (page-6-reference pass): Brandi's
+                 design floats the Ferrari in the GAP between VISUAL
+                 STORIES and THAT INSPIRE rather than inline beside
+                 THAT. marginTop is now -130px so the car hangs well
+                 above the line; marginRight -50px lets it sit
+                 slightly closer to / overlapping THAT. The car
+                 effectively reads as a third visual band between
+                 the two text lines. */
+              style={{ marginRight: "-50px", marginTop: "-130px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={26}
