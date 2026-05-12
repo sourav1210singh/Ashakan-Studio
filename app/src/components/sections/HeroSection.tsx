@@ -616,7 +616,15 @@ export function HeroSection() {
                 Right margin reduced 40% (0.45em → 0.27em), then
                 another 40% on top (0.27em → 0.16em) on the same
                 day per repeat user request — THAT now sits very
-                close to INSPIRE. */}
+                close to INSPIRE.
+
+                position: relative + top: 18px added 2026-05-12 so
+                ONLY the text drops down on line 3. The Ferrari
+                cutout to the left and Oyster cutout to the right
+                stay in their current positions — they're siblings
+                in the same inline-block row but don't get the
+                offset because the top property is scoped to the
+                MagneticWord span. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
@@ -624,6 +632,8 @@ export function HeroSection() {
                 letterSpacing: "0.012em",
                 lineHeight: 0.9,
                 marginRight: "0.16em",
+                position: "relative",
+                top: "18px",
               }}
               strength={0.2}
             >
@@ -641,13 +651,19 @@ export function HeroSection() {
                 THAT
               </span>
             </MagneticWord>
-            {/* INSPIRE — kept in display font, no video. */}
+            {/* INSPIRE — kept in display font, no video.
+                position: relative + top: 18px added 2026-05-12 to
+                match THAT — drops the text down without moving the
+                Ferrari (left of THAT) or Oyster (right of INSPIRE)
+                cutouts. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
+                position: "relative",
+                top: "18px",
               }}
               strength={0.2}
             >
