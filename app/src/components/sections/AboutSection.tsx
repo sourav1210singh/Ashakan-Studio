@@ -55,16 +55,10 @@ export function AboutSection() {
               </h2>
             </FadeIn>
 
-            {/* Paragraph 1 */}
-            <FadeIn delay={0.1}>
-              <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-5 sm:mb-6 max-w-lg">
-                Ashkan Studios is the parent company of{" "}
-                <span className="font-semibold text-dark">Ashkan Image</span> and{" "}
-                <span className="font-semibold text-dark">Ashkan Media</span>.
-                We specialize in commercial photography, videography, and
-                creative production.
-              </p>
-            </FadeIn>
+            {/* Paragraph 1 ('Ashkan Studios is the parent company of...')
+                removed 2026-05-12 per user request — the section now
+                opens directly with the 'Every project begins with a
+                story' paragraph below. */}
 
             {/* Paragraph 2 */}
             <FadeIn delay={0.2}>
