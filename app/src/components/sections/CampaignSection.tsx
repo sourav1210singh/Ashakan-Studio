@@ -141,9 +141,7 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
         {/* Header */}
         <div className="flex items-end justify-between mb-12 sm:mb-16 flex-wrap gap-6">
           <div>
-            <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase mb-3">
-              Featured / 01
-            </p>
+            {/* 'Featured / 01' eyebrow removed 2026-05-12 per user request. */}
             <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-dark tracking-tight leading-[0.9]">
               THE CAMPAIGN
             </h2>
