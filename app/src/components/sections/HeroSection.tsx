@@ -481,19 +481,17 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12 (fifth pass): user said the
-              gap is STILL too tall and wants the lines tight against
-              each other. marginTop pulled aggressively from -80px →
-              -130px (~50px more negative) so line 2 sits right
-              against line 1 — the only remaining separation is the
-              intrinsic line-height of the text. */}
+              Position nudge 2026-05-12 (seventh pass — small tweak):
+              user asked for a small additional reduction on top of
+              the fifth-pass value. marginTop -130 → -145 (15px more
+              negative). */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-130px",
+              marginTop: "-145px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
