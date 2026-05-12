@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, MapPin, Play } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { Lightbox } from "@/components/ui/Lightbox";
@@ -108,13 +108,12 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
         {/* ━━━ SECTION 1 — Hero ━━━
             Brandi 5/7/26 (PDF page 65):
             • Add 'DEDICATED CREATIVE STUDIO' subtitle under THE STUDIO H1.
-            • 'Let's replace this photo with a video element, we will need
-              to create a BTS in studio video to place here, put placeholder
-              for now please'. Implementation: keep the studio interior
-              photo for visual continuity and overlay a clear 'BTS Film ·
-              Coming Soon' badge so it reads as a video placeholder. Once
-              Brandi delivers the BTS clip, swap to a Vimeo background
-              embed (the FullServiceHybridSection pattern works well). */}
+            • Hero photo previously overlaid a 'BTS Film · Coming Soon'
+              placeholder (play-button circle + label) while waiting on
+              Brandi's BTS clip. User asked to drop that overlay on
+              2026-05-12, so the hero is now a clean photo + headline.
+              When the BTS clip ships, swap the <img> below for a Vimeo
+              background iframe (see FullServiceHybridSection). */}
         <section className="relative h-[70vh] min-h-[500px] overflow-hidden bg-dark">
           <div className="absolute inset-0">
             <img
@@ -123,19 +122,6 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-dark/55" />
-          </div>
-
-          {/* Placeholder play indicator — dropped automatically once a
-              real BTS video is wired into this section. */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="flex flex-col items-center gap-4 text-white/85">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-white/40 flex items-center justify-center backdrop-blur-sm bg-white/5">
-                <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white ml-1" />
-              </div>
-              <span className="text-[0.7rem] sm:text-xs font-semibold tracking-[0.4em] uppercase text-white/55">
-                BTS Film · Coming Soon
-              </span>
-            </div>
           </div>
 
           <div className="relative z-10 h-full flex items-end pb-16 sm:pb-24">
@@ -178,13 +164,11 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div className="space-y-6">
-                  <p className="text-lg sm:text-xl text-dark/80 leading-relaxed">
-                    Ashkan Studios is the parent company of{" "}
-                    <span className="font-medium text-dark">Ashkan Image</span> and{" "}
-                    <span className="font-medium text-dark">Ashkan Media</span>. We
-                    specialize in commercial photography, videography, and creative
-                    production.
-                  </p>
+                  {/* 'Ashkan Studios is the parent company of Ashkan
+                      Image and Ashkan Media...' paragraph removed
+                      2026-05-12 per user request — column now opens
+                      with the 'Every project begins with a story'
+                      paragraph below. */}
                   <p className="text-lg sm:text-xl text-dark/80 leading-relaxed">
                     Every project at Ashkan Studios begins with a story — yours. We
                     guide it from concept to completion, handling all aspects of
