@@ -626,10 +626,9 @@ export function HeroSection() {
                 Same treatment as WE CREATE on line 1 — letterSpacing
                 0.012em + scaleX(0.7) so Inter glyphs match the
                 horizontal density of the display-font words above.
-                Right margin reduced 40% (0.45em → 0.27em), then
-                another 40% on top (0.27em → 0.16em) on the same
-                day per repeat user request — THAT now sits very
-                close to INSPIRE.
+                Right margin reduced 40% three times in a row per
+                repeat user requests: 0.45em → 0.27em → 0.16em →
+                0.10em. THAT and INSPIRE now sit very tight.
 
                 position: relative + top: 18px added 2026-05-12 so
                 ONLY the text drops down on line 3. The Ferrari
@@ -644,7 +643,7 @@ export function HeroSection() {
                 fontWeight: 300,
                 letterSpacing: "0.012em",
                 lineHeight: 0.9,
-                marginRight: "0.16em",
+                marginRight: "0.10em",
                 position: "relative",
                 top: "18px",
               }}
