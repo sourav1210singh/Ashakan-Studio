@@ -406,8 +406,9 @@ export function HeroSection() {
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
               className="hidden md:inline-block"
-              width="clamp(100px, 11.5vw, 180px)"
-              height="clamp(80px, 9.5vw, 145px)"
+              /* +30% on every clamp value per user request 2026-05-12 */
+              width="clamp(130px, 15vw, 234px)"
+              height="clamp(104px, 12.5vw, 189px)"
               driftName="driftA"
               enterDelay={0.6}
               style={{ marginRight: "-10px", marginTop: "-25px", top: "6px" }}
@@ -417,9 +418,13 @@ export function HeroSection() {
             />
             {/* WE CREATE — Inter (font-sans), no video-in-text per
                 Brandi's 5/7/26 notes ('we, create, that' use Inter).
-                letterSpacing tightened 40% (0.02em → 0.012em) per
-                user request 2026-05-12 to close the gaps between
-                letters in the Inter-font words. */}
+                letterSpacing tightened 40% (0.02em → 0.012em) and
+                each glyph compressed horizontally to 70% via
+                transform: scaleX(0.7) per user request 2026-05-12.
+                Vertical height untouched — only the per-letter
+                horizontal footprint shrinks, so 'W' / 'E' / 'C' etc.
+                now read at roughly the same width as the heavier
+                display-font letters in VISUAL / STORIES / INSPIRE. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
@@ -430,12 +435,14 @@ export function HeroSection() {
               strength={0.2}
             >
               <span
-                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase inline-block"
                 style={{
                   fontWeight: 300,
                   letterSpacing: "0.012em",
                   lineHeight: 0.9,
                   color: "#1A1A1A",
+                  transform: "scaleX(0.7)",
+                  transformOrigin: "center",
                 }}
               >
                 WE CREATE
@@ -445,8 +452,9 @@ export function HeroSection() {
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
               className="hidden md:inline-block"
-              width="clamp(70px, 8vw, 125px)"
-              height="clamp(90px, 10.5vw, 160px)"
+              /* +30% on every clamp value */
+              width="clamp(91px, 10.5vw, 163px)"
+              height="clamp(117px, 13.5vw, 208px)"
               driftName="driftC"
               enterDelay={0.85}
               style={{ marginLeft: "12px", marginTop: "-25px", top: "4px" }}
@@ -495,8 +503,9 @@ export function HeroSection() {
               src="/images/hero/cutouts/cutout-8Q1A1315.png"
               alt="Editorial product cutout"
               className="hidden md:inline-block"
-              width="clamp(88px, 9.5vw, 145px)"
-              height="clamp(125px, 15vw, 230px)"
+              /* +30% on every clamp value */
+              width="clamp(114px, 12.5vw, 189px)"
+              height="clamp(163px, 19.5vw, 299px)"
               driftName="driftB"
               enterDelay={1.1}
               style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "30px" }}
@@ -542,8 +551,9 @@ export function HeroSection() {
               src="/images/hero/cutouts/car-296gtb-121.png"
               alt="Ferrari 296GTB cutout"
               className="hidden md:inline-block"
-              width="clamp(95px, 10.5vw, 165px)"
-              height="clamp(70px, 8vw, 125px)"
+              /* +30% on every clamp value */
+              width="clamp(124px, 13.5vw, 215px)"
+              height="clamp(91px, 10.5vw, 163px)"
               driftName="driftA"
               enterDelay={1.3}
               style={{ marginRight: "14px", marginTop: "-15px", top: "8px" }}
@@ -552,9 +562,9 @@ export function HeroSection() {
               floatStrength={26}
             />
             {/* THAT — Inter (font-sans), no video-in-text.
-                letterSpacing tightened 40% (0.02em → 0.012em) per
-                user request 2026-05-12, matching the WE CREATE
-                treatment on line 1. */}
+                Same treatment as WE CREATE on line 1 — letterSpacing
+                0.012em + scaleX(0.7) so Inter glyphs match the
+                horizontal density of the display-font words above. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
@@ -566,12 +576,14 @@ export function HeroSection() {
               strength={0.2}
             >
               <span
-                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase inline-block"
                 style={{
                   fontWeight: 300,
                   letterSpacing: "0.012em",
                   lineHeight: 0.9,
                   color: "#1A1A1A",
+                  transform: "scaleX(0.7)",
+                  transformOrigin: "center",
                 }}
               >
                 THAT
@@ -603,8 +615,9 @@ export function HeroSection() {
               src="/images/hero/cutouts/deutsch-brandi-615.png"
               alt="Deutsch Brandi portrait cutout"
               className="hidden md:inline-block"
-              width="clamp(70px, 8vw, 125px)"
-              height="clamp(90px, 10.5vw, 160px)"
+              /* +30% on every clamp value */
+              width="clamp(91px, 10.5vw, 163px)"
+              height="clamp(117px, 13.5vw, 208px)"
               driftName="driftC"
               enterDelay={1.5}
               style={{ marginLeft: "20px", marginTop: "-25px", top: "-2px" }}
