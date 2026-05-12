@@ -411,7 +411,8 @@ export function HeroSection() {
               height="clamp(104px, 12.5vw, 189px)"
               driftName="driftA"
               enterDelay={0.6}
-              style={{ marginRight: "-10px", marginTop: "-25px", top: "6px" }}
+              /* Position nudge 2026-05-12: move up + right slightly */
+              style={{ marginRight: "-30px", marginTop: "-25px", top: "-10px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={22}
@@ -457,20 +458,24 @@ export function HeroSection() {
               height="clamp(117px, 13.5vw, 208px)"
               driftName="driftC"
               enterDelay={0.85}
-              style={{ marginLeft: "12px", marginTop: "-25px", top: "4px" }}
+              /* Position nudge 2026-05-12: move slightly left */
+              style={{ marginLeft: "-10px", marginTop: "-25px", top: "4px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
             />
           </motion.div>
 
-          {/* ───── LINE 2: VISUAL [cameraman] STORIES ───── */}
+          {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
+              Position nudge 2026-05-12: line lifted up ~20px via
+              marginTop so it sits closer to the WE CREATE line. */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
+              marginTop: "-20px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
@@ -539,12 +544,15 @@ export function HeroSection() {
           {/* ───── LINE 3: [car-296gtb-121] THAT INSPIRE [deutsch-brandi-615] ─────
               User-directed swap (2026-05-12): add the Ferrari 296GTB to the
               left of THAT (moved here from line 2) and replace the previous
-              portrait right of INSPIRE with the Deutsch Brandi-615 portrait. */}
+              portrait right of INSPIRE with the Deutsch Brandi-615 portrait.
+
+              Position nudge 2026-05-12: line lifted up ~15px via marginTop. */}
           <motion.div
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
               y: line3Lift,
+              marginTop: "-15px",
             }}
           >
             <InlineCutout
@@ -556,7 +564,8 @@ export function HeroSection() {
               height="clamp(91px, 10.5vw, 163px)"
               driftName="driftA"
               enterDelay={1.3}
-              style={{ marginRight: "14px", marginTop: "-15px", top: "8px" }}
+              /* Position nudge 2026-05-12: move slightly right */
+              style={{ marginRight: "-10px", marginTop: "-15px", top: "8px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={26}
@@ -615,12 +624,15 @@ export function HeroSection() {
               src="/images/hero/cutouts/deutsch-brandi-615.png"
               alt="Deutsch Brandi portrait cutout"
               className="hidden md:inline-block"
-              /* +30% on every clamp value */
-              width="clamp(91px, 10.5vw, 163px)"
-              height="clamp(117px, 13.5vw, 208px)"
+              /* +30% earlier, then +20% more on 2026-05-12 — net
+                 ~+56% from the original baseline. This cutout alone
+                 was singled out by the user as needing extra weight. */
+              width="clamp(109px, 12.6vw, 196px)"
+              height="clamp(140px, 16.2vw, 250px)"
               driftName="driftC"
               enterDelay={1.5}
-              style={{ marginLeft: "20px", marginTop: "-25px", top: "-2px" }}
+              /* Position nudge 2026-05-12: move slightly down */
+              style={{ marginLeft: "20px", marginTop: "-10px", top: "15px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
