@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, Play } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { Lightbox } from "@/components/ui/Lightbox";
@@ -127,12 +127,14 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           <div className="relative z-10 h-full flex items-end pb-16 sm:pb-24">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 w-full">
               <FadeIn>
-                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95] mb-4">
+                {/* Hero subtitle 'Dedicated Creative Studio' moved
+                    out 2026-05-12 per user request — the phrase is
+                    now used as the heading for THE SPACE section
+                    further down the page (matches Brandi's PDF page
+                    66 annotation). */}
+                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95]">
                   THE STUDIO
                 </h1>
-                <p className="text-lg sm:text-xl lg:text-2xl text-white/70 tracking-[0.25em] uppercase font-medium">
-                  Dedicated Creative Studio
-                </p>
               </FadeIn>
             </div>
           </div>
@@ -194,12 +196,15 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <FadeIn>
                 <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">THE SPACE</span>
+                {/* Heading renamed 2026-05-12 from '1,500 SQ FT / OF
+                    CREATIVE / POSSIBILITY.' to 'DEDICATED CREATIVE
+                    STUDIO' per Brandi's PDF page 66 annotation. */}
                 <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[0.95] mb-8">
-                  1,500 SQ FT
+                  DEDICATED
                   <br />
-                  <span className="text-dark/40">OF CREATIVE</span>
+                  <span className="text-dark/40">CREATIVE</span>
                   <br />
-                  <span className="text-dark/40">POSSIBILITY.</span>
+                  <span className="text-dark/40">STUDIO</span>
                 </h2>
                 <ul className="space-y-4">
                   {STUDIO_BULLETS.map((bullet) => (
@@ -214,6 +219,15 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div className="space-y-4">
+                  {/* Top photo of THE SPACE cluster — per Brandi's PDF
+                      page 66 this slot is reserved for the BTS in-studio
+                      video. Until that clip is delivered the photo is
+                      shown as a poster with a minimal play-icon overlay
+                      so it reads as a video placeholder. The button still
+                      opens the lightbox on click. When the BTS video
+                      lands, swap the <img> for a Vimeo background iframe
+                      (the FullServiceHybridSection pattern works well)
+                      and remove the play-icon overlay. */}
                   <button
                     type="button"
                     onClick={() => openLightbox(0)}
@@ -225,7 +239,15 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                       alt={STUDIO_GALLERY[0].alt}
                       className="w-full object-cover aspect-[4/3] transition-transform duration-700 group-hover:scale-105"
                     />
-                    <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+                    <span className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
+                    {/* Minimal play indicator — no extra label, just a
+                        subtle white outlined circle with a play glyph
+                        in the centre, so the slot reads as a video. */}
+                    <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-white/70 flex items-center justify-center bg-white/10 backdrop-blur-sm group-hover:bg-white/15 transition-colors">
+                        <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white ml-0.5" />
+                      </span>
+                    </span>
                   </button>
                   <div className="grid grid-cols-2 gap-4">
                     <button
