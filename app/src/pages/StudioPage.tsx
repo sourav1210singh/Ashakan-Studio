@@ -335,28 +335,47 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">THE PEOPLE</span>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight mb-10 sm:mb-12">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight mb-12 sm:mb-16">
                 MEET THE TEAM
               </h2>
             </FadeIn>
-            <FadeIn delay={0.05}>
-              <div className="max-w-3xl space-y-5 mb-16 sm:mb-20">
-                <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
-                  Ashkan Studios originated in 2017 and has grown into a collaborative creative collective.
-                </p>
-                <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
-                  Our team is made up of artists, performers, and creative minds who bring a shared energy and perspective to the work.
-                </p>
-                <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
-                  We expand our team as needed for any project with our trusted network of creatives across hair and makeup artists, stylists, set assistants, and more.
-                </p>
-              </div>
-            </FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+
+            {/* Top split: LEFT big group photo, RIGHT 3-paragraph intro
+                — matches Brandi's PDF page 69 layout. Below this split,
+                all six team members render in a single horizontal row. */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-20">
+              <FadeIn>
+                <div className="overflow-hidden">
+                  <img
+                    src="/images/studio/team-group-2026.jpg"
+                    alt="Ashkan Studios team — group photo"
+                    className="w-full h-auto block"
+                  />
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.1}>
+                <div className="space-y-5">
+                  <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
+                    Ashkan Studios originated in 2017 and has grown into a collaborative creative collective.
+                  </p>
+                  <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
+                    Our team is made up of artists, performers, and creative minds who bring a shared energy and perspective to the work.
+                  </p>
+                  <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
+                    We expand our team as needed for any project with our trusted network of creatives across hair and makeup artists, stylists, set assistants, and more.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+
+            {/* All six team members in a single row on lg+ (matches the
+                bottom strip in Brandi's reference). Stacks 2-cols on
+                tablet and 1-col on mobile so the layout stays readable. */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 sm:gap-6 lg:gap-5">
               {TEAM.map((member, index) => (
-                <FadeIn key={member.name} delay={index * 0.08}>
+                <FadeIn key={member.name} delay={index * 0.06}>
                   <div>
-                    <div className="aspect-[3/4] overflow-hidden bg-dark/5 mb-5">
+                    <div className="aspect-[3/4] overflow-hidden bg-dark/5 mb-4">
                       {member.image ? (
                         <img
                           src={member.image}
@@ -372,11 +391,13 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                       )}
                     </div>
                     {/* Role first, then name — Brandi's 5/7/26 instruction
-                        'Under each pic have role/titles, then name'. */}
-                    <p className="text-xs font-medium tracking-wider text-dark/45 uppercase mb-1.5">
+                        'Under each pic have role/titles, then name'.
+                        Role tightened to xs and name to base/lg so six
+                        cards comfortably fit in a single row at lg+. */}
+                    <p className="text-[0.65rem] sm:text-xs font-medium tracking-wider text-dark/45 uppercase mb-1 leading-snug">
                       {member.role}
                     </p>
-                    <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight">
+                    <h3 className="font-display text-base sm:text-lg text-dark tracking-tight leading-tight">
                       {member.name}
                     </h3>
                   </div>
