@@ -529,11 +529,16 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </section>
         )}
 
-        {/* ━━━ SECTION 5: Quote / Highlight ━━━ */}
+        {/* ━━━ SECTION 5: Quote / Highlight ━━━
+            Brandi's 5/7/26 note for Monarch ('Change to different
+            photo'): the quote section background should not repeat
+            the hero. We use project.featuredImage when set (different
+            from hero by design), falling back to heroImage for older
+            campaigns that don't have a featured image. */}
         <section className="relative py-32 sm:py-44 lg:py-52 overflow-hidden">
           {/* Background image with dark overlay */}
           <img
-            src={project.heroImage}
+            src={project.featuredImage ?? project.heroImage}
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
           />

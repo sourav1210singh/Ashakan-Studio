@@ -337,49 +337,111 @@ export const projects: Project[] = [
   },
   {
     id: "monarch-school",
-    client: "THE MONARCH SCHOOL",
-    title: "Empowering Children Through Education",
+    /* Title + subtitle updated per Brandi's 5/7/26 note ('Complete
+       school name as title "The Monarch School and Institute"
+       Subtitle: Serving students with neurological differences'). */
+    client: "THE MONARCH SCHOOL AND INSTITUTE",
+    title: "Serving students with neurological differences",
     categories: ["DOCUMENTARY", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    heroImage: "/images/portfolio/8-4Q7A9046-2.jpeg",
+    /* Hero swapped per Brandi's 5/7/26 note ('Change to different
+       photo'). monarch-01 is the luncheon hero edit — landscape,
+       mission-aligned, emotional opener. */
+    heroImage: "/images/campaigns/monarch/monarch-01.jpg",
     description:
       "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families across multiple years — from the Transforming Lives series to the Gala Event and the MD Anderson kitchen donation — showcasing the transformative power of inclusive education.",
+
+    /* ── Brandi's 5/7/26 review-notes copy for Monarch ───────────────
+       PDF pages 52-58. Story & Intent + Creative & Production Approach
+       + IMPACT all verbatim from Brandi. */
+    storyAndIntent:
+      "Monarch is a specialized educational and therapeutic school serving students with neurological differences, focused on individualized learning, development, and long-term growth. As a donor-supported nonprofit, continued fundraising is essential to sustaining and expanding its programs, with storytelling playing a central role in connecting donors to student outcomes and need. Our work is created to bridge that gap — translating daily experiences within the school into a deeper emotional and contextual understanding of its mission. Through photography and video, we help communicate progress, dignity, and potential in a way that supports fundraising efforts, strengthens grant applications, builds public awareness, and fosters trust with prospective families.",
+    creativeAndProductionApproach: [
+      "Production at Monarch is fully immersive, with full-day shoots structured around the school's class schedule and movement across multiple classrooms and learning levels. Content is captured candidly throughout the day, adapting to the natural rhythm of the school while remaining highly sensitive to student needs and regulated environments.",
+      "Interview days are dedicated sessions with students, staff, and parents, adding deeper narrative context to the observational footage captured across the year. Each production cycle is guided by an overarching storytelling theme that shapes both what is filmed and how it ultimately comes together.",
+      "The edit becomes a process of finding meaning in unscripted moments — shaping real experiences into a cohesive narrative aligned with the intended emotional arc. The final work is created for Monarch's annual gala and broader outreach, designed to connect audiences to the heart of the mission while supporting the fundraising that sustains the school.",
+    ],
+    impact: [
+      "The work is central to Monarch's annual gala and fundraising efforts, where films consistently generate strong emotional response from live audiences, often aligning with increased donation activity during and after the event.",
+      "Beyond the gala, the content continues to support donor outreach, awareness, and fundraising conversations throughout the year, helping communicate the school's mission to both new and returning supporters and strengthening ongoing relationships with sponsors and attendees.",
+      "Feedback from staff, families, and audiences has reinforced the emotional clarity and authenticity of the storytelling, with the work serving as a bridge between student experience and the community that sustains the school.",
+    ],
+    servicesLabel: "PHOTOGRAPHY / VIDEOGRAPHY",
+    deliverablesLabel: "SHORT-LONG FORM VIDEOS, DOCUMENTARY PHOTOS",
+    /* Featured spot — Gala 25 venue wide. Different from hero (per
+       Brandi 'Change to different photo'), strengthens the donor /
+       fundraising narrative thread that the new copy emphasizes. */
+    featuredImage: "/images/campaigns/monarch/monarch-09.jpg",
+    /* Brandi: 'Hide this section for now, we will create a new single
+       video compilation of behind the scene footage for this purpose'.
+       All photos AND videos render in the main gallery. */
+    hideBts: true,
+    /* Custom quote — pulled from Brandi's new Creative & Production
+       Approach copy. Most poetic line about the edit process. */
+    quote: {
+      text: "The edit becomes a process of finding meaning in unscripted moments — shaping real experiences into a cohesive narrative aligned with the intended emotional arc.",
+      attribution: "Ashkan Studios — The Monarch School Documentary",
+    },
+
     /* Videos from Brandi's catalog (2026-05-05).
-       Imagery delivered by Brandi 2026-05-07 (28 photos in /images/campaigns/monarch/).
-       Distributed in clusters between the 6 videos for masonry rhythm. */
+       Imagery delivered by Brandi 2026-05-07 (28 photos in
+       /images/campaigns/monarch/).
+
+       Gallery order: videos placed at items 3, 9, 15, 21, 27, 33 —
+       first video appears very early (Brandi: 'mix in Video more
+       consistently toward the front of this gallery, they need to
+       begin earlier and be more consistently present'). Photos
+       alternate landscape/portrait at every adjacency (Brandi: 'no
+       two styles of imagery or video next to one another'). Square
+       photo monarch-08 acts as a visual variety break.
+
+       monarch-09 (Gala 25 venue wide) is featured above — it is
+       omitted from this list since the Featured spot above handles
+       it, and including it would create a portrait/portrait adjacency
+       when remainingMedia is filtered. */
     gallery: [
+      /* Opening: luncheon hero → student candid → first video */
       { src: "/images/campaigns/monarch/monarch-01.jpg", alt: "Monarch — luncheon hero edit", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/monarch/monarch-02.jpg", alt: "Monarch — luncheon detail", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-03.jpg", alt: "Monarch — student candid 166", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Monarch Transforming Lives 25-26", type: "video", vimeoId: "1151967437", vimeoHash: "000a715e4a", aspectRatio: "landscape" },
+      /* Block 2: 5 items, ends on square for variety */
+      { src: "/images/campaigns/monarch/monarch-02.jpg", alt: "Monarch — luncheon detail", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-04.jpg", alt: "Monarch — student candid 169", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-05.jpg", alt: "Monarch — student candid 199", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Monarch Transforming Lives 25-26", type: "video", vimeoId: "1151967437", vimeoHash: "000a715e4a", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-06.jpg", alt: "Monarch — classroom moment 32", type: "image", aspectRatio: "portrait" },
-      { src: "/images/campaigns/monarch/monarch-07.jpg", alt: "Monarch — group play 57", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-08.jpg", alt: "Monarch — student smile 86", type: "image", aspectRatio: "square" },
-      { src: "/images/campaigns/monarch/monarch-09.jpg", alt: "Monarch Gala 25 — venue wide 3514", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/monarch/monarch-10.jpg", alt: "Monarch Gala 25 — guests interaction 3579", type: "image", aspectRatio: "landscape" },
+      /* Gala 24-25 video */
       { src: "", alt: "Monarch Gala Event 24-25", type: "video", vimeoId: "1189136524", vimeoHash: "6456e78744", aspectRatio: "landscape" },
+      /* Block 3: gala context + early portraits */
+      { src: "/images/campaigns/monarch/monarch-07.jpg", alt: "Monarch — group play 57", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-11.jpg", alt: "Monarch — portrait 01", type: "image", aspectRatio: "portrait" },
+      { src: "/images/campaigns/monarch/monarch-10.jpg", alt: "Monarch Gala 25 — guests interaction 3579", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-12.jpg", alt: "Monarch — portrait 02", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-13.jpg", alt: "Monarch — portrait 06", type: "image", aspectRatio: "landscape" },
+      /* Transforming Lives 24-25 video */
+      { src: "", alt: "Monarch Transforming Lives 24-25", type: "video", vimeoId: "1043541721", aspectRatio: "landscape" },
+      /* Block 4: portrait series alternating */
       { src: "/images/campaigns/monarch/monarch-14.jpg", alt: "Monarch — portrait 07", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-15.jpg", alt: "Monarch — portrait 08", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Monarch Transforming Lives 24-25", type: "video", vimeoId: "1043541721", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-16.jpg", alt: "Monarch — portrait 11", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-17.jpg", alt: "Monarch — portrait 20", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-18.jpg", alt: "Monarch — portrait 32", type: "image", aspectRatio: "portrait" },
+      /* MD Anderson Kitchen video */
+      { src: "", alt: "Monarch's Upgraded Kitchen — MD Anderson Donation", type: "video", vimeoId: "673378712", vimeoHash: "f3572605d9", aspectRatio: "landscape" },
+      /* Block 5: continuing portrait series */
       { src: "/images/campaigns/monarch/monarch-19.jpg", alt: "Monarch — portrait 33", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-20.jpg", alt: "Monarch — portrait 34", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Monarch's Upgraded Kitchen — MD Anderson Donation", type: "video", vimeoId: "673378712", vimeoHash: "f3572605d9", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-21.jpg", alt: "Monarch — portrait 39", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-22.jpg", alt: "Monarch — portrait 41", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-23.jpg", alt: "Monarch — portrait 42", type: "image", aspectRatio: "portrait" },
+      /* Transforming Lives 23-24 video */
+      { src: "", alt: "Monarch Transforming Lives 23-24", type: "video", vimeoId: "896674527", aspectRatio: "landscape" },
+      /* Block 6: final portrait series */
       { src: "/images/campaigns/monarch/monarch-24.jpg", alt: "Monarch — portrait 43", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-25.jpg", alt: "Monarch — portrait 45", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Monarch Transforming Lives 23-24", type: "video", vimeoId: "896674527", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-26.jpg", alt: "Monarch — portrait 47", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/monarch/monarch-27.jpg", alt: "Monarch — portrait 56", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/monarch/monarch-28.jpg", alt: "Monarch — portrait 58", type: "image", aspectRatio: "portrait" },
+      /* Closer: oldest Virtual Luncheon 21 — historical bookend */
       { src: "", alt: "Monarch Transforming Lives Virtual Luncheon 21", type: "video", vimeoId: "518687682", aspectRatio: "landscape" },
     ],
     relatedProjects: ["deutsch-fine-jewelry", "vitacca-ballet"],
