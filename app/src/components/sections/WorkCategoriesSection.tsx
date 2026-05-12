@@ -273,9 +273,7 @@ export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
         {/* Header */}
         <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-10">
           <div>
-            <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-3">
-              Portfolio / 02
-            </p>
+            {/* 'Portfolio / 02' eyebrow removed 2026-05-12 per user request. */}
             <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
               THE WORK
             </h2>
