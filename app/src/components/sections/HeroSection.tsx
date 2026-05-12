@@ -413,11 +413,11 @@ export function HeroSection() {
               height="clamp(135px, 16.25vw, 246px)"
               driftName="driftA"
               enterDelay={0.6}
-              /* Position 2026-05-12 (third pass): shifted right and
-                 lifted slightly higher per user feedback. marginRight
-                 -90 → -130 (more right / more overlap with WE),
-                 marginTop -100 → -120 (lifted ~20px higher). */
-              style={{ marginRight: "-130px", marginTop: "-120px", top: "0" }}
+              /* Position 2026-05-12 (fourth pass): pushed further
+                 right + further up per user feedback. marginRight
+                 -130 → -170 (~40px more right, additional overlap
+                 with WE), marginTop -120 → -140 (~20px higher). */
+              style={{ marginRight: "-170px", marginTop: "-140px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={22}
@@ -467,14 +467,13 @@ export function HeroSection() {
               height="clamp(140px, 16vw, 252px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position 2026-05-12 (third pass): pulled close to
-                 CREATE with no horizontal breathing room — user
-                 explicitly asked that there be 'no horizontal space'
-                 between CREATE and this cutout. marginLeft -50 → 0
-                 so the cutout starts immediately after CREATE.
-                 marginTop relaxed -110 → -80 to match the smaller
-                 figure size. */
-              style={{ marginLeft: "0", marginTop: "-80px", top: "0" }}
+              /* Position 2026-05-12 (fourth pass): user still sees
+                 a horizontal gap between CREATE and this cutout —
+                 likely transparent padding on the left edge of the
+                 source PNG. Pulled the cutout further left with
+                 marginLeft: 0 → -60px so the visible figure sits
+                 tight against CREATE. */
+              style={{ marginLeft: "-60px", marginTop: "-80px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
