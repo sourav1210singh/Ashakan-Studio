@@ -411,8 +411,10 @@ export function HeroSection() {
               height="clamp(104px, 12.5vw, 189px)"
               driftName="driftA"
               enterDelay={0.6}
-              /* Position nudge 2026-05-12: move up + right slightly */
-              style={{ marginRight: "-30px", marginTop: "-25px", top: "-10px" }}
+              /* Position nudge 2026-05-12 (second pass): pulled
+                 further up + right per user feedback that it still
+                 sat too far left. marginRight -30 → -55, top -10 → -25. */
+              style={{ marginRight: "-55px", marginTop: "-25px", top: "-25px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={22}
@@ -458,8 +460,9 @@ export function HeroSection() {
               height="clamp(117px, 13.5vw, 208px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position nudge 2026-05-12: move slightly left */
-              style={{ marginLeft: "-10px", marginTop: "-25px", top: "4px" }}
+              /* Position nudge 2026-05-12 (second pass): pulled
+                 further left per user feedback. marginLeft -10 → -30. */
+              style={{ marginLeft: "-30px", marginTop: "-25px", top: "4px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
@@ -577,8 +580,9 @@ export function HeroSection() {
               height="clamp(91px, 10.5vw, 163px)"
               driftName="driftA"
               enterDelay={1.3}
-              /* Position nudge 2026-05-12: move slightly right */
-              style={{ marginRight: "-10px", marginTop: "-15px", top: "8px" }}
+              /* Position nudge 2026-05-12 (second pass): pulled
+                 further right per user feedback. marginRight -10 → -30. */
+              style={{ marginRight: "-30px", marginTop: "-15px", top: "8px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={26}
@@ -644,8 +648,13 @@ export function HeroSection() {
               height="clamp(140px, 16.2vw, 250px)"
               driftName="driftC"
               enterDelay={1.5}
-              /* Position nudge 2026-05-12: move slightly down */
-              style={{ marginLeft: "20px", marginTop: "-10px", top: "15px" }}
+              /* Position nudge 2026-05-12 (second pass): only this
+                 cutout moves further down — user explicitly asked
+                 that line 3 (THAT INSPIRE) and the 4th cutout stay
+                 put. Changed only `top` (relative positioning on
+                 the cutout's own box) so the layout flow of the
+                 line is unaffected: 15px → 35px. */
+              style={{ marginLeft: "20px", marginTop: "-10px", top: "35px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
