@@ -498,13 +498,21 @@ export function HeroSection() {
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
-                Brandi: STORIES is the only word with video behind. */}
+                Brandi: STORIES is the only word with video behind.
+                position: relative + top: -15px added 2026-05-12 so
+                ONLY the text lifts up on line 2. The sunglasses
+                cutout to the right stays in its current spot —
+                it's a sibling in the same inline row but doesn't
+                pick up the offset because top is scoped to this
+                MagneticWord span only. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
+                position: "relative",
+                top: "-15px",
               }}
               strength={0.2}
             >
@@ -548,12 +556,17 @@ export function HeroSection() {
               floatStrength={28}
             />
             <span className="md:hidden"> </span>
+            {/* STORIES — display font with video-in-text mask.
+                position: relative + top: -15px matches VISUAL —
+                only the text lifts; sunglasses cutout stays put. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
+                position: "relative",
+                top: "-15px",
               }}
               strength={0.2}
             >
