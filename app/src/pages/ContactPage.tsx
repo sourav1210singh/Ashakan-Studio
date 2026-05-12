@@ -41,9 +41,12 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
               <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
                 CONTACT
               </h1>
+              {/* Brandi 5/7/26 (PDF page 75) — wording softened from
+                  the original 'within 24 hours' to 'as soon as possible'
+                  so we don't commit to a hard turnaround on the page. */}
               <p className="text-lg sm:text-xl text-dark/70 max-w-2xl">
-                Ready to start your next project? We'd love to hear from you. 
-                Fill out the form below and we'll get back to you within 24 hours.
+                Ready to start your next project? We'd love to hear from you.
+                Fill out the form below and we'll get back to you as soon as possible.
               </p>
             </FadeIn>
           </div>
@@ -212,36 +215,11 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
           </div>
         </section>
 
-        {/* Booking Links Section */}
-        <section className="py-16 sm:py-24 bg-dark text-white">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
-            <FadeIn>
-              <h2 className="font-display text-3xl sm:text-4xl tracking-tight mb-6">
-                PREFER TO BOOK A SESSION?
-              </h2>
-              <p className="text-white/70 mb-8 max-w-xl mx-auto">
-                Explore our session types — photography, videography, coaching, and workshops.
-                Schedule a free consultation at a time that works for you.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
-                  onClick={() => onNavigate("booking")}
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm hover:bg-white/90 transition-colors"
-                >
-                  VIEW SESSION TYPES
-                </button>
-                <a
-                  href="https://calendly.com/ashkanstudios"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/30 text-white font-medium tracking-wider text-sm hover:bg-white/10 transition-colors"
-                >
-                  SCHEDULE A CALL
-                </a>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
+        {/* Removed per Brandi 5/7/26 (PDF page 77 — 'Completely remove'):
+            the 'PREFER TO BOOK A SESSION?' booking links section. The
+            VIEW SESSION TYPES + SCHEDULE A CALL Calendly buttons that
+            lived in this section have been dropped to keep CONTACT a
+            pure inquiry-form page. */}
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>
