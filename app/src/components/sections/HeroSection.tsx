@@ -524,8 +524,13 @@ export function HeroSection() {
                  (30px → 60px). marginTop kept at -100px so the cutout
                  still hangs off the top of its line; the larger `top`
                  pulls it back down into a more centered position
-                 between VISUAL and STORIES. */
-              style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "60px" }}
+                 between VISUAL and STORIES.
+
+                 Horizontal breathing room expanded ~10% on user request:
+                 left margin 14px → 25px, right margin 8px → 19px so
+                 VISUAL and STORIES sit a bit further apart with the
+                 cutout sitting comfortably between them. */
+              style={{ margin: "0 19px 0 25px", marginTop: "-100px", top: "60px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={28}
