@@ -31,15 +31,14 @@ export function AboutSection() {
 
             {/* Main heading */}
             <FadeIn>
+              {/* '2 DEPARTMENTS, 1 COMPANY.' subtitle removed
+                  2026-05-12 per user request — heading is now
+                  just 'BASED IN HOUSTON, TX'. */}
               <h2 className="font-display text-dark tracking-tight leading-[0.95] mb-6 sm:mb-8">
                 <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                   BASED IN
                   <br />
                   HOUSTON, TX
-                </span>
-                <br />
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-midgray">
-                  2 DEPARTMENTS, 1 COMPANY.
                 </span>
               </h2>
             </FadeIn>
