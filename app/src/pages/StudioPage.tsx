@@ -1,125 +1,198 @@
-import { ArrowRight, MapPin, Camera, Film, Palette, Monitor, Shirt, Scissors } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, MapPin, Play } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { Lightbox } from "@/components/ui/Lightbox";
 import type { View } from "@/App";
 
 interface StudioPageProps {
   onNavigate: (view: View, slug?: string) => void;
 }
 
-export function StudioPage({ onNavigate }: StudioPageProps) {
-  const team = [
-    {
-      name: "ASHKAN ROAYAEE",
-      role: "FOUNDER & CREATIVE DIRECTOR",
-      image: null,
-      bio: "With over a decade behind the lens, Ashkan founded Ashkan Studios to merge commercial photography and cinematic video production under one roof. His vision drives every project — from Fortune 500 campaigns to intimate dance portraits.",
-    },
-    {
-      name: "BRANDI SHALLENBERGER",
-      role: "DIRECTOR / CINEMATOGRAPHER / PHOTOGRAPHER / EDITOR",
-      image: "/images/studio/team-brandi.jpg",
-      bio: "Part of the team since 2017, Brandi holds a BFA in Photography and brings a diverse creative background spanning fashion, dance, commercial, and fine art. Her eye for composition and lighting elevates every frame.",
-    },
-    {
-      name: "WILLIAM BYRNE",
-      role: "CINEMATOGRAPHER / EDITOR",
-      image: "/images/studio/team-william.jpg",
-      bio: "William holds a BSA in Digital Cinematography with a focus on documentary filmmaking. His storytelling instincts and technical precision make him an essential force behind our video productions.",
-    },
-    {
-      name: "CHRISTOPHER POE",
-      role: "CINEMATOGRAPHER / PHOTOGRAPHER / EDITOR",
-      image: "/images/studio/team-christopher.jpg",
-      bio: "A Concordia University graduate, Christopher brings deep expertise in sports and documentary work. His versatility across photography and video makes him a powerhouse on set.",
-    },
-  ];
+/* ── Team roster ─────────────────────────────────────────────────
+   Per Brandi's 5/7/26 review notes (PDF pages 70-72):
+   • 6 members total (was 4 — William removed, 3 new additions).
+   • 'Under each pic have role/titles, then name' — card layout
+     shows role first, name second.
+   • Brandi's PDF spelled 'CINEMAPHOTOGRAPHER' — clearly a typo for
+     CINEMATOGRAPHER. Using the corrected term.
+   • Photos sourced from C:\Ashakan-Studio\Studio & Staff\ on
+     2026-05-12, mapped to first 4 team members in folder order.
+     Tweak filenames if Brandi confirms a different mapping. */
+const TEAM = [
+  {
+    role: "FOUNDER / DIRECTOR / PHOTOGRAPHER",
+    name: "ASHKAN ROAYAEE",
+    image: "/images/studio/team-ashkan.jpg",
+  },
+  {
+    role: "DIRECTOR / CINEMATOGRAPHER / PHOTOGRAPHER / EDITOR",
+    name: "BRANDI SHALLENBERGER",
+    image: "/images/studio/team-brandi.jpg",
+  },
+  {
+    role: "CINEMATOGRAPHER / PHOTOGRAPHER / EDITOR",
+    name: "CHRISTOPHER POE",
+    image: "/images/studio/team-christopher.jpg",
+  },
+  {
+    role: "PHOTOGRAPHER / EDITOR",
+    name: "NISHA PRADEEP",
+    image: "/images/studio/team-nisha.jpg",
+  },
+  {
+    role: "PROJECT MANAGER",
+    name: "AVERY CARLIN",
+    image: "/images/studio/team-avery.jpg",
+  },
+  {
+    role: "COMMUNICATIONS",
+    name: "AMAYA HUNSBERGER",
+    image: "/images/studio/team-amaya.jpg",
+  },
+];
 
-  const studioFeatures = [
-    {
-      icon: Camera,
-      title: "PROFOTO LIGHTING SYSTEM",
-      description: "Profoto 7A 2400 w/s, Profoto D1 Air 500w/s, Pro Heads, Elinchrom Deep Octa, Mola beauty dishes, strip boxes, and a full overhead lighting grid with LED RGB — all iPad-controlled.",
-    },
-    {
-      icon: Monitor,
-      title: "LIVE MONITOR",
-      description: "A tethered live monitor lets clients see every shot in real time during the session, ensuring you're part of the creative process from start to finish.",
-    },
-    {
-      icon: Shirt,
-      title: "DESIGNER WARDROBE",
-      description: "On-site wardrobe featuring pieces by Alan Gonzalez (Project Runway), Luani, and Mysterious By N.P.N — gowns, dancewear, leather jackets, and styled casual pieces ready for your session.",
-    },
-    {
-      icon: Scissors,
-      title: "HAIR & MAKEUP",
-      description: "Professional hair and makeup artists from the Houston Grand Opera available for your session, ensuring you look camera-ready from every angle.",
-    },
-    {
-      icon: Palette,
-      title: "COLORED BACKDROPS",
-      description: "A full selection of colored seamless backdrops to match any mood or brand palette, plus our signature infinity wall for clean, editorial looks.",
-    },
-    {
-      icon: Film,
-      title: "FULL POST-PRODUCTION",
-      description: "From color grading to retouching, our in-house editing team handles everything so your final deliverables are polished, on-brand, and ready to publish.",
-    },
-  ];
+/* ── Studio space bullets ────────────────────────────────────────
+   Brandi's 5/7/26 verbatim list (PDF page 66). Replaces the old
+   '14.5-foot ceilings / cyclorama / set wall / amenities' bullets. */
+const STUDIO_BULLETS = [
+  "Seamless cyc wall for clean visuals",
+  "Flexible set-building space for custom scene creation",
+  "Full color range of paper backdrops for campaign variety",
+  "High ceilings designed for controlled, cinematic lighting setups",
+  "Dedicated makeup and prep area for talent and styling",
+  "Client and crew amenities to support full production days",
+];
+
+/* ── Dark process row ─────────────────────────────────────────────
+   Brandi 5/7/26: 'Change this section to dark row style' + 3 new
+   titles + verbatim body copy (PDF page 68). */
+const PROCESS = [
+  {
+    step: "01",
+    title: "CONSULTATION & CREATIVE DIRECTION",
+    body:
+      "Every project begins with understanding your goals, brand identity, and intended impact. We align on creative direction to shape a production approach tailored to the campaign.",
+  },
+  {
+    step: "02",
+    title: "PRODUCTION",
+    body:
+      "On set, our team manages the full production process — from lighting and direction to styling, hair and makeup, and on-location coordination. Creative decisions are guided in real time to ensure the work reflects both vision and execution.",
+  },
+  {
+    step: "03",
+    title: "POST PRODUCTION & DELIVERY",
+    body:
+      "All editing, color, retouching, and video finishing is handled in-house. Final assets are refined into cohesive, ready-to-use content built for digital, print, and campaign distribution.",
+  },
+];
+
+/* Studio interior gallery used by the Lightbox — Brandi's 5/7/26
+   note 'this image, click to get to it directly' for the studio
+   space photo cluster. Includes the wide hero shot for variety. */
+const STUDIO_GALLERY = [
+  { src: "/images/studio/studio-interior-2.jpg", alt: "Ashkan Studios — cyclorama wall and lighting setup" },
+  { src: "/images/studio/studio-wide.jpg", alt: "Ashkan Studios — wide angle of the studio floor" },
+  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios — production in progress" },
+  { src: "/images/studio/studio-interior-1.jpg", alt: "Ashkan Studios — full studio interior" },
+];
+
+export function StudioPage({ onNavigate }: StudioPageProps) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const openLightbox = (i: number) => setLightboxIndex(i);
 
   return (
     <>
       <main className="pt-20">
-        {/* Hero Section */}
-        <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
+        {/* ━━━ SECTION 1 — Hero ━━━
+            Brandi 5/7/26 (PDF page 65):
+            • Add 'DEDICATED CREATIVE STUDIO' subtitle under THE STUDIO H1.
+            • 'Let's replace this photo with a video element, we will need
+              to create a BTS in studio video to place here, put placeholder
+              for now please'. Implementation: keep the studio interior
+              photo for visual continuity and overlay a clear 'BTS Film ·
+              Coming Soon' badge so it reads as a video placeholder. Once
+              Brandi delivers the BTS clip, swap to a Vimeo background
+              embed (the FullServiceHybridSection pattern works well). */}
+        <section className="relative h-[70vh] min-h-[500px] overflow-hidden bg-dark">
           <div className="absolute inset-0">
             <img
               src="/images/studio/studio-interior-1.jpg"
               alt="Ashkan Studios — Houston production studio interior"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-dark/50" />
+            <div className="absolute inset-0 bg-dark/55" />
           </div>
+
+          {/* Placeholder play indicator — dropped automatically once a
+              real BTS video is wired into this section. */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="flex flex-col items-center gap-4 text-white/85">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-white/40 flex items-center justify-center backdrop-blur-sm bg-white/5">
+                <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-white text-white ml-1" />
+              </div>
+              <span className="text-[0.7rem] sm:text-xs font-semibold tracking-[0.4em] uppercase text-white/55">
+                BTS Film · Coming Soon
+              </span>
+            </div>
+          </div>
+
           <div className="relative z-10 h-full flex items-end pb-16 sm:pb-24">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 w-full">
               <FadeIn>
-                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95]">
+                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95] mb-4">
                   THE STUDIO
                 </h1>
+                <p className="text-lg sm:text-xl lg:text-2xl text-white/70 tracking-[0.25em] uppercase font-medium">
+                  Dedicated Creative Studio
+                </p>
               </FadeIn>
             </div>
           </div>
         </section>
 
-        {/* About Section */}
+        {/* ━━━ SECTION 2 — About ━━━
+            Brandi 5/7/26: 'Changes here should match exactly on changes
+            requested to this section on home page'. The copy below
+            mirrors the home AboutSection (BASED IN HOUSTON, TX / 2
+            DEPARTMENTS, 1 COMPANY) so the brand voice stays consistent
+            across both pages. CTA elements from home (italic 'Curious?'
+            line and ABOUT US button) are intentionally dropped here —
+            visitors are already on the Studio page. */}
         <section className="py-16 sm:py-24 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
               <FadeIn>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[0.95]">
-                  BASED IN HOUSTON,
+                <h2 className="font-display text-dark tracking-tight leading-[0.95]">
+                  <span className="text-4xl sm:text-5xl lg:text-6xl">
+                    BASED IN
+                    <br />
+                    HOUSTON, TX
+                  </span>
                   <br />
-                  <span className="text-dark/40">2 DEPARTMENTS,</span>
-                  <br />
-                  <span className="text-dark/40">1 COMPANY.</span>
+                  <span className="text-2xl sm:text-3xl lg:text-4xl text-midgray">
+                    2 DEPARTMENTS, 1 COMPANY.
+                  </span>
                 </h2>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div className="space-y-6">
                   <p className="text-lg sm:text-xl text-dark/80 leading-relaxed">
-                    Ashkan Studios is the parent company of <span className="font-medium text-dark">Ashkan Image</span> and{" "}
-                    <span className="font-medium text-dark">Ashkan Media</span>. We specialize in commercial photography,
-                    videography, and creative production out of our 1,500 sq ft studio in Houston's Sawyer Yards.
+                    Ashkan Studios is the parent company of{" "}
+                    <span className="font-medium text-dark">Ashkan Image</span> and{" "}
+                    <span className="font-medium text-dark">Ashkan Media</span>. We
+                    specialize in commercial photography, videography, and creative
+                    production.
                   </p>
                   <p className="text-lg sm:text-xl text-dark/80 leading-relaxed">
-                    From dance photography to corporate video campaigns, our passion is storytelling through stunning visuals
-                    that embody your brand's energy and essence. Every project begins with understanding your vision and ends
-                    with content that drives results.
+                    Every project at Ashkan Studios begins with a story — yours. We
+                    guide it from concept to completion, handling all aspects of
+                    production in-house with care, precision, and intention.
                   </p>
                   <p className="text-lg sm:text-xl text-dark/80 leading-relaxed">
-                    With over a decade of experience, we've partnered with brands ranging from local startups to
-                    Fortune 500 companies — always delivering work that exceeds expectations.
+                    Crazy concept? Bring it. Big production? No problem. Need total
+                    artistic guidance? Can't wait.
                   </p>
                 </div>
               </FadeIn>
@@ -127,7 +200,11 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* Studio Space Section */}
+        {/* ━━━ SECTION 3 — Studio Space ━━━
+            Brandi 5/7/26 (PDF page 66-67):
+            • Replace bullet copy with the 6 new items in STUDIO_BULLETS.
+            • 'This image, click to get to it directly' → wire the studio
+              photos to the lightbox so visitors can enlarge each shot. */}
         <section className="py-16 sm:py-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -140,51 +217,59 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   <br />
                   <span className="text-dark/40">POSSIBILITY.</span>
                 </h2>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="w-1 h-full min-h-[20px] bg-dark/20 rounded-full mt-1" />
-                    <p className="text-lg text-dark/70 leading-relaxed">
-                      <span className="font-medium text-dark">14.5-foot ceilings</span> — room for dramatic lighting setups and full-length fashion shoots.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-1 h-full min-h-[20px] bg-dark/20 rounded-full mt-1" />
-                    <p className="text-lg text-dark/70 leading-relaxed">
-                      <span className="font-medium text-dark">Cyclorama wall</span> — 16' wide × 14' high × 12' deep infinity wall for seamless editorial and product shots.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-1 h-full min-h-[20px] bg-dark/20 rounded-full mt-1" />
-                    <p className="text-lg text-dark/70 leading-relaxed">
-                      <span className="font-medium text-dark">Free-standing set wall</span> — 8' wide × 10' high for versatile scene setups.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-1 h-full min-h-[20px] bg-dark/20 rounded-full mt-1" />
-                    <p className="text-lg text-dark/70 leading-relaxed">
-                      <span className="font-medium text-dark">Full amenities</span> — washroom with shower, makeup station, freight elevator access, and complimentary Nespresso.
-                    </p>
-                  </div>
-                </div>
+                <ul className="space-y-4">
+                  {STUDIO_BULLETS.map((bullet) => (
+                    <li key={bullet} className="flex items-start gap-4">
+                      <div className="w-1 h-full min-h-[20px] bg-dark/20 rounded-full mt-1 shrink-0" />
+                      <p className="text-lg text-dark/70 leading-relaxed">
+                        {bullet}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div className="space-y-4">
-                  <img
-                    src="/images/studio/studio-interior-2.jpg"
-                    alt="Ashkan Studios cyclorama and lighting setup"
-                    className="w-full object-cover aspect-[4/3]"
-                  />
+                  <button
+                    type="button"
+                    onClick={() => openLightbox(0)}
+                    aria-label="Enlarge cyclorama studio photo"
+                    className="block w-full overflow-hidden cursor-zoom-in group relative"
+                  >
+                    <img
+                      src={STUDIO_GALLERY[0].src}
+                      alt={STUDIO_GALLERY[0].alt}
+                      className="w-full object-cover aspect-[4/3] transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+                  </button>
                   <div className="grid grid-cols-2 gap-4">
-                    <img
-                      src="/images/studio/studio-wide.jpg"
-                      alt="Studio wide angle view"
-                      className="w-full object-cover aspect-square"
-                    />
-                    <img
-                      src="/images/studio/studio-sample-2.jpg"
-                      alt="Studio sample work"
-                      className="w-full object-cover aspect-square"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => openLightbox(1)}
+                      aria-label="Enlarge studio wide angle photo"
+                      className="block w-full overflow-hidden cursor-zoom-in group relative"
+                    >
+                      <img
+                        src={STUDIO_GALLERY[1].src}
+                        alt={STUDIO_GALLERY[1].alt}
+                        className="w-full object-cover aspect-square transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => openLightbox(2)}
+                      aria-label="Enlarge studio production photo"
+                      className="block w-full overflow-hidden cursor-zoom-in group relative"
+                    >
+                      <img
+                        src={STUDIO_GALLERY[2].src}
+                        alt={STUDIO_GALLERY[2].alt}
+                        className="w-full object-cover aspect-square transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+                    </button>
                   </div>
                 </div>
               </FadeIn>
@@ -192,27 +277,33 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* Studio Features Grid */}
-        <section className="py-16 sm:py-24 bg-dark text-white">
+        {/* Removed per Brandi 5/7/26 ('Completely remove'): the old
+            'EVERYTHING YOU NEED UNDER ONE ROOF' Studio Features Grid
+            (Profoto / Live Monitor / Wardrobe / etc.). */}
+
+        {/* ━━━ SECTION 4 — Dark Process Row ━━━
+            Brandi 5/7/26 (PDF page 68): 'Change this section to dark row
+            style' + 3 new titles + verbatim body copy. */}
+        <section className="py-20 sm:py-28 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <span className="text-sm font-medium tracking-wider text-white/40 mb-4 block">WHAT'S INCLUDED</span>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-16">
-                EVERYTHING YOU NEED
-                <br />
-                <span className="text-white/40">UNDER ONE ROOF.</span>
+              <span className="text-sm font-medium tracking-wider text-white/40 mb-4 block">OUR PROCESS</span>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight mb-12 sm:mb-16">
+                HOW WE WORK
               </h2>
             </FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-              {studioFeatures.map((feature, index) => (
-                <FadeIn key={feature.title} delay={index * 0.08}>
-                  <div className="group">
-                    <feature.icon className="w-8 h-8 text-white/40 mb-4 group-hover:text-white transition-colors" />
-                    <h3 className="font-display text-xl tracking-tight mb-3">
-                      {feature.title}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12">
+              {PROCESS.map((item, index) => (
+                <FadeIn key={item.step} delay={index * 0.1}>
+                  <div>
+                    <span className="font-display text-6xl sm:text-7xl text-white/15 leading-none block mb-4">
+                      {item.step}
+                    </span>
+                    <h3 className="font-display text-xl sm:text-2xl tracking-tight mb-4">
+                      {item.title}
                     </h3>
-                    <p className="text-white/60 leading-relaxed">
-                      {feature.description}
+                    <p className="text-base text-white/65 leading-relaxed">
+                      {item.body}
                     </p>
                   </div>
                 </FadeIn>
@@ -221,138 +312,78 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* Process Section */}
-        <section className="py-16 sm:py-24">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <FadeIn>
-              <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">OUR PROCESS</span>
-              <h2 className="font-display text-4xl sm:text-5xl text-dark tracking-tight mb-16">
-                HOW WE WORK
-              </h2>
-            </FadeIn>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
-              <FadeIn delay={0}>
-                <div className="relative">
-                  <span className="font-display text-7xl sm:text-8xl text-dark/10 leading-none">01</span>
-                  <h3 className="font-display text-2xl text-dark tracking-tight mt-4 mb-3">CONSULTATION</h3>
-                  <p className="text-dark/60 leading-relaxed">
-                    Every project starts with a conversation. We learn your goals, brand identity, and creative vision to design a session that's tailored specifically to you.
-                  </p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <div className="relative">
-                  <span className="font-display text-7xl sm:text-8xl text-dark/10 leading-none">02</span>
-                  <h3 className="font-display text-2xl text-dark tracking-tight mt-4 mb-3">SESSION</h3>
-                  <p className="text-dark/60 leading-relaxed">
-                    On shoot day, our team handles everything — lighting, direction, wardrobe, hair and makeup. You see every shot live on our tethered monitor and stay involved throughout.
-                  </p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <div className="relative">
-                  <span className="font-display text-7xl sm:text-8xl text-dark/10 leading-none">03</span>
-                  <h3 className="font-display text-2xl text-dark tracking-tight mt-4 mb-3">EDITING & DELIVERY</h3>
-                  <p className="text-dark/60 leading-relaxed">
-                    Our post-production team handles color grading, retouching, and video editing in-house. You receive polished, publish-ready content that's on-brand and on-time.
-                  </p>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
+        {/* Removed per Brandi 5/7/26 ('Completely remove'): the old
+            'RENT THE SPACE' Studio Rental section (with the 7-bullet
+            list and INQUIRE ABOUT RENTAL CTA). */}
 
-        {/* Studio Rental Section */}
-        <section className="py-16 sm:py-24 border-t border-dark/10 bg-cream">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              <FadeIn>
-                <img
-                  src="/images/studio/studio-process.jpg"
-                  alt="Studio production in progress"
-                  className="w-full object-cover aspect-[4/3]"
-                />
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">STUDIO RENTAL</span>
-                <h2 className="font-display text-4xl sm:text-5xl text-dark tracking-tight leading-[0.95] mb-6">
-                  RENT THE SPACE
-                </h2>
-                <p className="text-lg text-dark/70 leading-relaxed mb-6">
-                  Our studio is available for rent to photographers, videographers, and creatives who need a professional space
-                  with top-tier equipment already in place. Half-day and full-day rates available.
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    "1,500 sq ft with 14.5' ceilings",
-                    "Cyclorama infinity wall (16'W × 14'H × 12'D)",
-                    "Profoto & Elinchrom lighting included",
-                    "Overhead LED RGB grid (iPad-controlled)",
-                    "Colored seamless backdrops",
-                    "Makeup station & washroom with shower",
-                    "Freight elevator for large equipment",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-dark/70">
-                      <span className="w-1.5 h-1.5 rounded-full bg-dark/40 mt-2.5 shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => onNavigate("contact")}
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
-                >
-                  INQUIRE ABOUT RENTAL
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* Team Section */}
+        {/* ━━━ SECTION 5 — Meet the Team ━━━
+            Brandi 5/7/26 (PDF pages 69-72):
+            • 'Move MEET THE TEAM to here' — section now lives directly
+              after the dark process row.
+            • Three-paragraph intro added before the grid (verbatim).
+            • Card layout per Brandi: 'Under each pic have role/titles,
+              then name' — role first, name second.
+            • Six members total (Ashkan, Brandi, Christopher, Nisha,
+              Avery, Amaya); William removed. */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">THE PEOPLE</span>
-              <h2 className="font-display text-4xl sm:text-5xl text-dark tracking-tight mb-16">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight mb-10 sm:mb-12">
                 MEET THE TEAM
               </h2>
             </FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
-              {team.map((member, index) => (
-                <FadeIn key={member.name} delay={index * 0.1}>
-                  <div className="aspect-[3/4] overflow-hidden bg-dark/5 mb-5">
-                    {member.image ? (
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="font-display text-5xl sm:text-6xl text-dark/15">
-                          {member.name[0]}
-                        </span>
-                      </div>
-                    )}
+            <FadeIn delay={0.05}>
+              <div className="max-w-3xl space-y-5 mb-16 sm:mb-20">
+                <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
+                  Ashkan Studios originated in 2017 and has grown into a collaborative creative collective.
+                </p>
+                <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
+                  Our team is made up of artists, performers, and creative minds who bring a shared energy and perspective to the work.
+                </p>
+                <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
+                  We expand our team as needed for any project with our trusted network of creatives across hair and makeup artists, stylists, set assistants, and more.
+                </p>
+              </div>
+            </FadeIn>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+              {TEAM.map((member, index) => (
+                <FadeIn key={member.name} delay={index * 0.08}>
+                  <div>
+                    <div className="aspect-[3/4] overflow-hidden bg-dark/5 mb-5">
+                      {member.image ? (
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="font-display text-5xl sm:text-6xl text-dark/15">
+                            {member.name[0]}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    {/* Role first, then name — Brandi's 5/7/26 instruction
+                        'Under each pic have role/titles, then name'. */}
+                    <p className="text-xs font-medium tracking-wider text-dark/45 uppercase mb-1.5">
+                      {member.role}
+                    </p>
+                    <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight">
+                      {member.name}
+                    </h3>
                   </div>
-                  <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight">
-                    {member.name}
-                  </h3>
-                  <p className="text-xs font-medium tracking-wider text-dark/40 mt-1 mb-3">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-dark/60 leading-relaxed">
-                    {member.bio}
-                  </p>
                 </FadeIn>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Location Section */}
+        {/* ━━━ SECTION 6 — Location ━━━
+            Brandi 5/7/26 (PDF page 73): updated Sawyer Yards copy
+            ('one of the largest working artist communities in Houston
+            and among the largest in the United States'). */}
         <section className="py-16 sm:py-24 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -367,13 +398,17 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   <span className="text-white/40">HOUSTON.</span>
                 </h2>
                 <p className="text-lg text-white/70 leading-relaxed mb-4">
-                  1502 Sawyer St #108<br />
+                  1502 Sawyer St #108
+                  <br />
                   Houston, TX 77007
                 </p>
-                <p className="text-base text-white/50 leading-relaxed mb-8">
-                  Located in Houston's Sawyer Yards — one of the largest fine art communities in the country.
-                  Just minutes from downtown, our studio sits among galleries, artists, and creatives. Join us for
-                  Second Saturday, a monthly open-studio event where the community comes together to experience art firsthand.
+                <p className="text-base text-white/55 leading-relaxed mb-8">
+                  Located in Houston's Sawyer Yards — one of the largest working
+                  artist communities in Houston and among the largest in the
+                  United States. Just minutes from downtown, our studio sits
+                  among galleries, artists, and creatives. Join us for Second
+                  Saturday, a monthly open-studio event where the community
+                  comes together to experience art firsthand.
                 </p>
                 <a
                   href="https://maps.google.com/?q=1502+Sawyer+St+%23108,+Houston,+TX+77007"
@@ -403,7 +438,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* ━━━ SECTION 7 — CTA ━━━ */}
         <section className="py-16 sm:py-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
@@ -425,6 +460,14 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
         </section>
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
+
+      {/* Lightbox — opens when any studio space photo is clicked. */}
+      <Lightbox
+        images={STUDIO_GALLERY}
+        isOpen={lightboxIndex !== null}
+        initialIndex={lightboxIndex ?? 0}
+        onClose={() => setLightboxIndex(null)}
+      />
     </>
   );
 }
