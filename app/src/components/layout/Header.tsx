@@ -284,7 +284,19 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         </div>
       </header>
 
-      {/* Full Screen Menu — MCJ-style with color sweep + cutout images */}
+      {/* Full Screen Menu — Brandi's 5/7/26 review (PDF pages 82-83):
+          • 'No colors, only black bars (love the movement)' — uniform
+            dark sweep replaces the per-item rainbow sweep.
+          • 'No cutouts here' — the cameraman/dance/portrait cutouts
+            that previously slid in on hover have been removed.
+          • Menu list updated to 5 items (PHOTO / VIDEO / CAMPAIGNS /
+            WHAT WE DO / THE STUDIO) — 'THE WORK' parent dropdown is
+            gone; its three sub-routes now sit as top-level items.
+          • Bottom bar: TIKTOK label replaced with STORYTIME (linking
+            to /storytime/ instead of an external TikTok account).
+            'No colors' applied to the marquee text. Phone + email
+            updated to the real Ashkan Studios values (matching the
+            ContactPage). */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-[45] bg-cream"
@@ -294,26 +306,19 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
             {/* Nav Items */}
             <nav className="w-full flex-1 flex flex-col justify-end">
               {[
-                { label: "THE WORK", href: "/work", delay: 0.05, color: "#2563eb", image: "/images/hero/cameraman-cutout.png" },
-                { label: "WHAT WE DO", href: "/what-we-do", delay: 0.1, color: "#16a34a", image: "/images/hero/dance-cutout.png" },
-                { label: "THE STUDIO", href: "/studio", delay: 0.15, color: "#eab308", image: "/images/hero/portrait-cutout.png" },
-                { label: "STORYTIME", href: "/storytime", delay: 0.2, color: "#ec4899", image: "/images/hero/dance-cutout.png" },
+                { label: "PHOTO", href: "/work/photography", delay: 0.05 },
+                { label: "VIDEO", href: "/work/videography", delay: 0.1 },
+                { label: "CAMPAIGNS", href: "/work/campaigns", delay: 0.15 },
+                { label: "WHAT WE DO", href: "/what-we-do", delay: 0.2 },
+                { label: "THE STUDIO", href: "/studio", delay: 0.25 },
               ].map((item) => (
                 <div key={item.label} className="border-b border-dark/10 group relative">
-                  {/* Color sweep wrapper — overflow-hidden only on the sweep, not the image */}
+                  {/* Uniform black sweep — same animation, no per-item color */}
                   <div className="absolute inset-0 overflow-hidden">
                     <div
-                      className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)]"
-                      style={{ backgroundColor: item.color }}
+                      className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] bg-dark"
                     />
                   </div>
-                  {/* Cutout image — fades in on hover */}
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="absolute right-[25%] top-1/2 -translate-y-1/2 h-[220%] w-auto object-contain opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out group-hover:translate-x-0 translate-x-8 pointer-events-none select-none z-10"
-                    style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.15))" }}
-                  />
                   <button
                     onClick={() => handleNavClick(item.href)}
                     className="relative z-20 w-full text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-6 transition-colors duration-300 group-hover:text-white uppercase font-black"
@@ -325,39 +330,51 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               ))}
             </nav>
 
-            {/* Bottom Bar — socials & contact with sweep hover */}
+            {/* Bottom Bar — socials & contact with sweep hover.
+                Brandi 5/7/26: 'No colors, correct phone and email please'.
+                TIKTOK swapped to STORYTIME per her 'CHANGE THIS TO TIKTOK
+                — STORYTIME' annotation. */}
             <div
               className="w-full"
               style={{ opacity: 0, animation: "fadeIn 0.4s ease-out 0.3s forwards" }}
             >
               <div className="flex flex-col sm:flex-row border-t border-dark/10">
-                {/* Social Links */}
                 {[
-                  { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", color: "#ec4899", external: true },
-                  { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", color: "#2563eb", external: true },
-                  { label: "TIKTOK", href: "https://tiktok.com/@ashkanstudios", color: "#16a34a", external: true },
-                  { label: "T — +1 (713) 555-1234", href: "tel:+17135551234", color: "#eab308", external: false },
-                  { label: "E — hello@ashkanstudios.com", href: "mailto:hello@ashkanstudios.com", color: "#dc2626", external: false },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="group/link overflow-hidden flex-1 border-r border-dark/10 last:border-r-0 relative"
-                  >
-                    {/* Static text — visible by default, hidden on hover */}
-                    <span className="block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 transition-opacity duration-300 group-hover/link:opacity-0">
-                      {link.label}
-                    </span>
-                    {/* Continuous marquee — hidden by default, plays on hover */}
-                    <span className="absolute inset-0 flex items-center overflow-hidden opacity-0 group-hover/link:opacity-100 transition-opacity duration-300">
-                      <span className={`flex whitespace-nowrap ${link.external ? "menu-marquee-fast" : "menu-marquee-track"}`} style={{ color: link.color }}>
-                        <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>
-                        <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>
+                  { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", external: true },
+                  { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", external: true },
+                  { label: "STORYTIME", href: "/storytime", external: false, internal: true as const },
+                  { label: "T — (346) 335-7973", href: "tel:3463357973", external: false },
+                  { label: "E — info@ashkanstudios.com", href: "mailto:info@ashkanstudios.com", external: false },
+                ].map((link) => {
+                  const handleClick = link.internal
+                    ? (e: React.MouseEvent) => {
+                        e.preventDefault();
+                        handleNavClick(link.href);
+                      }
+                    : undefined;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={handleClick}
+                      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className="group/link overflow-hidden flex-1 border-r border-dark/10 last:border-r-0 relative"
+                    >
+                      {/* Static text — visible by default, hidden on hover */}
+                      <span className="block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 transition-opacity duration-300 group-hover/link:opacity-0">
+                        {link.label}
                       </span>
-                    </span>
-                  </a>
-                ))}
+                      {/* Continuous marquee — hidden by default, plays on hover.
+                          Brandi: 'no colors' — marquee text stays dark, no per-item tint. */}
+                      <span className="absolute inset-0 flex items-center overflow-hidden opacity-0 group-hover/link:opacity-100 transition-opacity duration-300">
+                        <span className={`flex whitespace-nowrap text-dark ${link.external ? "menu-marquee-fast" : "menu-marquee-track"}`}>
+                          <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>
+                          <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>
+                        </span>
+                      </span>
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
