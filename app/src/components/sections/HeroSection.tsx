@@ -572,16 +572,16 @@ export function HeroSection() {
               left of THAT (moved here from line 2) and replace the previous
               portrait right of INSPIRE with the Deutsch Brandi-615 portrait.
 
-              Position nudge 2026-05-12 (fifth pass — small open-up):
-              user asked for a small increase on the VISUAL STORIES →
-              THAT INSPIRE gap. marginTop relaxed -78px → -60px
-              (~18px more breathing room). */}
+              Position nudge 2026-05-12 (sixth pass — open-up more):
+              user asked for a bit more breathing room on the
+              VISUAL STORIES → THAT INSPIRE gap. marginTop relaxed
+              -60px → -45px (~15px more space). */}
           <motion.div
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
               y: line3Lift,
-              marginTop: "-60px",
+              marginTop: "-45px",
             }}
           >
             <InlineCutout
