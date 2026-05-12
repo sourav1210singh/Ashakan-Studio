@@ -1,4 +1,5 @@
-import { ArrowRight, Check } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
@@ -7,121 +8,71 @@ interface ServicesPageProps {
   onNavigate: (view: View, slug?: string) => void;
 }
 
+/* ── Capabilities accordion data ──────────────────────────────────
+   Source: Brandi's 5/7/26 review notes, PDF pages 59-62.
+   Order is verbatim from the PDF (Brandi: 'please note the new order
+   by the order of paragraphs provided'). Body copy is verbatim. */
+const CAPABILITIES = [
+  {
+    title: "PHOTOGRAPHY",
+    body:
+      "High-end photography for brands, products, and people across studio and on-location environments. Built to serve campaigns, commerce, and storytelling with precision, consistency, and creative intent.",
+  },
+  {
+    title: "VIDEOGRAPHY",
+    body:
+      "Cinematic video production for brands and organizations, from narrative storytelling to commercial content. Directed and captured by filmmakers and supported by full production teams to ensure impact and extended deliverable purposes.",
+  },
+  {
+    title: "CREATIVE DIRECTION",
+    body:
+      "Concept development and visual strategy that connects client vision with creative execution. We shape the look, feel, and storytelling approach across campaigns to ensure consistency from idea through production.",
+  },
+  {
+    title: "CAMPAIGN PRODUCTION",
+    body:
+      "End-to-end production of photography and video campaigns built from concept to final delivery. We align creative direction with client goals to produce cohesive visual systems executed across a full production team.",
+  },
+  {
+    title: "POST PRODUCTION",
+    body:
+      "Editing, color, sound, and finishing for photography and video. We refine raw production into final campaign assets optimized for digital, print, and marketing use across platforms.",
+  },
+];
+
+/* ── Work Applications list ────────────────────────────────────────
+   Brandi's 5/7/26 note: 'change to: Work Applications' (renamed from
+   SERVICES) + 'UPDATE THIS LIST' with the 15 items below in this
+   exact order. Five items new vs old list:
+   Aerial Videography, Script Assistance, Voiceover/Interviews,
+   Film Editing, Music Videos. Removed: Event Coverage, Motion Graphics. */
+const WORK_APPLICATIONS = [
+  "Commercial Photography",
+  "Product Photography",
+  "Corporate Headshots & Portraits",
+  "Editorial & Fashion Photography",
+  "Lifestyle & Branding Photography",
+  "Architectural & Interior Photography",
+  "Brand Films & Commercials",
+  "Aerial Videography",
+  "Documentary & Narrative",
+  "Social Media Content",
+  "Retouching & Color Grading",
+  "Script Assistance",
+  "Voiceover/Interviews",
+  "Film Editing",
+  "Music Videos",
+];
+
 export function ServicesPage({ onNavigate }: ServicesPageProps) {
-  const capabilities = [
-    "CAMPAIGN PRODUCTION",
-    "PHOTOGRAPHY",
-    "VIDEOGRAPHY",
-    "CREATIVE DIRECTION",
-    "POST PRODUCTION",
-  ];
-
-  const servicesList = [
-    "Commercial Photography",
-    "Product Photography",
-    "Corporate Headshots & Portraits",
-    "Editorial & Fashion Photography",
-    "Lifestyle & Branding Photography",
-    "Architectural & Interior Photography",
-    "Brand Films & Commercials",
-    "Documentary & Narrative",
-    "Social Media Content",
-    "Event Coverage",
-    "Retouching & Color Grading",
-    "Motion Graphics",
-  ];
-
-  const teamRoles = [
-    "Photographers",
-    "Cinematographers",
-    "Directors",
-    "Hair / Makeup",
-    "Stylists",
-    "Sound / Audio",
-    "Designers",
-    "Pre & Post Production",
-    "Marketing Support",
-  ];
-
-  const packages = [
-    {
-      name: "STARTER",
-      price: "$1,950",
-      popular: false,
-      features: [
-        "2-hour organic photo & video session",
-        "12 final edited images",
-        "4 edited promo videos (:15s)",
-        '"Brandstorm" campaign strategy session',
-      ],
-    },
-    {
-      name: "GROWING",
-      price: "$2,990",
-      popular: false,
-      features: [
-        "4-hour organic photo & video session",
-        "20 final edited images",
-        "8 edited promo videos (:15s)",
-        '"Brandstorm" campaign strategy session',
-      ],
-    },
-    {
-      name: "PREMIERE",
-      price: "$4,850",
-      popular: true,
-      features: [
-        "7-hour organic photo & video session",
-        "35 final edited images",
-        "12 edited promo videos (:15s)",
-        '"Brandstorm" campaign strategy session',
-      ],
-    },
-    {
-      name: "EXECUTIVE",
-      price: "$7,590",
-      popular: false,
-      features: [
-        "2-day organic photo & video session",
-        "60 final edited images",
-        "20 edited promo videos (:15s)",
-        '"Brandstorm" campaign strategy session',
-      ],
-    },
-  ];
-
-  const process = [
-    {
-      step: "01",
-      title: "BOOKING & CONSULTATION",
-      desc: "Book online or contact us directly for larger projects. We review your creative vision, logistics, location needs, hair & makeup requirements, and get you fully prepared.",
-    },
-    {
-      step: "02",
-      title: "PRE-PRODUCTION",
-      desc: "We develop the creative concept, assemble the right team, scout locations if needed, and handle all the planning so production day runs seamlessly.",
-    },
-    {
-      step: "03",
-      title: "PRODUCTION",
-      desc: "This is where the magic happens. Whether in our 1,500 sq ft studio or on location, your session is executed with the utmost care, creativity, and professional equipment.",
-    },
-    {
-      step: "04",
-      title: "POST-PRODUCTION",
-      desc: "Expert editing, retouching, color grading, and video post-production. We refine every image and frame to match your brand's standards.",
-    },
-    {
-      step: "05",
-      title: "DELIVERY",
-      desc: "Final assets delivered in all formats you need — social media, print, web, and more. Ready to elevate your brand across every platform.",
-    },
-  ];
+  /* Single-open accordion — clicking an item closes any other open one. */
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <>
       <main className="pt-20">
-        {/* Section 1 — Overview */}
+        {/* ━━━ SECTION 1 — Hero / overview ━━━
+            Brandi's 5/7/26 verbatim intro replaces the old marketing copy. */}
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
@@ -130,17 +81,19 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
               </h1>
               <div className="max-w-3xl">
                 <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed">
-                  We create high-quality photography and video content for brands.
-                  From concept to delivery, our talented network of photographers,
-                  cinematographers, and creatives brings your vision to life across
-                  every platform.
+                  We create photography and cinematography content for brands and
+                  organizations — building full campaigns through creative direction,
+                  production, and execution designed to create meaningful impact.
                 </p>
               </div>
             </FadeIn>
           </div>
         </section>
 
-        {/* Section 2 — Capabilities */}
+        {/* ━━━ SECTION 2 — Capabilities accordion ━━━
+            Brandi's 5/7/26 note: 'turn this into an accordion that opens
+            when clicked'. Single-open behavior — clicking another item
+            auto-closes the previously open one (cleaner premium feel). */}
         <section className="py-16 sm:py-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
@@ -149,15 +102,80 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
               </h2>
             </FadeIn>
             <div className="border-t border-dark/10">
-              {capabilities.map((item, index) => (
-                <FadeIn key={item} delay={index * 0.08}>
-                  <div className="py-6 sm:py-8 border-b border-dark/10 flex items-center justify-between group">
-                    <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-dark tracking-tight">
+              {CAPABILITIES.map((item, index) => {
+                const isOpen = openIndex === index;
+                return (
+                  <FadeIn key={item.title} delay={index * 0.08}>
+                    <div className="border-b border-dark/10">
+                      <button
+                        type="button"
+                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                        aria-expanded={isOpen}
+                        aria-controls={`capability-body-${index}`}
+                        className="w-full py-6 sm:py-8 flex items-center justify-between gap-4 sm:gap-8 group text-left"
+                      >
+                        <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-dark tracking-tight">
+                          {item.title}
+                        </span>
+                        <div className="flex items-center gap-4 sm:gap-8 shrink-0">
+                          <span className="text-sm text-dark/30 font-medium tracking-wider">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <ChevronDown
+                            className={`w-5 h-5 sm:w-6 sm:h-6 text-dark/40 transition-transform duration-500 ease-out ${
+                              isOpen ? "rotate-180 text-dark" : ""
+                            }`}
+                          />
+                        </div>
+                      </button>
+                      {/* Body — animates via grid-template-rows trick:
+                          rows go from 0fr (collapsed) to 1fr (expanded)
+                          with overflow-hidden on the inner wrapper. This
+                          gives a smooth height transition without needing
+                          a measured pixel value. */}
+                      <div
+                        id={`capability-body-${index}`}
+                        className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+                          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                        }`}
+                      >
+                        <div className="overflow-hidden">
+                          <p
+                            className={`text-base sm:text-lg text-dark/65 leading-relaxed max-w-3xl pb-6 sm:pb-8 transition-opacity duration-500 ${
+                              isOpen ? "opacity-100" : "opacity-0"
+                            }`}
+                          >
+                            {item.body}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </FadeIn>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ━━━ SECTION 3 — Work Applications ━━━
+            Brandi 5/7/26: renamed from 'SERVICES' to 'WORK APPLICATIONS'.
+            The previous 'OUR TEAM' column was 'completely removed' per her
+            note. The 15 items split into 2 columns (8 + 7) on desktop for
+            balanced height, stacked on mobile. */}
+        <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+            <FadeIn>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-12 sm:mb-16">
+                WORK APPLICATIONS
+              </h2>
+            </FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-0">
+              {WORK_APPLICATIONS.map((item, idx) => (
+                <FadeIn key={item} delay={Math.min(idx * 0.04, 0.4)}>
+                  <div className="border-b border-dark/10 py-4 sm:py-5">
+                    <span className="text-base sm:text-lg text-dark/75 leading-relaxed">
                       {item}
                     </span>
-                    <span className="text-sm text-dark/30 font-medium tracking-wider">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
                   </div>
                 </FadeIn>
               ))}
@@ -165,157 +183,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           </div>
         </section>
 
-        {/* 2-Column Lists — Services + Team Roles */}
-        <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 sm:gap-20">
-              {/* Services */}
-              <FadeIn>
-                <div>
-                  <h3 className="font-display text-2xl sm:text-3xl text-dark tracking-tight mb-10">
-                    SERVICES
-                  </h3>
-                  <ul className="space-y-4">
-                    {servicesList.map((service) => (
-                      <li
-                        key={service}
-                        className="text-base sm:text-lg text-dark/70 leading-relaxed border-b border-dark/5 pb-4"
-                      >
-                        {service}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeIn>
-
-              {/* Team Roles */}
-              <FadeIn delay={0.15}>
-                <div>
-                  <h3 className="font-display text-2xl sm:text-3xl text-dark tracking-tight mb-10">
-                    OUR TEAM
-                  </h3>
-                  <ul className="space-y-4">
-                    {teamRoles.map((role) => (
-                      <li
-                        key={role}
-                        className="text-base sm:text-lg text-dark/70 leading-relaxed border-b border-dark/5 pb-4"
-                      >
-                        {role}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* Section — Media Content Packages */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <FadeIn>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-4">
-                MEDIA CONTENT PACKAGES
-              </h2>
-              <p className="text-lg text-dark/60 max-w-2xl mb-16">
-                Build your brand's inventory of images and videos for social media, print,
-                ads, marketing campaigns, and more.
-              </p>
-            </FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {packages.map((pkg, index) => (
-                <FadeIn key={pkg.name} delay={index * 0.1}>
-                  <div
-                    className={`relative p-6 sm:p-8 border ${
-                      pkg.popular
-                        ? "border-dark bg-dark text-white"
-                        : "border-dark/10 bg-white text-dark"
-                    }`}
-                  >
-                    {pkg.popular && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium tracking-wider bg-white text-dark px-4 py-1 rounded-full">
-                        POPULAR
-                      </span>
-                    )}
-                    <h3 className="font-display text-xl sm:text-2xl tracking-tight mb-2">
-                      {pkg.name}
-                    </h3>
-                    <p className={`font-display text-3xl sm:text-4xl tracking-tight mb-8 ${
-                      pkg.popular ? "text-white" : "text-dark"
-                    }`}>
-                      {pkg.price}
-                    </p>
-                    <ul className="space-y-3 mb-8">
-                      {pkg.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3">
-                          <Check className={`w-4 h-4 mt-1 flex-shrink-0 ${
-                            pkg.popular ? "text-white/70" : "text-dark/40"
-                          }`} />
-                          <span className={`text-sm leading-relaxed ${
-                            pkg.popular ? "text-white/80" : "text-dark/60"
-                          }`}>
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => onNavigate("contact")}
-                      className={`w-full py-3 text-sm font-medium tracking-wider border rounded-lg transition-colors ${
-                        pkg.popular
-                          ? "border-white text-white hover:bg-white hover:text-dark"
-                          : "border-dark text-dark hover:bg-dark hover:text-white"
-                      }`}
-                    >
-                      GET STARTED
-                    </button>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-            <FadeIn delay={0.5}>
-              <p className="text-center text-sm text-dark/40 mt-8">
-                Need something custom? We provide tailored solutions for unique projects.{" "}
-                <button
-                  onClick={() => onNavigate("contact")}
-                  className="underline hover:text-dark transition-colors"
-                >
-                  Contact us
-                </button>
-              </p>
-            </FadeIn>
-          </div>
-        </section>
-
-        {/* Section — Process (enhanced with descriptions) */}
-        <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <FadeIn>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-16">
-                OUR PROCESS
-              </h2>
-            </FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-6">
-              {process.map((item, index) => (
-                <FadeIn key={item.step} delay={index * 0.1}>
-                  <div>
-                    <span className="font-display text-4xl sm:text-5xl text-dark/10 tracking-tight block mb-3">
-                      {item.step}
-                    </span>
-                    <h3 className="font-display text-lg sm:text-xl text-dark tracking-tight mb-3">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-dark/50 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA — Campaign */}
+        {/* ━━━ SECTION 4 — CTA: See Our Campaigns ━━━ */}
         <section className="py-20 sm:py-32 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
@@ -335,6 +203,12 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
             </FadeIn>
           </div>
         </section>
+
+        {/* Removed per Brandi's 5/7/26 review notes:
+            • 'OUR TEAM' team-roles column ('Completely remove')
+            • 'MEDIA CONTENT PACKAGES' section (user confirmed full removal)
+            • 'OUR PROCESS' 5-step row ('Completely remove this process row')
+        */}
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>
