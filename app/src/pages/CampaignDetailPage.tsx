@@ -82,36 +82,74 @@ function VimeoEmbed({
 }
 
 /* ── Image block ─────────────────────────────────── */
-/* Now clickable — opens the page-level Lightbox at this image's index
+/* Clickable image — opens the page-level Lightbox at this image's index
    in the images-only gallery list. Brandi's 5/7/26 review notes:
-   'Every photo in any gallery should be clickable to a lightbox'. */
+   'Every photo in any gallery should be clickable to a lightbox'.
+
+   The `aspect` prop is ignored for masonry contexts (the default).
+   Brandi's 5/7/26 note 'I see a lot of images getting cut off, not
+   showing the whole image, this cannot happen on any photography
+   images in portfolio/campaign sections' — so when no fixed aspect is
+   forced, the <img> renders at its natural aspect ratio and the CSS
+   columns masonry packs items by their true heights. No cropping.
+
+   When the caller passes `forceAspect` (used by the Featured spot
+   above the masonry, where a fixed landscape band is desired), the
+   image fills a fixed-aspect container with object-cover. */
 function ImageBlock({
   src,
   alt,
   aspect = "landscape",
+  forceAspect = false,
   onClick,
 }: {
   src: string;
   alt: string;
   aspect?: string;
+  /** When true, the image is clipped to a fixed aspect ratio container
+   *  (used for the Featured spot only). Defaults to false so gallery
+   *  images render at natural aspect — no cropping. */
+  forceAspect?: boolean;
   onClick?: () => void;
 }) {
-  const aspectClass =
-    aspect === "portrait" ? "aspect-[3/4]" :
-    aspect === "square" ? "aspect-square" :
-    "aspect-video";
-
   const Tag = onClick ? "button" : "div";
+
+  if (forceAspect) {
+    const aspectClass =
+      aspect === "portrait" ? "aspect-[3/4]" :
+      aspect === "square" ? "aspect-square" :
+      "aspect-video";
+    return (
+      <Tag
+        type={onClick ? "button" : undefined}
+        onClick={onClick}
+        className={`relative overflow-hidden ${aspectClass} group block w-full text-left ${onClick ? "cursor-zoom-in" : ""}`}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        {onClick && (
+          <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
+        )}
+      </Tag>
+    );
+  }
+
+  /* Natural-aspect mode (default for gallery masonry).
+     The image dictates its own height; no fixed-aspect crop. */
   return (
     <Tag
       type={onClick ? "button" : undefined}
       onClick={onClick}
-      className={`relative overflow-hidden ${aspectClass} group block w-full text-left ${onClick ? "cursor-zoom-in" : ""}`}
+      className={`relative overflow-hidden group block w-full text-left ${onClick ? "cursor-zoom-in" : ""}`}
     >
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        loading="lazy"
+        className="w-full h-auto block transition-transform duration-700 group-hover:scale-105"
       />
       {onClick && (
         <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
@@ -249,7 +287,13 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
 
   let mainGalleryItems: GalleryItem[];
   let btsItems: GalleryItem[];
-  if (project.btsVideosOnly) {
+  if (project.hideBts) {
+    /* Brandi (Weissman): 'Hide this section for now... All of these
+       photos and videos need to be included in the upper campaign
+       gallery'. Single mixed gallery, no BTS section rendered. */
+    mainGalleryItems = remainingMedia;
+    btsItems = [];
+  } else if (project.btsVideosOnly) {
     mainGalleryItems = remainingMedia.filter((g) => g.type === "image");
     btsItems = remainingMedia.filter((g) => g.type === "video");
   } else {
@@ -347,6 +391,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                     src={featuredItem.src}
                     alt={featuredItem.alt}
                     aspect="landscape"
+                    forceAspect
                     onClick={() => openLightboxAt(featuredItem.src)}
                   />
                 )}
@@ -508,19 +553,24 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                 &ldquo;
               </span>
 
-              {/* Quote text — elegant serif italic */}
+              {/* Quote text — elegant serif italic.
+                  Brandi's 5/7/26 note for Weissman: 'Needs different quote
+                  here, feel free to grab a similar feeling quote from new
+                  copy provided for this campaign'. Falls back to the
+                  generic studio quote when project.quote is absent. */}
               <p
                 className="font-serif italic text-white/90 leading-relaxed -mt-16 sm:-mt-24 lg:-mt-28"
                 style={{ fontSize: "clamp(1.5rem, 3vw, 3rem)", letterSpacing: "-0.01em" }}
               >
-                Every frame tells a story. Every detail matters. We craft visuals that resonate and inspire.
+                {project.quote?.text ??
+                  "Every frame tells a story. Every detail matters. We craft visuals that resonate and inspire."}
               </p>
 
               {/* Attribution — minimal with lines */}
               <div className="mt-12 sm:mt-16 flex items-center justify-center gap-4">
                 <span className="w-8 h-px bg-white/30" />
                 <p className="text-white/30 text-xs sm:text-sm tracking-[0.3em] uppercase font-light">
-                  Ashkan Studios
+                  {project.quote?.attribution ?? "Ashkan Studios"}
                 </p>
                 <span className="w-8 h-px bg-white/30" />
               </div>

@@ -70,6 +70,24 @@ export interface Project {
    *  campaign gallery. Used for Deutsch. */
   btsVideosOnly?: boolean;
 
+  /** If true, the entire 'Behind the Scenes' section is hidden — every
+   *  gallery item (photo AND video) is rendered in the main campaign
+   *  gallery. Used for Weissman per Brandi's 5/7/26 note ('Hide this
+   *  section for now, we will create a new single video compilation of
+   *  behind the scene footage for this purpose. All of these photos and
+   *  videos need to be included in the upper campaign gallery'). */
+  hideBts?: boolean;
+
+  /** Optional custom quote shown in the campaign quote/highlight band.
+   *  Falls back to the generic Ashkan Studios quote when absent.
+   *  Brandi's 5/7/26 note for Weissman: 'Needs different quote here,
+   *  feel free to grab a similar feeling quote from new copy provided
+   *  for this campaign'. */
+  quote?: {
+    text: string;
+    attribution?: string;
+  };
+
   /** Optional inline magazine spread (PDF). */
   magazineSpread?: MagazineSpread;
 }
@@ -407,52 +425,89 @@ export const projects: Project[] = [
     client: "WEISSMAN ELITE",
     title: "Dancewear That Inspires",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    heroImage: "/images/portfolio/weissman-elite.jpg",
+    /* Hero swapped per Brandi's 5/7/26 note ('Obviously this needs to
+       change to photo from gallery, horizontal'). weissman-12 is the
+       copper-studio group lineup — wide horizontal, brand-energetic. */
+    heroImage: "/images/campaigns/weissman/weissman-12.jpg",
     description:
       "Weissman Elite is a leading name in performance dancewear. Across multiple seasons — Winter 2022 through Spring 2026 — we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
+
+    /* ── Brandi's 5/7/26 review-notes copy for Weissman ──────────────
+       PDF pages 37-44. Story & Intent + IMPACT verbatim from Brandi.
+       'Creative & Production Approach' body is intentionally absent —
+       Brandi's PDF shows Deutsch placeholder text in that section
+       (template overlap); waiting on Weissman-specific copy. */
+    storyAndIntent:
+      "Weissman is one of the leading names in the American dance costume industry, producing seasonal campaigns that influence studios and buyers across the country. From Spring 2022 through Fall 2026, we led the full photo and video production for Weissman Elite line's seasonal launches — creating large-scale campaigns built around evolving creative themes designed to strengthen brand identity and support nationwide sales efforts. Each season introduced a new visual world, balancing fashion-forward storytelling with the technical demands of dance movement, product visibility, and commercial performance. The resulting campaigns became the foundation of Weissman Elite's multi-platform marketing ecosystem, spanning nationally distributed print catalogs, e-commerce platforms, social media, digital advertising, and email campaigns.",
+    impact: [
+      "This long-term partnership became a central part of Weissman Elite's seasonal marketing and sales ecosystem. Across more than 15 campaigns, thousands of products were photographed and filmed through productions ranging from two to six weeks, often involving crews of 10–20 alongside casts of 20–40 local and national dancers per project. The resulting content supported nearly every customer-facing touchpoint for the brand, including nationally distributed catalogs, e-commerce platforms, social media campaigns, digital advertising, trade shows, conventions, and web-based product experiences.",
+      "With approximately 8,000–10,000 catalogs distributed to dance studios across the country each season, the imagery and video content played a direct role in how products were presented, experienced, and ultimately purchased. From attention-grabbing campaign visuals to product-focused selling assets, the work helped shape the visual identity of Weissman Elite while supporting buyer engagement across both print and digital platforms.",
+    ],
+    servicesLabel: "PHOTOGRAPHY / VIDEOGRAPHY",
+    deliverablesLabel:
+      "BRANDED PHOTOS, E-COMMERCE PHOTOS, PRODUCT VIDEOS, BRANDED VIDEOS, WEBSITE VIDEOS",
+    /* Featured spot — horizontal photo (not video) per Brandi's
+       'Obviously this needs to change to photo from gallery, horizontal'. */
+    featuredImage: "/images/campaigns/weissman/weissman-15.jpg",
+    /* Brandi: 'Hide this section for now, we will create a new single
+       video compilation of behind the scene footage for this purpose'.
+       All photos AND videos render in the main gallery. */
+    hideBts: true,
+    /* Custom quote — pulled from Brandi's new Story & Intent copy. */
+    quote: {
+      text: "Each season introduced a new visual world, balancing fashion-forward storytelling with the technical demands of dance movement, product visibility, and commercial performance.",
+      attribution: "Ashkan Studios — Weissman Elite Campaigns",
+    },
+
     /* Videos sourced from Brandi's catalog (2026-05-05).
-       Campaign imagery delivered by Brandi 2026-05-07 — see /images/campaigns/weissman/. */
+       Campaign imagery delivered by Brandi 2026-05-07 — see /images/campaigns/weissman/.
+
+       Gallery order: interleaves videos throughout (not bunched at the
+       back) per Brandi's note 'mix in Video more consistently toward
+       the front of this gallery'. Duplicate Vimeo 824868764 removed —
+       'Front Cover Light Wall' was the same file as 'Season Cross Genre'
+       per Brandi's correction. Older 2023/2022 seasons are video-only
+       (no photo deliverables) and naturally cluster near the back. */
     gallery: [
       { src: "/images/campaigns/weissman/weissman-01.jpg", alt: "Weissman cover styling — apparel detail", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/weissman/weissman-02.jpg", alt: "Weissman editorial group shot — color blocking", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2026 Season Cross Genre", type: "video", vimeoId: "1145783498", vimeoHash: "6e07bd9e26", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-03.jpg", alt: "Weissman dancewear spread — black + white", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-04.jpg", alt: "Weissman gold metallic — solo pose", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Fall 2025 Season Cross Genre", type: "video", vimeoId: "1094764251", vimeoHash: "17dfb40e13", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-05.jpg", alt: "Weissman cheetah print collection", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Spring 2026 Season Cross Genre", type: "video", vimeoId: "1145783498", vimeoHash: "6e07bd9e26", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-06.jpg", alt: "Weissman cover release — featured tile", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Spring 2025 Season Cross Genre", type: "video", vimeoId: "1030112459", vimeoHash: "3a116c25a3", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-07.jpg", alt: "Weissman gray cover — minimal palette", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/weissman/weissman-08.jpg", alt: "Weissman amethyst — soft jewel tones", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Fall 2024 Season Cross Genre", type: "video", vimeoId: "950064546", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-09.jpg", alt: "Weissman vanilla — neutral motion", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-10.jpg", alt: "Weissman black — bold silhouette", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Fall 2025 Season Cross Genre", type: "video", vimeoId: "1094764251", vimeoHash: "17dfb40e13", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2024 Bright Suiting", type: "video", vimeoId: "950064503", vimeoHash: "7b6c207cac", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-11.jpg", alt: "Weissman copper + black layered look", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-12.jpg", alt: "Weissman group lineup — copper studio set", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-13.jpg", alt: "Weissman navy duo — layered styling", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Spring 2025 Season Cross Genre", type: "video", vimeoId: "1030112459", vimeoHash: "3a116c25a3", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-14.jpg", alt: "Weissman mulberry tone — solo editorial", type: "image", aspectRatio: "portrait" },
-      { src: "/images/campaigns/weissman/weissman-15.jpg", alt: "Weissman outdoor group — Ashkan studio set", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-16.jpg", alt: "Weissman black + black cherry — duo motion", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Fall 2024 Season Cross Genre", type: "video", vimeoId: "950064546", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Fall 2024 Bright Suiting", type: "video", vimeoId: "950064503", vimeoHash: "7b6c207cac", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2024 Red Hip Hop", type: "video", vimeoId: "950064549", vimeoHash: "bdaa506f69", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-13.jpg", alt: "Weissman navy duo — layered styling", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Fall 2024 Mixify", type: "video", vimeoId: "950064513", vimeoHash: "530165a338", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-14.jpg", alt: "Weissman mulberry tone — solo editorial", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Winter 2024 Season Cross Genre", type: "video", vimeoId: "1145746235", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-15.jpg", alt: "Weissman outdoor group — Ashkan studio set", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Winter 2024 Gothic Glam", type: "video", vimeoId: "1003351680", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-16.jpg", alt: "Weissman black + black cherry — duo motion", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Winter 2024 Create Your Own Spotlight", type: "video", vimeoId: "999687742", vimeoHash: "88aae298bd", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Winter 2024 Neon Hip Hop", type: "video", vimeoId: "999687723", vimeoHash: "db85e5ad2b", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-17.jpg", alt: "Weissman lime accent — high-energy motion", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Winter 2024 Neon Hip Hop", type: "video", vimeoId: "999687723", vimeoHash: "db85e5ad2b", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-18.jpg", alt: "Weissman mixed pastels — group shot", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-19.jpg", alt: "Weissman pear — solo pose study", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Spring 2024 Season Cross Genre", type: "video", vimeoId: "886600264", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-19.jpg", alt: "Weissman pear — solo pose study", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Spring 2024 Quirky / Stripes", type: "video", vimeoId: "894189739", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-20.jpg", alt: "Weissman HAVE collection — final cover", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Spring 2024 Neons", type: "video", vimeoId: "894189648", vimeoHash: "dcc8da9197", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-21.jpg", alt: "Weissman HAVE collection — full set styling", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2023 Season Cross Genre", type: "video", vimeoId: "824868764", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Fall 2023 Front Cover Light Wall", type: "video", vimeoId: "824868764", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2023 Back Cover Light Floor", type: "video", vimeoId: "824219543", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2023 Acro", type: "video", vimeoId: "824219420", vimeoHash: "9cfb4b79e8", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-20.jpg", alt: "Weissman HAVE collection — final cover", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Winter 2023 Season Cross Genre", type: "video", vimeoId: "867250099", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-21.jpg", alt: "Weissman HAVE collection — full set styling", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Winter 2022 Season Cross Genre", type: "video", vimeoId: "740849869", aspectRatio: "landscape" },
     ],
     relatedProjects: ["elastique-athletics", "eye-gallery"],
