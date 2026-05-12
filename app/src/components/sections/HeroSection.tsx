@@ -517,7 +517,12 @@ export function HeroSection() {
               height="clamp(163px, 19.5vw, 299px)"
               driftName="driftB"
               enterDelay={1.1}
-              style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "30px" }}
+              /* Position nudge 2026-05-12: shifted ~30px down via `top`
+                 (30px → 60px). marginTop kept at -100px so the cutout
+                 still hangs off the top of its line; the larger `top`
+                 pulls it back down into a more centered position
+                 between VISUAL and STORIES. */
+              style={{ margin: "0 8px 0 14px", marginTop: "-100px", top: "60px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={28}
