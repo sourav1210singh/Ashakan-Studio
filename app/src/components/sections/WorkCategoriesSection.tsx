@@ -178,12 +178,19 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
         >
           {tile.category}
         </h3>
-        {/* Description — collapses to 0 height when not hovered */}
+        {/* Description — collapses to 0 height when not hovered.
+            maxHeight raised from 5rem to 16rem (256px) so the long
+            V/Industrial description ('Corporate, medical, and
+            industrial videography that highlights process and
+            precision.') no longer clips at the bottom. Easing
+            switched to the premium cubic-bezier curve used elsewhere
+            in the hero/menu for a smoother feel. */}
         <div
-          className="overflow-hidden transition-all duration-[600ms] ease-out"
+          className="overflow-hidden transition-all duration-[700ms]"
           style={{
-            maxHeight: isHovered ? "5rem" : "0",
+            maxHeight: isHovered ? "16rem" : "0",
             opacity: isHovered ? 1 : 0,
+            transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
           <p className="text-xs sm:text-sm text-white/75 leading-snug mt-2 sm:mt-3">
