@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Lightbox } from "@/components/ui/Lightbox";
@@ -9,22 +9,11 @@ const ABOUT_IMAGE = {
 };
 
 export function AboutSection() {
+  /* sectionRef + imageY parallax removed 2026-05-12 — the image is
+     now rendered at its natural aspect ratio (no overscale / crop)
+     so there is no inner element to translate on scroll. */
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [imageY, setImageY] = useState(10);
   const [lightboxOpen, setLightboxOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const scrollProgress = -rect.top / (rect.height + window.innerHeight);
-        setImageY(10 - scrollProgress * 20);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <section
@@ -107,23 +96,25 @@ export function AboutSection() {
             <FadeIn direction="left" delay={0.2}>
               {/* Click the studio photo to open it large in the lightbox.
                   Single-image lightbox (no thumbnails or arrows shown
-                  because there's only one image to view here). */}
+                  because there's only one image to view here).
+
+                  2026-05-12: removed the fixed aspect-[3/2] container,
+                  h-[120%] over-scaling and parallax translateY — they
+                  were cropping the bottom of the studio photo. The
+                  image now renders at its natural aspect ratio (full
+                  height) inside a block-level wrapper. The hover scale
+                  + dark overlay are preserved. */}
               <button
                 type="button"
                 onClick={() => setLightboxOpen(true)}
                 aria-label="Enlarge studio photo"
-                className="block w-full relative aspect-[3/2] overflow-hidden cursor-zoom-in group"
+                className="block w-full relative overflow-hidden cursor-zoom-in group"
               >
-                <div
-                  className="absolute inset-0"
-                  style={{ transform: `translateY(${imageY}%)` }}
-                >
-                  <img
-                    src={ABOUT_IMAGE.src}
-                    alt={ABOUT_IMAGE.alt}
-                    className="w-full h-[120%] object-cover transition-transform duration-1000 group-hover:scale-105"
-                  />
-                </div>
+                <img
+                  src={ABOUT_IMAGE.src}
+                  alt={ABOUT_IMAGE.alt}
+                  className="w-full h-auto block transition-transform duration-1000 group-hover:scale-105"
+                />
                 <span className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
               </button>
             </FadeIn>
