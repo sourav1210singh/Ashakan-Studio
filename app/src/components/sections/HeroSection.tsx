@@ -481,17 +481,20 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12 (seventh pass — small tweak):
-              user asked for a small additional reduction on top of
-              the fifth-pass value. marginTop -130 → -145 (15px more
-              negative). */}
+              Position nudge 2026-05-12 (eighth pass — match line 3
+              gap): user asked the WE CREATE → VISUAL STORIES gap
+              to exactly match the VISUAL STORIES → THAT INSPIRE
+              gap below. Line 2 marginTop pulled from -145px → -45px
+              so it equals line 3's marginTop. Both gaps now share
+              the same negative offset and the vertical rhythm
+              between every line is identical. */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-145px",
+              marginTop: "-45px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
@@ -610,15 +613,17 @@ export function HeroSection() {
                 Same treatment as WE CREATE on line 1 — letterSpacing
                 0.012em + scaleX(0.7) so Inter glyphs match the
                 horizontal density of the display-font words above.
-                Right margin reduced 40% (0.45em → 0.27em) per user
-                request 2026-05-12 to pull THAT closer to INSPIRE. */}
+                Right margin reduced 40% (0.45em → 0.27em), then
+                another 40% on top (0.27em → 0.16em) on the same
+                day per repeat user request — THAT now sits very
+                close to INSPIRE. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
               style={{
                 fontWeight: 300,
                 letterSpacing: "0.012em",
                 lineHeight: 0.9,
-                marginRight: "0.27em",
+                marginRight: "0.16em",
               }}
               strength={0.2}
             >
