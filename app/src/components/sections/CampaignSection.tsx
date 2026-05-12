@@ -143,7 +143,7 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
           <div>
             {/* 'Featured / 01' eyebrow removed 2026-05-12 per user request. */}
             <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-dark tracking-tight leading-[0.9]">
-              THE CAMPAIGN
+              CAMPAIGNS
             </h2>
             <p className="text-base sm:text-lg text-dark/60 max-w-xl mt-4">
               A deeper dive into brand-defining campaigns, highlighting the

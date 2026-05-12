@@ -331,7 +331,7 @@ export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
           <div>
             {/* 'Portfolio / 02' eyebrow removed 2026-05-12 per user request. */}
             <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
-              THE WORK
+              WORK
             </h2>
             <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
               Browse our photography and videography by industry — fashion/editorial,
