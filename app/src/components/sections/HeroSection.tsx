@@ -393,14 +393,9 @@ export function HeroSection() {
           {/* ───── LINE 1: [vitacca-pro-868] WE CREATE [isabella-decandido-22138] ─────
               User-directed swap (2026-05-12): replace the old cameraman cutout
               left of WE with the Vitacca Pro-868 dancer, and add an Isabella
-              DeCandido portrait to the right of CREATE.
-
-              Margin nudge (sixth pass, 2026-05-12): bottom margin dropped
-              from mb-2 lg:mb-4 → mb-0 so there is no intrinsic gap
-              contributed by line 1 — line 2's marginTop alone now controls
-              the distance to VISUAL STORIES. */}
+              DeCandido portrait to the right of CREATE. */}
           <motion.div
-            className="mb-0"
+            className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.3s forwards",
@@ -486,22 +481,19 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12 (sixth pass): user STILL
-              wanted the lines closer. Two simultaneous moves to
-              kill the remaining gap:
-                • Line-1 mb-2/lg:mb-4 dropped to mb-0 (removed the
-                  intrinsic 8-16px below line 1, see line 1 wrapper).
-                • Line-2 marginTop pushed -130 → -200 (another 70px
-                  pull-up).
-              VISUAL STORIES should now sit visually touching the
-              underside of WE CREATE. */}
+              Position nudge 2026-05-12 (fifth pass): user said the
+              gap is STILL too tall and wants the lines tight against
+              each other. marginTop pulled aggressively from -80px →
+              -130px (~50px more negative) so line 2 sits right
+              against line 1 — the only remaining separation is the
+              intrinsic line-height of the text. */}
           <motion.div
-            className="mb-0"
+            className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-200px",
+              marginTop: "-130px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
