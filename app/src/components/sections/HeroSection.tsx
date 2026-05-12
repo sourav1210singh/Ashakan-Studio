@@ -467,15 +467,18 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12: line lifted up ~20px via
-              marginTop so it sits closer to the WE CREATE line. */}
+              Position nudge 2026-05-12 (second pass): marginTop tightened
+              from -20px → -35px so the gap between WE CREATE and VISUAL
+              STORIES matches the gap between VISUAL STORIES and THAT
+              INSPIRE (both gaps now share the same negative offset for
+              consistent vertical rhythm). */}
           <motion.div
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-20px",
+              marginTop: "-35px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
@@ -546,13 +549,17 @@ export function HeroSection() {
               left of THAT (moved here from line 2) and replace the previous
               portrait right of INSPIRE with the Deutsch Brandi-615 portrait.
 
-              Position nudge 2026-05-12: line lifted up ~15px via marginTop. */}
+              Position nudge 2026-05-12 (second pass): marginTop tightened
+              from -15px → -35px so the gap between VISUAL STORIES and
+              THAT INSPIRE exactly matches the gap above (line 2 is also
+              -35px). Vertical rhythm between the three hero lines is now
+              consistent. */}
           <motion.div
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
               y: line3Lift,
-              marginTop: "-15px",
+              marginTop: "-35px",
             }}
           >
             <InlineCutout
