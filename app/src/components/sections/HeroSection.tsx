@@ -406,19 +406,18 @@ export function HeroSection() {
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
               className="hidden md:inline-block"
-              /* +30% on every clamp value per user request 2026-05-12 */
-              width="clamp(130px, 15vw, 234px)"
-              height="clamp(104px, 12.5vw, 189px)"
+              /* +30% on every clamp value (third pass 2026-05-12) —
+                 user asked this cutout to grow another 30% on top
+                 of the previous +30%. Net growth vs original ~+69%. */
+              width="clamp(169px, 19.5vw, 304px)"
+              height="clamp(135px, 16.25vw, 246px)"
               driftName="driftA"
               enterDelay={0.6}
-              /* Position 2026-05-12 (page-6-reference pass): Brandi's
-                 design shows the Vitacca dancer floating ABOVE the
-                 WE CREATE line with the body high and the arm/leg
-                 extending down through the WE letters. marginTop is
-                 now -100px so the cutout hangs well above the line,
-                 and marginRight is -90px so the dancer overlaps the
-                 left side of WE rather than sitting beside it. */
-              style={{ marginRight: "-90px", marginTop: "-100px", top: "0" }}
+              /* Position 2026-05-12 (third pass): shifted right and
+                 lifted slightly higher per user feedback. marginRight
+                 -90 → -130 (more right / more overlap with WE),
+                 marginTop -100 → -120 (lifted ~20px higher). */
+              style={{ marginRight: "-130px", marginTop: "-120px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={22}
@@ -459,23 +458,23 @@ export function HeroSection() {
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
               className="hidden md:inline-block"
-              /* Page-6-reference pass 2026-05-12: in Brandi's design
-                 this is the TALLEST cutout — Isabella's head sits
-                 above WE CREATE and her dress flows down past the
-                 line toward the VISUAL STORIES level. Width grown
-                 ~35% and height grown ~73% so the figure can span
-                 roughly two text-line heights. */
-              width="clamp(120px, 14vw, 220px)"
-              height="clamp(200px, 23vw, 360px)"
+              /* Size reduced 2026-05-12 (third pass) — user said
+                 the figure was too large after the page-6-reference
+                 enlargement. Roughly -30% on every clamp value so
+                 Isabella still reads as a tall figure but no longer
+                 overpowers the composition. */
+              width="clamp(85px, 10vw, 154px)"
+              height="clamp(140px, 16vw, 252px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position 2026-05-12 (page-6-reference pass):
-                 marginTop -110px lifts the head above WE CREATE;
-                 marginLeft -50px overlaps slightly with the end
-                 of CREATE so the figure sits in the top-right of
-                 the composition, dress flowing down into the
-                 line-1/line-2 gap. */
-              style={{ marginLeft: "-50px", marginTop: "-110px", top: "0" }}
+              /* Position 2026-05-12 (third pass): pulled close to
+                 CREATE with no horizontal breathing room — user
+                 explicitly asked that there be 'no horizontal space'
+                 between CREATE and this cutout. marginLeft -50 → 0
+                 so the cutout starts immediately after CREATE.
+                 marginTop relaxed -110 → -80 to match the smaller
+                 figure size. */
+              style={{ marginLeft: "0", marginTop: "-80px", top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
