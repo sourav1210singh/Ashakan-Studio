@@ -616,8 +616,12 @@ export function HeroSection() {
                  above the line; marginRight -50px lets it sit
                  slightly closer to / overlapping THAT. The car
                  effectively reads as a third visual band between
-                 the two text lines. */
-              style={{ marginRight: "-50px", marginTop: "-130px", top: "0" }}
+                 the two text lines.
+
+                 Nudge 2026-05-12: top: 0 → -20px to lift the car
+                 slightly higher per user request — only the Ferrari
+                 moves, everything else on line 3 stays put. */
+              style={{ marginRight: "-50px", marginTop: "-130px", top: "-20px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={26}
