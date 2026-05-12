@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Lightbox } from "@/components/ui/Lightbox";
 
@@ -113,19 +113,7 @@ export function AboutSection() {
             <FadeIn direction="left" delay={0.2}>
               {/* Click the studio photo to open it large in the lightbox.
                   Single-image lightbox (no thumbnails or arrows shown
-                  because there's only one image to view here).
-
-                  Brandi's 5/7/26 review notes (STUDIO page section,
-                  PDF page 65 — flagged 'Changes here should match
-                  exactly on changes requested to this section on home
-                  page'): she wants a BTS in-studio video here in place
-                  of the photo, with a placeholder until the clip is
-                  delivered. We keep the studio photo for visual
-                  continuity and overlay a 'BTS Film · Coming Soon'
-                  badge so it reads as a video placeholder. Once Brandi
-                  delivers the BTS clip, this can be swapped to a Vimeo
-                  background iframe (FullServiceHybridSection has the
-                  pattern). */}
+                  because there's only one image to view here). */}
               <button
                 type="button"
                 onClick={() => setLightboxOpen(true)}
@@ -142,19 +130,7 @@ export function AboutSection() {
                     className="w-full h-[120%] object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                 </div>
-                {/* Dark overlay so the placeholder play UI stays legible */}
-                <span className="absolute inset-0 bg-black/35 group-hover:bg-black/25 transition-colors duration-300 pointer-events-none" />
-                {/* BTS video placeholder UI */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="flex flex-col items-center gap-3 text-white">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white/45 flex items-center justify-center backdrop-blur-sm bg-white/5 group-hover:bg-white/10 transition-colors">
-                      <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-white text-white ml-1" />
-                    </div>
-                    <span className="text-[0.65rem] sm:text-xs font-semibold tracking-[0.35em] uppercase text-white/75">
-                      BTS Film · Coming Soon
-                    </span>
-                  </div>
-                </div>
+                <span className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
               </button>
             </FadeIn>
           </div>
