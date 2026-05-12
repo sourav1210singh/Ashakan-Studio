@@ -34,7 +34,16 @@ type WorkTile = {
   category: string;
   /** One-line teaser shown subtly on hover */
   description: string;
+  /** Poster image — used as the visual for Photography tiles and as
+   *  the fallback / first-paint for Videography tiles before the
+   *  Vimeo iframe loads. */
   image: string;
+  /** Optional Vimeo background video — when set on a VIDEOGRAPHY
+   *  tile, the iframe overlays the image so the tile reads as
+   *  live motion content. */
+  vimeoId?: string;
+  /** Vimeo privacy hash for private/unlisted videos. */
+  vimeoHash?: string;
   href: string;
 };
 
@@ -55,6 +64,8 @@ const WORK_TILES: WorkTile[] = [
     category: "RETAIL",
     description: "Brand films and product motion for retail clients.",
     image: "/images/categories/retail/296gtb-070.jpg",
+    /* Audaja Skincare Mix Reel 001 — premium retail brand film */
+    vimeoId: "947075031",
     href: "/work/videography/retail/",
   },
   // P/The Arts
@@ -73,6 +84,8 @@ const WORK_TILES: WorkTile[] = [
     category: "THE ARTS",
     description: "Cinematic videography of performances, dance, and artistic expression.",
     image: "/images/categories/the-arts/_east-side-perfromming-art-584-edit.jpg",
+    /* Vitacca Season Promo 24-25 — flagship dance/arts video */
+    vimeoId: "1022971286",
     href: "/work/videography/the-arts/",
   },
   // P/Fashion
@@ -91,6 +104,9 @@ const WORK_TILES: WorkTile[] = [
     category: "DOCUMENTARY",
     description: "Mission-driven storytelling for nonprofits, organizations, and communities.",
     image: "/images/portfolio/8-4Q7A9046-2.jpeg",
+    /* Monarch Transforming Lives 25-26 — flagship documentary */
+    vimeoId: "1151967437",
+    vimeoHash: "000a715e4a",
     href: "/work/videography/documentary/",
   },
   // P/Industrial
@@ -109,6 +125,8 @@ const WORK_TILES: WorkTile[] = [
     category: "INDUSTRIAL",
     description: "Corporate, medical, and industrial videography that highlights process and precision.",
     image: "/images/categories/industrial/2venus-aerospace-24470-2.jpg",
+    /* RadioMedix — Changing the Landscape of Nuclear Medicine */
+    vimeoId: "1100401603",
     href: "/work/videography/industrial/",
   },
   // V/Narrative
@@ -118,6 +136,8 @@ const WORK_TILES: WorkTile[] = [
     category: "NARRATIVE",
     description: "Story-driven short films and brand narratives for organizations.",
     image: "/images/categories/industrial/4q7a0824.jpg",
+    /* Safari Vet — The Safari Difference, League City */
+    vimeoId: "954997422",
     href: "/work/videography/narrative/",
   },
 ];
@@ -139,7 +159,9 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
         scrollSnapAlign: "start",
       }}
     >
-      {/* Image with slow Ken-Burns zoom on hover */}
+      {/* Poster image — used as the visual for PHOTOGRAPHY tiles and
+          as the fallback / first-paint for VIDEOGRAPHY tiles before
+          the Vimeo iframe boots. Slow Ken-Burns zoom on hover. */}
       <img
         src={tile.image}
         alt={`${tile.type} — ${tile.category}`}
@@ -147,6 +169,33 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1100ms] ease-out"
         style={{ transform: isHovered ? "scale(1.06)" : "scale(1)" }}
       />
+
+      {/* Vimeo background video — overlays the poster image on
+          VIDEOGRAPHY tiles that have a vimeoId. Sized at 300% w/h
+          and centred so the iframe always covers a 4:5 tile at any
+          viewport. loading="lazy" defers the network request until
+          the tile is near the viewport, keeping the home page fast
+          even with five embedded videos. The same Ken-Burns zoom
+          is applied so the motion-feel matches Photography tiles. */}
+      {tile.type === "VIDEOGRAPHY" && tile.vimeoId && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <iframe
+            src={`https://player.vimeo.com/video/${tile.vimeoId}?background=1&autoplay=1&loop=1&muted=1&autopause=0&title=0&byline=0&portrait=0&controls=0&dnt=1${tile.vimeoHash ? `&h=${tile.vimeoHash}` : ""}`}
+            loading="lazy"
+            allow="autoplay; fullscreen"
+            title={`${tile.category} — videography reel`}
+            className="absolute transition-transform duration-[1100ms] ease-out"
+            style={{
+              top: "50%",
+              left: "50%",
+              width: "300%",
+              height: "300%",
+              transform: `translate(-50%, -50%) scale(${isHovered ? 1.06 : 1})`,
+              border: 0,
+            }}
+          />
+        </div>
+      )}
 
       {/* Top + bottom dark gradient for white-text legibility */}
       <div
