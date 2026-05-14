@@ -139,13 +139,19 @@ function App() {
     setSelectedCategory(category);
   }, []);
 
-  // ── Handle browser back/forward buttons ──
+  // ── Handle browser back/forward + programmatic pushState ──
   useEffect(() => {
     const handlePopState = () => {
       const { view, slug, category } = parseRoute(window.location.pathname);
       setCurrentView(view);
       setSelectedProjectSlug(slug);
       setSelectedCategory(category);
+      /* Scroll to top on every route change — covers browser
+         back/forward AND any programmatic `pushState +
+         dispatchEvent(PopStateEvent)` call from sections /
+         footer / etc. Per user request 2026-05-12: every page
+         should land at the hero/top, never mid- or bottom-scroll. */
+      window.scrollTo(0, 0);
     };
 
     window.addEventListener("popstate", handlePopState);

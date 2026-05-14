@@ -16,9 +16,35 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
     }
   };
 
+  /* Direct path map so the footer can navigate even on pages that
+     mount it without passing the onNavigate prop (e.g. HomePage
+     only passes onLogoClick). Falls back to the prop when present
+     so the App's setState path is still preferred. */
+  const NAV_PATHS: Record<View, string> = {
+    home: "/",
+    photography: "/work/photography/",
+    videography: "/work/videography/",
+    campaigns: "/work/campaigns/",
+    services: "/what-we-do/",
+    studio: "/studio/",
+    contact: "/contact/",
+    booking: "/contact/booking/",
+    storytime: "/storytime/",
+    press: "/press/",
+    seo: "/",
+    test: "/test/",
+  };
+
   const handleNavClick = (view: View) => {
     if (onNavigate) {
       onNavigate(view);
+      return;
+    }
+    const path = NAV_PATHS[view];
+    if (path) {
+      window.history.pushState(null, "", path);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      window.scrollTo(0, 0);
     }
   };
 

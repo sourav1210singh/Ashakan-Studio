@@ -312,6 +312,9 @@ export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
   const navigate = (href: string) => {
     window.history.pushState(null, "", href);
     window.dispatchEvent(new PopStateEvent("popstate"));
+    /* Defensive scroll-to-top — App's popstate handler also calls
+       scrollTo(0,0), this is here for redundancy. */
+    window.scrollTo(0, 0);
   };
 
   return (
