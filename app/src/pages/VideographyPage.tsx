@@ -107,9 +107,9 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                   {pageDescription}
                 </p>
               )}
-              <p className="text-xs font-semibold tracking-[0.3em] text-white/40 uppercase mt-6">
-                {videos.length} {videos.length === 1 ? "Video" : "Videos"}
-              </p>
+              {/* 'N Videos' counter line removed 2026-05-12 per user
+                  request — applies to the all-videography page and
+                  every category sub-page. */}
 
               {/* EXPLORE pills — shown only on the all-videography view,
                   let visitors jump directly to a sub-category page per
