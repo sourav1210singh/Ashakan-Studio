@@ -299,10 +299,14 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
             ContactPage). */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-[45] bg-cream"
+          className="fixed inset-0 z-[45] bg-cream overflow-y-auto"
           style={{ animation: "fadeIn 0.3s ease-out" }}
         >
-          <div className="flex flex-col justify-between h-full pt-16 sm:pt-20">
+          {/* min-h-full so the flex-col distribution still spreads
+              items vertically when content fits, but the overflow-y-auto
+              on the outer wrapper lets the menu scroll if the viewport
+              is shorter than the content (small laptops at 100 % zoom). */}
+          <div className="flex flex-col justify-between min-h-full pt-16 sm:pt-20">
             {/* Nav Items */}
             <nav className="w-full flex-1 flex flex-col justify-end">
               {[
@@ -319,9 +323,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                       className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] bg-dark"
                     />
                   </div>
+                  {/* Font sizes + vertical padding reduced one step
+                      2026-05-12 so all five items + bottom bar fit on
+                      a standard 100 %-zoom laptop viewport (was cutting
+                      off THE STUDIO + footer at ~768 px tall screens). */}
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="relative z-20 w-full text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-4 sm:py-5 lg:py-6 transition-colors duration-300 group-hover:text-white uppercase font-black"
+                    className="relative z-20 w-full text-left font-hero-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-3 sm:py-4 lg:py-5 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {item.label}
