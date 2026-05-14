@@ -469,12 +469,16 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
         <section className="py-16 sm:py-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight mb-6">
+              {/* Heading mb bumped from mb-6 to mb-10 after removing
+                  the subtitle paragraph so the CTA button has the
+                  same breathing room from the heading as before. */}
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight mb-10">
                 LET'S CREATE TOGETHER
               </h2>
-              <p className="text-lg text-dark/60 max-w-2xl mx-auto mb-10">
-                Whether you need a full production team or just the space, we're here to make it happen.
-              </p>
+              {/* Subtitle 'Whether you need a full production team or
+                  just the space, we're here to make it happen.' removed
+                  2026-05-12 per user request. The CTA now flows
+                  directly from the heading into the button. */}
               <button
                 onClick={() => onNavigate("contact")}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
