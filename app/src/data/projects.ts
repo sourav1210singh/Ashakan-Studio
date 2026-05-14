@@ -553,7 +553,7 @@ export const projects: Project[] = [
       { src: "", alt: "Weissman Fall 2024 Mixify", type: "video", vimeoId: "950064513", vimeoHash: "530165a338", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-14.jpg", alt: "Weissman mulberry tone — solo editorial", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Winter 2024 Season Cross Genre", type: "video", vimeoId: "1145746235", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-15.jpg", alt: "Weissman outdoor group — Ashkan studio set", type: "image", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-15.jpg", alt: "Weissman HAVE collection — multicolor lineup (white / canary / red / turquoise)", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Winter 2024 Gothic Glam", type: "video", vimeoId: "1003351680", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-16.jpg", alt: "Weissman black + black cherry — duo motion", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Winter 2024 Create Your Own Spotlight", type: "video", vimeoId: "999687742", vimeoHash: "88aae298bd", aspectRatio: "landscape" },
