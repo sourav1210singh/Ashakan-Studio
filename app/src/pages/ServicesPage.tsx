@@ -96,11 +96,9 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
             auto-closes the previously open one (cleaner premium feel). */}
         <section className="py-16 sm:py-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <FadeIn>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-16">
-                CAPABILITIES
-              </h2>
-            </FadeIn>
+            {/* 'CAPABILITIES' heading removed 2026-05-12 per user
+                request — the accordion now sits without a section
+                title above it. */}
             <div className="border-t border-dark/10">
               {CAPABILITIES.map((item, index) => {
                 const isOpen = openIndex === index;
@@ -117,16 +115,14 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
                         <span className="font-display text-2xl sm:text-3xl lg:text-4xl text-dark tracking-tight">
                           {item.title}
                         </span>
-                        <div className="flex items-center gap-4 sm:gap-8 shrink-0">
-                          <span className="text-sm text-dark/30 font-medium tracking-wider">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <ChevronDown
-                            className={`w-5 h-5 sm:w-6 sm:h-6 text-dark/40 transition-transform duration-500 ease-out ${
-                              isOpen ? "rotate-180 text-dark" : ""
-                            }`}
-                          />
-                        </div>
+                        {/* '01 / 02 / 03 ...' index badges removed
+                            2026-05-12 per user request — only the
+                            ChevronDown stays on the right side. */}
+                        <ChevronDown
+                          className={`w-5 h-5 sm:w-6 sm:h-6 text-dark/40 transition-transform duration-500 ease-out shrink-0 ${
+                            isOpen ? "rotate-180 text-dark" : ""
+                          }`}
+                        />
                       </button>
                       {/* Body — animates via grid-template-rows trick:
                           rows go from 0fr (collapsed) to 1fr (expanded)
