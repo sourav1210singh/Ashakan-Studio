@@ -94,7 +94,7 @@ const PROCESS = [
 const STUDIO_GALLERY = [
   { src: "/images/studio/studio-interior-2.jpg", alt: "Ashkan Studios — cyclorama wall and lighting setup" },
   { src: "/images/studio/studio-wide.jpg", alt: "Ashkan Studios — wide angle of the studio floor" },
-  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios — production in progress" },
+  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios — dancer in motion on teal backdrop" },
   { src: "/images/studio/studio-interior-1.jpg", alt: "Ashkan Studios — full studio interior" },
 ];
 
