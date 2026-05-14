@@ -152,15 +152,15 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
               <FadeIn>
+                {/* '2 DEPARTMENTS, 1 COMPANY.' subtitle removed
+                    2026-05-12 per user request — matches the home
+                    page AboutSection which had the same subtitle
+                    dropped earlier today. */}
                 <h2 className="font-display text-dark tracking-tight leading-[0.95]">
                   <span className="text-4xl sm:text-5xl lg:text-6xl">
                     BASED IN
                     <br />
                     HOUSTON, TX
-                  </span>
-                  <br />
-                  <span className="text-2xl sm:text-3xl lg:text-4xl text-midgray">
-                    2 DEPARTMENTS, 1 COMPANY.
                   </span>
                 </h2>
               </FadeIn>

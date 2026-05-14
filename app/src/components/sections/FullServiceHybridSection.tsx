@@ -30,6 +30,9 @@ export function FullServiceHybridSection() {
   const goToServices = () => {
     window.history.pushState(null, "", "/what-we-do/");
     window.dispatchEvent(new PopStateEvent("popstate"));
+    /* Defensive scroll-to-top — App's popstate handler also calls
+       scrollTo(0,0), this is here for redundancy. */
+    window.scrollTo(0, 0);
   };
 
   return (
