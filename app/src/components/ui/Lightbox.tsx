@@ -127,8 +127,16 @@ export function Lightbox({
         </button>
       </div>
 
-      {/* Image — centered, contains within viewport */}
-      <div className="flex-1 flex items-center justify-center px-4 sm:px-10 lg:px-20 relative">
+      {/* Image — centered, contains within viewport.
+          `min-h-0` is critical: without it the flex-1 middle div
+          inherits min-height:auto and lets tall images push the
+          container past the viewport — which caused the bottom of
+          the studio photo to clip on the home page lightbox.
+          With min-h-0 the flex item can shrink below its content
+          intrinsic size, so `max-h-full + object-contain` on the
+          <img> properly letterboxes the image within the viewport
+          regardless of natural aspect. */}
+      <div className="flex-1 min-h-0 flex items-center justify-center px-4 sm:px-10 lg:px-20 relative">
         <img
           key={img.src}
           src={img.src}
