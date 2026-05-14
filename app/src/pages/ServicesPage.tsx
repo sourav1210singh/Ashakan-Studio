@@ -94,12 +94,15 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
             Brandi's 5/7/26 note: 'turn this into an accordion that opens
             when clicked'. Single-open behavior — clicking another item
             auto-closes the previously open one (cleaner premium feel). */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
+        {/* Removed the section's top py + the inner div's duplicate
+            border-t on 2026-05-12 so the accordion sits flush under
+            the hero copy with a single separator line. The empty
+            vertical band between two horizontal lines that the user
+            flagged is gone; the section now opens directly with the
+            first PHOTOGRAPHY accordion row. */}
+        <section className="pb-16 sm:pb-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            {/* 'CAPABILITIES' heading removed 2026-05-12 per user
-                request — the accordion now sits without a section
-                title above it. */}
-            <div className="border-t border-dark/10">
+            <div>
               {CAPABILITIES.map((item, index) => {
                 const isOpen = openIndex === index;
                 return (
