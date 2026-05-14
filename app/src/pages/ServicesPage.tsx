@@ -160,8 +160,15 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
             Brandi 5/7/26: renamed from 'SERVICES' to 'WORK APPLICATIONS'.
             The previous 'OUR TEAM' column was 'completely removed' per her
             note. The 15 items split into 2 columns (8 + 7) on desktop for
-            balanced height, stacked on mobile. */}
-        <section className="py-16 sm:py-24 bg-cream border-t border-dark/10">
+            balanced height, stacked on mobile.
+
+            2026-05-12: trimmed the section's top padding (py-16/sm:py-24
+            → pt-12/sm:pt-16) AND dropped its border-t — the empty band
+            + double horizontal line above WORK APPLICATIONS is gone
+            (the last accordion item's border-b is now the only
+            separator). Some breathing room above the heading remains
+            so the section still reads as its own block. */}
+        <section className="pt-12 sm:pt-16 pb-16 sm:pb-24 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight mb-12 sm:mb-16">
