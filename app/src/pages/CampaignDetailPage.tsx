@@ -417,9 +417,13 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
               <FadeIn>
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
-                  {project.creativeAndProductionApproach
-                    ? "Creative & Production Approach"
-                    : "Project Details"}
+                  {/* Heading is now always 'Creative & Production
+                      Approach' per user request 2026-05-12 — applies
+                      to every campaign page, regardless of whether
+                      Brandi has supplied the multi-paragraph body
+                      copy. Fallback body still renders below when
+                      no copy is provided. */}
+                  Creative & Production Approach
                 </h2>
                 {project.creativeAndProductionApproach ? (
                   <div className="space-y-5 text-lg text-white/65 leading-relaxed">
