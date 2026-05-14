@@ -331,8 +331,13 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
   return (
     <>
       <main>
-        {/* ━━━ SECTION 1: Full-width Hero (DARK) ━━━ */}
-        <section className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
+        {/* ━━━ SECTION 1: Full-width Hero (DARK) ━━━
+            Switched from object-cover → object-contain on 2026-05-12
+            so the full hero photo is visible — object-cover was
+            cropping the top/bottom or sides of landscape photos
+            (Weissman in particular). Letterboxing falls back to the
+            section's dark background. */}
+        <section className="relative bg-dark h-[70vh] sm:h-[80vh] lg:h-[90vh] overflow-hidden">
           <button
             type="button"
             onClick={() => openLightboxAt(project.heroImage)}
@@ -342,7 +347,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
             <img
               src={project.heroImage}
               alt={project.client}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-contain transition-transform duration-1000 group-hover:scale-[1.02]"
             />
           </button>
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 pointer-events-none" />
