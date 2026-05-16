@@ -486,13 +486,20 @@ export function HeroSection() {
               so it equals line 3's marginTop. Both gaps now share
               the same negative offset and the vertical rhythm
               between every line is identical. */}
+          {/* RESPONSIVE FIX 2026-05-12: the -45px marginTop was a
+              fixed value tuned for the xl (110px) hero font. On
+              mobile/tablet the font shrinks (text-4xl=36px etc.) but
+              -45px did not, so VISUAL STORIES collapsed up onto WE
+              CREATE (measured -49px overlap at 375px). marginTop is
+              now a responsive Tailwind scale that grows with the
+              font: 0 on mobile → -45px at xl (the exact desktop value
+              the user finalized stays intact). */}
           <motion.div
-            className="mb-2 lg:mb-4"
+            className="mb-2 lg:mb-4 mt-0 sm:mt-[-12px] md:mt-[-15px] lg:mt-[-36px] xl:mt-[-45px]"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.4s forwards",
               y: line2Lift,
-              marginTop: "-45px",
             }}
           >
             {/* VISUAL — kept in display font (Bebas Neue), no video.
@@ -503,14 +510,19 @@ export function HeroSection() {
                 it's a sibling in the same inline row but doesn't
                 pick up the offset because top is scoped to this
                 MagneticWord span only. */}
+            {/* RESPONSIVE FIX 2026-05-12: the -15px top offset only
+                exists to align VISUAL with the cutout between it and
+                STORIES — but that cutout is hidden below md. So the
+                offset is now `top-0` on mobile (clean even rhythm,
+                no cutout to align with) and `md:top-[-15px]` from
+                tablet up where the cutout appears. relative class
+                added so the top offset applies. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[-15px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
-                position: "relative",
-                top: "-15px",
               }}
               strength={0.2}
             >
@@ -557,14 +569,15 @@ export function HeroSection() {
             {/* STORIES — display font with video-in-text mask.
                 position: relative + top: -15px matches VISUAL —
                 only the text lifts; sunglasses cutout stays put. */}
+            {/* RESPONSIVE FIX 2026-05-12: top offset only aligns
+                STORIES with the hidden-on-mobile sunglasses cutout —
+                top-0 on mobile, md:top-[-15px] from tablet up. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[-15px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
-                position: "relative",
-                top: "-15px",
               }}
               strength={0.2}
             >
@@ -590,12 +603,16 @@ export function HeroSection() {
               user asked for a bit more breathing room on the
               VISUAL STORIES → THAT INSPIRE gap. marginTop relaxed
               -60px → -45px (~15px more space). */}
+          {/* RESPONSIVE FIX 2026-05-12: same as line 2 — the fixed
+              -45px marginTop is now a font-proportional responsive
+              scale so THAT INSPIRE doesn't collapse onto VISUAL
+              STORIES on mobile/tablet. Desktop (xl) keeps -45px. */}
           <motion.div
+            className="mt-0 sm:mt-[-12px] md:mt-[-15px] lg:mt-[-36px] xl:mt-[-45px]"
             style={{
               opacity: 0,
               animation: "fadeInUp 0.8s ease-out 0.5s forwards",
               y: line3Lift,
-              marginTop: "-45px",
             }}
           >
             <InlineCutout
@@ -639,15 +656,17 @@ export function HeroSection() {
                 in the same inline-block row but don't get the
                 offset because the top property is scoped to the
                 MagneticWord span. */}
+            {/* RESPONSIVE FIX 2026-05-12: +18px top offset only
+                exists to drop THAT down to match the line-3 cutout
+                rhythm (Ferrari/Oyster hidden on mobile) — top-0 on
+                mobile, md:top-[18px] from tablet up. */}
             <MagneticWord
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[18px]"
               style={{
                 fontWeight: 300,
                 letterSpacing: "0.012em",
                 lineHeight: 0.9,
                 marginRight: "0.10em",
-                position: "relative",
-                top: "18px",
               }}
               strength={0.2}
             >
@@ -670,14 +689,14 @@ export function HeroSection() {
                 match THAT — drops the text down without moving the
                 Ferrari (left of THAT) or Oyster (right of INSPIRE)
                 cutouts. */}
+            {/* RESPONSIVE FIX 2026-05-12: matches THAT — top-0 on
+                mobile, md:top-[18px] from tablet up. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[18px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
                 lineHeight: 0.9,
-                position: "relative",
-                top: "18px",
               }}
               strength={0.2}
             >
