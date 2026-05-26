@@ -177,6 +177,20 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           <p className="text-xs sm:text-sm text-white/40 text-center">
             © 2025 ASHKAN STUDIOS | ALL RIGHTS RESERVED
           </p>
+          {/* Agency credit — same muted color/size as the copyright,
+              normal case (no uppercase / no bold), link brightens on
+              hover. Placed on its own line below so it stays subtle. */}
+          <p className="text-xs sm:text-sm text-white/40 text-center mt-1.5">
+            Designed by{" "}
+            <a
+              href="https://www.incrementors.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/80 transition-colors"
+            >
+              Incrementors
+            </a>
+          </p>
         </div>
       </div>
     </footer>
