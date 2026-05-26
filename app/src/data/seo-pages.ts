@@ -13,7 +13,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "The Details Will Set You Apart",
-        body: "The details show the time and care you put into your work, and ultimately the heart of the function of your products. Make sure you are representing your products the best way possible, whether you are showcasing them on social media, your Etsy or online shop, or your website. ESPECIALLY if you are going to handle the imagery yourself — making sure you get the DETAILS of your products is what can set you apart.",
+        body: "The details show the time and care you put into your work, and ultimately the heart of the function of your products. Make sure you are representing your products the best way possible, whether you are showcasing them on social media, your Etsy or online shop, or your website. ESPECIALLY if you are going to handle the imagery yourself, making sure you get the DETAILS of your products is what can set you apart.",
         bullets: [
           "Showcases the craftsmanship of your products",
           "Gives variety to your portfolio and catalog",
@@ -27,11 +27,11 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "From Handcrafted Goods to Retail Lines",
-        body: "Whether it's handcrafted furniture showcasing craftsmanship, an active wear line highlighting the brand voice, or a fine artist giving insight into their creative process — these kinds of images are crucial to help your audience connect with what you are creating for them, to build trust into your brand and your work that you are ultimately trying to sell.",
+        body: "Whether it's handcrafted furniture showcasing craftsmanship, an active wear line highlighting the brand voice, or a fine artist giving insight into their creative process, these kinds of images are crucial to help your audience connect with what you are creating for them, to build trust into your brand and your work that you are ultimately trying to sell.",
         bullets: [
-          "Handcrafted goods — texture, materials, craftsmanship",
-          "Retail products — brand voice, lifestyle context, close-up and mid views",
-          "Fine art — process, human connection, storytelling",
+          "Handcrafted goods - texture, materials, craftsmanship",
+          "Retail products - brand voice, lifestyle context, close-up and mid views",
+          "Fine art - process, human connection, storytelling",
           "Important for social media and your website",
           "Perfect for print adverts, brochures, and catalogs",
         ],
@@ -103,7 +103,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "What Is a Product Photographer?",
-        body: "A product photographer is a person who produces images of products or food — such as a prepared dish or drink — used to sell or promote a product or service, or otherwise support a business or organization. As Houston commercial photographers, our focus is on small businesses. We want to represent your store-front to your customers with imagery that drives sales and builds trust.",
+        body: "A product photographer is a person who produces images of products or food, such as a prepared dish or drink, used to sell or promote a product or service, or otherwise support a business or organization. As Houston commercial photographers, our focus is on small businesses. We want to represent your store-front to your customers with imagery that drives sales and builds trust.",
         image: "/images/seo/photography/8Q1A8493.jpg",
         imageAlt: "Product and food photography Houston",
       },
@@ -138,7 +138,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "A Team of Artists",
-        body: "We take a special approach — our team is made of artists of all sorts. We are filmmakers, commercial photographers, and dance/movement photographers. This gives us a very unique perspective and separates us from other photographers in the space. We know how to capture the best moments, light our subjects in the most flattering way, and capture images that truly stand out. It takes a team effort to produce the very best commercial photography in Houston.",
+        body: "We take a special approach. Our team is made of artists of all sorts. We are filmmakers, commercial photographers, and dance/movement photographers. This gives us a very unique perspective and separates us from other photographers in the space. We know how to capture the best moments, light our subjects in the most flattering way, and capture images that truly stand out. It takes a team effort to produce the very best commercial photography in Houston.",
         bullets: [
           "Product photography with professional styling",
           "Commercial headshots for businesses",
@@ -151,7 +151,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Studio Sets Us Apart",
-        body: "Our photography studio is very special and sets us apart among other businesses providing commercial photography in Houston. We have one of the most cutting-edge, high-end photography studios in Houston. We have a live monitor in the studio — ideal for subjects to see themselves as their photos are being captured. It aids in posing, helping to ensure the person on the other side of the camera feels confident with the angles, lighting, and wardrobe. We also have a vast selection of backgrounds, props, and tools at our disposal, making us a one-stop-shop for commercial photography in Houston.",
+        body: "Our photography studio is very special and sets us apart among other businesses providing commercial photography in Houston. We have one of the most cutting-edge, high-end photography studios in Houston. We have a live monitor in the studio, ideal for subjects to see themselves as their photos are being captured. It aids in posing, helping to ensure the person on the other side of the camera feels confident with the angles, lighting, and wardrobe. We also have a vast selection of backgrounds, props, and tools at our disposal, making us a one-stop-shop for commercial photography in Houston.",
       },
       {
         heading: "Let's Collaborate",
@@ -177,7 +177,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "What Is a Commercial Photographer?",
-        body: "A commercial photographer is a person who produces images of products, services, or lifestyle — used to sell or promote a product or service, or otherwise support a business or organization in making more money. This can refer to product photography, lifestyle photography, and even fashion photography, depending on the client and the product or service being sold.",
+        body: "A commercial photographer is a person who produces images of products, services, or lifestyle, used to sell or promote a product or service, or otherwise support a business or organization in making more money. This can refer to product photography, lifestyle photography, and even fashion photography, depending on the client and the product or service being sold.",
         bullets: [
           "Product and catalog photography",
           "Lifestyle and environmental photography",
@@ -189,7 +189,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "As Houston commercial photographers, our focus is on small businesses — we want to represent your store-front to your customers. The first thing we do is get to know you and your company through a consultation. We discuss your company, your style, and your goals. Then we start creative development. If your products are on site, we can work right there in your space. Otherwise, we can do it all at our studio. We can also capture lifestyle or environmental photography at your business — whether it's a mechanic shop, a restaurant, or a fine hotel, our team is experienced enough to handle all sorts of environments. We bring all necessary lighting and tools, whether at our studio or on site.",
+        body: "As Houston commercial photographers, our focus is on small businesses. We want to represent your store-front to your customers. The first thing we do is get to know you and your company through a consultation. We discuss your company, your style, and your goals. Then we start creative development. If your products are on site, we can work right there in your space. Otherwise, we can do it all at our studio. We can also capture lifestyle or environmental photography at your business. Whether it's a mechanic shop, a restaurant, or a fine hotel, our team is experienced enough to handle all sorts of environments. We bring all necessary lighting and tools, whether at our studio or on site.",
       },
     ],
     ctaHeading: "LET'S CREATE TOGETHER",
@@ -207,14 +207,14 @@ export const seoPages: SeoPageData[] = [
     subtitle: "Visual Storytellers for Your Brand",
     heroImage: "/images/seo/photography/memorial-9318-1.jpg",
     intro:
-      "Welcome to Ashkan Studios — an exceptional commercial photographer in Houston. Elevate your brand with compelling imagery that narrates your distinctive story. We go beyond photography; we are visual storytellers committed to translating your commercial vision into captivating visuals that resonate.",
+      "Welcome to Ashkan Studios - an exceptional commercial photographer in Houston. Elevate your brand with compelling imagery that narrates your distinctive story. We go beyond photography; we are visual storytellers committed to translating your commercial vision into captivating visuals that resonate.",
     sections: [
       {
         heading: "Why Choose Ashkan Studios?",
         body: "We thrive on creativity, transforming ordinary moments into extraordinary visual narratives. Our innovative approach ensures that your brand not only stands out but makes a lasting impression in today's competitive market.",
         bullets: [
-          "Innovation & Craftsmanship — ordinary moments into extraordinary narratives",
-          "Tailored Solutions — no project is too ambitious or too niche",
+          "Innovation & Craftsmanship - ordinary moments into extraordinary narratives",
+          "Tailored Solutions - no project is too ambitious or too niche",
           "Marketing campaigns, social media content, advertisements",
           "Artistic projects and commissions",
           "From concept to final delivery, your trusted creative partner",
@@ -358,7 +358,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "Creative & Commercial Videography",
-        body: "A creative commercial videographer is a person who makes expressive, imaginative film pieces to be used for commerce and sales purposes — often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand and business.",
+        body: "A creative commercial videographer is a person who makes expressive, imaginative film pieces to be used for commerce and sales purposes, often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand and business.",
         image: "/images/seo/photography/Aug-11.jpg",
         imageAlt: "Commercial videographers Houston",
       },
@@ -392,7 +392,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "We set up a consultation to discuss your project, your style, and your goals. We combine your thoughts with our artistic ideas to create the perfect edit. From color grading to sound design, from motion graphics to final delivery — we handle every aspect of post-production to ensure your video exceeds expectations.",
+        body: "We set up a consultation to discuss your project, your style, and your goals. We combine your thoughts with our artistic ideas to create the perfect edit. From color grading to sound design, from motion graphics to final delivery, we handle every aspect of post-production to ensure your video exceeds expectations.",
         bullets: [
           "Fresh edits and complete overhauls",
           "Royalty-free music and sound design",
@@ -421,7 +421,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "Complete Video Production",
-        body: "A creative commercial videographer makes expressive, imaginative film pieces to be used for commerce and sales purposes — often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand.",
+        body: "A creative commercial videographer makes expressive, imaginative film pieces to be used for commerce and sales purposes, often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand.",
         image: "/images/seo/photography/MinimalLogo-5.jpg",
         imageAlt: "Video production services Houston",
       },
@@ -443,7 +443,7 @@ export const seoPages: SeoPageData[] = [
     ctaButton: { label: "REQUEST A QUOTE", view: "contact" },
     metaTitle: "Video Production Services Houston | Ashkan Studios",
     metaDescription:
-      "Full-service video production in Houston by Ashkan Studios. From concept to delivery — commercials, brand films, and promotional videos.",
+      "Full-service video production in Houston by Ashkan Studios. From concept to delivery - commercials, brand films, and promotional videos.",
   },
 
   {
@@ -491,7 +491,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "Why Choose Us for Videography in Houston",
-        body: "When looking for videography in Houston, we know there are several options to choose from. It is important to find a videographer who aligns with your brand's look and feel. Ashkan Studios is proven to be successful at capturing a very diverse range of styles to meet any need. With our varied experience, we are confident we can exceed your expectations. Life moves quickly, and that inspires us — we are deeply passionate about capturing the pace and movement of life.",
+        body: "When looking for videography in Houston, we know there are several options to choose from. It is important to find a videographer who aligns with your brand's look and feel. Ashkan Studios is proven to be successful at capturing a very diverse range of styles to meet any need. With our varied experience, we are confident we can exceed your expectations. Life moves quickly, and that inspires us. We are deeply passionate about capturing the pace and movement of life.",
         image: "/images/seo/photography/IMG_5367.jpg",
         imageAlt: "Videography Houston",
       },
@@ -551,7 +551,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "Statewide Video Production",
-        body: "No matter where in the state you are, Ashkan Studios is a solid choice if you are looking for top-quality videography in Texas. We are located near downtown Houston, and we love to travel! Whether working together means you come to our state-of-the-art studio, or we travel to you, we can guarantee you will love your videography results. We are a team made of artists of all sorts — filmmakers, commercial photographers, and dance/movement photographers. This gives our creative content a distinctively artistic edge.",
+        body: "No matter where in the state you are, Ashkan Studios is a solid choice if you are looking for top-quality videography in Texas. We are located near downtown Houston, and we love to travel! Whether working together means you come to our state-of-the-art studio, or we travel to you, we can guarantee you will love your videography results. We are a team made of artists of all sorts: filmmakers, commercial photographers, and dance/movement photographers. This gives our creative content a distinctively artistic edge.",
         image: "/images/seo/photography/Aug-11.jpg",
         imageAlt: "Videography in Texas",
       },
@@ -579,7 +579,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "Our Portfolio of Work",
-        body: "We have had the privilege of working with incredible brands and organizations across Houston — from nail art brands and opera singers to luxury eyewear stores and schools. We've created promotional videos, Facebook ads, Instagram reels, fundraising videos, conference presentations, behind-the-scenes content, and much more.",
+        body: "We have had the privilege of working with incredible brands and organizations across Houston, from nail art brands and opera singers to luxury eyewear stores and schools. We've created promotional videos, Facebook ads, Instagram reels, fundraising videos, conference presentations, behind-the-scenes content, and much more.",
         bullets: [
           "Fashion and beauty brand collaborations",
           "Luxury eyewear promotional content",
@@ -623,9 +623,9 @@ export const seoPages: SeoPageData[] = [
         heading: "Why Ashkan Studios?",
         body: "Our team of skilled videographers brings a wealth of experience to the table. We have successfully collaborated with businesses across various industries, delivering visually stunning content. We recognize that each business is unique, and we tailor our videography services to align with your brand identity and goals.",
         bullets: [
-          "Expertise — skilled videographers with a wealth of experience",
-          "Tailored Solutions — services aligned with your brand identity",
-          "Collaborative Approach — your ideas and objectives seamlessly integrated",
+          "Expertise - skilled videographers with a wealth of experience",
+          "Tailored Solutions - services aligned with your brand identity",
+          "Collaborative Approach - your ideas and objectives seamlessly integrated",
           "Cutting-edge technology and techniques",
           "Local Houston insight with global quality standards",
         ],

@@ -35,34 +35,34 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
           </div>
         </section>
 
-        {/* Gallery Grid — Headshot samples from portfolio */}
+        {/* Gallery Grid - Headshot samples from portfolio */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
               {[
-                { src: "/images/headshots/headshot-1.jpg", alt: "Professional portrait — studio lighting", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-2.jpg", alt: "Dance headshot — natural expression", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-1.jpg", alt: "Professional portrait - studio lighting", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-2.jpg", alt: "Dance headshot - natural expression", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-3.jpg", alt: "Creative portrait session", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-4.jpg", alt: "Performer headshot — editorial style", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-5.jpg", alt: "Professional headshot — clean backdrop", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-4.jpg", alt: "Performer headshot - editorial style", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-5.jpg", alt: "Professional headshot - clean backdrop", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-6.jpg", alt: "Personal branding portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-7.jpg", alt: "Dilyn Bray — dance headshot", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-8.jpg", alt: "Isabel Wallace-Green — creative portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-9.jpg", alt: "Grace — studio portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-10.jpg", alt: "Grace — editorial headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-7.jpg", alt: "Dilyn Bray - dance headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-8.jpg", alt: "Isabel Wallace-Green - creative portrait", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-9.jpg", alt: "Grace - studio portrait", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-10.jpg", alt: "Grace - editorial headshot", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-11.jpg", alt: "Professional studio portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-12.jpg", alt: "Studio headshot — natural light", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-13.jpg", alt: "Sydney Lovett — performer headshot", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-14.jpg", alt: "Traci Greene — professional portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-15.jpg", alt: "Professional headshot — studio session", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-16.jpg", alt: "Creative headshot — editorial lighting", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-17.jpg", alt: "Dance portrait — Memorial Dance", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-18.jpg", alt: "Personal branding — professional headshot", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-19.jpg", alt: "Studio headshot — elegant styling", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-20.jpg", alt: "Lifestyle portrait — personal branding", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-21.jpg", alt: "Madison McClain — dancer headshot", aspect: "aspect-[3/4]" },
-                { src: "/images/portfolio/cecilia-duarte.jpg", alt: "Cecilia Duarte — portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/portfolio/lauren-anderson.jpg", alt: "Lauren Anderson — headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-12.jpg", alt: "Studio headshot - natural light", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-13.jpg", alt: "Sydney Lovett - performer headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-14.jpg", alt: "Traci Greene - professional portrait", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-15.jpg", alt: "Professional headshot - studio session", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-16.jpg", alt: "Creative headshot - editorial lighting", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-17.jpg", alt: "Dance portrait - Memorial Dance", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-18.jpg", alt: "Personal branding - professional headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-19.jpg", alt: "Studio headshot - elegant styling", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-20.jpg", alt: "Lifestyle portrait - personal branding", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-21.jpg", alt: "Madison McClain - dancer headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/portfolio/cecilia-duarte.jpg", alt: "Cecilia Duarte - portrait", aspect: "aspect-[3/4]" },
+                { src: "/images/portfolio/lauren-anderson.jpg", alt: "Lauren Anderson - headshot", aspect: "aspect-[3/4]" },
               ].map((img, index) => (
                 <FadeIn key={img.alt} delay={index * 0.08}>
                   <div className={`relative overflow-hidden ${img.aspect} group`}>
@@ -90,7 +90,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                   </h2>
                   <p className="text-lg text-white/60 leading-relaxed mb-8">
                     Whether you need corporate headshots for your team, acting headshots for auditions,
-                    or personal branding portraits that capture your unique identity — our studio
+                    or personal branding portraits that capture your unique identity, our studio
                     delivers polished, professional results that make a lasting impression.
                   </p>
                   <p className="text-lg text-white/60 leading-relaxed">
@@ -154,7 +154,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                 {
                   step: "03",
                   title: "DELIVERY",
-                  desc: "Within 5-7 business days, you receive your curated, professionally retouched images — ready for print, web, and social media.",
+                  desc: "Within 5-7 business days, you receive your curated, professionally retouched images, ready for print, web, and social media.",
                 },
               ].map((item, index) => (
                 <FadeIn key={item.step} delay={index * 0.12}>

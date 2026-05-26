@@ -30,7 +30,7 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Leaf Card — Desktop: Thin tall leaf with vertical brand name       */
+/*  Leaf Card - Desktop: Thin tall leaf with vertical brand name       */
 /*  Supports both image-only and video-on-hover modes                  */
 /* ------------------------------------------------------------------ */
 function LeafCard({
@@ -82,7 +82,7 @@ function LeafCard({
       onMouseLeave={() => setIsHovered(false)}
       className="group relative flex-shrink-0 text-left focus:outline-none"
       style={{
-        /* Layout width stays fixed — no siblings shift */
+        /* Layout width stays fixed - no siblings shift */
         width: "clamp(120px, 13vw, 180px)",
         height: "clamp(400px, 48vw, 540px)",
         scrollSnapAlign: "start",
@@ -98,7 +98,7 @@ function LeafCard({
         zIndex: videoExpanded ? 20 : 1,
       }}
     >
-      {/* Inner visual container — pops out for video cards */}
+      {/* Inner visual container - pops out for video cards */}
       <div
         style={{
           position: "absolute",
@@ -169,7 +169,7 @@ function LeafCard({
           </div>
         )}
 
-        {/* ---- Vertical brand name — bottom right ---- */}
+        {/* ---- Vertical brand name - bottom right ---- */}
         <div className="absolute bottom-8 right-3 pointer-events-none">
           <span
             className="font-display text-white text-lg lg:text-xl tracking-[0.15em] uppercase"
@@ -189,7 +189,7 @@ function LeafCard({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Tablet Leaf Card — thin leaf with vertical text                    */
+/*  Tablet Leaf Card - thin leaf with vertical text                    */
 /* ------------------------------------------------------------------ */
 function TabletLeafCard({
   card,
@@ -263,7 +263,7 @@ function TabletLeafCard({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mobile Leaf Card — thin leaf with vertical text                    */
+/*  Mobile Leaf Card - thin leaf with vertical text                    */
 /* ------------------------------------------------------------------ */
 function MobileLeafCard({
   card,
@@ -338,7 +338,7 @@ function MobileLeafCard({
 }
 
 /* ================================================================== */
-/*  Portfolio Section — THE WORK                                       */
+/*  Portfolio Section - THE WORK                                       */
 /* ================================================================== */
 export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSectionProps) {
   const [headingVisible, setHeadingVisible] = useState(false);
@@ -400,7 +400,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
     <section id="work" className="pt-4 pb-14 sm:pt-6 sm:pb-24 lg:pb-28 bg-cream overflow-x-clip">
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* ============================================================ */}
-        {/*  Animated Heading — subtle letter-spacing expansion + fade    */}
+        {/*  Animated Heading - subtle letter-spacing expansion + fade    */}
         {/* ============================================================ */}
         <div ref={headingRef} className="mb-8 sm:mb-12 lg:mb-16">
           <h2
@@ -444,7 +444,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
         </div>
 
         {/* ============================================================ */}
-        {/*  Tablet (sm–lg): 2–3 column grid, pill shapes                 */}
+        {/*  Tablet (sm-lg): 2-3 column grid, pill shapes                 */}
         {/* ============================================================ */}
         <div className="hidden sm:grid lg:hidden grid-cols-3 md:grid-cols-4 gap-4">
           {CAMPAIGN_CARDS.map((card, index) => (
@@ -483,7 +483,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
               "opacity 0.6s ease-out 0.5s, transform 0.6s ease-out 0.5s",
           }}
         >
-          {/* Left arrow — scroll back */}
+          {/* Left arrow - scroll back */}
           <button
             onClick={handleScrollLeft}
             className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-all duration-300"
@@ -501,7 +501,7 @@ export function PortfolioSection({ onProjectClick, onSeeMoreClick }: PortfolioSe
             </span>
           </button>
 
-          {/* Right arrow — scroll forward / see all work */}
+          {/* Right arrow - scroll forward / see all work */}
           <button
             onClick={handleScrollRight}
             className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-transform duration-200 hover:translate-x-1"

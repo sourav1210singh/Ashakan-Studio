@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 /* ════════════════════════════════════════════════════════════════════
-   THE CAMPAIGN — featured campaigns shown as four static 4:5 cards.
+   THE CAMPAIGN - featured campaigns shown as four static 4:5 cards.
 
    Brandi's 5/7/26 review notes for this section:
      • "No more leaf cuts. Match the same 4:5 you have under 'the work'
@@ -24,7 +24,7 @@ interface CampaignSectionProps {
 type CampaignCard = {
   id: string;
   label: string;
-  /** Hero image — one per campaign, matching the 4:5 aspect well */
+  /** Hero image - one per campaign, matching the 4:5 aspect well */
   image: string;
   /** Project slug used to navigate to the campaign detail page */
   slug: string;
@@ -58,7 +58,7 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
 ];
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  Single campaign card — 4:5 aspect, click-to-navigate, no expand     */
+/*  Single campaign card - 4:5 aspect, click-to-navigate, no expand     */
 /* ──────────────────────────────────────────────────────────────────── */
 function CampaignCardTile({
   card,
@@ -109,7 +109,7 @@ function CampaignCardTile({
         </p>
       </div>
 
-      {/* Bottom — campaign name */}
+      {/* Bottom - campaign name */}
       <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 lg:p-9">
         <h3
           className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white tracking-tight uppercase leading-[0.95]"
@@ -122,7 +122,7 @@ function CampaignCardTile({
         </h3>
       </div>
 
-      {/* Hairline accent at top — brightens on hover */}
+      {/* Hairline accent at top - brightens on hover */}
       <span
         className="absolute top-0 left-0 right-0 h-px transition-colors duration-500 pointer-events-none"
         style={{ backgroundColor: isHovered ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.12)" }}
@@ -147,13 +147,13 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
             </h2>
             <p className="text-base sm:text-lg text-dark/60 max-w-xl mt-4">
               A deeper dive into brand-defining campaigns, highlighting the
-              full scale of work — creative production, execution, and
+              full scale of work - creative production, execution, and
               overall campaign impact.
             </p>
           </div>
         </div>
 
-        {/* Four campaign tiles — full row width on lg+, 2x2 grid on mobile.
+        {/* Four campaign tiles - full row width on lg+, 2x2 grid on mobile.
             Aspect class set to match THE WORK section exactly, so the two
             sections read as a visually-matched pair on the home page. */}
         <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:flex lg:flex-row lg:gap-3 lg:items-stretch">

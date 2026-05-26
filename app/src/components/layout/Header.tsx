@@ -9,7 +9,7 @@ interface HeaderProps {
   currentView?: View;
 }
 
-/** Pages that use a dark background — header needs white text initially */
+/** Pages that use a dark background - header needs white text initially */
 const DARK_PAGES: View[] = ["photography", "videography", "campaigns", "booking"];
 
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
@@ -284,13 +284,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         </div>
       </header>
 
-      {/* Full Screen Menu — Brandi's 5/7/26 review (PDF pages 82-83):
-          • 'No colors, only black bars (love the movement)' — uniform
+      {/* Full Screen Menu - Brandi's 5/7/26 review (PDF pages 82-83):
+          • 'No colors, only black bars (love the movement)' - uniform
             dark sweep replaces the per-item rainbow sweep.
-          • 'No cutouts here' — the cameraman/dance/portrait cutouts
+          • 'No cutouts here' - the cameraman/dance/portrait cutouts
             that previously slid in on hover have been removed.
           • Menu list updated to 5 items (PHOTO / VIDEO / CAMPAIGNS /
-            WHAT WE DO / THE STUDIO) — 'THE WORK' parent dropdown is
+            WHAT WE DO / THE STUDIO) - 'THE WORK' parent dropdown is
             gone; its three sub-routes now sit as top-level items.
           • Bottom bar: TIKTOK label replaced with STORYTIME (linking
             to /storytime/ instead of an external TikTok account).
@@ -317,7 +317,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                 { label: "THE STUDIO", href: "/studio", delay: 0.25 },
               ].map((item) => (
                 <div key={item.label} className="border-b border-dark/10 group relative">
-                  {/* Uniform black sweep — same animation, no per-item color */}
+                  {/* Uniform black sweep - same animation, no per-item color */}
                   <div className="absolute inset-0 overflow-hidden">
                     <div
                       className="absolute inset-0 origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-500 ease-[cubic-bezier(0.77,0,0.175,1)] bg-dark"
@@ -338,10 +338,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               ))}
             </nav>
 
-            {/* Bottom Bar — socials & contact with sweep hover.
+            {/* Bottom Bar - socials & contact with sweep hover.
                 Brandi 5/7/26: 'No colors, correct phone and email please'.
                 TIKTOK swapped to STORYTIME per her 'CHANGE THIS TO TIKTOK
-                — STORYTIME' annotation. */}
+                - STORYTIME' annotation. */}
             <div
               className="w-full"
               style={{ opacity: 0, animation: "fadeIn 0.4s ease-out 0.3s forwards" }}
@@ -351,8 +351,8 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", external: true },
                   { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", external: true },
                   { label: "STORYTIME", href: "/storytime", external: false, internal: true as const },
-                  { label: "T — (346) 335-7973", href: "tel:3463357973", external: false },
-                  { label: "E — info@ashkanstudios.com", href: "mailto:info@ashkanstudios.com", external: false },
+                  { label: "T - (346) 335-7973", href: "tel:3463357973", external: false },
+                  { label: "E - info@ashkanstudios.com", href: "mailto:info@ashkanstudios.com", external: false },
                 ].map((link) => {
                   const handleClick = link.internal
                     ? (e: React.MouseEvent) => {
@@ -368,12 +368,12 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                       {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="group/link overflow-hidden flex-1 border-r border-dark/10 last:border-r-0 relative"
                     >
-                      {/* Static text — visible by default, hidden on hover */}
+                      {/* Static text - visible by default, hidden on hover */}
                       <span className="block px-6 sm:px-8 py-4 sm:py-5 text-xs sm:text-sm font-medium tracking-wider text-dark/60 transition-opacity duration-300 group-hover/link:opacity-0">
                         {link.label}
                       </span>
-                      {/* Continuous marquee — hidden by default, plays on hover.
-                          Brandi: 'no colors' — marquee text stays dark, no per-item tint. */}
+                      {/* Continuous marquee - hidden by default, plays on hover.
+                          Brandi: 'no colors' - marquee text stays dark, no per-item tint. */}
                       <span className="absolute inset-0 flex items-center overflow-hidden opacity-0 group-hover/link:opacity-100 transition-opacity duration-300">
                         <span className={`flex whitespace-nowrap text-dark ${link.external ? "menu-marquee-fast" : "menu-marquee-track"}`}>
                           <span className="px-6 sm:px-8 text-xs sm:text-sm font-medium tracking-wider">{link.label}</span>

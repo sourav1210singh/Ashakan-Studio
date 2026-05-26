@@ -8,7 +8,7 @@ interface PressPageProps {
 }
 
 /**
- * PRESS items — Brandi's 5/7/26 review notes (PDF pages 80-81).
+ * PRESS items - Brandi's 5/7/26 review notes (PDF pages 80-81).
  *
  * Replaces the four fabricated placeholder entries with the five
  * real links Brandi provided. Brandi: 'For now, please connect the
@@ -16,7 +16,7 @@ interface PressPageProps {
  * sure each image makes sense to the article or page given'.
  *
  * Titles + excerpts + dates were fetched directly from each source
- * page (2026-05-12). The one exception is Chasing Roots — its SSL
+ * page (2026-05-12). The one exception is Chasing Roots - its SSL
  * cert refused the fetch, so its title/excerpt are placeholder
  * approximations built from the URL slug and date. Easy to update
  * once Brandi or our team confirms the exact post copy.
@@ -25,13 +25,13 @@ interface PressPageProps {
  * to the article'):
  *   1. Bold Journey 'Meet Ashkan Roayaee' → founder portrait.
  *   2. PhotoAwards (dancer with flowing veils, long exposure)
- *      → Vitacca Ballet shot — dance/movement match.
+ *      → Vitacca Ballet shot - dance/movement match.
  *   3. YouTube 'Pas de Deux Photo Webinar' → studio interior, since
  *      the webinar is Ashkan teaching from the studio.
- *   4. Chasing Roots 'Ashkan Image' → fashion editorial — represents
+ *   4. Chasing Roots 'Ashkan Image' → fashion editorial - represents
  *      the Ashkan Image photography division's commercial output.
  *   5. Voyage Houston (post-Harvey Houston dance photography) →
- *      Cecilia Duarte portrait — Houston creative figure.
+ *      Cecilia Duarte portrait - Houston creative figure.
  */
 const PRESS_ITEMS = [
   {
@@ -46,11 +46,11 @@ const PRESS_ITEMS = [
   },
   {
     id: "photoawards",
-    title: "International Photography Awards — Honorable Mention",
+    title: "International Photography Awards Honorable Mention",
     outlet: "PHOTOAWARDS",
     date: "2023",
     excerpt:
-      "A long-exposure photograph of a dancer with flowing veils, captured in the Houston studio — exploring how fabric in motion amplifies the drama and expressiveness of dance.",
+      "A long-exposure photograph of a dancer with flowing veils, captured in the Houston studio, exploring how fabric in motion amplifies the drama and expressiveness of dance.",
     image: "/images/portfolio/vitacca-ballet.jpg",
     link: "https://photoawards.com/winner/zoom.php?eid=8-1722603089-25",
   },
@@ -70,7 +70,7 @@ const PRESS_ITEMS = [
     outlet: "CHASING ROOTS",
     date: "JUL 2025",
     excerpt:
-      "A feature on Ashkan Image, the photography division of Ashkan Studios — covering its creative practice, signature commercial work, and place within the Houston creative community.",
+      "A feature on Ashkan Image, the photography division of Ashkan Studios, covering its creative practice, signature commercial work, and place within the Houston creative community.",
     image: "/images/portfolio/fashion.jpg",
     link: "http://www.chasingroots.com/2025/07/ashkan-image.html",
   },
@@ -90,7 +90,7 @@ export function PressPage({ onNavigate }: PressPageProps) {
   return (
     <>
       <main className="pt-20">
-        {/* ━━━ SECTION 1 — Hero ━━━
+        {/* ━━━ SECTION 1 - Hero ━━━
             Brandi 5/7/26 (PDF page 80): replace the marketing intro
             with her shorter, punchier copy that includes interviews
             and press releases as explicit categories. */}
@@ -108,7 +108,7 @@ export function PressPage({ onNavigate }: PressPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 2 — Press items ━━━
+        {/* ━━━ SECTION 2 - Press items ━━━
             Alternating two-column rows, each row is a real anchor that
             opens the source link in a new tab. The image side flips
             sides every other row for visual rhythm. */}
@@ -162,7 +162,7 @@ export function PressPage({ onNavigate }: PressPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 3 — Press Inquiries ━━━ */}
+        {/* ━━━ SECTION 3 - Press Inquiries ━━━ */}
         <section className="py-16 sm:py-24 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="max-w-2xl mx-auto text-center">

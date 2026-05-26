@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { clientLogos, priorityClientLogos, type ClientLogo } from "@/data/portfolio";
 
 /* ════════════════════════════════════════════════════════════════════
-   OUR FRIENDS — Marquee + Magnetic combo. Two infinite-scrolling rows
+   OUR FRIENDS - Marquee + Magnetic combo. Two infinite-scrolling rows
    in opposite directions; each logo is magnetic and snaps toward the
    cursor on hover.
 
@@ -13,7 +13,7 @@ import { clientLogos, priorityClientLogos, type ClientLogo } from "@/data/portfo
    ════════════════════════════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  MagneticItem — pulls the wrapped child toward the cursor on hover   */
+/*  MagneticItem - pulls the wrapped child toward the cursor on hover   */
 /* ──────────────────────────────────────────────────────────────────── */
 function MagneticItem({
   children,
@@ -59,7 +59,7 @@ function MagneticItem({
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  LogoItem — single logo image. Brandi's logos are dark-on-transparent,
+/*  LogoItem - single logo image. Brandi's logos are dark-on-transparent,
     so on the dark section background we force them white via brightness(0)
     + invert(1). Default: 55% opacity (subtle); hover: 100% opacity (pops).
     Keeping the monochrome treatment (no original colour even on hover)
@@ -94,7 +94,7 @@ function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  MarqueeRow — infinite horizontal scroll with magnetic logos inside  */
+/*  MarqueeRow - infinite horizontal scroll with magnetic logos inside  */
 /* ──────────────────────────────────────────────────────────────────── */
 function MarqueeRow({
   logos,
@@ -134,21 +134,21 @@ function MarqueeRow({
 /*  Section wrapper                                                     */
 /* ──────────────────────────────────────────────────────────────────── */
 export function FriendsMarqueeSection() {
-  /* Top row — priority logos (Brandi's top 20)
-     Bottom row — remaining logos */
+  /* Top row - priority logos (Brandi's top 20)
+     Bottom row - remaining logos */
   const rowA = priorityClientLogos;
   const rowB = clientLogos.filter((l) => !l.priority);
 
   return (
     <section className="py-20 sm:py-28 bg-dark relative overflow-hidden">
-      {/* Soft glow blobs in background — warmer accents on the dark theme */}
+      {/* Soft glow blobs in background - warmer accents on the dark theme */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[28rem] h-[28rem] bg-amber-200/30 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-[28rem] h-[28rem] bg-white/20 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10">
-        {/* Section header — center */}
+        {/* Section header - center */}
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center mb-10 sm:mb-14">
           <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-4">
             Brands We've Worked With
@@ -158,10 +158,10 @@ export function FriendsMarqueeSection() {
           </h2>
         </div>
 
-        {/* Two marquee rows — opposite directions, larger logos on top */}
+        {/* Two marquee rows - opposite directions, larger logos on top */}
         <div className="space-y-2 sm:space-y-4">
           <MarqueeRow logos={rowA} direction="left"  speedSec={55} size="lg" />
-          {/* Thin divider line — light variant for the dark background */}
+          {/* Thin divider line - light variant for the dark background */}
           <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
           <MarqueeRow logos={rowB} direction="right" speedSec={65} size="sm" />
         </div>

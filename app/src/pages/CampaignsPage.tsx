@@ -41,7 +41,7 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
               </h1>
               <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6">
                 A deeper dive into brand-defining campaigns, highlighting the
-                full scale of work — creative production, execution, and
+                full scale of work - creative production, execution, and
                 overall campaign impact.
               </p>
             </FadeIn>

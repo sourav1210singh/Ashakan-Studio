@@ -188,7 +188,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
 ];
 
-/* Legacy text-only client list — kept for compatibility with any
+/* Legacy text-only client list - kept for compatibility with any
    older component that hasn't been migrated to use clientLogos. */
 export const clients = [
   "THE EYE GALLERY",
@@ -202,7 +202,7 @@ export const clients = [
 ];
 
 /* ════════════════════════════════════════════════════════════════════
-   Client logo catalog — delivered by Brandi 2026-05-07.
+   Client logo catalog - delivered by Brandi 2026-05-07.
    `priority: true` marks the top 20 (most important) per Brandi's note.
    `name` is the display name used as alt text and accessible label.
    `src` points to the PNG inside app/public/images/logos/.

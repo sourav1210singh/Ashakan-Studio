@@ -25,7 +25,7 @@ function VimeoEmbed({
   const [thumbUrl, setThumbUrl] = useState(`https://vumbnail.com/${vimeoId}_large.jpg`);
 
   // Fetch HD thumbnail from Vimeo oEmbed API (1920px). For private/unlisted
-  // videos the hash must be appended to the source URL or oEmbed 403s — we
+  // videos the hash must be appended to the source URL or oEmbed 403s - we
   // include it so Brandi's private clips return a real thumbnail.
   useEffect(() => {
     const sourceUrl = vimeoHash
@@ -42,7 +42,7 @@ function VimeoEmbed({
       .catch(() => { /* keep fallback */ });
   }, [vimeoId, vimeoHash]);
 
-  // Build embed URL. Hash is required for Brandi's private videos —
+  // Build embed URL. Hash is required for Brandi's private videos -
   // without ?h=<hash> the iframe shows "Private video" error.
   const hashParam = vimeoHash ? `&h=${vimeoHash}` : "";
 
@@ -82,14 +82,14 @@ function VimeoEmbed({
 }
 
 /* ── Image block ─────────────────────────────────── */
-/* Clickable image — opens the page-level Lightbox at this image's index
+/* Clickable image - opens the page-level Lightbox at this image's index
    in the images-only gallery list. Brandi's 5/7/26 review notes:
    'Every photo in any gallery should be clickable to a lightbox'.
 
    The `aspect` prop is ignored for masonry contexts (the default).
    Brandi's 5/7/26 note 'I see a lot of images getting cut off, not
    showing the whole image, this cannot happen on any photography
-   images in portfolio/campaign sections' — so when no fixed aspect is
+   images in portfolio/campaign sections' - so when no fixed aspect is
    forced, the <img> renders at its natural aspect ratio and the CSS
    columns masonry packs items by their true heights. No cropping.
 
@@ -108,7 +108,7 @@ function ImageBlock({
   aspect?: string;
   /** When true, the image is clipped to a fixed aspect ratio container
    *  (used for the Featured spot only). Defaults to false so gallery
-   *  images render at natural aspect — no cropping. */
+   *  images render at natural aspect - no cropping. */
   forceAspect?: boolean;
   onClick?: () => void;
 }) {
@@ -179,7 +179,7 @@ function getAdjacentCampaigns(slug: string) {
 
 /* ── Layout helpers ──────────────────────────────── */
 
-/** Renders a true CSS-columns masonry — items flow naturally based on
+/** Renders a true CSS-columns masonry - items flow naturally based on
  *  their aspect ratios so adjacent items pack tightly with no whitespace.
  *  Same approach as PhotographyPage.tsx (which Brandi already approved). */
 function CreativeGrid({
@@ -235,7 +235,7 @@ function CreativeGrid({
 
 /* ── Main Page Component ─────────────────────────── */
 export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailPageProps) {
-  /* Lightbox state — opens when any image in the page is clicked. */
+  /* Lightbox state - opens when any image in the page is clicked. */
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const projectId = campaignProjectMap[campaignSlug];
@@ -262,10 +262,10 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
   /* ── Gallery + featured-item splitting ──────────────────────────
      The new layout (Brandi's 5/7/26 review notes) gives each campaign
      three optional knobs:
-       • featuredImage   — explicit horizontal photo for the 'Featured'
+       • featuredImage   - explicit horizontal photo for the 'Featured'
                             spot right after the Story section. Overrides
                             the legacy 'first video' fallback.
-       • btsVideosOnly   — when true, the Behind-the-Scenes section
+       • btsVideosOnly   - when true, the Behind-the-Scenes section
                             only shows videos; all images live in the
                             main 'The Campaign' gallery.
      If neither knob is set, the page falls back to the original 50/50
@@ -333,7 +333,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
       <main>
         {/* ━━━ SECTION 1: Full-width Hero (DARK) ━━━
             Switched from object-cover → object-contain on 2026-05-12
-            so the full hero photo is visible — object-cover was
+            so the full hero photo is visible - object-cover was
             cropping the top/bottom or sides of landscape photos
             (Weissman in particular). Letterboxing falls back to the
             section's dark background. */}
@@ -418,7 +418,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
               <FadeIn>
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-8">
                   {/* Heading is now always 'Creative & Production
-                      Approach' per user request 2026-05-12 — applies
+                      Approach' per user request 2026-05-12 - applies
                       to every campaign page, regardless of whether
                       Brandi has supplied the multi-paragraph body
                       copy. Fallback body still renders below when
@@ -493,7 +493,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
           </section>
         )}
 
-        {/* ━━━ SECTION 5b: Magazine Spread (DARK) — Deutsch only ━━━
+        {/* ━━━ SECTION 5b: Magazine Spread (DARK) - Deutsch only ━━━
             Brandi's 5/7/26 note for Deutsch: 'find a place to show off
             the 8pg spread (PDF) that they can scroll through'. Rendered
             as an inline iframe so the user can flip through pages
@@ -567,7 +567,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                 &ldquo;
               </span>
 
-              {/* Quote text — elegant serif italic.
+              {/* Quote text - elegant serif italic.
                   Brandi's 5/7/26 note for Weissman: 'Needs different quote
                   here, feel free to grab a similar feeling quote from new
                   copy provided for this campaign'. Falls back to the
@@ -580,7 +580,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                   "Every frame tells a story. Every detail matters. We craft visuals that resonate and inspire."}
               </p>
 
-              {/* Attribution — minimal with lines */}
+              {/* Attribution - minimal with lines */}
               <div className="mt-12 sm:mt-16 flex items-center justify-center gap-4">
                 <span className="w-8 h-px bg-white/30" />
                 <p className="text-white/30 text-xs sm:text-sm tracking-[0.3em] uppercase font-light">
@@ -672,11 +672,11 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
 
-      {/* Full-screen lightbox — opens when the hero or any gallery photo
+      {/* Full-screen lightbox - opens when the hero or any gallery photo
           is clicked. Includes ALL images from the campaign (hero +
           gallery images) in their on-page order so the user can browse
           through the entire campaign in a large view. Videos are not
-          included — they already play in place. */}
+          included - they already play in place. */}
       <Lightbox
         images={lightboxImages}
         isOpen={lightboxIndex !== null}

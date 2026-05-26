@@ -42,7 +42,7 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
           <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <p className="text-sm tracking-[0.3em] text-white/50 uppercase mb-4">
-                Ashkan Studios — Houston
+                Ashkan Studios, Houston
               </p>
               <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-6">
                 {data.title}

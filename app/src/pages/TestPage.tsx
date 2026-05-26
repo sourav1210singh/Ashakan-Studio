@@ -41,12 +41,12 @@ export function TestPage({ variantSlug, onNavigate }: TestPageProps) {
 
   return (
     <>
-      {/* Banner removed — client should see the page exactly as the
+      {/* Banner removed - client should see the page exactly as the
           new home page would feel. To return to the test index, use
           the URL bar (/test/) or the regular Header navigation. */}
 
       <main className="bg-cream min-h-screen">
-        {/* No outer FadeIn — internal sections handle their own reveal
+        {/* No outer FadeIn - internal sections handle their own reveal
             animations. Wrapping a very tall variant in FadeIn caused the
             IntersectionObserver threshold (0.1 + rootMargin -100px) to
             never fire on long pages, leaving everything stuck at opacity 0. */}
