@@ -1,11 +1,11 @@
 /**
- * Brandi's official video catalog — delivered 2026-05-05 via Google Doc:
+ * Brandi's official video catalog - delivered 2026-05-05 via Google Doc:
  * "Ashkan Studios | Video Links IN PROGRESS"
  *
  * URL format from Brandi: https://vimeo.com/{vimeoId}/{vimeoHash}?share=copy&fl=sv&fe=ci
  * Embed format used here: https://player.vimeo.com/video/{vimeoId}?h={vimeoHash}&...
  *
- * Many of these are private/unlisted Vimeo videos — the `vimeoHash` is REQUIRED
+ * Many of these are private/unlisted Vimeo videos - the `vimeoHash` is REQUIRED
  * for the iframe to play (otherwise it shows "Private video" error).
  *
  * Some videos appear in BOTH a campaign AND one or more portfolio categories.
@@ -19,7 +19,7 @@ export interface BrandiVideo {
   title: string;
   /** Vimeo numeric ID */
   vimeoId: string;
-  /** Vimeo privacy hash — required for private/unlisted videos */
+  /** Vimeo privacy hash - required for private/unlisted videos */
   vimeoHash?: string;
   /** Which campaign this video belongs to (if any) */
   campaign?: CampaignSlug;
@@ -41,7 +41,7 @@ export type PortfolioCategory =
   | "narrative";
 
 /* ════════════════════════════════════════════════════════════════════
-   THE CATALOG — 78 entries (some videos appear in both a campaign and a
+   THE CATALOG - 78 entries (some videos appear in both a campaign and a
    portfolio category; deduplication happens in the helper functions).
    ════════════════════════════════════════════════════════════════════ */
 
@@ -233,7 +233,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "monarch-upgraded-kitchen-md-anderson",
-    title: "Monarch's Upgraded Kitchen — MD Anderson Donation",
+    title: "Monarch's Upgraded Kitchen - MD Anderson Donation",
     vimeoId: "673378712",
     vimeoHash: "f3572605d9",
     campaign: "monarch-school",
@@ -254,7 +254,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
 
-  /* ─────────── THE EYE GALLERY (10 — 1-2 more coming) ─────────── */
+  /* ─────────── THE EYE GALLERY (10 - 1-2 more coming) ─────────── */
   {
     id: "eye-gallery-mix-reel-001",
     title: "The Eye Gallery Mix Reel 001",
@@ -320,7 +320,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "eye-gallery-summer-2025-campaign-ad",
-    title: "The Eye Gallery — Summer 2025 Campaign Ad H",
+    title: "The Eye Gallery - Summer 2025 Campaign Ad H",
     vimeoId: "1145748255",
     campaign: "eye-gallery",
     portfolios: [],
@@ -334,7 +334,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
 
-  /* ─────────── RETAIL ONLY (no campaign — pure portfolio) ─────────── */
+  /* ─────────── RETAIL ONLY (no campaign - pure portfolio) ─────────── */
   {
     id: "cacao-cardamom-valentines-beating-heart",
     title: "Cacao & Cardamom: Valentines / Beating Heart + Kitchen",
@@ -384,7 +384,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   /* ─────────── THE ARTS (5) ─────────── */
   {
     id: "cecilia-duarte-second-solo-album",
-    title: "Cecilia Duarte — Second Solo Album",
+    title: "Cecilia Duarte - Second Solo Album",
     vimeoId: "1002076560",
     portfolios: ["the-arts", "documentary"],
   },
@@ -416,13 +416,13 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   /* ─────────── INDUSTRIAL (7) ─────────── */
   {
     id: "radiomedix-changing-the-landscape",
-    title: "RadioMedix — Changing the Landscape of Nuclear Medicine",
+    title: "RadioMedix - Changing the Landscape of Nuclear Medicine",
     vimeoId: "1100401603",
     portfolios: ["industrial"],
   },
   {
     id: "kinetik-once-upon-delaware-basin",
-    title: "Kinetik — Once Upon a Time in the Delaware Basin",
+    title: "Kinetik - Once Upon a Time in the Delaware Basin",
     vimeoId: "865765822",
     vimeoHash: "cfebc05bc1",
     portfolios: ["industrial", "narrative"],
@@ -442,7 +442,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "radiomedix-innovation-to-intervention",
-    title: "RadioMedix — From Innovation to Intervention",
+    title: "RadioMedix - From Innovation to Intervention",
     vimeoId: "437963536",
     portfolios: ["industrial"],
   },
@@ -455,7 +455,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "radiomedix-2025-where-it-all-began",
-    title: "RadioMedix 2025 — Where It All Began",
+    title: "RadioMedix 2025 - Where It All Began",
     vimeoId: "1100405072",
     portfolios: ["industrial"],
   },
@@ -477,7 +477,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "gwen-berry-tv-globo-brazil",
-    title: "Gwen Berry — TV Globo (Brazil)",
+    title: "Gwen Berry - TV Globo (Brazil)",
     vimeoId: "1003383102",
     portfolios: ["documentary"],
   },
@@ -506,20 +506,20 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   /* ─────────── NARRATIVE (only entries unique to this category) ─────────── */
   {
     id: "safari-vet-difference-league-city",
-    title: "Safari Vet — The Safari Difference, League City",
+    title: "Safari Vet - The Safari Difference, League City",
     vimeoId: "954997422",
     portfolios: ["narrative"],
   },
   {
     id: "facet-seven-nutrition-longevity-chapter-2-2",
-    title: "Facet Seven / Nutrition for Longevity / Chapter 2.2 — Nutrient Timing",
+    title: "Facet Seven / Nutrition for Longevity / Chapter 2.2 - Nutrient Timing",
     vimeoId: "1189137962",
     vimeoHash: "e1a7b0681c",
     portfolios: ["narrative"],
   },
   {
     id: "safari-vet-difference-pearland",
-    title: "Safari Vet — The Safari Difference, Pearland",
+    title: "Safari Vet - The Safari Difference, Pearland",
     vimeoId: "954988957",
     vimeoHash: "071ae54364",
     portfolios: ["narrative"],
@@ -527,7 +527,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
 ];
 
 /* ════════════════════════════════════════════════════════════════════
-   HELPER FUNCTIONS — slice the catalog by campaign or portfolio
+   HELPER FUNCTIONS - slice the catalog by campaign or portfolio
    ════════════════════════════════════════════════════════════════════ */
 
 /** All videos belonging to a given campaign, in catalog order */

@@ -42,7 +42,7 @@ function parseRoute(rawPathname: string): ParsedRoute {
   // Normalize: strip trailing slash (except root "/")
   const pathname = rawPathname.length > 1 ? rawPathname.replace(/\/+$/, "") : rawPathname;
 
-  // Test variants — internal preview pages, not linked from public nav
+  // Test variants - internal preview pages, not linked from public nav
   if (pathname === "/test" || pathname.startsWith("/test/")) {
     const slugMatch = pathname.match(/^\/test\/([^/]+)/);
     return {
@@ -74,7 +74,7 @@ function parseRoute(rawPathname: string): ParsedRoute {
       return { view: "campaigns", slug: null, category: catMatch ? catMatch[1] : null };
     }
     /* The standalone /work/ landing page was removed 2026-05-08 per
-       Brandi's review notes (pages 14-18 — 'NO WORK PAGE' repeated
+       Brandi's review notes (pages 14-18 - 'NO WORK PAGE' repeated
        multiple times). Bare /work or /work/ now falls through to the
        home page; the WORK dropdown in the header still exposes the
        photography / videography / campaigns sub-routes. */
@@ -146,7 +146,7 @@ function App() {
       setCurrentView(view);
       setSelectedProjectSlug(slug);
       setSelectedCategory(category);
-      /* Scroll to top on every route change — covers browser
+      /* Scroll to top on every route change - covers browser
          back/forward AND any programmatic `pushState +
          dispatchEvent(PopStateEvent)` call from sections /
          footer / etc. Per user request 2026-05-12: every page

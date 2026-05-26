@@ -10,7 +10,7 @@ import {
   type PortfolioCategory,
 } from "@/data/brandi-videos";
 
-/* Category-specific titles and descriptions — keys must match
+/* Category-specific titles and descriptions - keys must match
    PortfolioCategory union in brandi-videos.ts.
    Description copy verbatim from Brandi's 5/7/26 review notes
    (pages 27-28). */
@@ -18,7 +18,7 @@ const categoryMeta: Record<PortfolioCategory, { title: string; description: stri
   retail: {
     title: "RETAIL",
     description:
-      "Product and brand videography that transforms merchandise into living moments — combining polished commercial production with storytelling designed for impact across digital platforms.",
+      "Product and brand videography that transforms merchandise into living moments - combining polished commercial production with storytelling designed for impact across digital platforms.",
   },
   "the-arts": {
     title: "THE ARTS",
@@ -28,17 +28,17 @@ const categoryMeta: Record<PortfolioCategory, { title: string; description: stri
   industrial: {
     title: "INDUSTRIAL",
     description:
-      "Visual storytelling for corporate, medical, and industrial clients — ranging from cinematic narratives to structured brand and investor content that highlights purpose and process.",
+      "Visual storytelling for corporate, medical, and industrial clients - ranging from cinematic narratives to structured brand and investor content that highlights purpose and process.",
   },
   documentary: {
     title: "DOCUMENTARY",
     description:
-      "Documentary filmmaking for organizations, communities, and individuals — crafted to translate mission into purposeful storytelling that drives impact through fundraising, awareness, broadcast, and long-term growth.",
+      "Documentary filmmaking for organizations, communities, and individuals - crafted to translate mission into purposeful storytelling that drives impact through fundraising, awareness, broadcast, and long-term growth.",
   },
   narrative: {
     title: "NARRATIVE",
     description:
-      "Narrative storytelling for brands and organizations — crafted across short film concepts, character-driven pieces, and educational content that brings ideas, services, and culture to life.",
+      "Narrative storytelling for brands and organizations - crafted across short film concepts, character-driven pieces, and educational content that brings ideas, services, and culture to life.",
   },
 };
 
@@ -76,7 +76,7 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
     pageTitle = categoryMeta[cat].title;
     pageDescription = categoryMeta[cat].description;
   } else {
-    /* Main videography page — show every video in the catalog,
+    /* Main videography page - show every video in the catalog,
        deduplicated since some titles span multiple portfolios. */
     videos = uniqueByVimeoId(BRANDI_VIDEOS);
   }
@@ -108,10 +108,10 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                 </p>
               )}
               {/* 'N Videos' counter line removed 2026-05-12 per user
-                  request — applies to the all-videography page and
+                  request - applies to the all-videography page and
                   every category sub-page. */}
 
-              {/* EXPLORE pills — shown only on the all-videography view,
+              {/* EXPLORE pills - shown only on the all-videography view,
                   let visitors jump directly to a sub-category page per
                   Brandi's page-21/22 review note. Hidden on the category
                   pages themselves (where they'd be redundant). */}
@@ -141,7 +141,7 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
           </div>
         </section>
 
-        {/* Videos Grid — wide thumbnails */}
+        {/* Videos Grid - wide thumbnails */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
             {videos.length === 0 ? (

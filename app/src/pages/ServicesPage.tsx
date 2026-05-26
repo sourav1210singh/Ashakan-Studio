@@ -65,13 +65,13 @@ const WORK_APPLICATIONS = [
 ];
 
 export function ServicesPage({ onNavigate }: ServicesPageProps) {
-  /* Single-open accordion — clicking an item closes any other open one. */
+  /* Single-open accordion - clicking an item closes any other open one. */
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <>
       <main className="pt-20">
-        {/* ━━━ SECTION 1 — Hero / overview ━━━
+        {/* ━━━ SECTION 1 - Hero / overview ━━━
             Brandi's 5/7/26 verbatim intro replaces the old marketing copy. */}
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
@@ -82,7 +82,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
               <div className="max-w-3xl">
                 <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed">
                   We create photography and cinematography content for brands and
-                  organizations — building full campaigns through creative direction,
+                  organizations - building full campaigns through creative direction,
                   production, and execution designed to create meaningful impact.
                 </p>
               </div>
@@ -90,9 +90,9 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 2 — Capabilities accordion ━━━
+        {/* ━━━ SECTION 2 - Capabilities accordion ━━━
             Brandi's 5/7/26 note: 'turn this into an accordion that opens
-            when clicked'. Single-open behavior — clicking another item
+            when clicked'. Single-open behavior - clicking another item
             auto-closes the previously open one (cleaner premium feel). */}
         {/* Removed the section's top py + the inner div's duplicate
             border-t on 2026-05-12 so the accordion sits flush under
@@ -119,7 +119,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
                           {item.title}
                         </span>
                         {/* '01 / 02 / 03 ...' index badges removed
-                            2026-05-12 per user request — only the
+                            2026-05-12 per user request - only the
                             ChevronDown stays on the right side. */}
                         <ChevronDown
                           className={`w-5 h-5 sm:w-6 sm:h-6 text-dark/40 transition-transform duration-500 ease-out shrink-0 ${
@@ -127,7 +127,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
                           }`}
                         />
                       </button>
-                      {/* Body — animates via grid-template-rows trick:
+                      {/* Body - animates via grid-template-rows trick:
                           rows go from 0fr (collapsed) to 1fr (expanded)
                           with overflow-hidden on the inner wrapper. This
                           gives a smooth height transition without needing
@@ -156,14 +156,14 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 3 — Work Applications ━━━
+        {/* ━━━ SECTION 3 - Work Applications ━━━
             Brandi 5/7/26: renamed from 'SERVICES' to 'WORK APPLICATIONS'.
             The previous 'OUR TEAM' column was 'completely removed' per her
             note. The 15 items split into 2 columns (8 + 7) on desktop for
             balanced height, stacked on mobile.
 
             2026-05-12: trimmed the section's top padding (py-16/sm:py-24
-            → pt-12/sm:pt-16) AND dropped its border-t — the empty band
+            → pt-12/sm:pt-16) AND dropped its border-t - the empty band
             + double horizontal line above WORK APPLICATIONS is gone
             (the last accordion item's border-b is now the only
             separator). Some breathing room above the heading remains
@@ -189,7 +189,7 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 4 — CTA: See Our Campaigns ━━━ */}
+        {/* ━━━ SECTION 4 - CTA: See Our Campaigns ━━━ */}
         <section className="py-20 sm:py-32 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>

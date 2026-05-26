@@ -118,7 +118,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         </div>
 
         {/* ============================================================ */}
-        {/*  Navigation — Center aligned, even spacing                    */}
+        {/*  Navigation - Center aligned, even spacing                    */}
         {/* ============================================================ */}
         <div className="pt-6 border-t border-white/10 mb-6">
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
@@ -132,7 +132,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         </div>
 
         {/* ============================================================ */}
-        {/*  Social Icons — Bottom center, no circles, no label           */}
+        {/*  Social Icons - Bottom center, no circles, no label           */}
         {/* ============================================================ */}
         <div className="flex justify-center items-center gap-6 sm:gap-8 mb-6 sm:mb-8">
           <a
@@ -177,7 +177,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           <p className="text-xs sm:text-sm text-white/40 text-center">
             © 2025 ASHKAN STUDIOS | ALL RIGHTS RESERVED
           </p>
-          {/* Agency credit — same muted color/size as the copyright,
+          {/* Agency credit - same muted color/size as the copyright,
               normal case (no uppercase / no bold), link brightens on
               hover. Placed on its own line below so it stays subtle. */}
           <p className="text-xs sm:text-sm text-white/40 text-center mt-1.5">

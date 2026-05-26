@@ -33,7 +33,7 @@ const sessionTypes = [
     icon: Users,
     title: "WORKSHOP",
     description:
-      "Group lighting and business workshops broken into 3 levels — beginner, intermediate, and advanced. Learn dramatic lighting techniques for commercial and dance photography.",
+      "Group lighting and business workshops broken into 3 levels: beginner, intermediate, and advanced. Learn dramatic lighting techniques for commercial and dance photography.",
     includes: ["Hands-on lighting practice", "3 skill levels available", "Business & marketing strategies", "Certificate of completion"],
   },
 ];
@@ -49,13 +49,13 @@ const processSteps = [
     step: "02",
     title: "SESSION DAY",
     description:
-      "Our team handles every detail — from lighting and direction to styling and set design. You show up, we create magic.",
+      "Our team handles every detail, from lighting and direction to styling and set design. You show up, we create magic.",
   },
   {
     step: "03",
     title: "DELIVERY",
     description:
-      "Professional retouching, color grading, and final delivery through your private online gallery. Typical turnaround is 2–3 weeks.",
+      "Professional retouching, color grading, and final delivery through your private online gallery. Typical turnaround is 2-3 weeks.",
   },
 ];
 
@@ -80,7 +80,7 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
                 SESSION
               </h1>
               <p className="text-lg sm:text-xl text-white/70 max-w-2xl">
-                Whether you need a commercial shoot, private coaching, or a full production —
+                Whether you need a commercial shoot, private coaching, or a full production -
                 we'll build a session tailored to your goals. Located at Sawyer Yards,
                 one of Houston's most cutting-edge creative spaces.
               </p>
@@ -156,7 +156,7 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
           </div>
         </section>
 
-        {/* CTA — Book Now */}
+        {/* CTA - Book Now */}
         <section className="py-16 sm:py-24 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>

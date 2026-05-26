@@ -2,14 +2,14 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 /* ════════════════════════════════════════════════════════════════════
-   Lightbox — full-screen image viewer with keyboard nav + thumbnail
+   Lightbox - full-screen image viewer with keyboard nav + thumbnail
    strip. Brandi's 5/7/26 review notes:
      'Every photo in any gallery should be clickable to a lightbox
       that they can explore the whole gallery in large.'
 
    Used across:
      • Photography category pages (4)
-     • Campaign detail pages (4) — image gallery items only
+     • Campaign detail pages (4) - image gallery items only
      • About section (single image enlarge)
      • anywhere else photos are displayed in the future
 
@@ -57,7 +57,7 @@ export function Lightbox({
     setIndex((i) => (i - 1 + images.length) % images.length);
   }, [images.length]);
 
-  /* Keyboard navigation — only while open */
+  /* Keyboard navigation - only while open */
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -109,7 +109,7 @@ export function Lightbox({
       aria-modal="true"
       aria-label="Image viewer"
     >
-      {/* Top bar — counter + close */}
+      {/* Top bar - counter + close */}
       <div
         className="flex items-center justify-between p-4 sm:p-6 text-white z-10"
         onClick={stop}
@@ -127,10 +127,10 @@ export function Lightbox({
         </button>
       </div>
 
-      {/* Image — centered, contains within viewport.
+      {/* Image - centered, contains within viewport.
           `min-h-0` is critical: without it the flex-1 middle div
           inherits min-height:auto and lets tall images push the
-          container past the viewport — which caused the bottom of
+          container past the viewport - which caused the bottom of
           the studio photo to clip on the home page lightbox.
           With min-h-0 the flex item can shrink below its content
           intrinsic size, so `max-h-full + object-contain` on the
@@ -145,7 +145,7 @@ export function Lightbox({
           onClick={stop}
         />
 
-        {/* Prev / Next arrows — only when more than one image */}
+        {/* Prev / Next arrows - only when more than one image */}
         {images.length > 1 && (
           <>
             <button
@@ -213,7 +213,7 @@ export function Lightbox({
         )}
       </div>
 
-      {/* Local keyframes — fade in the backdrop, zoom in the image */}
+      {/* Local keyframes - fade in the backdrop, zoom in the image */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }

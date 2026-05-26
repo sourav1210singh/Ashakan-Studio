@@ -1,12 +1,12 @@
 import { ArrowRight } from "lucide-react";
 
 /* ════════════════════════════════════════════════════════════════════
-   FULL-SERVICE PRODUCTION — single full-bleed row with a looping
+   FULL-SERVICE PRODUCTION - single full-bleed row with a looping
    video background, centered title + description, and a 'WHAT WE DO'
    CTA that navigates to the services page.
 
    Brandi's 5/7/26 review notes for this section (pages 10-11):
-     • 'Revert design to previous request' — drop the editorial
+     • 'Revert design to previous request' - drop the editorial
        hover-swap layout, go back to a simple bg + centered text row.
      • Use a specific video as the row background (she pointed to one
        in the design reference; user picked Vimeo 1147057440 for now,
@@ -30,7 +30,7 @@ export function FullServiceHybridSection() {
   const goToServices = () => {
     window.history.pushState(null, "", "/what-we-do/");
     window.dispatchEvent(new PopStateEvent("popstate"));
-    /* Defensive scroll-to-top — App's popstate handler also calls
+    /* Defensive scroll-to-top - App's popstate handler also calls
        scrollTo(0,0), this is here for redundancy. */
     window.scrollTo(0, 0);
   };
@@ -40,7 +40,7 @@ export function FullServiceHybridSection() {
       id="services"
       className="relative overflow-hidden bg-dark min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center"
     >
-      {/* ── Background video — Vimeo iframe in 'background' mode ──
+      {/* ── Background video - Vimeo iframe in 'background' mode ──
           The iframe is over-sized (300% w/h) and centred so it covers
           the section at any viewport aspect ratio without letterboxing. */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -56,7 +56,7 @@ export function FullServiceHybridSection() {
             border: 0,
           }}
           allow="autoplay; fullscreen"
-          title="Ashkan Studios — production reel"
+          title="Ashkan Studios - production reel"
         />
       </div>
 
@@ -89,7 +89,7 @@ export function FullServiceHybridSection() {
           vision to life.
         </p>
 
-        {/* WHAT WE DO CTA — outlined white, hover invert */}
+        {/* WHAT WE DO CTA - outlined white, hover invert */}
         <button
           onClick={goToServices}
           className="group inline-flex items-center gap-3 sm:gap-4 px-7 sm:px-9 lg:px-11 py-3.5 sm:py-4 lg:py-5 border border-white text-white font-semibold tracking-[0.3em] text-xs sm:text-sm uppercase hover:bg-white hover:text-dark transition-colors duration-300 cursor-pointer"

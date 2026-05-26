@@ -62,7 +62,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
           alt="Production services"
           className="w-full h-[130%] object-cover"
         />
-        {/* Dark overlay — 65% for readability while keeping cinematic feel */}
+        {/* Dark overlay - 65% for readability while keeping cinematic feel */}
         <div className="absolute inset-0 bg-dark/65" />
       </div>
 
@@ -74,7 +74,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
         <div className="flex flex-col items-center text-center">
 
           {/* ============================================================ */}
-          {/*  Heading — inside black container block                       */}
+          {/*  Heading - inside black container block                       */}
           {/*  Subtle fade-in + 12px upward motion, 700ms, cubic-bezier    */}
           {/* ============================================================ */}
           <div
@@ -97,7 +97,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
           </div>
 
           {/* ============================================================ */}
-          {/*  Subtext — inside separate black container block              */}
+          {/*  Subtext - inside separate black container block              */}
           {/*  max-width ~780px for clean 2-line wrap on desktop            */}
           {/* ============================================================ */}
           <div
@@ -145,7 +145,7 @@ export function ServicesSection({ onNavigate }: ServicesSectionProps) {
           </div>
 
           {/* ============================================================ */}
-          {/*  CTA Button — outlined white, hover invert                   */}
+          {/*  CTA Button - outlined white, hover invert                   */}
           {/* ============================================================ */}
           <div
             style={{

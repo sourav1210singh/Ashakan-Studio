@@ -41,7 +41,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
               <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
                 CONTACT
               </h1>
-              {/* Brandi 5/7/26 (PDF page 75) — wording softened from
+              {/* Brandi 5/7/26 (PDF page 75) - wording softened from
                   the original 'within 24 hours' to 'as soon as possible'
                   so we don't commit to a hard turnaround on the page. */}
               <p className="text-lg sm:text-xl text-dark/70 max-w-2xl">
@@ -215,7 +215,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
           </div>
         </section>
 
-        {/* Removed per Brandi 5/7/26 (PDF page 77 — 'Completely remove'):
+        {/* Removed per Brandi 5/7/26 (PDF page 77 - 'Completely remove'):
             the 'PREFER TO BOOK A SESSION?' booking links section. The
             VIEW SESSION TYPES + SCHEDULE A CALL Calendly buttons that
             lived in this section have been dropped to keep CONTACT a

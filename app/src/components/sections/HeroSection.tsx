@@ -10,20 +10,20 @@ import {
 } from "framer-motion";
 
 /* Vimeo BTS reel that plays inside the bold text letters */
-const HERO_VIDEO_ID = "1022971286"; // Vitacca Ballet — Season Promo (motion + texture)
+const HERO_VIDEO_ID = "1022971286"; // Vitacca Ballet - Season Promo (motion + texture)
 
 /* ────────────────────────────────────────────────────────────
-   VideoTextWord — bold word whose letter shapes act as a
+   VideoTextWord - bold word whose letter shapes act as a
    "window" through which a Vimeo BTS reel plays continuously.
    Implementation: an SVG <mask> built from the text shape clips
-   a <foreignObject> hosting the Vimeo iframe — so the video is
+   a <foreignObject> hosting the Vimeo iframe - so the video is
    only visible inside the letters; everything around stays cream.
    ──────────────────────────────────────────────────────────── */
 interface VideoTextWordProps {
   children: string;
   className?: string;
   style?: React.CSSProperties;
-  /** Vimeo numeric ID — defaults to HERO_VIDEO_ID */
+  /** Vimeo numeric ID - defaults to HERO_VIDEO_ID */
   vimeoId?: string;
 }
 
@@ -45,7 +45,7 @@ function VideoTextWord({
         ...style,
       }}
     >
-      {/* Layout placeholder — invisible, but determines width/height */}
+      {/* Layout placeholder - invisible, but determines width/height */}
       <span style={{ visibility: "hidden", whiteSpace: "pre" }}>{children}</span>
 
       {/* Fallback letter color (visible if SVG/foreignObject fails) */}
@@ -61,7 +61,7 @@ function VideoTextWord({
         {children}
       </span>
 
-      {/* SVG with masked video — covers the layout box exactly */}
+      {/* SVG with masked video - covers the layout box exactly */}
       <svg
         aria-hidden
         style={{
@@ -117,14 +117,14 @@ function VideoTextWord({
 }
 
 /* ────────────────────────────────────────────────────────────
-   MagneticWord — pulls the wrapped word toward the cursor
+   MagneticWord - pulls the wrapped word toward the cursor
    while it's hovering. Used on every word in the hero copy.
    ──────────────────────────────────────────────────────────── */
 interface MagneticWordProps {
   children: ReactNode;
   className?: string;
   style?: React.CSSProperties;
-  /** how strongly the word is pulled (0–1, default 0.25) */
+  /** how strongly the word is pulled (0-1, default 0.25) */
   strength?: number;
 }
 
@@ -168,7 +168,7 @@ function MagneticWord({
 }
 
 /* ────────────────────────────────────────────────────────────
-   InlineCutout — image embedded INSIDE text flow.
+   InlineCutout - image embedded INSIDE text flow.
    Layered motion:
      • OUTER: random multi-axis drift (continuous, faster)
      • INNER: mouse-driven parallax float
@@ -190,7 +190,7 @@ interface InlineCutoutProps {
   floatStrength?: number;
 }
 
-/* Random drift patterns — small amplitude (~±6px) so cutouts don't wander
+/* Random drift patterns - small amplitude (~±6px) so cutouts don't wander
    too far from their layout position. Each has a different sequence and
    duration for organic, non-synchronized motion. */
 const DRIFT_PATTERNS: Record<
@@ -240,7 +240,7 @@ function InlineCutout({
   const drift = DRIFT_PATTERNS[driftName];
 
   return (
-    /* Outer wrapper — random multi-axis drift via framer-motion animate */
+    /* Outer wrapper - random multi-axis drift via framer-motion animate */
     <motion.span
       className={`inline-block align-bottom select-none group ${className}`}
       style={{
@@ -265,7 +265,7 @@ function InlineCutout({
       }}
       whileHover={{ scale: 1.08 }}
     >
-      {/* Inner wrapper — mouse-follow parallax (composes with outer drift) */}
+      {/* Inner wrapper - mouse-follow parallax (composes with outer drift) */}
       <motion.span
         className="block w-full h-full"
         style={{ x: mx, y: my }}
@@ -293,15 +293,15 @@ function InlineCutout({
 }
 
 /* ────────────────────────────────────────────────────────────
-   Hero Section — Word-Integrated Cutout Composition
+   Hero Section - Word-Integrated Cutout Composition
      [dancer] WE CREATE
      VISUAL [cameraman] STORIES
      THAT INSPIRE [portrait]
 
    Animation layers:
-     1. Parallax scroll  — bg/text/cutouts at different speeds
-     2. Mouse float      — cutouts subtly track cursor (depth feel)
-     3. Magnetic hover   — every word tugs toward cursor on hover
+     1. Parallax scroll  - bg/text/cutouts at different speeds
+     2. Mouse float      - cutouts subtly track cursor (depth feel)
+     3. Magnetic hover   - every word tugs toward cursor on hover
    ──────────────────────────────────────────────────────────── */
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -365,7 +365,7 @@ export function HeroSection() {
       className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-28 sm:pt-36 pb-8 sm:pb-12"
       style={{ minHeight: "100vh" }}
     >
-      {/* Background Pattern — parallax slowest */}
+      {/* Background Pattern - parallax slowest */}
       <motion.div
         className="absolute inset-0 opacity-[0.03]"
         style={{ y: bgY }}
@@ -379,7 +379,7 @@ export function HeroSection() {
         />
       </motion.div>
 
-      {/* Main content — parallax medium + scroll-out exit */}
+      {/* Main content - parallax medium + scroll-out exit */}
       <motion.div
         className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-8"
         style={{
@@ -406,7 +406,7 @@ export function HeroSection() {
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
               className="hidden md:inline-block"
-              /* +30% on every clamp value (third pass 2026-05-12) —
+              /* +30% on every clamp value (third pass 2026-05-12) -
                  user asked this cutout to grow another 30% on top
                  of the previous +30%. Net growth vs original ~+69%. */
               width="clamp(169px, 19.5vw, 304px)"
@@ -422,12 +422,12 @@ export function HeroSection() {
               mouseY={mouseY}
               floatStrength={22}
             />
-            {/* WE CREATE — Inter (font-sans), no video-in-text per
+            {/* WE CREATE - Inter (font-sans), no video-in-text per
                 Brandi's 5/7/26 notes ('we, create, that' use Inter).
                 letterSpacing tightened 40% (0.02em → 0.012em) and
                 each glyph compressed horizontally to 70% via
                 transform: scaleX(0.7) per user request 2026-05-12.
-                Vertical height untouched — only the per-letter
+                Vertical height untouched - only the per-letter
                 horizontal footprint shrinks, so 'W' / 'E' / 'C' etc.
                 now read at roughly the same width as the heavier
                 display-font letters in VISUAL / STORIES / INSPIRE. */}
@@ -458,7 +458,7 @@ export function HeroSection() {
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
               className="hidden md:inline-block"
-              /* Size reduced 2026-05-12 (third pass) — user said
+              /* Size reduced 2026-05-12 (third pass) - user said
                  the figure was too large after the page-6-reference
                  enlargement. Roughly -30% on every clamp value so
                  Isabella still reads as a tall figure but no longer
@@ -479,7 +479,7 @@ export function HeroSection() {
           </motion.div>
 
           {/* ───── LINE 2: VISUAL [cameraman] STORIES ─────
-              Position nudge 2026-05-12 (eighth pass — match line 3
+              Position nudge 2026-05-12 (eighth pass - match line 3
               gap): user asked the WE CREATE → VISUAL STORIES gap
               to exactly match the VISUAL STORIES → THAT INSPIRE
               gap below. Line 2 marginTop pulled from -145px → -45px
@@ -502,17 +502,17 @@ export function HeroSection() {
               y: line2Lift,
             }}
           >
-            {/* VISUAL — kept in display font (Bebas Neue), no video.
+            {/* VISUAL - kept in display font (Bebas Neue), no video.
                 Brandi: STORIES is the only word with video behind.
                 position: relative + top: -15px added 2026-05-12 so
                 ONLY the text lifts up on line 2. The sunglasses
-                cutout to the right stays in its current spot —
+                cutout to the right stays in its current spot -
                 it's a sibling in the same inline row but doesn't
                 pick up the offset because top is scoped to this
                 MagneticWord span only. */}
             {/* RESPONSIVE FIX 2026-05-12: the -15px top offset only
                 exists to align VISUAL with the cutout between it and
-                STORIES — but that cutout is hidden below md. So the
+                STORIES - but that cutout is hidden below md. So the
                 offset is now `top-0` on mobile (clean even rhythm,
                 no cutout to align with) and `md:top-[-15px]` from
                 tablet up where the cutout appears. relative class
@@ -566,11 +566,11 @@ export function HeroSection() {
               floatStrength={28}
             />
             <span className="md:hidden"> </span>
-            {/* STORIES — display font with video-in-text mask.
-                position: relative + top: -15px matches VISUAL —
+            {/* STORIES - display font with video-in-text mask.
+                position: relative + top: -15px matches VISUAL -
                 only the text lifts; sunglasses cutout stays put. */}
             {/* RESPONSIVE FIX 2026-05-12: top offset only aligns
-                STORIES with the hidden-on-mobile sunglasses cutout —
+                STORIES with the hidden-on-mobile sunglasses cutout -
                 top-0 on mobile, md:top-[-15px] from tablet up. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[-15px]"
@@ -599,11 +599,11 @@ export function HeroSection() {
               left of THAT (moved here from line 2) and replace the previous
               portrait right of INSPIRE with the Deutsch Brandi-615 portrait.
 
-              Position nudge 2026-05-12 (sixth pass — open-up more):
+              Position nudge 2026-05-12 (sixth pass - open-up more):
               user asked for a bit more breathing room on the
               VISUAL STORIES → THAT INSPIRE gap. marginTop relaxed
               -60px → -45px (~15px more space). */}
-          {/* RESPONSIVE FIX 2026-05-12: same as line 2 — the fixed
+          {/* RESPONSIVE FIX 2026-05-12: same as line 2 - the fixed
               -45px marginTop is now a font-proportional responsive
               scale so THAT INSPIRE doesn't collapse onto VISUAL
               STORIES on mobile/tablet. Desktop (xl) keeps -45px. */}
@@ -634,15 +634,15 @@ export function HeroSection() {
                  the two text lines.
 
                  Nudge 2026-05-12: top: 0 → -20px to lift the car
-                 slightly higher per user request — only the Ferrari
+                 slightly higher per user request - only the Ferrari
                  moves, everything else on line 3 stays put. */
               style={{ marginRight: "-50px", marginTop: "-130px", top: "-20px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={26}
             />
-            {/* THAT — Inter (font-sans), no video-in-text.
-                Same treatment as WE CREATE on line 1 — letterSpacing
+            {/* THAT - Inter (font-sans), no video-in-text.
+                Same treatment as WE CREATE on line 1 - letterSpacing
                 0.012em + scaleX(0.7) so Inter glyphs match the
                 horizontal density of the display-font words above.
                 Right margin reduced 40% three times in a row per
@@ -652,13 +652,13 @@ export function HeroSection() {
                 position: relative + top: 18px added 2026-05-12 so
                 ONLY the text drops down on line 3. The Ferrari
                 cutout to the left and Oyster cutout to the right
-                stay in their current positions — they're siblings
+                stay in their current positions - they're siblings
                 in the same inline-block row but don't get the
                 offset because the top property is scoped to the
                 MagneticWord span. */}
             {/* RESPONSIVE FIX 2026-05-12: +18px top offset only
                 exists to drop THAT down to match the line-3 cutout
-                rhythm (Ferrari/Oyster hidden on mobile) — top-0 on
+                rhythm (Ferrari/Oyster hidden on mobile) - top-0 on
                 mobile, md:top-[18px] from tablet up. */}
             <MagneticWord
               className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[18px]"
@@ -684,12 +684,12 @@ export function HeroSection() {
                 THAT
               </span>
             </MagneticWord>
-            {/* INSPIRE — kept in display font, no video.
+            {/* INSPIRE - kept in display font, no video.
                 position: relative + top: 18px added 2026-05-12 to
-                match THAT — drops the text down without moving the
+                match THAT - drops the text down without moving the
                 Ferrari (left of THAT) or Oyster (right of INSPIRE)
                 cutouts. */}
-            {/* RESPONSIVE FIX 2026-05-12: matches THAT — top-0 on
+            {/* RESPONSIVE FIX 2026-05-12: matches THAT - top-0 on
                 mobile, md:top-[18px] from tablet up. */}
             <MagneticWord
               className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[18px]"
@@ -716,7 +716,7 @@ export function HeroSection() {
               src="/images/hero/cutouts/deutsch-brandi-615.png"
               alt="Deutsch Brandi portrait cutout"
               className="hidden md:inline-block"
-              /* +30% earlier, then +20% more on 2026-05-12 — net
+              /* +30% earlier, then +20% more on 2026-05-12 - net
                  ~+56% from the original baseline. This cutout alone
                  was singled out by the user as needing extra weight. */
               width="clamp(109px, 12.6vw, 196px)"
@@ -730,7 +730,7 @@ export function HeroSection() {
                  verticalAlign: "middle" via inline style (overrides
                  the InlineCutout component's hardcoded class).
                  Reset `top` and `marginTop` so vertical-align:middle
-                 alone drives the placement — no extra offsets fighting
+                 alone drives the placement - no extra offsets fighting
                  the alignment. Horizontal spacing (marginLeft 20px)
                  unchanged. Layout flow untouched, so line 3 text and
                  the 4th cutout stay exactly where they are. */

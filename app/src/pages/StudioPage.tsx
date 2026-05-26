@@ -11,10 +11,10 @@ interface StudioPageProps {
 
 /* ── Team roster ─────────────────────────────────────────────────
    Per Brandi's 5/7/26 review notes (PDF pages 70-72):
-   • 6 members total (was 4 — William removed, 3 new additions).
-   • 'Under each pic have role/titles, then name' — card layout
+   • 6 members total (was 4 - William removed, 3 new additions).
+   • 'Under each pic have role/titles, then name' - card layout
      shows role first, name second.
-   • Brandi's PDF spelled 'CINEMAPHOTOGRAPHER' — clearly a typo for
+   • Brandi's PDF spelled 'CINEMAPHOTOGRAPHER' - clearly a typo for
      CINEMATOGRAPHER. Using the corrected term.
    • Photos sourced from C:\Ashakan-Studio\Studio & Staff\ on
      2026-05-12, mapped to first 4 team members in folder order.
@@ -78,7 +78,7 @@ const PROCESS = [
     step: "02",
     title: "PRODUCTION",
     body:
-      "On set, our team manages the full production process — from lighting and direction to styling, hair and makeup, and on-location coordination. Creative decisions are guided in real time to ensure the work reflects both vision and execution.",
+      "On set, our team manages the full production process, from lighting and direction to styling, hair and makeup, and on-location coordination. Creative decisions are guided in real time to ensure the work reflects both vision and execution.",
   },
   {
     step: "03",
@@ -88,14 +88,14 @@ const PROCESS = [
   },
 ];
 
-/* Studio interior gallery used by the Lightbox — Brandi's 5/7/26
+/* Studio interior gallery used by the Lightbox - Brandi's 5/7/26
    note 'this image, click to get to it directly' for the studio
    space photo cluster. Includes the wide hero shot for variety. */
 const STUDIO_GALLERY = [
-  { src: "/images/studio/studio-interior-2.jpg", alt: "Ashkan Studios — cyclorama wall and lighting setup" },
-  { src: "/images/studio/studio-wide.jpg", alt: "Ashkan Studios — wide angle of the studio floor" },
-  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios — dancer in motion on teal backdrop" },
-  { src: "/images/studio/studio-interior-1.jpg", alt: "Ashkan Studios — full studio interior" },
+  { src: "/images/studio/studio-interior-2.jpg", alt: "Ashkan Studios - cyclorama wall and lighting setup" },
+  { src: "/images/studio/studio-wide.jpg", alt: "Ashkan Studios - wide angle of the studio floor" },
+  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios - dancer in motion on teal backdrop" },
+  { src: "/images/studio/studio-interior-1.jpg", alt: "Ashkan Studios - full studio interior" },
 ];
 
 export function StudioPage({ onNavigate }: StudioPageProps) {
@@ -105,7 +105,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
   return (
     <>
       <main className="pt-20">
-        {/* ━━━ SECTION 1 — Hero ━━━
+        {/* ━━━ SECTION 1 - Hero ━━━
             Brandi 5/7/26 (PDF page 65):
             • Add 'DEDICATED CREATIVE STUDIO' subtitle under THE STUDIO H1.
             • Hero photo previously overlaid a 'BTS Film · Coming Soon'
@@ -118,7 +118,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           <div className="absolute inset-0">
             <img
               src="/images/studio/studio-interior-1.jpg"
-              alt="Ashkan Studios — Houston production studio interior"
+              alt="Ashkan Studios - Houston production studio interior"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-dark/55" />
@@ -128,7 +128,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 w-full">
               <FadeIn>
                 {/* Hero subtitle 'Dedicated Creative Studio' moved
-                    out 2026-05-12 per user request — the phrase is
+                    out 2026-05-12 per user request - the phrase is
                     now used as the heading for THE SPACE section
                     further down the page (matches Brandi's PDF page
                     66 annotation). */}
@@ -140,20 +140,20 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 2 — About ━━━
+        {/* ━━━ SECTION 2 - About ━━━
             Brandi 5/7/26: 'Changes here should match exactly on changes
             requested to this section on home page'. The copy below
             mirrors the home AboutSection (BASED IN HOUSTON, TX / 2
             DEPARTMENTS, 1 COMPANY) so the brand voice stays consistent
             across both pages. CTA elements from home (italic 'Curious?'
-            line and ABOUT US button) are intentionally dropped here —
+            line and ABOUT US button) are intentionally dropped here -
             visitors are already on the Studio page. */}
         <section className="py-16 sm:py-24 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
               <FadeIn>
                 {/* '2 DEPARTMENTS, 1 COMPANY.' subtitle removed
-                    2026-05-12 per user request — matches the home
+                    2026-05-12 per user request - matches the home
                     page AboutSection which had the same subtitle
                     dropped earlier today. */}
                 <h2 className="font-display text-dark tracking-tight leading-[0.95]">
@@ -168,11 +168,11 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                 <div className="space-y-6">
                   {/* 'Ashkan Studios is the parent company of Ashkan
                       Image and Ashkan Media...' paragraph removed
-                      2026-05-12 per user request — column now opens
+                      2026-05-12 per user request - column now opens
                       with the 'Every project begins with a story'
                       paragraph below. */}
                   <p className="text-lg sm:text-xl text-dark/80 leading-relaxed">
-                    Every project at Ashkan Studios begins with a story — yours. We
+                    Every project at Ashkan Studios begins with a story - yours. We
                     guide it from concept to completion, handling all aspects of
                     production in-house with care, precision, and intention.
                   </p>
@@ -186,7 +186,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 3 — Studio Space ━━━
+        {/* ━━━ SECTION 3 - Studio Space ━━━
             Brandi 5/7/26 (PDF page 66-67):
             • Replace bullet copy with the 6 new items in STUDIO_BULLETS.
             • 'This image, click to get to it directly' → wire the studio
@@ -219,7 +219,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
               </FadeIn>
               <FadeIn delay={0.1}>
                 <div className="space-y-4">
-                  {/* Top photo of THE SPACE cluster — per Brandi's PDF
+                  {/* Top photo of THE SPACE cluster - per Brandi's PDF
                       page 66 this slot is reserved for the BTS in-studio
                       video. Until that clip is delivered the photo is
                       shown as a poster with a minimal play-icon overlay
@@ -240,7 +240,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                       className="w-full object-cover aspect-[4/3] transition-transform duration-700 group-hover:scale-105"
                     />
                     <span className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
-                    {/* Minimal play indicator — no extra label, just a
+                    {/* Minimal play indicator - no extra label, just a
                         subtle white outlined circle with a play glyph
                         in the centre, so the slot reads as a video. */}
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -287,7 +287,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             'EVERYTHING YOU NEED UNDER ONE ROOF' Studio Features Grid
             (Profoto / Live Monitor / Wardrobe / etc.). */}
 
-        {/* ━━━ SECTION 4 — Dark Process Row ━━━
+        {/* ━━━ SECTION 4 - Dark Process Row ━━━
             Brandi 5/7/26 (PDF page 68): 'Change this section to dark row
             style' + 3 new titles + verbatim body copy. */}
         <section className="py-20 sm:py-28 bg-dark text-white">
@@ -322,13 +322,13 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             'RENT THE SPACE' Studio Rental section (with the 7-bullet
             list and INQUIRE ABOUT RENTAL CTA). */}
 
-        {/* ━━━ SECTION 5 — Meet the Team ━━━
+        {/* ━━━ SECTION 5 - Meet the Team ━━━
             Brandi 5/7/26 (PDF pages 69-72):
-            • 'Move MEET THE TEAM to here' — section now lives directly
+            • 'Move MEET THE TEAM to here' - section now lives directly
               after the dark process row.
             • Three-paragraph intro added before the grid (verbatim).
             • Card layout per Brandi: 'Under each pic have role/titles,
-              then name' — role first, name second.
+              then name' - role first, name second.
             • Six members total (Ashkan, Brandi, Christopher, Nisha,
               Avery, Amaya); William removed. */}
         <section className="py-16 sm:py-24">
@@ -341,14 +341,14 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             </FadeIn>
 
             {/* Top split: LEFT big group photo, RIGHT 3-paragraph intro
-                — matches Brandi's PDF page 69 layout. Below this split,
+                - matches Brandi's PDF page 69 layout. Below this split,
                 all six team members render in a single horizontal row. */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16 sm:mb-20">
               <FadeIn>
                 <div className="overflow-hidden">
                   <img
                     src="/images/studio/team-group-2026.jpg"
-                    alt="Ashkan Studios team — group photo"
+                    alt="Ashkan Studios team - group photo"
                     className="w-full h-auto block"
                   />
                 </div>
@@ -390,7 +390,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                         </div>
                       )}
                     </div>
-                    {/* Role first, then name — Brandi's 5/7/26 instruction
+                    {/* Role first, then name - Brandi's 5/7/26 instruction
                         'Under each pic have role/titles, then name'.
                         Role tightened to xs and name to base/lg so six
                         cards comfortably fit in a single row at lg+. */}
@@ -407,7 +407,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 6 — Location ━━━
+        {/* ━━━ SECTION 6 - Location ━━━
             Brandi 5/7/26 (PDF page 73): updated Sawyer Yards copy
             ('one of the largest working artist communities in Houston
             and among the largest in the United States'). */}
@@ -430,7 +430,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   Houston, TX 77007
                 </p>
                 <p className="text-base text-white/55 leading-relaxed mb-8">
-                  Located in Houston's Sawyer Yards — one of the largest working
+                  Located in Houston's Sawyer Yards - one of the largest working
                   artist communities in Houston and among the largest in the
                   United States. Just minutes from downtown, our studio sits
                   among galleries, artists, and creatives. Join us for Second
@@ -465,7 +465,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 7 — CTA ━━━ */}
+        {/* ━━━ SECTION 7 - CTA ━━━ */}
         <section className="py-16 sm:py-24 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
@@ -492,7 +492,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
 
-      {/* Lightbox — opens when any studio space photo is clicked. */}
+      {/* Lightbox - opens when any studio space photo is clicked. */}
       <Lightbox
         images={STUDIO_GALLERY}
         isOpen={lightboxIndex !== null}

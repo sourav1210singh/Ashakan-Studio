@@ -5,11 +5,11 @@ import { Lightbox } from "@/components/ui/Lightbox";
 
 const ABOUT_IMAGE = {
   src: "/images/sections/studio-2026.jpg",
-  alt: "Ashkan Studios — studio interior",
+  alt: "Ashkan Studios - studio interior",
 };
 
 export function AboutSection() {
-  /* sectionRef + imageY parallax removed 2026-05-12 — the image is
+  /* sectionRef + imageY parallax removed 2026-05-12 - the image is
      now rendered at its natural aspect ratio (no overscale / crop)
      so there is no inner element to translate on scroll. */
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -25,14 +25,14 @@ export function AboutSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* ============================================================ */}
-          {/*  LEFT — Background heading + paragraph + button              */}
+          {/*  LEFT - Background heading + paragraph + button              */}
           {/* ============================================================ */}
           <div className="order-2 lg:order-1 relative">
 
             {/* Main heading */}
             <FadeIn>
               {/* '2 DEPARTMENTS, 1 COMPANY.' subtitle removed
-                  2026-05-12 per user request — heading is now
+                  2026-05-12 per user request - heading is now
                   just 'BASED IN HOUSTON, TX'. */}
               <h2 className="font-display text-dark tracking-tight leading-[0.95] mb-6 sm:mb-8">
                 <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
@@ -44,14 +44,14 @@ export function AboutSection() {
             </FadeIn>
 
             {/* Paragraph 1 ('Ashkan Studios is the parent company of...')
-                removed 2026-05-12 per user request — the section now
+                removed 2026-05-12 per user request - the section now
                 opens directly with the 'Every project begins with a
                 story' paragraph below. */}
 
             {/* Paragraph 2 */}
             <FadeIn delay={0.2}>
               <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-5 sm:mb-6 max-w-lg">
-                Every project at Ashkan Studios begins with a story — yours.
+                Every project at Ashkan Studios begins with a story - yours.
                 We guide it from concept to completion, handling all aspects of
                 production in-house with care, precision, and intention.
               </p>
@@ -89,7 +89,7 @@ export function AboutSection() {
           </div>
 
           {/* ============================================================ */}
-          {/*  RIGHT — Horizontal landscape image                          */}
+          {/*  RIGHT - Horizontal landscape image                          */}
           {/* ============================================================ */}
           <div className="order-1 lg:order-2 relative">
             <FadeIn direction="left" delay={0.2}>
@@ -98,7 +98,7 @@ export function AboutSection() {
                   because there's only one image to view here).
 
                   2026-05-12: removed the fixed aspect-[3/2] container,
-                  h-[120%] over-scaling and parallax translateY — they
+                  h-[120%] over-scaling and parallax translateY - they
                   were cropping the bottom of the studio photo. The
                   image now renders at its natural aspect ratio (full
                   height) inside a block-level wrapper. The hover scale
@@ -121,7 +121,7 @@ export function AboutSection() {
         </div>
       </div>
 
-      {/* Lightbox — single-image */}
+      {/* Lightbox - single-image */}
       <Lightbox
         images={[ABOUT_IMAGE]}
         isOpen={lightboxOpen}

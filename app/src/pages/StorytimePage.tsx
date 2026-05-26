@@ -8,7 +8,7 @@ interface StorytimePageProps {
 }
 
 /**
- * STORYTIME page — Brandi's 5/7/26 review notes (PDF pages 78-79):
+ * STORYTIME page - Brandi's 5/7/26 review notes (PDF pages 78-79):
  *   • Hero intro paragraph replaced with new verbatim copy that covers
  *     studio updates, BTS, campaigns, press, and industry thoughts.
  *   • Blog content: 'This will need to change obviously from our blog
@@ -17,7 +17,7 @@ interface StorytimePageProps {
  *     Brandi's team adds the real posts, the page renders a clean
  *     'Coming Soon' empty state instead of the previous placeholder
  *     grid (which referenced real client names with fabricated titles
- *     and dates — confusing for any visitor who lands here today).
+ *     and dates - confusing for any visitor who lands here today).
  *
  * When the team is ready to populate, the easiest path is to replace
  * the empty state with a `posts` array + grid that mirrors the
@@ -29,8 +29,8 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
   return (
     <>
       <main className="pt-20">
-        {/* ━━━ SECTION 1 — Hero ━━━
-            Brandi 5/7/26 (PDF page 78) — new intro copy covers studio
+        {/* ━━━ SECTION 1 - Hero ━━━
+            Brandi 5/7/26 (PDF page 78) - new intro copy covers studio
             updates, BTS, campaigns, press, and industry thoughts. */}
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
@@ -46,7 +46,7 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 2 — Coming Soon empty state ━━━
+        {/* ━━━ SECTION 2 - Coming Soon empty state ━━━
             Per Brandi's 5/7/26 note (PDF page 79), the blog is waiting
             on her team's content. Renders a clean placeholder so the
             page reads as intentionally in-progress rather than empty
@@ -70,7 +70,7 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
                   Stories in the making.
                 </h2>
                 <p className="text-base sm:text-lg text-dark/65 leading-relaxed">
-                  We're putting together the first round of stories — campaign
+                  We're putting together the first round of stories - campaign
                   recaps, behind-the-scenes notes, press features, and a few
                   honest takes from the industry. Subscribe below and we'll
                   let you know the moment the first piece goes live.
@@ -80,8 +80,8 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 3 — Newsletter ━━━
-            Retained from the previous layout — gives visitors a way
+        {/* ━━━ SECTION 3 - Newsletter ━━━
+            Retained from the previous layout - gives visitors a way
             to stay engaged with the brand even with no posts yet. */}
         <section className="py-16 sm:py-24 bg-dark text-white border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">

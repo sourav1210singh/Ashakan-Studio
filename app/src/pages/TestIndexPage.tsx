@@ -14,7 +14,7 @@ interface TestVariant {
 }
 
 /**
- * Test variants — speculative experiments that aren't on the public site yet.
+ * Test variants - speculative experiments that aren't on the public site yet.
  * Add new entries here as new test variants are built. The corresponding
  * TestPage component reads `selectedCategory` and renders the matching variant.
  */
@@ -23,7 +23,7 @@ const VARIANTS: TestVariant[] = [
     slug: "work-split",
     title: "WORK section split into CAMPAIGN + WORK",
     description:
-      'Brandi mentioned "maybe there\'s two of them, and one says campaign, one says work" — this variant splits the home page leaf-card section into two separate sections so she can decide if she likes the split.',
+      'Brandi mentioned "maybe there\'s two of them, and one says campaign, one says work" - this variant splits the home page leaf-card section into two separate sections so she can decide if she likes the split.',
     status: "draft",
   },
 ];
@@ -42,7 +42,7 @@ export function TestIndexPage({ onNavigate }: TestIndexPageProps) {
         <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
           <FadeIn>
             <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-6">
-              Internal — Not Linked Publicly
+              Internal - Not Linked Publicly
             </p>
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white tracking-tight mb-6">
               Test Variants
