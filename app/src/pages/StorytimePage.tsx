@@ -70,7 +70,7 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
                   Stories in the making.
                 </h2>
                 <p className="text-base sm:text-lg text-dark/65 leading-relaxed">
-                  We're putting together the first round of stories - campaign
+                  We're putting together the first round of stories: campaign
                   recaps, behind-the-scenes notes, press features, and a few
                   honest takes from the industry. Subscribe below and we'll
                   let you know the moment the first piece goes live.
