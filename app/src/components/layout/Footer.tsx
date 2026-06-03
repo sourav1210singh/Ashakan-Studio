@@ -57,31 +57,37 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         {/* ============================================================ */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 mb-10 sm:mb-12">
 
-          {/* ---- LEFT: Contact Info ---- */}
+          {/* ---- LEFT: Contact Info ---- (text bumped up one step +
+               'Talk to our team' is now a button to the contact page,
+               per Brandi's new-PDF page 7) */}
           <FadeIn delay={0}>
             <div className="text-center md:text-left">
-              <p className="text-xs sm:text-sm font-medium tracking-wider text-white/60 mb-4">
+              <p className="text-sm sm:text-base font-medium tracking-wider text-white/60 mb-4">
                 WANT TO WORK WITH US?
               </p>
-              <p className="text-sm sm:text-base text-white/80 mb-3">
+              <button
+                type="button"
+                onClick={() => handleNavClick("contact")}
+                className="inline-flex items-center gap-2 mb-4 px-5 py-2.5 bg-white text-dark text-sm sm:text-base font-medium tracking-wider hover:bg-white/90 transition-colors"
+              >
                 Talk to our team
-              </p>
+              </button>
               <a
                 href="mailto:info@ashkanstudios.com"
-                className="block text-base sm:text-lg font-medium hover:text-warmbeige transition-colors mb-3"
+                className="block text-lg sm:text-xl font-medium hover:text-warmbeige transition-colors mb-3"
               >
                 info@ashkanstudios.com
               </a>
               <a
                 href="tel:+13463357973"
-                className="block text-base sm:text-lg font-medium hover:text-warmbeige transition-colors"
+                className="block text-lg sm:text-xl font-medium hover:text-warmbeige transition-colors"
               >
                 (346) 335-7973
               </a>
             </div>
           </FadeIn>
 
-          {/* ---- CENTER: Logo (5x larger, no tagline) ---- */}
+          {/* ---- CENTER: Logo (enlarged again per Brandi new-PDF page 7) ---- */}
           <FadeIn delay={0.1}>
             <div className="flex flex-col items-center justify-center text-center">
               <button
@@ -91,7 +97,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 <img
                   src="/images/logo.png"
                   alt="Ashkan Studios"
-                  className="h-28 sm:h-36 lg:h-44 xl:h-52 w-auto invert"
+                  className="h-40 sm:h-52 lg:h-64 xl:h-72 w-auto invert"
                 />
               </button>
             </div>
@@ -100,14 +106,14 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           {/* ---- RIGHT: Address with "FIND US" title ---- */}
           <FadeIn delay={0.2}>
             <div className="text-center md:text-right">
-              <p className="text-xs sm:text-sm font-medium tracking-wider text-white/60 mb-4">
+              <p className="text-sm sm:text-base font-medium tracking-wider text-white/60 mb-4">
                 FIND US
               </p>
               <a
                 href="https://maps.google.com/?q=1502+Sawyer+St+%23108,+Houston,+TX+77007"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm sm:text-base text-white/80 hover:text-white transition-colors leading-relaxed"
+                className="text-base sm:text-lg text-white/80 hover:text-white transition-colors leading-relaxed"
               >
                 1502 Sawyer St #108
                 <br />
@@ -122,12 +128,12 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         {/* ============================================================ */}
         <div className="pt-6 border-t border-white/10 mb-6">
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
-            <button onClick={() => handleNavClick("home")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">HOME</button>
-            <button onClick={() => handleNavClick("campaigns")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CAMPAIGNS</button>
-            <button onClick={() => handleNavClick("services")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">WHAT WE DO</button>
-            <button onClick={() => handleNavClick("studio")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">THE STUDIO</button>
-            <button onClick={() => handleNavClick("contact")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CONTACT</button>
-            <button onClick={() => handleNavClick("storytime")} className="text-xs sm:text-sm font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">STORYTIME</button>
+            <button onClick={() => handleNavClick("home")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">HOME</button>
+            <button onClick={() => handleNavClick("campaigns")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CAMPAIGNS</button>
+            <button onClick={() => handleNavClick("services")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">WHAT WE DO</button>
+            <button onClick={() => handleNavClick("studio")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">THE STUDIO</button>
+            <button onClick={() => handleNavClick("contact")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CONTACT</button>
+            <button onClick={() => handleNavClick("storytime")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">STORYTIME</button>
           </div>
         </div>
 
@@ -153,21 +159,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           >
             <Linkedin className="w-5 h-5" />
           </a>
-          <a
-            href="https://tiktok.com/@ashkanstudios"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/50 hover:text-white hover:-translate-y-0.5 transition-all duration-300"
-            aria-label="TikTok"
-          >
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-            </svg>
-          </a>
+          {/* TikTok icon removed per Brandi's new-PDF page 7. */}
         </div>
 
         {/* ============================================================ */}
