@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 /* ════════════════════════════════════════════════════════════════════
    THE WORK - nine static category tiles (mixed Photography +
@@ -64,8 +65,11 @@ const WORK_TILES: WorkTile[] = [
     category: "RETAIL",
     description: "Brand films and product motion for retail clients.",
     image: "/images/categories/retail/296gtb-070.jpg",
-    /* Audaja Skincare Mix Reel 001 - premium retail brand film */
-    vimeoId: "947075031",
+    /* Cacao & Cardamom: Valentines / Beating Heart + Kitchen - per
+       Brandi new-PDF page 4 ('change top video for Video Retail to
+       the Valentine Cacao & Cardamom video'). */
+    vimeoId: "1189131036",
+    vimeoHash: "d0322acd54",
     href: "/work/videography/retail/",
   },
   // P/The Arts
@@ -109,14 +113,15 @@ const WORK_TILES: WorkTile[] = [
     vimeoHash: "000a715e4a",
     href: "/work/videography/documentary/",
   },
-  // P/Industrial
+  // P/Headshots (was P/Industrial - retitled per Brandi new-PDF page 4:
+  // 'change this title and portfolio to HEADSHOTS')
   {
-    id: "photo-industrial",
+    id: "photo-headshots",
     type: "PHOTOGRAPHY",
-    category: "INDUSTRIAL",
-    description: "Clean, purposeful imagery for industrial and corporate brands.",
-    image: "/images/categories/industrial/venus-aerospace-24443-edit.jpg",
-    href: "/work/photography/industrial/",
+    category: "HEADSHOTS",
+    description: "Professional headshots and personal-branding portraits for individuals and teams.",
+    image: "/images/headshots/headshot-1.jpg",
+    href: "/work/photography/headshots/",
   },
   // V/Industrial
   {
@@ -258,110 +263,120 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
-/*  Section wrapper - scroll-pinned horizontal strip on lg, swipe row   */
-/*  on mobile / tablet                                                  */
+/*  Section wrapper - normal-flow section with a manual horizontal       */
+/*  scroller (arrow buttons + drag/swipe).                               */
+/*                                                                       */
+/*  Brandi new-PDF page 4: the old scroll-pinned 400vh layout hijacked   */
+/*  the page's vertical scroll to drive the horizontal tile movement.    */
+/*  She asked to remove that ('let's not have a scroll down required...  */
+/*  we want them to be able to go straight down the page') and instead   */
+/*  let people move the tiles themselves. So the section is now a normal */
+/*  block: the page scrolls straight past it, and the tile row is a      */
+/*  native overflow-x scroller with left/right arrow buttons.            */
 /* ──────────────────────────────────────────────────────────────────── */
 export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
-  const sectionRef = useRef<HTMLElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
-  const [translateRange, setTranslateRange] = useState(0);
-
-  /* Measure the strip and figure out how far it must translate so the
-     LAST tile lines up with the right edge of the viewport. We re-
-     measure on resize and whenever the strip's intrinsic width changes. */
-  useEffect(() => {
-    const measure = () => {
-      const isDesktop = window.innerWidth >= 1024;
-      if (!isDesktop || !stripRef.current) {
-        setTranslateRange(0);
-        return;
-      }
-      const stripW = stripRef.current.scrollWidth;
-      const viewW = window.innerWidth;
-      // 80px buffer so the last tile has a small gap from the right edge
-      setTranslateRange(Math.max(0, stripW - viewW + 80));
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    let resizeObs: ResizeObserver | null = null;
-    if (stripRef.current && typeof ResizeObserver !== "undefined") {
-      resizeObs = new ResizeObserver(measure);
-      resizeObs.observe(stripRef.current);
-    }
-    return () => {
-      window.removeEventListener("resize", measure);
-      resizeObs?.disconnect();
-    };
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  /* Spring-smoothed scroll progress so the strip glides instead of
-     snapping to the raw scroll position. */
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 28,
-    mass: 0.6,
-  });
-
-  const x = useTransform(smoothProgress, [0, 1], [0, -translateRange]);
 
   const navigate = (href: string) => {
     window.history.pushState(null, "", href);
     window.dispatchEvent(new PopStateEvent("popstate"));
-    /* Defensive scroll-to-top - App's popstate handler also calls
-       scrollTo(0,0), this is here for redundancy. */
     window.scrollTo(0, 0);
+  };
+
+  /* Scroll the tile strip by roughly one tile-and-a-half per click. */
+  const scrollByTiles = (dir: -1 | 1) => {
+    const el = stripRef.current;
+    if (!el) return;
+    const amount = Math.min(el.clientWidth * 0.8, 520);
+    el.scrollBy({ left: dir * amount, behavior: "smooth" });
   };
 
   return (
     <section
-      ref={sectionRef}
       id="work"
-      className="relative bg-dark lg:h-[400vh] mb-12 sm:mb-16 lg:mb-20"
+      className="relative bg-dark py-20 sm:py-28 lg:py-32 mb-12 sm:mb-16 lg:mb-20"
     >
-      {/* On desktop this inner is sticky and pinned for the duration of
-          the 400vh runway. lg:pt-16 + lg:pb-12 gives the header a
-          predictable position, the strip falls below with a known
-          amount of space. On mobile the sticky/h-screen classes drop
-          and the strip becomes a regular swipeable horizontal scroller. */}
-      <div className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:flex-col lg:overflow-hidden py-20 sm:py-28 lg:pt-16 lg:pb-12">
-        {/* Header */}
-        <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-12 sm:mb-14 lg:mb-10">
+      {/* Header - Brandi new-PDF page 4:
+          • paragraph moved ABOVE the heading
+          • WORK made WAY larger with a slide-in entrance
+          • kept WHITE (the section sits on a dark background, so the
+            'still in black' note from the PDF - a carry-over from the
+            cream CAMPAIGNS section - does not apply here). */}
+      <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mb-10 sm:mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
-            {/* 'Portfolio / 02' eyebrow removed 2026-05-12 per user request. */}
-            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.9]">
-              WORK
-            </h2>
-            <p className="text-base sm:text-lg text-white/60 max-w-xl mt-4">
+            <p className="text-base sm:text-lg text-white/60 max-w-xl mb-5 sm:mb-6">
               Browse our photography and videography by industry - fashion/editorial,
               performing arts, retail, industrial, documentary and more.
             </p>
+            <motion.h2
+              initial={{ opacity: 0, x: -120, skewX: 8 }}
+              whileInView={{ opacity: 1, x: 0, skewX: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="font-display text-7xl sm:text-8xl lg:text-9xl xl:text-[150px] text-white tracking-tight leading-[0.85]"
+            >
+              WORK
+            </motion.h2>
+          </div>
+
+          {/* Arrow controls - let visitors move the tiles themselves
+              instead of forcing a long scroll. Hidden on touch where
+              native swipe is more natural; shown from sm up. */}
+          <div className="hidden sm:flex items-center gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => scrollByTiles(-1)}
+              aria-label="Scroll work tiles left"
+              className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-dark transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByTiles(1)}
+              aria-label="Scroll work tiles right"
+              className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-dark transition-colors"
+            >
+              <ArrowRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
+      </div>
 
-        {/* Horizontal strip - translates with scroll on lg+, swipe on mobile */}
-        <div
-          className="overflow-x-auto lg:overflow-hidden leaf-scroll"
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          <motion.div
-            ref={stripRef}
-            style={{ x }}
-            className="flex gap-3 sm:gap-4 px-4 sm:px-6 lg:px-10 pb-6 lg:pb-0 will-change-transform"
-          >
-            {WORK_TILES.map((tile) => (
-              <WorkTileCard
-                key={tile.id}
-                tile={tile}
-                onClick={() => navigate(tile.href)}
-              />
-            ))}
-          </motion.div>
+      {/* Horizontal tile strip - native overflow-x scroller. Drag/swipe
+          on touch, arrow buttons above on desktop. The page's vertical
+          scroll is no longer hijacked - users flow straight down. */}
+      <div
+        ref={stripRef}
+        className="overflow-x-auto leaf-scroll"
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        <div className="flex gap-3 sm:gap-4 px-4 sm:px-6 lg:px-10 pb-6">
+          {WORK_TILES.map((tile) => (
+            <WorkTileCard
+              key={tile.id}
+              tile={tile}
+              onClick={() => navigate(tile.href)}
+            />
+          ))}
         </div>
+      </div>
+
+      {/* CTA - Brandi new-PDF page 4: 'Get in Touch' button to contact. */}
+      <div className="max-w-[1800px] mx-auto w-full px-4 sm:px-6 lg:px-10 mt-12 sm:mt-16 flex flex-col items-center text-center">
+        <p className="text-base sm:text-lg lg:text-xl text-white/70 max-w-2xl mb-6">
+          Looking for a Houston photography and video team for your next
+          project? Let's talk about how we can tell your story.
+        </p>
+        <button
+          type="button"
+          onClick={() => navigate("/contact/")}
+          className="group inline-flex items-center gap-3 px-7 sm:px-9 py-3.5 sm:py-4 bg-white text-dark font-medium tracking-[0.2em] text-xs sm:text-sm uppercase hover:bg-white/90 transition-colors duration-300 cursor-pointer"
+        >
+          Get in Touch
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </button>
       </div>
     </section>
   );
