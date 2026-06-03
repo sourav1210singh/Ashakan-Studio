@@ -29,57 +29,64 @@ export function AboutSection() {
           {/* ============================================================ */}
           <div className="order-2 lg:order-1 relative">
 
-            {/* Main heading */}
+            {/* Main heading - Brandi's new-PDF page 7:
+                'Established in 2015 | Based in Houston, Texas'. Split
+                across two lines for a readable big display heading. */}
             <FadeIn>
-              {/* '2 DEPARTMENTS, 1 COMPANY.' subtitle removed
-                  2026-05-12 per user request - heading is now
-                  just 'BASED IN HOUSTON, TX'. */}
               <h2 className="font-display text-dark tracking-tight leading-[0.95] mb-6 sm:mb-8">
                 <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-                  BASED IN
+                  Established in 2015
                   <br />
-                  HOUSTON, TX
+                  Based in Houston, Texas
                 </span>
               </h2>
             </FadeIn>
 
-            {/* Paragraph 1 ('Ashkan Studios is the parent company of...')
-                removed 2026-05-12 per user request - the section now
-                opens directly with the 'Every project begins with a
-                story' paragraph below. */}
-
-            {/* Paragraph 2 */}
-            <FadeIn delay={0.2}>
+            {/* Body copy - Brandi's new-PDF page 7. The client's source
+                used em-dashes; converted to clean punctuation per the
+                site-wide no-dash rule. */}
+            <FadeIn delay={0.15}>
               <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-5 sm:mb-6 max-w-lg">
-                Every project at Ashkan Studios begins with a story - yours.
-                We guide it from concept to completion, handling all aspects of
-                production in-house with care, precision, and intention.
+                We operate from Houston because it's a city of makers. Here,
+                we've invested in the infrastructure to execute at the highest
+                level: a full production facility, in-house teams, and the
+                depth to realize visions others would call impossible.
               </p>
             </FadeIn>
 
-            {/* Paragraph 3 */}
-            <FadeIn delay={0.25}>
+            <FadeIn delay={0.22}>
+              <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-5 sm:mb-6 max-w-lg">
+                This isn't about having equipment. It's about what mastery
+                looks like when vision meets craftsmanship. We control every
+                element, from lighting and color to motion and storytelling,
+                because the difference between good work and exceptional work
+                lives in those details. The kind that only emerge when one
+                team owns the entire creative process.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={0.28}>
               <p className="text-base sm:text-lg text-dark/70 leading-relaxed mb-8 sm:mb-10 max-w-lg">
-                Crazy concept? Bring it. Big production? No problem.
-                Need total artistic guidance? Can't wait.
+                We choose projects that challenge us. If your vision demands
+                absolute precision and artistic integrity, that's the
+                conversation we want to have.
               </p>
             </FadeIn>
 
-            {/* CTA line */}
-            <FadeIn delay={0.3}>
-              <p className="text-sm sm:text-base text-dark/70 italic mb-6 sm:mb-8">
-                Curious? Meet the studio behind the work.
-              </p>
-            </FadeIn>
-
-            {/* ABOUT US Button */}
+            {/* LET'S CREATE Button - Brandi's new-PDF page 7: relabeled
+                from 'ABOUT US' and now leads to the contact page. */}
             <FadeIn delay={0.35}>
               <button
                 type="button"
+                onClick={() => {
+                  window.history.pushState(null, "", "/contact/");
+                  window.dispatchEvent(new PopStateEvent("popstate"));
+                  window.scrollTo(0, 0);
+                }}
                 className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-transform duration-200 hover:translate-x-1"
               >
                 <span className="text-sm sm:text-base font-medium tracking-wider">
-                  ABOUT US
+                  LET'S CREATE
                 </span>
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
