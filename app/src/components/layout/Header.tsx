@@ -130,9 +130,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     return false;
   };
 
-  // Split nav items: first 4 on left, rest on right
-  const leftNav = mainNavigation.slice(0, 4);
-  const rightNav = mainNavigation.slice(4);
+  // Brandi review (2026-05-21, PDF page 1): the top bar now shows ONLY
+  // the WORK item (with its dropdown), moved over to the right next to
+  // MENU. Home / What We Do / The Studio / Contact / Storytime are
+  // removed from the TOP bar but remain in the full-screen menu (which
+  // has its own separate item list further down this file). The left
+  // nav cluster is now empty.
+  const topBarNav = mainNavigation.filter((item) => item.label === "WORK");
 
   const renderNavItem = (item: typeof mainNavigation[0]) => (
     <div
@@ -231,10 +235,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
           {/* Single row: LEFT nav | LOGO | RIGHT nav + MENU */}
           <div className="flex items-center justify-between h-20">
 
-            {/* Left Navigation (desktop only) */}
-            <nav className="hidden lg:flex items-center gap-0 xl:gap-1 flex-1">
-              {leftNav.map(renderNavItem)}
-            </nav>
+            {/* Left spacer - the left nav cluster was emptied per the
+                2026-05-21 review (only WORK remains, moved to the right).
+                Kept as a flex-1 spacer so the centre logo stays centred. */}
+            <div className="hidden lg:flex flex-1" />
 
             {/* Center Logo */}
             <button
@@ -251,10 +255,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               />
             </button>
 
-            {/* Right Navigation (desktop) + Menu Button */}
+            {/* Right Navigation (WORK only) + Menu Button */}
             <div className="flex items-center gap-0 xl:gap-1 flex-1 justify-end">
               <nav className="hidden lg:flex items-center gap-0 xl:gap-1">
-                {rightNav.map(renderNavItem)}
+                {topBarNav.map(renderNavItem)}
               </nav>
 
               {/* Menu Button */}
