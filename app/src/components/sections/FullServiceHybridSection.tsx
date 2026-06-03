@@ -27,8 +27,11 @@ import { ArrowRight } from "lucide-react";
 const BG_VIMEO_ID = "1147057440";
 
 export function FullServiceHybridSection() {
-  const goToServices = () => {
-    window.history.pushState(null, "", "/what-we-do/");
+  /* Per Brandi's new-PDF page 6: the CTA button label changed from
+     'What We Do' to 'Let's Create' and now leads to the contact page
+     instead of the services page. */
+  const goToContact = () => {
+    window.history.pushState(null, "", "/contact/");
     window.dispatchEvent(new PopStateEvent("popstate"));
     /* Defensive scroll-to-top - App's popstate handler also calls
        scrollTo(0,0), this is here for redundancy. */
@@ -89,12 +92,12 @@ export function FullServiceHybridSection() {
           vision to life.
         </p>
 
-        {/* WHAT WE DO CTA - outlined white, hover invert */}
+        {/* LET'S CREATE CTA - outlined white, hover invert, leads to contact */}
         <button
-          onClick={goToServices}
+          onClick={goToContact}
           className="group inline-flex items-center gap-3 sm:gap-4 px-7 sm:px-9 lg:px-11 py-3.5 sm:py-4 lg:py-5 border border-white text-white font-semibold tracking-[0.3em] text-xs sm:text-sm uppercase hover:bg-white hover:text-dark transition-colors duration-300 cursor-pointer"
         >
-          What We Do
+          Let's Create
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
