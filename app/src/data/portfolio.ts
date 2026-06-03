@@ -212,6 +212,11 @@ export interface ClientLogo {
   name: string;
   src: string;
   priority: boolean;
+  /** Brand's company website. When set, the logo becomes a clickable
+   *  link (opens in a new tab) per Brandi's new-PDF page 5 request.
+   *  Only confident, verified URLs are filled in for now; Brandi will
+   *  send the authoritative list to complete the rest. */
+  website?: string;
 }
 
 export const clientLogos: ClientLogo[] = [
@@ -219,7 +224,7 @@ export const clientLogos: ClientLogo[] = [
   { name: "Weissman",          src: "/images/logos/weissman.png",          priority: true },
   { name: "The Eye Gallery",   src: "/images/logos/eye-gallery.png",       priority: true },
   { name: "Deutsch",           src: "/images/logos/deutsch.png",           priority: true },
-  { name: "Cacao & Cardamom",  src: "/images/logos/cacao.png",             priority: true },
+  { name: "Cacao & Cardamom",  src: "/images/logos/cacao.png",             priority: true, website: "https://www.cacaoandcardamom.com" },
   { name: "Facet Seven",       src: "/images/logos/f7.png",                priority: true },
   { name: "Kinetik",           src: "/images/logos/kinetik.png",           priority: true },
   { name: "The Monarch School", src: "/images/logos/monarch.png",          priority: true },
@@ -228,12 +233,12 @@ export const clientLogos: ClientLogo[] = [
   { name: "Vitacca Ballet",    src: "/images/logos/vitacca.png",           priority: true },
   { name: "Safari Vet",        src: "/images/logos/safari.png",            priority: true },
   { name: "Citybook",          src: "/images/logos/citybook.png",          priority: true },
-  { name: "Bvlgari",           src: "/images/logos/bvlgari.png",           priority: true },
-  { name: "Brandon Blackwood", src: "/images/logos/brandon-blackwood.png", priority: true },
+  { name: "Bvlgari",           src: "/images/logos/bvlgari.png",           priority: true, website: "https://www.bulgari.com" },
+  { name: "Brandon Blackwood", src: "/images/logos/brandon-blackwood.png", priority: true, website: "https://brandonblackwood.com" },
   { name: "DSAH",              src: "/images/logos/dsah.png",              priority: true },
   { name: "DWS",               src: "/images/logos/dws.png",               priority: true },
   { name: "Goodman",           src: "/images/logos/goodman.png",           priority: true },
-  { name: "iCRYO",             src: "/images/logos/icryo.png",             priority: true },
+  { name: "iCRYO",             src: "/images/logos/icryo.png",             priority: true, website: "https://icryo.com" },
   { name: "Kinetic",           src: "/images/logos/kinetic.png",           priority: true },
   { name: "Globo",             src: "/images/logos/globo.png",             priority: true },
   { name: "Excel Diagnostics", src: "/images/logos/excel.png",             priority: true },

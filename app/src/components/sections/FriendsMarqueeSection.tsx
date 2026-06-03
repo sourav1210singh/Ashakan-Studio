@@ -75,7 +75,7 @@ function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
       ? "h-12 sm:h-14 lg:h-16 xl:h-20"
       : "h-10 sm:h-12 lg:h-14 xl:h-16";
 
-  return (
+  const img = (
     <img
       src={logo.src}
       alt={logo.name}
@@ -91,6 +91,24 @@ function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
       }}
     />
   );
+
+  /* When the brand has a confirmed website, the logo links to it
+     (new tab) per Brandi's new-PDF page 5. Logos without a URL yet
+     stay as plain images until the client sends the full list. */
+  if (logo.website) {
+    return (
+      <a
+        href={logo.website}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Visit ${logo.name}`}
+        className="inline-block"
+      >
+        {img}
+      </a>
+    );
+  }
+  return img;
 }
 
 /* ──────────────────────────────────────────────────────────────────── */
@@ -148,22 +166,27 @@ export function FriendsMarqueeSection() {
       </div>
 
       <div className="relative z-10">
-        {/* Section header - center */}
+        {/* Section header - center. Per Brandi's new-PDF page 5:
+            small eyebrow 'BRANDS WE ARE' above the big 'TRUSTED BY'
+            (reads 'BRANDS WE ARE TRUSTED BY'). Replaces the old
+            'Brands We've Worked With' / 'OUR FRIENDS' pairing. */}
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center mb-10 sm:mb-14">
-          <p className="text-xs font-semibold tracking-[0.3em] text-white/50 uppercase mb-4">
-            Brands We've Worked With
+          <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] text-white/50 uppercase mb-3 sm:mb-4">
+            Brands We Are
           </p>
           <h2 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-[105px] xl:text-[132px] text-white tracking-tight leading-none">
-            OUR FRIENDS
+            TRUSTED BY
           </h2>
         </div>
 
-        {/* Two marquee rows - opposite directions, larger logos on top */}
+        {/* Two marquee rows - opposite directions, larger logos on top.
+            Speeds slowed WAY down per Brandi's new-PDF page 5
+            (55s/65s -> 130s/150s) so the logos drift gently. */}
         <div className="space-y-2 sm:space-y-4">
-          <MarqueeRow logos={rowA} direction="left"  speedSec={55} size="lg" />
+          <MarqueeRow logos={rowA} direction="left"  speedSec={130} size="lg" />
           {/* Thin divider line - light variant for the dark background */}
           <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-          <MarqueeRow logos={rowB} direction="right" speedSec={65} size="sm" />
+          <MarqueeRow logos={rowB} direction="right" speedSec={150} size="sm" />
         </div>
       </div>
     </section>
