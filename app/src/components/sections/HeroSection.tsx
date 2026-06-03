@@ -362,7 +362,7 @@ export function HeroSection() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-28 sm:pt-36 pb-8 sm:pb-12"
+      className="relative flex flex-col items-center justify-center bg-cream overflow-hidden pt-24 sm:pt-28 pb-8 sm:pb-12"
       style={{ minHeight: "100vh" }}
     >
       {/* Background Pattern - parallax slowest */}
@@ -381,7 +381,7 @@ export function HeroSection() {
 
       {/* Main content - parallax medium + scroll-out exit */}
       <motion.div
-        className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-8"
+        className="relative z-10 w-full max-w-[1650px] mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-8"
         style={{
           y: textY,
           opacity: exitOpacity,
@@ -398,7 +398,7 @@ export function HeroSection() {
             className="mb-2 lg:mb-4"
             style={{
               opacity: 0,
-              animation: "fadeInUp 0.8s ease-out 0.3s forwards",
+              animation: "heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards",
               y: line1Lift,
             }}
           >
@@ -409,8 +409,8 @@ export function HeroSection() {
               /* +30% on every clamp value (third pass 2026-05-12) -
                  user asked this cutout to grow another 30% on top
                  of the previous +30%. Net growth vs original ~+69%. */
-              width="clamp(169px, 19.5vw, 304px)"
-              height="clamp(135px, 16.25vw, 246px)"
+              width="clamp(203px, 23.4vw, 365px)"
+              height="clamp(162px, 19.5vw, 295px)"
               driftName="driftA"
               enterDelay={0.6}
               /* Position 2026-05-12 (fourth pass): pushed further
@@ -432,7 +432,7 @@ export function HeroSection() {
                 now read at roughly the same width as the heavier
                 display-font letters in VISUAL / STORIES / INSPIRE. */}
             <MagneticWord
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+              className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase"
               style={{
                 fontWeight: 300,
                 letterSpacing: "0.012em",
@@ -441,7 +441,7 @@ export function HeroSection() {
               strength={0.2}
             >
               <span
-                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase inline-block"
+                className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
                   fontWeight: 300,
                   letterSpacing: "0.012em",
@@ -463,8 +463,8 @@ export function HeroSection() {
                  enlargement. Roughly -30% on every clamp value so
                  Isabella still reads as a tall figure but no longer
                  overpowers the composition. */
-              width="clamp(85px, 10vw, 154px)"
-              height="clamp(140px, 16vw, 252px)"
+              width="clamp(102px, 12vw, 185px)"
+              height="clamp(168px, 19.2vw, 302px)"
               driftName="driftC"
               enterDelay={0.85}
               /* Position 2026-05-12 (sixth pass): another small
@@ -498,7 +498,7 @@ export function HeroSection() {
             className="mb-2 lg:mb-4 mt-0 sm:mt-[-12px] md:mt-[-15px] lg:mt-[-36px] xl:mt-[-45px]"
             style={{
               opacity: 0,
-              animation: "fadeInUp 0.8s ease-out 0.4s forwards",
+              animation: "heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards",
               y: line2Lift,
             }}
           >
@@ -518,7 +518,7 @@ export function HeroSection() {
                 tablet up where the cutout appears. relative class
                 added so the top offset applies. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[-15px]"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-0 lg:top-[-15px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -527,7 +527,7 @@ export function HeroSection() {
               strength={0.2}
             >
               <span
-                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase"
                 style={{
                   fontWeight: 900,
                   letterSpacing: "0.02em",
@@ -546,8 +546,8 @@ export function HeroSection() {
               alt="Editorial product cutout"
               className="hidden md:inline-block"
               /* +30% on every clamp value */
-              width="clamp(114px, 12.5vw, 189px)"
-              height="clamp(163px, 19.5vw, 299px)"
+              width="clamp(137px, 15vw, 227px)"
+              height="clamp(196px, 23.4vw, 359px)"
               driftName="driftB"
               enterDelay={1.1}
               /* Position nudge 2026-05-12: shifted ~30px down via `top`
@@ -573,7 +573,7 @@ export function HeroSection() {
                 STORIES with the hidden-on-mobile sunglasses cutout -
                 top-0 on mobile, md:top-[-15px] from tablet up. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[-15px]"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-0 lg:top-[-15px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -582,7 +582,7 @@ export function HeroSection() {
               strength={0.2}
             >
               <VideoTextWord
-                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase"
                 style={{
                   fontWeight: 900,
                   letterSpacing: "0.02em",
@@ -611,7 +611,7 @@ export function HeroSection() {
             className="mt-0 sm:mt-[-12px] md:mt-[-15px] lg:mt-[-36px] xl:mt-[-45px]"
             style={{
               opacity: 0,
-              animation: "fadeInUp 0.8s ease-out 0.5s forwards",
+              animation: "heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards",
               y: line3Lift,
             }}
           >
@@ -620,8 +620,8 @@ export function HeroSection() {
               alt="Ferrari 296GTB cutout"
               className="hidden md:inline-block"
               /* +30% on every clamp value */
-              width="clamp(124px, 13.5vw, 215px)"
-              height="clamp(91px, 10.5vw, 163px)"
+              width="clamp(149px, 16.2vw, 258px)"
+              height="clamp(109px, 12.6vw, 196px)"
               driftName="driftA"
               enterDelay={1.3}
               /* Position 2026-05-12 (page-6-reference pass): Brandi's
@@ -661,7 +661,7 @@ export function HeroSection() {
                 rhythm (Ferrari/Oyster hidden on mobile) - top-0 on
                 mobile, md:top-[18px] from tablet up. */}
             <MagneticWord
-              className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[18px]"
+              className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-0 lg:top-[18px]"
               style={{
                 fontWeight: 300,
                 letterSpacing: "0.012em",
@@ -671,7 +671,7 @@ export function HeroSection() {
               strength={0.2}
             >
               <span
-                className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase inline-block"
+                className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
                   fontWeight: 300,
                   letterSpacing: "0.012em",
@@ -692,7 +692,7 @@ export function HeroSection() {
             {/* RESPONSIVE FIX 2026-05-12: matches THAT - top-0 on
                 mobile, md:top-[18px] from tablet up. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase relative top-0 lg:top-[18px]"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-0 lg:top-[18px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -701,7 +701,7 @@ export function HeroSection() {
               strength={0.2}
             >
               <span
-                className="font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-[88px] xl:text-[110px] uppercase"
+                className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase"
                 style={{
                   fontWeight: 900,
                   letterSpacing: "0.02em",
@@ -719,8 +719,8 @@ export function HeroSection() {
               /* +30% earlier, then +20% more on 2026-05-12 - net
                  ~+56% from the original baseline. This cutout alone
                  was singled out by the user as needing extra weight. */
-              width="clamp(109px, 12.6vw, 196px)"
-              height="clamp(140px, 16.2vw, 250px)"
+              width="clamp(131px, 15.1vw, 235px)"
+              height="clamp(168px, 19.4vw, 300px)"
               driftName="driftC"
               enterDelay={1.5}
               /* Position 2026-05-12 (third pass): user asked this
@@ -787,6 +787,15 @@ export function HeroSection() {
         }
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(60px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        /* Stronger entrance reveal added 2026-05-21 per Brandi page-1
+           note: add entrance animation to the words (fades or slides)
+           for more movement. Bigger translateY than fadeInUp so the
+           lines sweep up more dramatically. Kept on the translateY axis
+           to compose cleanly with the per-line scroll parallax. */
+        @keyframes heroSlideUp {
+          from { opacity: 0; transform: translateY(110px); }
           to   { opacity: 1; transform: translateY(0); }
         }
         .animate-bounce-slow {
