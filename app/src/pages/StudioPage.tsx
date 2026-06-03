@@ -356,7 +356,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
               <FadeIn delay={0.1}>
                 <div className="space-y-5">
                   <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
-                    Ashkan Studios originated in 2017 and has grown into a collaborative creative collective.
+                    Ashkan Studios originated in 2015 and has grown into a collaborative creative collective.
                   </p>
                   <p className="text-lg sm:text-xl text-dark/75 leading-relaxed">
                     Our team is made up of artists, performers, and creative minds who bring a shared energy and perspective to the work.
