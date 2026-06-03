@@ -1,4 +1,5 @@
 import { HeroSection } from "@/components/sections/HeroSection";
+import { VideoBannerSection } from "@/components/sections/VideoBannerSection";
 import { CampaignSection } from "@/components/sections/CampaignSection";
 import { WorkCategoriesSection } from "@/components/sections/WorkCategoriesSection";
 import { FriendsMarqueeSection } from "@/components/sections/FriendsMarqueeSection";
@@ -34,6 +35,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
     <>
       <main>
         <HeroSection />
+        <VideoBannerSection />
         <CampaignSection
           onProjectClick={(slug) => onNavigate("campaigns", slug)}
         />

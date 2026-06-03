@@ -1,5 +1,5 @@
 import { useId, useRef, type ReactNode } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
   motion,
   useScroll,
@@ -402,22 +402,20 @@ export function HeroSection() {
               y: line1Lift,
             }}
           >
+            {/* RESPONSIVE 2026-05-22 (Brandi new-PDF page 2): cutouts
+                now show on mobile + tablet too. clamp() floor lowered
+                so the image shrinks on narrow screens; positioning
+                moved out of inline style into responsive margin
+                classes (gentle on mobile, exact desktop value at lg). */}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
-              className="hidden md:inline-block"
-              /* +30% on every clamp value (third pass 2026-05-12) -
-                 user asked this cutout to grow another 30% on top
-                 of the previous +30%. Net growth vs original ~+69%. */
-              width="clamp(203px, 23.4vw, 365px)"
-              height="clamp(162px, 19.5vw, 295px)"
+              className="inline-block mr-[-26px] mt-[-26px] md:mr-[-90px] md:mt-[-90px] lg:mr-[-170px] lg:mt-[-140px]"
+              width="clamp(78px, 23.4vw, 365px)"
+              height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
               enterDelay={0.6}
-              /* Position 2026-05-12 (fourth pass): pushed further
-                 right + further up per user feedback. marginRight
-                 -130 → -170 (~40px more right, additional overlap
-                 with WE), marginTop -120 → -140 (~20px higher). */
-              style={{ marginRight: "-170px", marginTop: "-140px", top: "0" }}
+              style={{ top: "0" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={22}
@@ -457,21 +455,11 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
-              className="hidden md:inline-block"
-              /* Size reduced 2026-05-12 (third pass) - user said
-                 the figure was too large after the page-6-reference
-                 enlargement. Roughly -30% on every clamp value so
-                 Isabella still reads as a tall figure but no longer
-                 overpowers the composition. */
-              width="clamp(102px, 12vw, 185px)"
-              height="clamp(168px, 19.2vw, 302px)"
+              className="inline-block ml-[-16px] mt-[-22px] top-[10px] md:ml-[-60px] md:mt-[-50px] md:top-[25px] lg:ml-[-100px] lg:mt-[-80px] lg:top-[40px]"
+              width="clamp(46px, 12vw, 185px)"
+              height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
               enterDelay={0.85}
-              /* Position 2026-05-12 (sixth pass): another small
-                 left + down nudge on ONLY this cutout.
-                 marginLeft -80 → -100 (~20px more left);
-                 top 20 → 40 (~20px more down). */
-              style={{ marginLeft: "-100px", marginTop: "-80px", top: "40px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={20}
@@ -544,28 +532,15 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/cutout-8Q1A1315.png"
               alt="Editorial product cutout"
-              className="hidden md:inline-block"
-              /* +30% on every clamp value */
-              width="clamp(137px, 15vw, 227px)"
-              height="clamp(196px, 23.4vw, 359px)"
+              className="inline-block ml-[8px] mr-[6px] mt-[-30px] top-[16px] md:ml-[25px] md:mr-[19px] md:mt-[-70px] md:top-[40px] lg:mt-[-100px] lg:top-[60px]"
+              width="clamp(52px, 15vw, 227px)"
+              height="clamp(74px, 23.4vw, 359px)"
               driftName="driftB"
               enterDelay={1.1}
-              /* Position nudge 2026-05-12: shifted ~30px down via `top`
-                 (30px → 60px). marginTop kept at -100px so the cutout
-                 still hangs off the top of its line; the larger `top`
-                 pulls it back down into a more centered position
-                 between VISUAL and STORIES.
-
-                 Horizontal breathing room expanded ~10% on user request:
-                 left margin 14px → 25px, right margin 8px → 19px so
-                 VISUAL and STORIES sit a bit further apart with the
-                 cutout sitting comfortably between them. */
-              style={{ margin: "0 19px 0 25px", marginTop: "-100px", top: "60px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={28}
             />
-            <span className="md:hidden"> </span>
             {/* STORIES - display font with video-in-text mask.
                 position: relative + top: -15px matches VISUAL -
                 only the text lifts; sunglasses cutout stays put. */}
@@ -618,25 +593,11 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/car-296gtb-121.png"
               alt="Ferrari 296GTB cutout"
-              className="hidden md:inline-block"
-              /* +30% on every clamp value */
-              width="clamp(149px, 16.2vw, 258px)"
-              height="clamp(109px, 12.6vw, 196px)"
+              className="inline-block mr-[-12px] mt-[-34px] top-[-6px] md:mr-[-30px] md:mt-[-80px] md:top-[-12px] lg:mr-[-50px] lg:mt-[-130px] lg:top-[-20px]"
+              width="clamp(56px, 16.2vw, 258px)"
+              height="clamp(42px, 12.6vw, 196px)"
               driftName="driftA"
               enterDelay={1.3}
-              /* Position 2026-05-12 (page-6-reference pass): Brandi's
-                 design floats the Ferrari in the GAP between VISUAL
-                 STORIES and THAT INSPIRE rather than inline beside
-                 THAT. marginTop is now -130px so the car hangs well
-                 above the line; marginRight -50px lets it sit
-                 slightly closer to / overlapping THAT. The car
-                 effectively reads as a third visual band between
-                 the two text lines.
-
-                 Nudge 2026-05-12: top: 0 → -20px to lift the car
-                 slightly higher per user request - only the Ferrari
-                 moves, everything else on line 3 stays put. */
-              style={{ marginRight: "-50px", marginTop: "-130px", top: "-20px" }}
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={26}
@@ -715,12 +676,9 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/deutsch-brandi-615.png"
               alt="Deutsch Brandi portrait cutout"
-              className="hidden md:inline-block"
-              /* +30% earlier, then +20% more on 2026-05-12 - net
-                 ~+56% from the original baseline. This cutout alone
-                 was singled out by the user as needing extra weight. */
-              width="clamp(131px, 15.1vw, 235px)"
-              height="clamp(168px, 19.4vw, 300px)"
+              className="inline-block ml-[8px] md:ml-[20px]"
+              width="clamp(50px, 15.1vw, 235px)"
+              height="clamp(64px, 19.4vw, 300px)"
               driftName="driftC"
               enterDelay={1.5}
               /* Position 2026-05-12 (third pass): user asked this
@@ -735,7 +693,6 @@ export function HeroSection() {
                  unchanged. Layout flow untouched, so line 3 text and
                  the 4th cutout stay exactly where they are. */
               style={{
-                marginLeft: "20px",
                 marginTop: 0,
                 top: 0,
                 verticalAlign: "middle",
@@ -763,7 +720,9 @@ export function HeroSection() {
           attention and define presence.
         </p>
 
-        {/* Scroll Indicator */}
+        {/* Call to action - Brandi new-PDF page 2: replaced the
+            'SCROLL FOR MORE' + chevron with a short CTA line and a
+            'GET IN TOUCH' button that routes to the contact page. */}
         <div
           className="flex flex-col items-center mt-8 sm:mt-12 relative z-30"
           style={{
@@ -771,12 +730,21 @@ export function HeroSection() {
             animation: "fadeIn 0.6s ease-out 1.2s forwards",
           }}
         >
-          <span className="font-sans text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-3">
-            SCROLL FOR MORE
+          <span className="font-sans text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-4">
+            READY TO START YOUR PROJECT?
           </span>
-          <div className="animate-bounce-slow">
-            <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-dark/50" />
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              window.history.pushState(null, "", "/contact/");
+              window.dispatchEvent(new PopStateEvent("popstate"));
+              window.scrollTo(0, 0);
+            }}
+            className="group inline-flex items-center gap-3 px-7 sm:px-9 py-3.5 sm:py-4 bg-dark text-white font-medium tracking-[0.2em] text-xs sm:text-sm uppercase hover:bg-dark/90 transition-colors duration-300 cursor-pointer"
+          >
+            Get in Touch
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </motion.div>
 
