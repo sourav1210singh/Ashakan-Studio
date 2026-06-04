@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 
 /* ════════════════════════════════════════════════════════════════════
@@ -27,6 +28,54 @@ import { ArrowRight } from "lucide-react";
 const BG_VIMEO_ID = "1147057440";
 
 export function FullServiceHybridSection() {
+  /* Poster-over-video fade: the Vimeo iframe paints its OWN black
+     background until the first video frame renders, which is what made
+     this section show a black box for a few seconds. So the poster now
+     sits ON TOP of the iframe and only fades out once Vimeo actually
+     reports it is playing (via the player's postMessage API). A safety
+     timer fades it anyway after a few seconds in case no event arrives. */
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const onMessage = (e: MessageEvent) => {
+      if (typeof e.origin === "string" && !e.origin.includes("vimeo.com")) return;
+      let data: { event?: string };
+      try {
+        data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+      } catch {
+        return;
+      }
+      if (data && (data.event === "playing" || data.event === "play")) {
+        setVideoReady(true);
+      }
+    };
+
+    const onLoad = () => {
+      // Subscribe to play/playing events on the Vimeo player.
+      ["play", "playing"].forEach((evt) =>
+        iframe.contentWindow?.postMessage(
+          JSON.stringify({ method: "addEventListener", value: evt }),
+          "*"
+        )
+      );
+    };
+
+    window.addEventListener("message", onMessage);
+    iframe.addEventListener("load", onLoad);
+    // Fallback so the poster never gets stuck if events don't fire.
+    const fallback = window.setTimeout(() => setVideoReady(true), 4000);
+
+    return () => {
+      window.removeEventListener("message", onMessage);
+      iframe.removeEventListener("load", onLoad);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
   /* Per Brandi's new-PDF page 6: the CTA button label changed from
      'What We Do' to 'Let's Create' and now leads to the contact page
      instead of the services page. */
@@ -51,16 +100,8 @@ export function FullServiceHybridSection() {
           ~2982px wide, so Vimeo's background-mode stream was up-scaled
           ~3x and looked blurry. This keeps it near native resolution. */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Poster still - paints INSTANTLY so the section never shows a
-            black box while the Vimeo player boots up. The iframe sits on
-            top, so once the video starts it simply covers this image. */}
-        <img
-          src="/images/sections/fullservice-poster.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
         <iframe
+          ref={iframeRef}
           src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
           className="absolute"
           style={{
@@ -75,6 +116,17 @@ export function FullServiceHybridSection() {
           }}
           allow="autoplay; fullscreen"
           title="Ashkan Studios - production reel"
+        />
+        {/* Poster still - sits ON TOP of the iframe and paints INSTANTLY,
+            covering Vimeo's own black background while the player boots.
+            It fades out only once the video actually starts playing (or
+            after the safety timeout), so there is never a black gap. */}
+        <img
+          src="/images/sections/fullservice-poster.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          style={{ opacity: videoReady ? 0 : 1 }}
         />
       </div>
 
