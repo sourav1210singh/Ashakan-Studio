@@ -46,18 +46,124 @@ export type PortfolioCategory =
    ════════════════════════════════════════════════════════════════════ */
 
 export const BRANDI_VIDEOS: BrandiVideo[] = [
-  /* ─────────── DEUTSCH (1) ─────────── */
   {
-    id: "deutsch-bts-shoot",
+    id: "cacao-cardamom-valentines-red-heart-box-ingredient",
+    title: "Cacao & Cardamom: Valentines / Red Heart Box + Ingredients",
+    vimeoId: "1189131033",
+    vimeoHash: "ecd41cfbdd",
+    portfolios: ["retail"],
+  },
+  {
+    id: "weissman-fall-2023-front-cover-light-wall",
+    title: "Weissman Fall 2023 Front Cover Light Wall",
+    vimeoId: "824223043",
+    campaign: "weissman-elite",
+    portfolios: [],
+  },
+  {
+    id: "the-eye-gallery-25-26-brand-reel",
+    title: "The Eye Gallery 25–26 Brand Reel",
+    vimeoId: "1190188606",
+    vimeoHash: "cd8f606a81",
+    campaign: "eye-gallery",
+    portfolios: ["retail"],
+  },
+  {
+    id: "radiomedix-changing-the-landscape-of-nuclear-medic",
+    title: "RadioMedix Changing the Landscape of Nuclear Medicine",
+    vimeoId: "1100401603",
+    portfolios: ["industrial"],
+  },
+  {
+    id: "weissman-fall-2024-season-cross-genre",
+    title: "Weissman Fall 2024 Season Cross Genre",
+    vimeoId: "950064546",
+    campaign: "weissman-elite",
+    portfolios: ["retail"],
+  },
+  {
+    id: "monarch-transforming-lives-25-26",
+    title: "Monarch Transforming Lives 25-26",
+    vimeoId: "1151967437",
+    vimeoHash: "000a715e4a",
+    campaign: "monarch-school",
+    portfolios: ["documentary"],
+  },
+  {
+    id: "vitacca-season-promo-23-24",
+    title: "Vitacca Season Promo 23-24",
+    vimeoId: "875774223",
+    portfolios: ["the-arts"],
+  },
+  {
+    id: "ceclia-duarte-second-solo-album",
+    title: "Ceclia Duarte Second Solo Album",
+    vimeoId: "1002076560",
+    portfolios: ["the-arts", "documentary"],
+  },
+  {
+    id: "kinetik-once-upon-a-time-in-the-delaware-basin",
+    title: "Kinetik Once Upon a Time in the Delaware Basin",
+    vimeoId: "865765822",
+    vimeoHash: "cfebc05bc1",
+    portfolios: ["industrial", "narrative"],
+  },
+  {
+    id: "the-eye-gallery-mix-reel-001",
+    title: "The Eye Gallery Mix Reel 001",
+    vimeoId: "1002121348",
+    campaign: "eye-gallery",
+    portfolios: [],
+  },
+  {
+    id: "safari-vet-the-safari-difference-league-city",
+    title: "Safari Vet The Safari Difference League City",
+    vimeoId: "954997422",
+    portfolios: ["narrative"],
+  },
+  {
+    id: "buddy-walk-2025",
+    title: "Buddy Walk 2025",
+    vimeoId: "1189131655",
+    vimeoHash: "4d90a59f80",
+    portfolios: ["documentary"],
+  },
+  {
+    id: "weissman-spring-2024-quirky-stripes",
+    title: "Weissman Spring 2024 Quirky/Stripes",
+    vimeoId: "894189739",
+    campaign: "weissman-elite",
+    portfolios: ["retail"],
+  },
+  {
+    id: "cacao-cardamom-delicious-impressions",
+    title: "Cacao & Cardamom: Delicious Impressions",
+    vimeoId: "1125611606",
+    portfolios: ["retail"],
+  },
+  {
+    id: "1968-mustang-gt-auto-shop",
+    title: "1968 Mustang GT / Auto Shop",
+    vimeoId: "1189136660",
+    vimeoHash: "00ea4a2e1c",
+    portfolios: ["industrial", "documentary"],
+  },
+  {
+    id: "facet-seven-nutrition-for-longevity-chapter-2-2-nu",
+    title: "Facet Seven / Nutrition for Longevity / Chapter 2.2 - Nutrient Timing",
+    vimeoId: "1189137962",
+    vimeoHash: "e1a7b0681c",
+    portfolios: ["narrative"],
+  },
+  {
+    id: "behind-the-scenes-at-deutsch-campaign-shoot",
     title: "Behind the Scenes at Deutsch Campaign Shoot",
     vimeoId: "1147057440",
     campaign: "deutsch-fine-jewelry",
     portfolios: [],
   },
-
-  /* ─────────── WEISSMAN (20) ─────────── */
   {
-    id: "weissman-fall-2025-cross-genre",
+    id: "weissman-fall-2025-season-cross-genre",
     title: "Weissman Fall 2025 Season Cross Genre",
     vimeoId: "1094764251",
     vimeoHash: "17dfb40e13",
@@ -65,14 +171,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: ["retail"],
   },
   {
-    id: "weissman-fall-2024-cross-genre",
-    title: "Weissman Fall 2024 Season Cross Genre",
-    vimeoId: "950064546",
-    campaign: "weissman-elite",
-    portfolios: ["retail"],
-  },
-  {
-    id: "weissman-spring-2026-cross-genre",
+    id: "weissman-spring-2026-season-cross-genre",
     title: "Weissman Spring 2026 Season Cross Genre",
     vimeoId: "1145783498",
     vimeoHash: "6e07bd9e26",
@@ -80,14 +179,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "weissman-fall-2023-front-cover-light-wall",
-    title: "Weissman Fall 2023 Front Cover Light Wall",
-    vimeoId: "824868764",
-    campaign: "weissman-elite",
-    portfolios: ["retail"],
-  },
-  {
-    id: "weissman-spring-2025-cross-genre",
+    id: "weissman-spring-2025-season-cross-genre",
     title: "Weissman Spring 2025 Season Cross Genre",
     vimeoId: "1030112459",
     vimeoHash: "3a116c25a3",
@@ -110,7 +202,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "weissman-winter-2024-cross-genre",
+    id: "weissman-winter-2024-season-cross-genre",
     title: "Weissman Winter 2024 Season Cross Genre",
     vimeoId: "1145746235",
     campaign: "weissman-elite",
@@ -140,18 +232,11 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "weissman-spring-2024-cross-genre",
+    id: "weissman-spring-2024-season-cross-genre",
     title: "Weissman Spring 2024 Season Cross Genre",
     vimeoId: "886600264",
     campaign: "weissman-elite",
     portfolios: [],
-  },
-  {
-    id: "weissman-spring-2024-quirky-stripes",
-    title: "Weissman Spring 2024 Quirky/Stripes",
-    vimeoId: "894189739",
-    campaign: "weissman-elite",
-    portfolios: ["retail"],
   },
   {
     id: "weissman-fall-2024-red-hip-hop",
@@ -178,11 +263,11 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "weissman-fall-2023-cross-genre",
+    id: "weissman-fall-2023-season-cross-genre",
     title: "Weissman Fall 2023 Season Cross Genre",
     vimeoId: "824868764",
     campaign: "weissman-elite",
-    portfolios: [],
+    portfolios: ["retail"],
   },
   {
     id: "weissman-fall-2023-acro",
@@ -193,28 +278,18 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "weissman-winter-2023-cross-genre",
+    id: "weissman-winter-2023-season-cross-genre",
     title: "Weissman Winter 2023 Season Cross Genre",
     vimeoId: "867250099",
     campaign: "weissman-elite",
     portfolios: [],
   },
   {
-    id: "weissman-winter-2022-cross-genre",
+    id: "weissman-winter-2022-season-cross-genre",
     title: "Weissman Winter 2022 Season Cross Genre",
     vimeoId: "740849869",
     campaign: "weissman-elite",
     portfolios: [],
-  },
-
-  /* ─────────── MONARCH (6) ─────────── */
-  {
-    id: "monarch-transforming-lives-25-26",
-    title: "Monarch Transforming Lives 25-26",
-    vimeoId: "1151967437",
-    vimeoHash: "000a715e4a",
-    campaign: "monarch-school",
-    portfolios: ["documentary"],
   },
   {
     id: "monarch-gala-event-24-25",
@@ -232,8 +307,8 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "monarch-upgraded-kitchen-md-anderson",
-    title: "Monarch's Upgraded Kitchen - MD Anderson Donation",
+    id: "monarch-s-upgraded-kitchen-md-anderson-donation",
+    title: "Monarch’s Upgraded Kitchen - MD Anderson Donation",
     vimeoId: "673378712",
     vimeoHash: "f3572605d9",
     campaign: "monarch-school",
@@ -253,17 +328,8 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     campaign: "monarch-school",
     portfolios: [],
   },
-
-  /* ─────────── THE EYE GALLERY (10 - 1-2 more coming) ─────────── */
   {
-    id: "eye-gallery-mix-reel-001",
-    title: "The Eye Gallery Mix Reel 001",
-    vimeoId: "1002121348",
-    campaign: "eye-gallery",
-    portfolios: [],
-  },
-  {
-    id: "eye-gallery-scale-sass-001",
+    id: "the-eye-gallery-scale-sass-001-reel",
     title: "The Eye Gallery Scale SASS 001 Reel",
     vimeoId: "1189131771",
     vimeoHash: "49584fc6ca",
@@ -271,7 +337,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "eye-gallery-jacques-marie-mage-trunk-show",
+    id: "the-eye-gallery-jacques-marie-mage-trunk-show-stor",
     title: "The Eye Gallery Jacques Marie Mage Trunk Show Store Ad H",
     vimeoId: "1189140629",
     vimeoHash: "294990893e",
@@ -279,7 +345,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "eye-gallery-in-store-ad-001",
+    id: "the-eye-gallery-in-store-ad-001-h",
     title: "The Eye Gallery In-Store Ad 001 H",
     vimeoId: "1189138937",
     vimeoHash: "9d970d79b7",
@@ -287,7 +353,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: ["retail"],
   },
   {
-    id: "eye-gallery-scale-oversized-eyewear-sass-002",
+    id: "the-eye-gallery-scale-oversized-eyewear-sass-002-r",
     title: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel",
     vimeoId: "1189131500",
     vimeoHash: "f87548f64b",
@@ -295,7 +361,7 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: ["retail"],
   },
   {
-    id: "eye-gallery-dog-month-campaign",
+    id: "the-eye-gallery-dog-month-campaign",
     title: "The Eye Gallery Dog Month Campaign",
     vimeoId: "1189130986",
     vimeoHash: "c229954ac0",
@@ -303,15 +369,15 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: [],
   },
   {
-    id: "eye-gallery-in-store-service-care",
-    title: "The Eye Gallery In-store Service & Care Reel",
+    id: "the-eye-gallery-in-store-service-care-reel",
+    title: "The Eye Gallery In-store service & care Reel",
     vimeoId: "1189131472",
     vimeoHash: "42147d4bc3",
     campaign: "eye-gallery",
     portfolios: [],
   },
   {
-    id: "eye-gallery-summer-sunglass-sale",
+    id: "the-eye-gallery-summer-sunglass-sale-ad-h",
     title: "The Eye Gallery Summer Sunglass Sale Ad H",
     vimeoId: "1189130989",
     vimeoHash: "3148f2df70",
@@ -319,28 +385,19 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: ["retail"],
   },
   {
-    id: "eye-gallery-summer-2025-campaign-ad",
+    id: "the-eye-gallery-summer-2025-campaign-ad-h",
     title: "The Eye Gallery - Summer 2025 Campaign Ad H",
     vimeoId: "1145748255",
     campaign: "eye-gallery",
     portfolios: [],
   },
   {
-    id: "eye-gallery-scale-sass-003",
+    id: "the-eye-gallery-scale-sass-003-reel",
     title: "The Eye Gallery Scale SASS 003 Reel",
     vimeoId: "1189130987",
     vimeoHash: "6d5b53a3d1",
     campaign: "eye-gallery",
     portfolios: [],
-  },
-
-  /* ─────────── RETAIL ONLY (no campaign - pure portfolio) ─────────── */
-  {
-    id: "cacao-cardamom-valentines-beating-heart",
-    title: "Cacao & Cardamom: Valentines / Beating Heart + Kitchen",
-    vimeoId: "1189131036",
-    vimeoHash: "d0322acd54",
-    portfolios: ["retail"],
   },
   {
     id: "athletico-sports-gear-mix-001",
@@ -350,16 +407,10 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: ["retail"],
   },
   {
-    id: "cacao-cardamom-delicious-impressions",
-    title: "Cacao & Cardamom: Delicious Impressions",
-    vimeoId: "1125611606",
-    portfolios: ["retail"],
-  },
-  {
-    id: "cacao-cardamom-valentines-red-heart-box",
-    title: "Cacao & Cardamom: Valentines / Red Heart Box + Ingredients",
-    vimeoId: "1189131033",
-    vimeoHash: "ecd41cfbdd",
+    id: "cacao-cardamom-valentines-beating-heart-kitchen",
+    title: "Cacao & Cardamom: Valentines / Beating Heart + Kitchen",
+    vimeoId: "1189131036",
+    vimeoHash: "d0322acd54",
     portfolios: ["retail"],
   },
   {
@@ -380,14 +431,6 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     vimeoId: "1125611474",
     portfolios: ["retail"],
   },
-
-  /* ─────────── THE ARTS (5) ─────────── */
-  {
-    id: "cecilia-duarte-second-solo-album",
-    title: "Cecilia Duarte - Second Solo Album",
-    vimeoId: "1002076560",
-    portfolios: ["the-arts", "documentary"],
-  },
   {
     id: "vitacca-season-promo-24-25",
     title: "Vitacca Season Promo 24-25",
@@ -395,59 +438,31 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
     portfolios: ["the-arts"],
   },
   {
-    id: "behind-the-scenes-lauren-anderson",
+    id: "behind-the-scenes-with-lauren-anderson",
     title: "Behind the Scenes with Lauren Anderson",
     vimeoId: "1043474069",
     portfolios: ["the-arts"],
   },
   {
-    id: "cecilia-duarte-live-performance-misael-barraza",
+    id: "cecilia-duarte-live-performance-w-misael-barraza",
     title: "Cecilia Duarte Live Performance w/ Misael Barraza",
     vimeoId: "1002076393",
     portfolios: ["the-arts"],
   },
   {
-    id: "vitacca-season-promo-23-24",
-    title: "Vitacca Season Promo 23-24",
-    vimeoId: "875774223",
-    portfolios: ["the-arts"],
-  },
-
-  /* ─────────── INDUSTRIAL (7) ─────────── */
-  {
-    id: "radiomedix-changing-the-landscape",
-    title: "RadioMedix - Changing the Landscape of Nuclear Medicine",
-    vimeoId: "1100401603",
-    portfolios: ["industrial"],
-  },
-  {
-    id: "kinetik-once-upon-delaware-basin",
-    title: "Kinetik - Once Upon a Time in the Delaware Basin",
-    vimeoId: "865765822",
-    vimeoHash: "cfebc05bc1",
-    portfolios: ["industrial", "narrative"],
-  },
-  {
-    id: "1968-mustang-gt-auto-shop",
-    title: "1968 Mustang GT / Auto Shop",
-    vimeoId: "1189136660",
-    vimeoHash: "00ea4a2e1c",
-    portfolios: ["industrial", "documentary"],
-  },
-  {
-    id: "pipe-distributors-banner",
+    id: "pipe-distributors-inc-banner",
     title: "Pipe Distributors Inc Banner",
     vimeoId: "778678445",
     portfolios: ["industrial"],
   },
   {
-    id: "radiomedix-innovation-to-intervention",
+    id: "radiomedix-from-innovation-to-intervention",
     title: "RadioMedix - From Innovation to Intervention",
     vimeoId: "437963536",
     portfolios: ["industrial"],
   },
   {
-    id: "euphree-city-robin-22-tech-specs",
+    id: "euphree-city-robin-22-technical-specs",
     title: "Euphree City Robin 22 Technical Specs",
     vimeoId: "660525644",
     vimeoHash: "58097138c5",
@@ -455,18 +470,9 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "radiomedix-2025-where-it-all-began",
-    title: "RadioMedix 2025 - Where It All Began",
+    title: "RadioMedix 2025 | Where it all began",
     vimeoId: "1100405072",
     portfolios: ["industrial"],
-  },
-
-  /* ─────────── DOCUMENTARY (only entries unique to this category) ─────────── */
-  {
-    id: "buddy-walk-2025",
-    title: "Buddy Walk 2025",
-    vimeoId: "1189131655",
-    vimeoHash: "4d90a59f80",
-    portfolios: ["documentary"],
   },
   {
     id: "facet-seven-coach-jd",
@@ -477,53 +483,45 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
   },
   {
     id: "gwen-berry-tv-globo-brazil",
-    title: "Gwen Berry - TV Globo (Brazil)",
+    title: "Gwen Berry | TV Globo (Brazil)",
     vimeoId: "1003383102",
     portfolios: ["documentary"],
   },
   {
-    id: "eye-gallery-in-ny-ewd-part-1",
-    title: "The Eye Gallery in NY EWD Part 1",
-    vimeoId: "1189137224",
-    vimeoHash: "5ca36e0fd1",
+    id: "the-eye-gallery-in-ny-ewd",
+    title: "The Eye Gallery in NY EWD",
+    vimeoId: "1190189406",
+    vimeoHash: "155120be84",
     portfolios: ["documentary"],
   },
   {
-    id: "eye-gallery-in-ny-ewd-part-2",
-    title: "The Eye Gallery in NY EWD Part 2",
-    vimeoId: "1189137256",
-    vimeoHash: "9b6d5ef06b",
-    portfolios: ["documentary"],
-  },
-  {
-    id: "eye-gallery-in-ny-ewd-part-3",
-    title: "The Eye Gallery in NY EWD Part 3",
-    vimeoId: "1189132484",
-    vimeoHash: "a95388f721",
-    portfolios: ["documentary"],
-  },
-
-  /* ─────────── NARRATIVE (only entries unique to this category) ─────────── */
-  {
-    id: "safari-vet-difference-league-city",
-    title: "Safari Vet - The Safari Difference, League City",
-    vimeoId: "954997422",
-    portfolios: ["narrative"],
-  },
-  {
-    id: "facet-seven-nutrition-longevity-chapter-2-2",
-    title: "Facet Seven / Nutrition for Longevity / Chapter 2.2 - Nutrient Timing",
-    vimeoId: "1189137962",
-    vimeoHash: "e1a7b0681c",
-    portfolios: ["narrative"],
-  },
-  {
-    id: "safari-vet-difference-pearland",
-    title: "Safari Vet - The Safari Difference, Pearland",
+    id: "safari-vet-the-safari-difference-pearland",
+    title: "Safari Vet The Safari Difference Pearland",
     vimeoId: "954988957",
     vimeoHash: "071ae54364",
     portfolios: ["narrative"],
   },
+];
+
+/** Ordered Vimeo IDs shown on the main /work/videography page
+ *  ("TOP CHOICES FOR VIDEOGRAPHY FULL PAGE" from Brandi's doc). */
+export const TOP_CHOICE_ORDER: string[] = [
+  "1189131033",
+  "824223043",
+  "1190188606",
+  "1100401603",
+  "950064546",
+  "1151967437",
+  "875774223",
+  "1002076560",
+  "865765822",
+  "1002121348",
+  "954997422",
+  "1189131655",
+  "894189739",
+  "1125611606",
+  "1189136660",
+  "1189137962",
 ];
 
 /* ════════════════════════════════════════════════════════════════════

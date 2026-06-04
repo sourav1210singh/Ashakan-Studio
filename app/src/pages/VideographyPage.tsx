@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
 import {
   BRANDI_VIDEOS,
+  TOP_CHOICE_ORDER,
   getVideosByPortfolio,
   buildVimeoEmbedUrl,
   type BrandiVideo,
@@ -44,17 +45,13 @@ const categoryMeta: Record<PortfolioCategory, { title: string; description: stri
 
 const VALID_CATEGORIES = Object.keys(categoryMeta) as PortfolioCategory[];
 
-/** Deduplicate by vimeoId so the main "all videos" view doesn't repeat */
-function uniqueByVimeoId(list: BrandiVideo[]): BrandiVideo[] {
-  const seen = new Set<string>();
-  const out: BrandiVideo[] = [];
-  for (const v of list) {
-    if (!seen.has(v.vimeoId)) {
-      seen.add(v.vimeoId);
-      out.push(v);
-    }
-  }
-  return out;
+/** Main /work/videography page shows only Brandi's curated "Top Choices"
+ *  (TOP_CHOICE_ORDER from her doc), in that exact order - not the whole
+ *  catalog. Missing ids are skipped defensively. */
+function getTopChoiceVideos(): BrandiVideo[] {
+  return TOP_CHOICE_ORDER
+    .map((id) => BRANDI_VIDEOS.find((v) => v.vimeoId === id))
+    .filter((v): v is BrandiVideo => Boolean(v));
 }
 
 interface VideographyPageProps {
@@ -76,9 +73,9 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
     pageTitle = categoryMeta[cat].title;
     pageDescription = categoryMeta[cat].description;
   } else {
-    /* Main videography page - show every video in the catalog,
-       deduplicated since some titles span multiple portfolios. */
-    videos = uniqueByVimeoId(BRANDI_VIDEOS);
+    /* Main videography page - show only Brandi's curated Top Choices
+       (doc order), not the entire catalog. */
+    videos = getTopChoiceVideos();
   }
 
   return (
