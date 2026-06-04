@@ -399,7 +399,8 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                     onClick={() => openLightboxAt(featuredItem.src)}
                   />
                 )}
-                <p className="text-white/40 text-sm mt-4 tracking-wider">{featuredItem.alt}</p>
+                {/* Caption removed per Brandi 6/4 Discord: no image/alt
+                    names shown under media. alt stays on the element. */}
               </FadeIn>
             </div>
           </section>

@@ -174,14 +174,10 @@ export function Lightbox({
         )}
       </div>
 
-      {/* Caption + thumbnail strip */}
+      {/* Thumbnail strip. Caption removed per Brandi 6/4 Discord:
+          'remove the titles under all images/videos' - no alt/name text
+          shown under the enlarged image either. */}
       <div className="p-4 sm:p-6 z-10" onClick={stop}>
-        {img.alt && (
-          <p className="text-xs sm:text-sm text-white/60 text-center mb-3 sm:mb-4 max-w-3xl mx-auto">
-            {img.alt}
-          </p>
-        )}
-
         {images.length > 1 && (
           <div className="flex justify-start sm:justify-center gap-2 overflow-x-auto pb-2 max-w-full leaf-scroll">
             {images.map((thumb, i) => {
