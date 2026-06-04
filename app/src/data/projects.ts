@@ -343,10 +343,9 @@ export const projects: Project[] = [
     client: "THE MONARCH SCHOOL AND INSTITUTE",
     title: "Serving students with neurological differences",
     categories: ["DOCUMENTARY", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    /* Hero swapped per Brandi's 5/7/26 note ('Change to different
-       photo'). monarch-01 is the luncheon hero edit - landscape,
-       mission-aligned, emotional opener. */
-    heroImage: "/images/campaigns/monarch/monarch-01.jpg",
+    /* Hero matches the home-page CampaignSection tile image (Brandi
+       6/4 Discord: 'match design/images chosen from the home page'). */
+    heroImage: "/images/campaigns/monarch/monarch-feature.jpg",
     description:
       "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families across multiple years, from the Transforming Lives series to the Gala Event and the MD Anderson kitchen donation, showcasing the transformative power of inclusive education.",
 
@@ -487,10 +486,9 @@ export const projects: Project[] = [
     client: "WEISSMAN ELITE",
     title: "Dancewear That Inspires",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    /* Hero swapped per Brandi's 5/7/26 note ('Obviously this needs to
-       change to photo from gallery, horizontal'). weissman-12 is the
-       copper-studio group lineup - wide horizontal, brand-energetic. */
-    heroImage: "/images/campaigns/weissman/weissman-12.jpg",
+    /* Hero matches the home-page CampaignSection tile image (Brandi
+       6/4 Discord: 'match design/images chosen from the home page'). */
+    heroImage: "/images/campaigns/weissman/weissman-01.jpg",
     description:
       "Weissman Elite is a leading name in performance dancewear. Across multiple seasons, from Winter 2022 through Spring 2026, we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
 
@@ -661,10 +659,9 @@ export const projects: Project[] = [
     client: "THE EYE GALLERY",
     title: "Eyewear That Makes a Statement",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    /* Hero swapped per Brandi's 5/7/26 note ('Obviously this needs to
-       change to photo from gallery, horizontal'). eye-gallery-04 is the
-       Q3 Scale best-frame landscape - wide editorial, brand-energetic. */
-    heroImage: "/images/campaigns/eye-gallery/eye-gallery-04.jpg",
+    /* Hero matches the home-page CampaignSection tile image (Brandi
+       6/4 Discord: 'match design/images chosen from the home page'). */
+    heroImage: "/images/campaigns/eye-gallery/eye-gallery-01.jpg",
     description:
       "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns, from in-store ads and seasonal Sunglass Sale spots to scale-driven SASS reels and the Jacques Marie Mage trunk show, captured each unique frame with bold, editorial visuals.",
 
@@ -757,11 +754,9 @@ export const projects: Project[] = [
     client: "DEUTSCH FINE JEWELRY",
     title: "Timeless Elegance, Modern Luxury",
     categories: ["PHOTOGRAPHY", "DESIGN"],
-    /* Hero swapped to a wide horizontal shot from the gallery per
-       Brandi's 5/7/26 note ('Obviously this needs to change to photo
-       from gallery, horizontal'). 595 is the bracelet-styling
-       landscape - more atmospheric than the previous signature piece. */
-    heroImage: "/images/campaigns/deutsch/deutsch-2025-holiday-595.jpg",
+    /* Hero matches the home-page CampaignSection tile image (Brandi
+       6/4 Discord: 'match design/images chosen from the home page'). */
+    heroImage: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
     description:
       "Deutsch Fine Jewelry represents the pinnacle of luxury craftsmanship. Our photography and videography campaign captured the intricate details and timeless beauty of their collection, creating imagery that speaks to discerning clients seeking exceptional pieces.",
 
