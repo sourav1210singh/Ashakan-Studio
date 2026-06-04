@@ -465,7 +465,7 @@ export function HeroSection() {
                 now read at roughly the same width as the heavier
                 display-font letters in VISUAL / STORIES / INSPIRE. */}
             <MagneticWord
-              className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative left-[-22px] md:left-[-36px] lg:left-[-50px]"
+              className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative left-[-34px] md:left-[-52px] lg:left-[-70px]"
               style={{
                 fontWeight: 200,
                 letterSpacing: "0.012em",
@@ -541,7 +541,7 @@ export function HeroSection() {
                 tablet up where the cutout appears. relative class
                 added so the top offset applies. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-[-5px] lg:top-[-24px]"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-[-10px] lg:top-[-34px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
@@ -583,7 +583,7 @@ export function HeroSection() {
                 STORIES with the hidden-on-mobile sunglasses cutout -
                 top-0 on mobile, md:top-[-15px] from tablet up. */}
             <MagneticWord
-              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-[-5px] lg:top-[-24px]"
+              className="font-hero-bold text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative top-[-10px] lg:top-[-34px]"
               style={{
                 fontWeight: 900,
                 letterSpacing: "0.02em",
