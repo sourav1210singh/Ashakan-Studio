@@ -44,17 +44,23 @@ export function FullServiceHybridSection() {
       className="relative overflow-hidden bg-dark min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center"
     >
       {/* ── Background video - Vimeo iframe in 'background' mode ──
-          The iframe is over-sized (300% w/h) and centred so it covers
-          the section at any viewport aspect ratio without letterboxing. */}
+          16:9 COVER sizing (not a blunt 300% zoom). The iframe keeps the
+          video's 16:9 ratio and is sized to just cover the section:
+          width 100vw / height 56.25vw, with min-width/min-height so the
+          taller axis still fills. The old 300% blow-up made the player
+          ~2982px wide, so Vimeo's background-mode stream was up-scaled
+          ~3x and looked blurry. This keeps it near native resolution. */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <iframe
-          src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
+          src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
           className="absolute"
           style={{
             top: "50%",
             left: "50%",
-            width: "300%",
-            height: "300%",
+            width: "100vw",
+            height: "56.25vw",
+            minWidth: "177.78vh",
+            minHeight: "100%",
             transform: "translate(-50%, -50%)",
             border: 0,
           }}
