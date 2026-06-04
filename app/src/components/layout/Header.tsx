@@ -130,13 +130,14 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     return false;
   };
 
-  // Brandi review (2026-05-21, PDF page 1): the top bar now shows ONLY
-  // the WORK item (with its dropdown), moved over to the right next to
-  // MENU. Home / What We Do / The Studio / Contact / Storytime are
-  // removed from the TOP bar but remain in the full-screen menu (which
-  // has its own separate item list further down this file). The left
-  // nav cluster is now empty.
-  const topBarNav = mainNavigation.filter((item) => item.label === "WORK");
+  // Brandi review (2026-05-21, PDF page 1): the top bar shows WORK (with
+  // its dropdown), moved to the right next to MENU. Home / What We Do /
+  // The Studio / Storytime stay only in the full-screen menu.
+  // 2026-06-04 (Discord): Brandi asked to RETURN the Contact item to the
+  // header, so CONTACT is now shown in the top bar alongside WORK.
+  const topBarNav = mainNavigation.filter(
+    (item) => item.label === "WORK" || item.label === "CONTACT"
+  );
 
   const renderNavItem = (item: typeof mainNavigation[0]) => (
     <div
@@ -167,9 +168,11 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         )}
       </button>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown Menu - anchored to the RIGHT edge of the trigger so it
+          extends leftward (the WORK item sits near the right edge of the
+          viewport, so a left-anchored panel used to spill off-screen). */}
       {item.children && activeDropdown === item.label && (
-        <div className="absolute top-full left-0 pt-2 z-50">
+        <div className="absolute top-full right-0 pt-2 z-50">
           <div className="bg-cream border border-dark/10 rounded-lg shadow-lg py-2 min-w-[200px]">
             {item.children.map((child) => (
               <div
@@ -184,13 +187,14 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                 >
                   {child.label}
                   {child.children && (
-                    <ChevronDown className="w-3 h-3 -rotate-90" />
+                    <ChevronDown className="w-3 h-3 rotate-90" />
                   )}
                 </button>
 
-                {/* Sub-dropdown (flyout right) */}
+                {/* Sub-dropdown (flyout LEFT) - opens toward the centre of
+                    the screen so it never gets clipped by the right edge. */}
                 {child.children && activeSubDropdown === child.label && (
-                  <div className="absolute left-full top-0 pl-2 z-50">
+                  <div className="absolute right-full top-0 pr-2 z-50">
                     <div className="bg-cream border border-dark/10 rounded-lg shadow-lg py-2 min-w-[180px]">
                       {child.children.map((sub) => (
                         <button
