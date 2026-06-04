@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 /* ════════════════════════════════════════════════════════════════════
    VIDEO BANNER - full-width looping Vimeo banner placed between the
    hero and the CAMPAIGNS section on the home page.
@@ -7,27 +9,67 @@
       let's have a full width video banner, use this link below for
       video: https://vimeo.com/1040829359"
 
-   Implementation mirrors FullServiceHybridSection's background-video
-   pattern: a Vimeo iframe in 'background' mode (autoplay, muted, loop,
-   no controls), over-sized and centred so it covers the band at any
-   viewport aspect ratio without letterboxing or black bars.
+   The Vimeo iframe is in 'background' mode (autoplay, muted, loop, no
+   controls), sized to COVER the band without letterboxing.
 
-   Responsive: the band height scales down on small screens
-   (56vw aspect-ish via fixed responsive heights) so it never
-   dominates a phone screen but still reads as a full-width banner.
+   Black-flash fix: the iframe paints its OWN black background until the
+   first video frame renders, so the band used to show a black box for a
+   few seconds on load. A poster still (the video's own Vimeo thumbnail)
+   now sits ON TOP of the iframe and fades out only once Vimeo reports it
+   is actually playing (via the player's postMessage API), with a safety
+   timeout so it never gets stuck.
    ════════════════════════════════════════════════════════════════════ */
 
 const BANNER_VIMEO_ID = "1040829359";
 
 export function VideoBannerSection() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const onMessage = (e: MessageEvent) => {
+      if (typeof e.origin === "string" && !e.origin.includes("vimeo.com")) return;
+      let data: { event?: string };
+      try {
+        data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+      } catch {
+        return;
+      }
+      if (data && (data.event === "playing" || data.event === "play")) {
+        setVideoReady(true);
+      }
+    };
+
+    const onLoad = () => {
+      ["play", "playing"].forEach((evt) =>
+        iframe.contentWindow?.postMessage(
+          JSON.stringify({ method: "addEventListener", value: evt }),
+          "*"
+        )
+      );
+    };
+
+    window.addEventListener("message", onMessage);
+    iframe.addEventListener("load", onLoad);
+    const fallback = window.setTimeout(() => setVideoReady(true), 4000);
+
+    return () => {
+      window.removeEventListener("message", onMessage);
+      iframe.removeEventListener("load", onLoad);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden bg-dark">
-      {/* Aspect-controlled band: shorter on mobile, taller on desktop.
-          h-[ ] values keep a cinematic wide ratio without depending on
-          the iframe's intrinsic size. */}
+      {/* Aspect-controlled band: shorter on mobile, taller on desktop. */}
       <div className="relative w-full h-[42vw] min-h-[220px] max-h-[640px]">
         <iframe
-          src={`https://player.vimeo.com/video/${BANNER_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
+          ref={iframeRef}
+          src={`https://player.vimeo.com/video/${BANNER_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
           className="absolute"
           style={{
             top: "50%",
@@ -40,6 +82,17 @@ export function VideoBannerSection() {
           allow="autoplay; fullscreen"
           title="Ashkan Studios - campaign reel"
         />
+
+        {/* Poster still (the video's own thumbnail) - covers Vimeo's black
+            background instantly, fades out once the video starts playing. */}
+        <img
+          src="/images/sections/video-banner-poster.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          style={{ opacity: videoReady ? 0 : 1 }}
+        />
+
         {/* Subtle top + bottom gradient so the banner blends into the
             cream hero above and the section below without a hard seam. */}
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/10 via-transparent to-black/10" />
