@@ -15,9 +15,22 @@ const HERO_VIDEO_ID = "1022971286"; // Vitacca Ballet - Season Promo (motion + t
 /* ────────────────────────────────────────────────────────────
    VideoTextWord - bold word whose letter shapes act as a
    "window" through which a Vimeo BTS reel plays continuously.
-   Implementation: an SVG <mask> built from the text shape clips
-   a <foreignObject> hosting the Vimeo iframe - so the video is
-   only visible inside the letters; everything around stays cream.
+
+   Implementation (iOS/Android-safe "inverse knockout"):
+     Layer 1 (back)  : a dark backing colour - shown if the video
+                       fails to load, so letters never go blank.
+     Layer 2 (mid)   : a plain Vimeo <iframe> covering the text box.
+     Layer 3 (front) : an SVG rect filled CREAM everywhere EXCEPT
+                       the letter shapes, which are knocked out
+                       (transparent) via a standard <mask>+<text>.
+   The result: video shows only THROUGH the letters; the area
+   around them stays cream and blends into the cream section bg, so
+   there is NO visible border/box around the word.
+
+   This deliberately avoids <foreignObject> inside <mask>, which
+   does NOT render on iOS Safari (it showed a grey rectangle and a
+   faint bounding border). The knockout uses only primitives that
+   every mobile browser supports.
    ──────────────────────────────────────────────────────────── */
 interface VideoTextWordProps {
   children: string;
@@ -48,20 +61,52 @@ function VideoTextWord({
       {/* Layout placeholder - invisible, but determines width/height */}
       <span style={{ visibility: "hidden", whiteSpace: "pre" }}>{children}</span>
 
-      {/* Fallback letter color (visible if SVG/foreignObject fails) */}
+      {/* Clipped media box - everything below is confined to the
+          exact text bounding box (overflow hidden) so the video
+          rectangle never spills past the word edges. */}
       <span
         aria-hidden
         style={{
           position: "absolute",
           inset: 0,
-          color: "#1A1A1A",
+          overflow: "hidden",
           pointerEvents: "none",
         }}
       >
-        {children}
+        {/* Layer 1: dark backing - fallback letter colour if video
+            never loads (e.g. iOS Low Power Mode blocking autoplay). */}
+        <span
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "#1A1A1A",
+          }}
+        />
+
+        {/* Layer 2: Vimeo iframe - over-sized + centred so it fully
+            covers the wide, short text box at any aspect ratio
+            (no letterbox bars peeking through the letters). */}
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&dnt=1&controls=0`}
+          title={children}
+          allow="autoplay; fullscreen"
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: "300%",
+            height: "300%",
+            transform: "translate(-50%, -50%)",
+            border: 0,
+            display: "block",
+          }}
+        />
       </span>
 
-      {/* SVG with masked video - covers the layout box exactly */}
+      {/* Layer 3: cream knockout overlay - fills the box with the
+          section's cream colour EVERYWHERE except the letters, which
+          are cut out so the video behind shows through. No
+          foreignObject => renders correctly on iOS + Android. */}
       <svg
         aria-hidden
         style={{
@@ -75,13 +120,14 @@ function VideoTextWord({
       >
         <defs>
           <mask id={maskId} maskUnits="userSpaceOnUse">
-            <rect width="100%" height="100%" fill="black" />
+            {/* white = keep cream, black (text) = knock out to reveal video */}
+            <rect width="100%" height="100%" fill="white" />
             <text
               x="50%"
               y="50%"
               textAnchor="middle"
               dominantBaseline="central"
-              fill="white"
+              fill="black"
               style={{
                 font: "inherit",
                 letterSpacing: "inherit",
@@ -91,26 +137,12 @@ function VideoTextWord({
             </text>
           </mask>
         </defs>
-        <foreignObject
-          x="-15%"
-          y="-50%"
-          width="130%"
-          height="200%"
+        <rect
+          width="100%"
+          height="100%"
+          fill="#F5F5F0"
           mask={`url(#${maskId})`}
-        >
-          <iframe
-            src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&dnt=1&controls=0`}
-            title={children}
-            allow="autoplay; fullscreen"
-            style={{
-              width: "100%",
-              height: "100%",
-              border: 0,
-              display: "block",
-              pointerEvents: "none",
-            }}
-          />
-        </foreignObject>
+        />
       </svg>
     </span>
   );
@@ -410,7 +442,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-26px] md:mr-[-90px] md:mt-[-90px] lg:mr-[-170px] lg:mt-[-140px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-0 lg:mr-[-170px] lg:mt-[-140px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -455,7 +487,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-16px] mt-[-22px] top-[10px] md:ml-[-60px] md:mt-[-50px] md:top-[25px] lg:ml-[-100px] lg:mt-[-80px] lg:top-[40px]"
+              className="inline-block ml-[-30px] mt-[-22px] top-[10px] md:ml-[-92px] md:mt-[-50px] md:top-[25px] lg:ml-[-150px] lg:mt-[-80px] lg:top-[40px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
