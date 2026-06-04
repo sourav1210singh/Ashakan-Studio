@@ -451,7 +451,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-0 lg:mr-[-170px] lg:mt-[-140px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-[-16px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-28px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -573,7 +573,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/cutout-8Q1A1315.png"
               alt="Editorial product cutout"
-              className="inline-block ml-[-6px] mr-[6px] mt-[-30px] top-[28px] md:ml-[8px] md:mr-[19px] md:mt-[-70px] md:top-[54px] lg:ml-[-2px] lg:mt-[-100px] lg:top-[76px]"
+              className="inline-block ml-[-6px] mr-[6px] mt-[-30px] top-[16px] md:ml-[8px] md:mr-[19px] md:mt-[-70px] md:top-[54px] lg:ml-[-2px] lg:mt-[-100px] lg:top-[76px]"
               width="clamp(52px, 15vw, 227px)"
               height="clamp(74px, 23.4vw, 359px)"
               driftName="driftB"
