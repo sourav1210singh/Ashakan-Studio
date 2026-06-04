@@ -462,7 +462,7 @@ export function HeroSection() {
                 now read at roughly the same width as the heavier
                 display-font letters in VISUAL / STORIES / INSPIRE. */}
             <MagneticWord
-              className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase"
+              className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase relative left-[-12px] md:left-[-22px] lg:left-[-32px]"
               style={{
                 fontWeight: 200,
                 letterSpacing: "0.012em",
@@ -564,7 +564,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/cutout-8Q1A1315.png"
               alt="Editorial product cutout"
-              className="inline-block ml-[8px] mr-[6px] mt-[-30px] top-[16px] md:ml-[25px] md:mr-[19px] md:mt-[-70px] md:top-[40px] lg:mt-[-100px] lg:top-[60px]"
+              className="inline-block ml-[-6px] mr-[6px] mt-[-30px] top-[28px] md:ml-[8px] md:mr-[19px] md:mt-[-70px] md:top-[54px] lg:ml-[-2px] lg:mt-[-100px] lg:top-[76px]"
               width="clamp(52px, 15vw, 227px)"
               height="clamp(74px, 23.4vw, 359px)"
               driftName="driftB"
