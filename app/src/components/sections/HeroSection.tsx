@@ -61,14 +61,17 @@ function VideoTextWord({
       {/* Layout placeholder - invisible, but determines width/height */}
       <span style={{ visibility: "hidden", whiteSpace: "pre" }}>{children}</span>
 
-      {/* Clipped media box - everything below is confined to the
-          exact text bounding box (overflow hidden) so the video
-          rectangle never spills past the word edges. */}
+      {/* Clipped media box - confined to the text bounding box minus a
+          3px inset on every side. The cream knockout overlay below
+          stays at full box size, so it OVERHANGS the iframe edge by
+          3px all around. That overhang hides the 1px bright-video ring
+          that the over-sized iframe's overflow-clip used to leave at
+          the box edge (the faint "border" around the word). */}
       <span
         aria-hidden
         style={{
           position: "absolute",
-          inset: 0,
+          inset: "3px",
           overflow: "hidden",
           pointerEvents: "none",
         }}
