@@ -456,7 +456,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.png"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-[-16px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-28px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-[-30px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-46px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -501,7 +501,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-112px] md:mt-[-50px] md:top-[25px] lg:ml-[-178px] lg:mt-[-80px] lg:top-[40px]"
+              className="inline-block ml-[-60px] mt-[-22px] top-[10px] md:ml-[-112px] md:mt-[-50px] md:top-[25px] lg:ml-[-178px] lg:mt-[-80px] lg:top-[40px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
@@ -589,6 +589,10 @@ export function HeroSection() {
               /* iOS/Android only: shrink the visible glass ~10% via an
                  image scale-down (layout box unchanged); md+ stays 1:1. */
               imgClassName="scale-90 md:scale-100"
+              /* Sit ABOVE the STORIES word so when they overlap the
+                 cutout stays visible and the letters tuck behind it
+                 (instead of the cutout hiding under the text). */
+              style={{ zIndex: 30 }}
             />
             {/* STORIES - display font with video-in-text mask.
                 position: relative + top: -15px matches VISUAL -
