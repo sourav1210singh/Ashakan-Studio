@@ -359,6 +359,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   { label: "INSTAGRAM", href: "https://instagram.com/ashkanstudios", external: true },
                   { label: "LINKEDIN", href: "https://linkedin.com/company/ashkan-studios", external: true },
                   { label: "STORYTIME", href: "/storytime", external: false, internal: true as const },
+                  { label: "PRESS", href: "/press", external: false, internal: true as const },
                   { label: "T - (346) 335-7973", href: "tel:3463357973", external: false },
                   { label: "E - info@ashkanstudios.com", href: "mailto:info@ashkanstudios.com", external: false },
                 ].map((link) => {
