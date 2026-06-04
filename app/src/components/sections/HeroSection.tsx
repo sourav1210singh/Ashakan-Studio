@@ -454,7 +454,7 @@ export function HeroSection() {
                 moved out of inline style into responsive margin
                 classes (gentle on mobile, exact desktop value at lg). */}
             <InlineCutout
-              src="/images/hero/cutouts/vitacca-pro-868.png"
+              src="/images/hero/cutouts/vitacca-pro-868.webp"
               alt="Vitacca Pro dancer cutout"
               className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-[-30px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-46px]"
               width="clamp(78px, 23.4vw, 365px)"
@@ -499,7 +499,7 @@ export function HeroSection() {
               </span>
             </MagneticWord>
             <InlineCutout
-              src="/images/hero/cutouts/isabella-decandido-22138.png"
+              src="/images/hero/cutouts/isabella-decandido-22138.webp"
               alt="Isabella DeCandido portrait cutout"
               className="inline-block ml-[-60px] mt-[-22px] top-[10px] md:ml-[-112px] md:mt-[-50px] md:top-[25px] lg:ml-[-178px] lg:mt-[-80px] lg:top-[40px]"
               width="clamp(46px, 12vw, 185px)"
@@ -576,7 +576,7 @@ export function HeroSection() {
                 STORIES is replaced with the 8Q1A1315 cutout. The Ferrari
                 moves to line 3 (left of THAT) per the same brief. */}
             <InlineCutout
-              src="/images/hero/cutouts/cutout-8Q1A1315.png"
+              src="/images/hero/cutouts/cutout-8Q1A1315.webp"
               alt="Editorial product cutout"
               className="inline-block ml-[-6px] mr-[6px] mt-[-30px] top-[16px] md:ml-[8px] md:mr-[19px] md:mt-[-70px] md:top-[54px] lg:ml-[-2px] lg:mt-[-100px] lg:top-[76px]"
               width="clamp(52px, 15vw, 227px)"
@@ -644,7 +644,7 @@ export function HeroSection() {
             }}
           >
             <InlineCutout
-              src="/images/hero/cutouts/car-296gtb-121.png"
+              src="/images/hero/cutouts/car-296gtb-121.webp"
               alt="Ferrari 296GTB cutout"
               className="inline-block mr-[-12px] mt-[-34px] top-[-20px] md:mr-[-30px] md:mt-[-80px] md:top-[-30px] lg:mr-[-50px] lg:mt-[-130px] lg:top-[-42px]"
               width="clamp(56px, 16.2vw, 258px)"
@@ -727,7 +727,7 @@ export function HeroSection() {
               </span>
             </MagneticWord>
             <InlineCutout
-              src="/images/hero/cutouts/deutsch-brandi-615.png"
+              src="/images/hero/cutouts/deutsch-brandi-615.webp"
               alt="Deutsch Brandi portrait cutout"
               className="inline-block ml-[8px] md:ml-[20px]"
               width="clamp(50px, 15.1vw, 235px)"

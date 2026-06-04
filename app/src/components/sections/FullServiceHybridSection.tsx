@@ -51,6 +51,15 @@ export function FullServiceHybridSection() {
           ~2982px wide, so Vimeo's background-mode stream was up-scaled
           ~3x and looked blurry. This keeps it near native resolution. */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Poster still - paints INSTANTLY so the section never shows a
+            black box while the Vimeo player boots up. The iframe sits on
+            top, so once the video starts it simply covers this image. */}
+        <img
+          src="/images/sections/fullservice-poster.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
         <iframe
           src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
           className="absolute"
