@@ -45,11 +45,6 @@ const TEAM = [
     name: "AVERY CARLIN",
     image: "/images/studio/team-avery.jpg",
   },
-  {
-    role: "COMMUNICATIONS",
-    name: "AMAYA HUNSBERGER",
-    image: "/images/studio/team-amaya.jpg",
-  },
 ];
 
 /* ── Studio space bullets ────────────────────────────────────────
@@ -329,8 +324,8 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
             • Three-paragraph intro added before the grid (verbatim).
             • Card layout per Brandi: 'Under each pic have role/titles,
               then name' - role first, name second.
-            • Six members total (Ashkan, Brandi, Christopher, Nisha,
-              Avery, Amaya); William removed. */}
+            • Five members total (Ashkan, Brandi, Christopher, Nisha,
+              Avery); William + Amaya Hunsberger removed per Brandi. */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
