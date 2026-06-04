@@ -490,7 +490,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.png"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-30px] mt-[-22px] top-[10px] md:ml-[-92px] md:mt-[-50px] md:top-[25px] lg:ml-[-150px] lg:mt-[-80px] lg:top-[40px]"
+              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-112px] md:mt-[-50px] md:top-[25px] lg:ml-[-178px] lg:mt-[-80px] lg:top-[40px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
@@ -628,7 +628,7 @@ export function HeroSection() {
             <InlineCutout
               src="/images/hero/cutouts/car-296gtb-121.png"
               alt="Ferrari 296GTB cutout"
-              className="inline-block mr-[-12px] mt-[-34px] top-[-6px] md:mr-[-30px] md:mt-[-80px] md:top-[-12px] lg:mr-[-50px] lg:mt-[-130px] lg:top-[-20px]"
+              className="inline-block mr-[-12px] mt-[-34px] top-[-20px] md:mr-[-30px] md:mt-[-80px] md:top-[-30px] lg:mr-[-50px] lg:mt-[-130px] lg:top-[-42px]"
               width="clamp(56px, 16.2vw, 258px)"
               height="clamp(42px, 12.6vw, 196px)"
               driftName="driftA"
