@@ -61,17 +61,17 @@ function VideoTextWord({
       {/* Layout placeholder - invisible, but determines width/height */}
       <span style={{ visibility: "hidden", whiteSpace: "pre" }}>{children}</span>
 
-      {/* Clipped media box - confined to the text bounding box minus a
-          3px inset on every side. The cream knockout overlay below
-          stays at full box size, so it OVERHANGS the iframe edge by
-          3px all around. That overhang hides the 1px bright-video ring
-          that the over-sized iframe's overflow-clip used to leave at
-          the box edge (the faint "border" around the word). */}
+      {/* Clipped media box - FULL text bounding box (inset 0) so the
+          video fills every letter edge-to-edge; insetting it cropped
+          the outer letters (first/last "S"). The bright-video ring at
+          the box edge is instead hidden by OVER-SIZING the cream
+          knockout overlay below so it paints a few % beyond the box on
+          every side, covering the ring without touching the letters. */}
       <span
         aria-hidden
         style={{
           position: "absolute",
-          inset: "3px",
+          inset: 0,
           overflow: "hidden",
           pointerEvents: "none",
         }}
@@ -123,8 +123,12 @@ function VideoTextWord({
       >
         <defs>
           <mask id={maskId} maskUnits="userSpaceOnUse">
-            {/* white = keep cream, black (text) = knock out to reveal video */}
-            <rect width="100%" height="100%" fill="white" />
+            {/* white = keep cream, black (text) = knock out to reveal video.
+                The white rect over-hangs the box (-6%..106% wide,
+                -14%..114% tall) so the cream it drives extends past the
+                box edge and covers the iframe ring. Text stays centred,
+                so the letters are unaffected. */}
+            <rect x="-6%" y="-14%" width="112%" height="128%" fill="white" />
             <text
               x="50%"
               y="50%"
@@ -141,8 +145,10 @@ function VideoTextWord({
           </mask>
         </defs>
         <rect
-          width="100%"
-          height="100%"
+          x="-6%"
+          y="-14%"
+          width="112%"
+          height="128%"
           fill="#F5F5F0"
           mask={`url(#${maskId})`}
         />
