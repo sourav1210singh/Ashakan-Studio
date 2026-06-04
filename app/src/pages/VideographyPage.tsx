@@ -165,9 +165,9 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                           title={video.title}
                         />
                       </div>
-                      <p className="mt-3 text-sm font-medium tracking-wider text-white/60">
-                        {video.title}
-                      </p>
+                      {/* Title caption removed per Brandi 6/4 Discord:
+                          'remove the titles under all images/videos'. The
+                          title still feeds the iframe's accessible name. */}
                     </div>
                   </FadeIn>
                 ))}
