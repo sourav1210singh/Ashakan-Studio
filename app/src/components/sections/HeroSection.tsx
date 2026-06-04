@@ -229,6 +229,10 @@ interface InlineCutoutProps {
   mouseY: MotionValue<number>;
   /** how far this cutout drifts with the mouse (px) */
   floatStrength?: number;
+  /** extra classes on the inner <img> only - e.g. a mobile-only
+   *  scale-down that shrinks the visible image without changing the
+   *  layout box (so neighbouring words/cutouts don't reflow). */
+  imgClassName?: string;
 }
 
 /* Random drift patterns - small amplitude (~±6px) so cutouts don't wander
@@ -270,6 +274,7 @@ function InlineCutout({
   mouseX,
   mouseY,
   floatStrength = 18,
+  imgClassName = "",
 }: InlineCutoutProps) {
   const mx = useTransform(mouseX, [-1, 1], [-floatStrength, floatStrength]);
   const my = useTransform(
@@ -314,7 +319,7 @@ function InlineCutout({
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-contain transition-all duration-500 group-hover:brightness-110 group-hover:saturate-110"
+          className={`w-full h-full object-contain transition-all duration-500 group-hover:brightness-110 group-hover:saturate-110 ${imgClassName}`}
           style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))" }}
         />
         {/* Subtle glow halo on hover */}
@@ -581,6 +586,9 @@ export function HeroSection() {
               mouseX={mouseX}
               mouseY={mouseY}
               floatStrength={28}
+              /* iOS/Android only: shrink the visible glass ~10% via an
+                 image scale-down (layout box unchanged); md+ stays 1:1. */
+              imgClassName="scale-90 md:scale-100"
             />
             {/* STORIES - display font with video-in-text mask.
                 position: relative + top: -15px matches VISUAL -
