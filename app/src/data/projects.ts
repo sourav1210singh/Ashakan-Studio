@@ -343,9 +343,10 @@ export const projects: Project[] = [
     client: "THE MONARCH SCHOOL AND INSTITUTE",
     title: "Serving students with neurological differences",
     categories: ["DOCUMENTARY", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    /* Hero matches the home-page CampaignSection tile image (Brandi
-       6/4 Discord: 'match design/images chosen from the home page'). */
-    heroImage: "/images/campaigns/monarch/monarch-feature.jpg",
+    /* Dedicated 16:9 cover (Brandi 6/5): the home-page tile is portrait,
+       so it cropped badly in the 16:9 hero. This is a landscape cover
+       sized for the hero slot - fills with no cut-off. */
+    heroImage: "/images/campaigns/covers/monarch-cover.webp",
     description:
       "The Monarch School is a unique institution dedicated to providing comprehensive education and support for children with neurological differences. Our team captured the heartwarming stories of students, teachers, and families across multiple years, from the Transforming Lives series to the Gala Event and the MD Anderson kitchen donation, showcasing the transformative power of inclusive education.",
 
@@ -486,9 +487,9 @@ export const projects: Project[] = [
     client: "WEISSMAN ELITE",
     title: "Dancewear That Inspires",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    /* Hero matches the home-page CampaignSection tile image (Brandi
-       6/4 Discord: 'match design/images chosen from the home page'). */
-    heroImage: "/images/campaigns/weissman/weissman-01.jpg",
+    /* Dedicated 16:9 cover (Brandi 6/5) - landscape, fills the hero
+       slot with no crop (the home-page tile is portrait). */
+    heroImage: "/images/campaigns/covers/weissman-cover.webp",
     description:
       "Weissman Elite is a leading name in performance dancewear. Across multiple seasons, from Winter 2022 through Spring 2026, we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
 
@@ -659,9 +660,9 @@ export const projects: Project[] = [
     client: "THE EYE GALLERY",
     title: "Eyewear That Makes a Statement",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
-    /* Hero matches the home-page CampaignSection tile image (Brandi
-       6/4 Discord: 'match design/images chosen from the home page'). */
-    heroImage: "/images/campaigns/eye-gallery/eye-gallery-01.jpg",
+    /* Dedicated 16:9 cover (Brandi 6/5) - landscape, fills the hero
+       slot with no crop (the home-page tile is portrait). */
+    heroImage: "/images/campaigns/covers/eye-gallery-cover.webp",
     description:
       "The Eye Gallery offers curated eyewear from the world's finest designers. Our photography and video campaigns, from in-store ads and seasonal Sunglass Sale spots to scale-driven SASS reels and the Jacques Marie Mage trunk show, captured each unique frame with bold, editorial visuals.",
 
@@ -760,9 +761,9 @@ export const projects: Project[] = [
     client: "DEUTSCH FINE JEWELRY",
     title: "Timeless Elegance, Modern Luxury",
     categories: ["PHOTOGRAPHY", "DESIGN"],
-    /* Hero matches the home-page CampaignSection tile image (Brandi
-       6/4 Discord: 'match design/images chosen from the home page'). */
-    heroImage: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
+    /* Dedicated 16:9 cover (Brandi 6/5) - landscape, fills the hero
+       slot with no crop (the home-page tile is portrait). */
+    heroImage: "/images/campaigns/covers/deutsch-cover.webp",
     description:
       "Deutsch Fine Jewelry represents the pinnacle of luxury craftsmanship. Our photography and videography campaign captured the intricate details and timeless beauty of their collection, creating imagery that speaks to discerning clients seeking exceptional pieces.",
 
