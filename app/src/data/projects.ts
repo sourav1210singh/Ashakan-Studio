@@ -707,6 +707,12 @@ export const projects: Project[] = [
        img-img-vid (3-item groups), keeping videos spread evenly with
        no two adjacent and respecting Brandi's photo sequence. */
     gallery: [
+      /* Brand Reel - added per Brandi 6/4 Discord (A10): 'make sure the
+         gallery is updated for Eye Gallery, link provided in last'. This
+         25-26 Brand Reel is the only new video in her latest doc; placed
+         first (doc order) and followed by two photos so no two videos
+         sit adjacent. */
+      { src: "", alt: "The Eye Gallery 25-26 Brand Reel", type: "video", vimeoId: "1190188606", vimeoHash: "cd8f606a81", aspectRatio: "landscape" },
       /* 001 + 002 → Mix Reel intro */
       { src: "/images/campaigns/eye-gallery/eye-gallery-01.jpg", alt: "Eye Gallery - Aug 2025 cover styling", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-02.jpg", alt: "Eye Gallery - April '26 JMM acetate", type: "image", aspectRatio: "portrait" },
