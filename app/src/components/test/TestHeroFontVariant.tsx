@@ -16,11 +16,11 @@ type Candidate = {
 };
 
 const CANDIDATES: Candidate[] = [
-  { label: "A · Thin 100 · ls 0.04 · natural", weight: 100, letterSpacing: "0.04em", scaleX: 1 },
-  { label: "B · Thin 100 · ls 0.02 · natural", weight: 100, letterSpacing: "0.02em", scaleX: 1 },
-  { label: "C · Thin 100 · ls 0.00 · natural", weight: 100, letterSpacing: "0em", scaleX: 1 },
-  { label: "D · Thin 100 · ls 0.06 · natural", weight: 100, letterSpacing: "0.06em", scaleX: 1 },
-  { label: "E · ExtraLight 200 · ls 0.02 · natural", weight: 200, letterSpacing: "0.02em", scaleX: 1 },
+  { label: "A · Thin 100 · width 100% (natural)", weight: 100, letterSpacing: "0.02em", scaleX: 1 },
+  { label: "B · Thin 100 · width 92%", weight: 100, letterSpacing: "0.02em", scaleX: 0.92 },
+  { label: "C · Thin 100 · width 85%", weight: 100, letterSpacing: "0.02em", scaleX: 0.85 },
+  { label: "D · Thin 100 · width 78%", weight: 100, letterSpacing: "0.02em", scaleX: 0.78 },
+  { label: "E · Thin 100 · width 70%", weight: 100, letterSpacing: "0.02em", scaleX: 0.7 },
 ];
 
 function Row({ c }: { c: Candidate }) {
