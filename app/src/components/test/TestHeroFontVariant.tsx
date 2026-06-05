@@ -1,26 +1,28 @@
 /**
- * TEST VARIANT - hero-font (letter-match lab)
+ * TEST VARIANT - hero-font (FONT IDENTITY lab)
  *
- * Lightweight, video-free page used to match the Inter "WE CREATE" /
- * "THAT" letterforms to Brandi's reference exactly. Each candidate row
- * shows a different weight + tracking + horizontal-scale combo so we can
- * eyeball the glyph shapes against the reference and lock the winner.
- * No cutouts / no Vimeo here so it renders (and screenshots) instantly.
+ * The earlier rounds matched weight + width but the user reports the
+ * GLYPH SHAPES differ (e.g. the "C"). That means the reference is likely
+ * a different typeface than the Inter we render. This lab puts candidate
+ * fonts side by side at natural width (no squeeze, so glyphs are NOT
+ * distorted) so we can identify which font's letterforms actually match
+ * the reference. No cutouts / no video so it renders instantly.
  */
 
 type Candidate = {
   label: string;
+  fontFamily: string;
   weight: number;
-  letterSpacing: string;
-  scaleX: number;
 };
 
+// Fonts already loaded by the app (index.css Google Fonts import):
+//   Inter (100-900), Montserrat (100-300), Bebas Neue, Anton.
 const CANDIDATES: Candidate[] = [
-  { label: "A · Thin 100 · width 100% (natural)", weight: 100, letterSpacing: "0.02em", scaleX: 1 },
-  { label: "B · Thin 100 · width 92%", weight: 100, letterSpacing: "0.02em", scaleX: 0.92 },
-  { label: "C · Thin 100 · width 85%", weight: 100, letterSpacing: "0.02em", scaleX: 0.85 },
-  { label: "D · Thin 100 · width 78%", weight: 100, letterSpacing: "0.02em", scaleX: 0.78 },
-  { label: "E · Thin 100 · width 70%", weight: 100, letterSpacing: "0.02em", scaleX: 0.7 },
+  { label: "1 · INTER · Thin 100", fontFamily: "Inter", weight: 100 },
+  { label: "2 · MONTSERRAT · Thin 100", fontFamily: "Montserrat", weight: 100 },
+  { label: "3 · INTER · ExtraLight 200", fontFamily: "Inter", weight: 200 },
+  { label: "4 · MONTSERRAT · ExtraLight 200", fontFamily: "Montserrat", weight: 200 },
+  { label: "5 · HELVETICA NEUE · Thin", fontFamily: "'Helvetica Neue', Arial", weight: 200 },
 ];
 
 function Row({ c }: { c: Candidate }) {
@@ -29,17 +31,16 @@ function Row({ c }: { c: Candidate }) {
       <p className="text-[11px] font-mono tracking-wider text-dark/45 mb-2 px-6">{c.label}</p>
       <div className="px-6 overflow-hidden">
         <span
-          className="font-sans uppercase inline-block leading-[0.9]"
+          className="uppercase inline-block leading-[0.9]"
           style={{
+            fontFamily: c.fontFamily,
             fontWeight: c.weight,
-            letterSpacing: c.letterSpacing,
-            transform: `scaleX(${c.scaleX})`,
-            transformOrigin: "left center",
+            letterSpacing: "0.02em",
             color: "#1A1A1A",
-            fontSize: "clamp(40px, 9vw, 120px)",
+            fontSize: "clamp(44px, 10vw, 130px)",
           }}
         >
-          WE CREATE THAT
+          WE CREATE
         </span>
       </div>
     </div>
@@ -51,11 +52,12 @@ export function TestHeroFontVariant() {
     <section className="bg-cream min-h-screen pt-28 pb-24">
       <div className="max-w-[1600px] mx-auto">
         <p className="text-xs font-semibold tracking-[0.3em] text-dark/50 uppercase px-6 mb-2">
-          Inter letter-match lab — WE CREATE / THAT
+          Font identity lab — which one&apos;s &quot;C&quot; matches?
         </p>
         <p className="text-sm text-dark/50 px-6 mb-8 max-w-2xl">
-          Same font (Inter). Each row tweaks weight + tracking so we can
-          pick the exact match to your reference. Tell us the row letter.
+          Natural width (no squeeze) so the letter shapes are honest.
+          Compare each row&apos;s C / E / A / R / G to your reference and
+          tell us the row number. Width/weight we tune after the font is right.
         </p>
         {CANDIDATES.map((c) => (
           <Row key={c.label} c={c} />
