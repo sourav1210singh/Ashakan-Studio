@@ -349,8 +349,23 @@ function InlineCutout({
      2. Mouse float      - cutouts subtly track cursor (depth feel)
      3. Magnetic hover   - every word tugs toward cursor on hover
    ──────────────────────────────────────────────────────────── */
-export function HeroSection() {
+interface HeroSectionProps {
+  /** When true, the Inter words "WE CREATE" / "THAT" render at their
+   *  NATURAL letter width (no horizontal squeeze) so the glyph shape
+   *  matches Brandi's reference. Default false keeps the current live
+   *  look (scaleX 0.7) until the test variant is approved. */
+  interNaturalWidth?: boolean;
+}
+
+export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
+
+  /* Inter shape controls. The live home page squeezes the Inter glyphs
+     to 70% width (scaleX) which distorts the letterforms; Brandi wants
+     the real Inter shape. The test variant passes interNaturalWidth to
+     drop the squeeze and open the tracking slightly for the airy look. */
+  const interTransform = interNaturalWidth ? "none" : "scaleX(0.7)";
+  const interLetterSpacing = interNaturalWidth ? "0.04em" : "0.012em";
 
   /* ── Parallax scroll progress for this section ── */
   const { scrollYProgress } = useScroll({
@@ -488,10 +503,10 @@ export function HeroSection() {
                 className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
                   fontWeight: 200,
-                  letterSpacing: "0.012em",
+                  letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
                   color: "#1A1A1A",
-                  transform: "scaleX(0.7)",
+                  transform: interTransform,
                   transformOrigin: "center",
                 }}
               >
@@ -688,10 +703,10 @@ export function HeroSection() {
                 className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
                   fontWeight: 200,
-                  letterSpacing: "0.012em",
+                  letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
                   color: "#1A1A1A",
-                  transform: "scaleX(0.7)",
+                  transform: interTransform,
                   transformOrigin: "center",
                 }}
               >

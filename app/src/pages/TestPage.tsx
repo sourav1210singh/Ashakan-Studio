@@ -1,6 +1,7 @@
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
 import { TestWorkSplitVariant } from "@/components/test/TestWorkSplitVariant";
+import { TestHeroFontVariant } from "@/components/test/TestHeroFontVariant";
 
 interface TestPageProps {
   variantSlug: string;
@@ -21,6 +22,8 @@ export function TestPage({ variantSlug, onNavigate }: TestPageProps) {
             onProjectClick={(slug) => onNavigate("campaigns", slug)}
           />
         );
+      case "hero-font":
+        return <TestHeroFontVariant />;
       default:
         return (
           <div className="py-32 text-center">

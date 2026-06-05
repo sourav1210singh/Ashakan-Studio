@@ -26,6 +26,13 @@ const VARIANTS: TestVariant[] = [
       'Brandi mentioned "maybe there\'s two of them, and one says campaign, one says work" - this variant splits the home page leaf-card section into two separate sections so she can decide if she likes the split.',
     status: "draft",
   },
+  {
+    slug: "hero-font",
+    title: "Hero font fix - natural Inter for WE CREATE / THAT",
+    description:
+      "The live hero squeezes the Inter words 'WE CREATE' and 'THAT' to 70% width (scaleX), which distorts the letterforms. This variant drops the squeeze so the words render at real Inter Thin proportions, matching Brandi's reference. Same font (Inter), same thin weight - only the horizontal compression is removed.",
+    status: "review",
+  },
 ];
 
 export function TestIndexPage({ onNavigate }: TestIndexPageProps) {
