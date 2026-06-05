@@ -366,6 +366,9 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
      drop the squeeze and open the tracking slightly for the airy look. */
   const interTransform = interNaturalWidth ? "none" : "scaleX(0.7)";
   const interLetterSpacing = interNaturalWidth ? "0.04em" : "0.012em";
+  /* Brandi's reference shows hairline strokes = Inter Thin (100). The
+     live site uses 200 (ExtraLight) which reads slightly heavier. */
+  const interFontWeight = interNaturalWidth ? 100 : 200;
 
   /* ── Parallax scroll progress for this section ── */
   const { scrollYProgress } = useScroll({
@@ -502,7 +505,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               <span
                 className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
-                  fontWeight: 200,
+                  fontWeight: interFontWeight,
                   letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
                   color: "#1A1A1A",
@@ -702,7 +705,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               <span
                 className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
-                  fontWeight: 200,
+                  fontWeight: interFontWeight,
                   letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
                   color: "#1A1A1A",
