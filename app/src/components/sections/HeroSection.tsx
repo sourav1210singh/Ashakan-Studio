@@ -369,7 +369,13 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
   const interFontFamily = interNaturalWidth ? "'Oswald', sans-serif" : undefined;
   const interTransform = interNaturalWidth ? "none" : "scaleX(0.7)";
   const interLetterSpacing = interNaturalWidth ? "0.02em" : "0.012em";
-  const interFontWeight = interNaturalWidth ? 240 : 200;
+  /* Oswald's variable axis only goes down to 200, so 200 is the thinnest
+     possible (120 isn't available in the font). */
+  const interFontWeight = interNaturalWidth ? 200 : 200;
+  /* Oswald's cap-height renders ~11% taller than the Bebas Neue display
+     words (VISUAL / STORIES / INSPIRE) at the same size, so scale the
+     Oswald words to 0.9em so all three lines share one cap-height. */
+  const interFontScale = interNaturalWidth ? "0.9em" : undefined;
 
   /* ── Parallax scroll progress for this section ── */
   const { scrollYProgress } = useScroll({
@@ -504,9 +510,10 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               strength={0.2}
             >
               <span
-                className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
+                className="font-sans uppercase inline-block"
                 style={{
                   fontFamily: interFontFamily,
+                  fontSize: interFontScale,
                   fontWeight: interFontWeight,
                   letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
@@ -705,9 +712,10 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               strength={0.2}
             >
               <span
-                className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
+                className="font-sans uppercase inline-block"
                 style={{
                   fontFamily: interFontFamily,
+                  fontSize: interFontScale,
                   fontWeight: interFontWeight,
                   letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
