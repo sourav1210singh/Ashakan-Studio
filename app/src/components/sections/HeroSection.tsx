@@ -360,15 +360,16 @@ interface HeroSectionProps {
 export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
-  /* Inter shape controls. The live home page squeezes the Inter glyphs
-     to 70% width (scaleX) which distorts the letterforms; Brandi wants
-     the real Inter shape. The test variant passes interNaturalWidth to
-     drop the squeeze and open the tracking slightly for the airy look. */
+  /* "WE CREATE" / "THAT" font.
+     LIVE (interNaturalWidth=false): the old Inter + scaleX(0.7) squeeze.
+     FIXED (interNaturalWidth=true): Brandi's final spec (Discord 6/5) -
+     "change these words to OSWALD weight 240". Oswald is a condensed
+     gothic, so it is naturally tall + narrow with no squeeze needed -
+     this is why Inter never matched the reference letterforms. */
+  const interFontFamily = interNaturalWidth ? "'Oswald', sans-serif" : undefined;
   const interTransform = interNaturalWidth ? "none" : "scaleX(0.7)";
-  const interLetterSpacing = interNaturalWidth ? "0.04em" : "0.012em";
-  /* Brandi's reference shows hairline strokes = Inter Thin (100). The
-     live site uses 200 (ExtraLight) which reads slightly heavier. */
-  const interFontWeight = interNaturalWidth ? 100 : 200;
+  const interLetterSpacing = interNaturalWidth ? "0.02em" : "0.012em";
+  const interFontWeight = interNaturalWidth ? 240 : 200;
 
   /* ── Parallax scroll progress for this section ── */
   const { scrollYProgress } = useScroll({
@@ -505,6 +506,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               <span
                 className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
+                  fontFamily: interFontFamily,
                   fontWeight: interFontWeight,
                   letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,
@@ -705,6 +707,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               <span
                 className="font-sans text-4xl sm:text-5xl md:text-7xl lg:text-[106px] xl:text-[132px] uppercase inline-block"
                 style={{
+                  fontFamily: interFontFamily,
                   fontWeight: interFontWeight,
                   letterSpacing: interLetterSpacing,
                   lineHeight: 0.9,

@@ -488,7 +488,18 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         {mainGalleryItems.length > 0 && (
           <section className="py-16 sm:py-24 bg-dark">
             <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10 text-white">
-              <CreativeGrid items={mainGalleryItems} sectionTitle="The Campaign" onImageClick={openLightboxAt} />
+              {/* Plural "The Campaigns" for clients with multiple completed
+                  campaigns (Brandi 6/5: Weissman, Eye Gallery, Monarch);
+                  singular "The Campaign" for single-campaign clients (Deutsch). */}
+              <CreativeGrid
+                items={mainGalleryItems}
+                sectionTitle={
+                  ["weissman", "eye-gallery", "monarch-school"].includes(campaignSlug)
+                    ? "The Campaigns"
+                    : "The Campaign"
+                }
+                onImageClick={openLightboxAt}
+              />
             </div>
           </section>
         )}
