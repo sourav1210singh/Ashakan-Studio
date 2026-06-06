@@ -481,7 +481,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.webp"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-84px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-104px] xl:left-[-84px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -528,7 +528,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.webp"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-162px] lg:mt-[-80px] lg:top-[40px]"
+              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-146px] lg:mt-[-80px] lg:top-[40px] xl:ml-[-162px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
@@ -556,7 +556,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               font: 0 on mobile → -45px at xl (the exact desktop value
               the user finalized stays intact). */}
           <motion.div
-            className="mb-2 lg:mb-4 mt-0 sm:mt-[-12px] md:mt-[-15px] lg:mt-[-36px] xl:mt-[-45px]"
+            className="mb-2 lg:mb-4 mt-0 sm:mt-[-12px] md:mt-[-15px] lg:mt-[34px] xl:mt-[-45px]"
             style={{
               opacity: 0,
               animation: "heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards",
