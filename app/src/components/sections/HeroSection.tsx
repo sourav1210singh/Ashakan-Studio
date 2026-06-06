@@ -481,7 +481,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.webp"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-32px] md:mr-[-90px] md:mt-[-90px] md:left-[-48px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-66px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-84px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
