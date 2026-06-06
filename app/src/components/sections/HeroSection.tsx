@@ -481,7 +481,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.webp"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-16px] md:mr-[-90px] md:mt-[-90px] md:left-[-30px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-46px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-32px] md:mr-[-90px] md:mt-[-90px] md:left-[-48px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-66px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -528,7 +528,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.webp"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-60px] mt-[-22px] top-[10px] md:ml-[-112px] md:mt-[-50px] md:top-[25px] lg:ml-[-178px] lg:mt-[-80px] lg:top-[40px]"
+              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-162px] lg:mt-[-80px] lg:top-[40px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
@@ -673,7 +673,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/car-296gtb-121.webp"
               alt="Ferrari 296GTB cutout"
-              className="inline-block mr-[-12px] mt-[-34px] top-[-20px] md:mr-[-30px] md:mt-[-80px] md:top-[-30px] lg:mr-[-50px] lg:mt-[-130px] lg:top-[-42px]"
+              className="inline-block mr-[-12px] mt-[-34px] top-[-20px] left-[-16px] md:mr-[-30px] md:mt-[-80px] md:top-[-30px] md:left-[-26px] lg:mr-[-50px] lg:mt-[-130px] lg:top-[-42px] lg:left-[-36px]"
               width="clamp(56px, 16.2vw, 258px)"
               height="clamp(42px, 12.6vw, 196px)"
               driftName="driftA"
