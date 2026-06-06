@@ -21,7 +21,7 @@ interface VariantProps {
 export function TestWorkSplitVariant({ onProjectClick }: VariantProps) {
   return (
     <>
-      <HeroSection />
+      <HeroSection interNaturalWidth />
       <CampaignSection onProjectClick={onProjectClick} />
       <WorkCategoriesSection />
       <FriendsMarqueeSection />

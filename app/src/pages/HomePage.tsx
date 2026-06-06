@@ -34,7 +34,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       <main>
-        <HeroSection />
+        {/* interNaturalWidth = WE CREATE / THAT in Oswald 200 (Brandi's
+            approved banner font), replacing the old Inter + squeeze. */}
+        <HeroSection interNaturalWidth />
         <VideoBannerSection />
         <CampaignSection
           onProjectClick={(slug) => onNavigate("campaigns", slug)}
