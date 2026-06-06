@@ -481,7 +481,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.webp"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-104px] xl:left-[-84px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-122px] xl:left-[-84px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -528,7 +528,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.webp"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-146px] lg:mt-[-80px] lg:top-[40px] xl:ml-[-162px]"
+              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-128px] lg:mt-[-80px] lg:top-[40px] xl:ml-[-162px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
@@ -605,7 +605,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/cutout-8Q1A1315.webp"
               alt="Editorial product cutout"
-              className="inline-block ml-[-6px] mr-[6px] mt-[-30px] top-[16px] md:ml-[8px] md:mr-[19px] md:mt-[-70px] md:top-[54px] lg:ml-[-2px] lg:mt-[-100px] lg:top-[76px]"
+              className="inline-block ml-[-6px] mr-[6px] mt-[-30px] top-[16px] md:ml-[8px] md:mr-[19px] md:mt-[-70px] md:top-[54px] lg:ml-[-2px] lg:mt-[-100px] lg:top-[48px] xl:top-[76px]"
               width="clamp(52px, 15vw, 227px)"
               height="clamp(74px, 23.4vw, 359px)"
               driftName="driftB"
