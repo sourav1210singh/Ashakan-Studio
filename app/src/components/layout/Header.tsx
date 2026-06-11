@@ -315,8 +315,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               on the outer wrapper lets the menu scroll if the viewport
               is shorter than the content (small laptops at 100 % zoom). */}
           <div className="flex flex-col justify-between min-h-full pt-16 sm:pt-20">
-            {/* Nav Items */}
-            <nav className="w-full flex-1 flex flex-col justify-end">
+            {/* Nav Items - each row stretches (flex-1) so the five items
+                fill the full menu height with no empty gap at the top
+                (client 6/11: 'unnecessary white gap, please remove'). */}
+            <nav className="w-full flex-1 flex flex-col">
               {[
                 { label: "PHOTO", href: "/work/photography", delay: 0.05 },
                 { label: "VIDEO", href: "/work/videography", delay: 0.1 },
@@ -324,7 +326,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                 { label: "WHAT WE DO", href: "/what-we-do", delay: 0.2 },
                 { label: "THE STUDIO", href: "/studio", delay: 0.25 },
               ].map((item) => (
-                <div key={item.label} className="border-b border-dark/10 group relative">
+                <div key={item.label} className="border-b border-dark/10 group relative flex-1 flex min-h-0">
                   {/* Uniform black sweep - same animation, no per-item color */}
                   <div className="absolute inset-0 overflow-hidden">
                     <div
@@ -337,7 +339,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                       off THE STUDIO + footer at ~768 px tall screens). */}
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="relative z-20 w-full text-left font-hero-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-3 sm:py-4 lg:py-5 transition-colors duration-300 group-hover:text-white uppercase font-black"
+                    className="relative z-20 w-full h-full flex items-center text-left font-hero-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-3 sm:py-4 lg:py-5 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {item.label}
