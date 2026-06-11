@@ -113,14 +113,15 @@ const WORK_TILES: WorkTile[] = [
     vimeoHash: "000a715e4a",
     href: "/work/videography/documentary/",
   },
-  // P/Headshots (was P/Industrial - retitled per Brandi new-PDF page 4:
-  // 'change this title and portfolio to HEADSHOTS')
+  // P/Headshots - the renamed Industrial category (Ashkan 6/10: rename
+  // Industrial -> Headshots, keep its content/imagery). Tile image is
+  // from the industrial set, not the old dedicated headshots page.
   {
     id: "photo-headshots",
     type: "PHOTOGRAPHY",
     category: "HEADSHOTS",
-    description: "Professional headshots and personal-branding portraits for individuals and teams.",
-    image: "/images/headshots/headshot-1.jpg",
+    description: "Professional headshots and corporate portraits for executives, teams, and brands.",
+    image: "/images/categories/industrial/daniella-1937.jpg",
     href: "/work/photography/headshots/",
   },
   // V/Industrial

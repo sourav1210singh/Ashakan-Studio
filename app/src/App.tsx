@@ -199,7 +199,10 @@ function App() {
       case "home":
         return <HomePage onNavigate={navigateTo} />;
       case "photography":
-        if (selectedCategory === "headshots") {
+        /* The old dedicated headshots page is archived at "old-headshot".
+           "headshots" is now the renamed Industrial category, rendered by
+           PhotographyPage with the industrial gallery (Ashkan 6/10). */
+        if (selectedCategory === "old-headshot") {
           return <HeadshotsPage onNavigate={navigateTo} />;
         }
         return <PhotographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
