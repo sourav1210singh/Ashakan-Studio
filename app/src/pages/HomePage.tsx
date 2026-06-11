@@ -42,8 +42,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
           onProjectClick={(slug) => onNavigate("campaigns", slug)}
         />
         <WorkCategoriesSection />
-        <FriendsMarqueeSection />
         <FullServiceHybridSection />
+        <FriendsMarqueeSection />
         <AboutSection />
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
