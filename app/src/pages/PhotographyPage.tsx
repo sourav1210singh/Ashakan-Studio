@@ -89,29 +89,10 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/categories/retail/sf90-895.jpg", alt: "Ferrari SF90 - luxury sports" },
     { src: "/images/categories/retail/sf90-949.jpg", alt: "Ferrari SF90 - close-up" },
   ],
-  industrial: [
-    { src: "/images/categories/industrial/2venus-aerospace-24470-2.jpg", alt: "Venus Aerospace - facility" },
-    { src: "/images/categories/industrial/2venus-aerospace-24545.jpg", alt: "Venus Aerospace - operations" },
-    { src: "/images/categories/industrial/4q7a0824.jpg", alt: "Industrial photography" },
-    { src: "/images/categories/industrial/4q7a8716.jpg", alt: "Industrial - engineering" },
-    { src: "/images/categories/industrial/4q7a8728.jpg", alt: "Industrial - equipment" },
-    { src: "/images/categories/industrial/4q7a8747.jpg", alt: "Industrial - operations" },
-    { src: "/images/categories/industrial/4q7a8780.jpg", alt: "Industrial - workshop" },
-    { src: "/images/categories/industrial/4q7a8946.jpg", alt: "Industrial - facility" },
-    { src: "/images/categories/industrial/aleyna-ozcelik-154.jpg", alt: "Aleyna Ozcelik - corporate portrait" },
-    { src: "/images/categories/industrial/cici-3845-edit-2.jpg", alt: "CICI - corporate" },
-    { src: "/images/categories/industrial/daniella-1937.jpg", alt: "Daniella - corporate portrait" },
-    { src: "/images/categories/industrial/elevation-on-tour-headshot-061.jpg", alt: "Elevation on Tour" },
-    { src: "/images/categories/industrial/michelle-leagans-2025-048.jpg", alt: "Michelle Leagans - corporate" },
-    { src: "/images/categories/industrial/reagan-thomas-3630.jpg", alt: "Reagan Thomas - corporate" },
-    { src: "/images/categories/industrial/tattum-159.jpg", alt: "Tattum - industrial" },
-    { src: "/images/categories/industrial/tgc-2864.jpg", alt: "TGC - industrial photography" },
-    { src: "/images/categories/industrial/unbridaled-124.jpg", alt: "Unbridaled - industrial" },
-    { src: "/images/categories/industrial/venus-aerospace-24424-edit.jpg", alt: "Venus Aerospace - engineering" },
-    { src: "/images/categories/industrial/venus-aerospace-24443-edit.jpg", alt: "Venus Aerospace - innovation" },
-    { src: "/images/categories/industrial/venus-aerospace-24499.jpg", alt: "Venus Aerospace - facility detail" },
-    { src: "/images/categories/industrial/venus-aerospace-24526.jpg", alt: "Venus Aerospace - operations" },
-  ],
+  /* The Photography "Industrial" category was retired and replaced by
+     HEADSHOTS (Ashkan 6/10 note). Headshots has its own dedicated page
+     (HeadshotsPage at /work/photography/headshots), so no gallery entry
+     is needed here. The industrial image files remain on disk. */
 };
 
 /** Category-specific titles and descriptions */
@@ -130,11 +111,6 @@ const categoryMeta: Record<string, { title: string; description: string }> = {
     title: "FASHION",
     description:
       "Editorial fashion photography with bold styling, dramatic lighting, and refined composition. Visual storytelling for designers, publications, and emerging labels.",
-  },
-  industrial: {
-    title: "INDUSTRIAL",
-    description:
-      "Industrial, automotive, and corporate photography. Clean, technical, and purposeful imagery that highlights craftsmanship, scale, and innovation.",
   },
 };
 
@@ -217,7 +193,7 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                     { label: "RETAIL", slug: "retail" },
                     { label: "THE ARTS", slug: "the-arts" },
                     { label: "FASHION", slug: "fashion" },
-                    { label: "INDUSTRIAL", slug: "industrial" },
+                    { label: "HEADSHOTS", slug: "headshots" },
                   ].map((cat) => (
                     <button
                       key={cat.slug}
