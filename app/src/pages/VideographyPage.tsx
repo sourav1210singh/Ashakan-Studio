@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import type { View } from "@/App";
 import {
   BRANDI_VIDEOS,
@@ -172,6 +173,12 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
             )}
           </div>
         </section>
+
+        {/* CTA above the footer (Ashkan 6/10: CTA on portfolio pages) */}
+        <PortfolioCta
+          text="Ready to bring your story to life on screen? Let's plan your next video production in Houston."
+          onContactClick={() => onNavigate("contact")}
+        />
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>

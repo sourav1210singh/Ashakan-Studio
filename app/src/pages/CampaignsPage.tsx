@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import { campaigns } from "@/data/navigation";
 import { portfolioItems } from "@/data/portfolio";
 import type { View } from "@/App";
@@ -80,6 +81,12 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
             </div>
           </div>
         </section>
+
+        {/* CTA above the footer (Ashkan 6/10: CTA on portfolio pages) */}
+        <PortfolioCta
+          text="Want a campaign like these for your brand? Let's create your next story together."
+          onContactClick={() => onNavigate("contact")}
+        />
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
     </>

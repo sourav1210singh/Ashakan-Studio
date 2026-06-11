@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import { portfolioItems } from "@/data/portfolio";
 import type { View } from "@/App";
 
@@ -267,6 +268,12 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
             )}
           </div>
         </section>
+
+        {/* CTA above the footer (Ashkan 6/10: CTA on portfolio pages) */}
+        <PortfolioCta
+          text="Ready to create photography that defines your brand? Partner with our Houston team for your next shoot."
+          onContactClick={() => onNavigate("contact")}
+        />
       </main>
       <Footer onLogoClick={() => onNavigate("home")} />
 
