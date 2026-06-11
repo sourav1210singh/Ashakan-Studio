@@ -17,7 +17,7 @@ export const mainNavigation: NavItem[] = [
           { label: "RETAIL", href: "/work/photography/retail" },
           { label: "THE ARTS", href: "/work/photography/the-arts" },
           { label: "FASHION", href: "/work/photography/fashion" },
-          { label: "INDUSTRIAL", href: "/work/photography/industrial" },
+          { label: "HEADSHOTS", href: "/work/photography/headshots" },
         ],
       },
       {
@@ -61,7 +61,7 @@ export const photographyCategories = [
   { id: "retail", name: "RETAIL", href: "/work/photography/retail" },
   { id: "the-arts", name: "THE ARTS", href: "/work/photography/the-arts" },
   { id: "fashion", name: "FASHION", href: "/work/photography/fashion" },
-  { id: "industrial", name: "INDUSTRIAL", href: "/work/photography/industrial" },
+  { id: "headshots", name: "HEADSHOTS", href: "/work/photography/headshots" },
 ];
 
 // Videography portfolio categories
