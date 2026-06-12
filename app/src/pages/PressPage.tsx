@@ -51,7 +51,8 @@ const PRESS_ITEMS = [
     date: "2023",
     excerpt:
       "A long-exposure photograph of a dancer with flowing veils, captured in the Houston studio, exploring how fabric in motion amplifies the drama and expressiveness of dance.",
-    image: "/images/portfolio/vitacca-ballet.jpg",
+    /* AI thumb replaced with a real client arts photo (Ashkan 6/11) */
+    image: "/images/categories/the-arts/_abstract-1599.jpg",
     link: "https://photoawards.com/winner/zoom.php?eid=8-1722603089-25",
   },
   {
@@ -71,7 +72,7 @@ const PRESS_ITEMS = [
     date: "JUL 2025",
     excerpt:
       "A feature on Ashkan Image, the photography division of Ashkan Studios, covering its creative practice, signature commercial work, and place within the Houston creative community.",
-    image: "/images/portfolio/fashion.jpg",
+    image: "/images/categories/fashion/citybook-2024-633.jpg",
     link: "http://www.chasingroots.com/2025/07/ashkan-image.html",
   },
   {
@@ -81,7 +82,7 @@ const PRESS_ITEMS = [
     date: "JUN 2018",
     excerpt:
       "Ashkan Roayaee discusses his journey from Iran to Houston, his mission to revive the city's creative spirit post-Hurricane Harvey through collaborative dance photography, and his vision of art as universal communication.",
-    image: "/images/portfolio/cecilia-duarte.jpg",
+    image: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg",
     link: "https://voyagehouston.com/interview/check-ashkan-roayaees-artwork/",
   },
 ];

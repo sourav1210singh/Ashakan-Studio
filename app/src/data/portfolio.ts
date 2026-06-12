@@ -128,7 +128,9 @@ export const portfolioItems: PortfolioItem[] = [
     title: "Weissman Elite",
     category: "RETAIL",
     mediaType: "both",
-    image: "/images/portfolio/weissman-elite.jpg",
+    /* AI placeholder thumb removed (Ashkan 6/11) - campaign tile now
+       uses the approved 16:9 cover. */
+    image: "/images/campaigns/covers/weissman-cover.webp",
     href: "#",
     photoCategories: ["retail"],
     videoCategories: ["retail"],
@@ -169,7 +171,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: "The Eye Gallery",
     category: "RETAIL",
     mediaType: "both",
-    image: "/images/portfolio/eye-gallery.jpg",
+    image: "/images/campaigns/covers/eye-gallery-cover.webp",
     href: "#",
     photoCategories: ["retail"],
     videoCategories: ["retail"],
@@ -180,7 +182,7 @@ export const portfolioItems: PortfolioItem[] = [
     title: "Deutsch Fine Jewelry",
     category: "PHOTOGRAPHY / VIDEOGRAPHY",
     mediaType: "both",
-    image: "/images/portfolio/deutsch-jewelry.jpg",
+    image: "/images/campaigns/covers/deutsch-cover.webp",
     href: "#",
     photoCategories: ["retail"],
     videoCategories: ["retail"],

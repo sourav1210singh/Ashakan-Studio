@@ -61,8 +61,6 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                 { src: "/images/headshots/headshot-19.jpg", alt: "Studio headshot - elegant styling", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-20.jpg", alt: "Lifestyle portrait - personal branding", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-21.jpg", alt: "Madison McClain - dancer headshot", aspect: "aspect-[3/4]" },
-                { src: "/images/portfolio/cecilia-duarte.jpg", alt: "Cecilia Duarte - portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/portfolio/lauren-anderson.jpg", alt: "Lauren Anderson - headshot", aspect: "aspect-[3/4]" },
               ].map((img, index) => (
                 <FadeIn key={img.alt} delay={index * 0.08}>
                   <div className={`relative overflow-hidden ${img.aspect} group`}>
