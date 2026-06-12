@@ -4,7 +4,6 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { PortfolioCta } from "@/components/ui/PortfolioCta";
-import { portfolioItems } from "@/data/portfolio";
 import type { View } from "@/App";
 
 /** Gallery images organized by category - sourced from real photoshoot folders */
@@ -15,11 +14,9 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/categories/fashion/ag-349.jpg", alt: "Fashion shoot - studio session" },
     { src: "/images/categories/fashion/ansley-jackson-154.jpg", alt: "Ansley Jackson - fashion editorial" },
     { src: "/images/categories/fashion/citybook-2024-1000.jpg", alt: "CityBook 2024 - fashion editorial" },
-    { src: "/images/categories/fashion/citybook-2024-1188.jpg", alt: "CityBook 2024 - runway editorial" },
     { src: "/images/categories/fashion/citybook-2024-347.jpg", alt: "CityBook 2024 - color story" },
     { src: "/images/categories/fashion/citybook-2024-633.jpg", alt: "CityBook 2024 - modern fashion" },
     { src: "/images/categories/fashion/finn-hackney-62296-edit.jpg", alt: "Finn Hackney - fashion portrait" },
-    { src: "/images/categories/fashion/isabella-decandido-21845.jpg", alt: "Isabella DeCandido - fashion" },
     { src: "/images/categories/fashion/kieran-holmes-134.jpg", alt: "Kieran Holmes - fashion editorial" },
     { src: "/images/categories/fashion/kieran-holmes-311.jpg", alt: "Kieran Holmes - fashion shoot" },
     { src: "/images/categories/fashion/light-tutorial--madison-164.jpg", alt: "Light tutorial - Madison" },
@@ -28,8 +25,6 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/categories/fashion/silken-x-godox-123.jpg", alt: "Silken collaboration" },
     { src: "/images/categories/fashion/tattum-312.jpg", alt: "Tattum - fashion editorial" },
     { src: "/images/categories/fashion/tattum-328.jpg", alt: "Tattum - fashion portrait" },
-    { src: "/images/categories/fashion/tattum-457.jpg", alt: "Tattum - modern fashion" },
-    { src: "/images/categories/fashion/tattum-498.jpg", alt: "Tattum - bold styling" },
     { src: "/images/categories/fashion/tattum-516.jpg", alt: "Tattum - editorial close-up" },
     { src: "/images/categories/fashion/vitacca-2025-8276.jpg", alt: "Vitacca 2025 - fashion editorial" },
     { src: "/images/categories/fashion/zina-618.jpg", alt: "Zina - fashion portrait" },
@@ -52,7 +47,6 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/categories/the-arts/harlem-theater-49919-edit.jpg", alt: "Harlem Theater" },
     { src: "/images/categories/the-arts/kayla-raw-23160.jpg", alt: "Kayla - raw performance" },
     { src: "/images/categories/the-arts/kinetic-symphony-3317-edit-2.jpg", alt: "Kinetic Symphony - dance" },
-    { src: "/images/categories/the-arts/kinetic-symphony-3406-edit.jpg", alt: "Kinetic Symphony - movement" },
     { src: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg", alt: "Lauren Anderson - dance editorial" },
     { src: "/images/categories/the-arts/leah-white_-1127.jpg", alt: "Leah White - performer" },
     { src: "/images/categories/the-arts/madison-7078-2.jpg", alt: "Madison - dance portrait" },
@@ -83,7 +77,6 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/categories/retail/ct4-571.jpg", alt: "Cadillac CT4 - automotive" },
     { src: "/images/categories/retail/ct4-581.jpg", alt: "Cadillac CT4 - interior" },
     { src: "/images/categories/retail/eye-gallery-aug-21-2025-062.jpg", alt: "The Eye Gallery - eyewear" },
-    { src: "/images/categories/retail/eye-gallery-aug-21-2025-167.jpg", alt: "The Eye Gallery - designer frames" },
     { src: "/images/categories/retail/mustang-095.jpg", alt: "Ford Mustang - automotive" },
     { src: "/images/categories/retail/mustang-111.jpg", alt: "Ford Mustang - performance shot" },
     { src: "/images/categories/retail/mustang-218.jpg", alt: "Ford Mustang - detail" },
@@ -109,7 +102,6 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
     { src: "/images/categories/industrial/venus-aerospace-24424-edit.jpg", alt: "Venus Aerospace - engineering" },
     { src: "/images/categories/industrial/venus-aerospace-24443-edit.jpg", alt: "Venus Aerospace - innovation" },
     { src: "/images/categories/industrial/venus-aerospace-24499.jpg", alt: "Venus Aerospace - facility detail" },
-    { src: "/images/categories/industrial/venus-aerospace-24526.jpg", alt: "Venus Aerospace - operations" },
     { src: "/images/categories/industrial/4q7a0824.jpg", alt: "Industrial photography" },
     { src: "/images/categories/industrial/4q7a8716.jpg", alt: "Industrial - engineering" },
     { src: "/images/categories/industrial/4q7a8728.jpg", alt: "Industrial - equipment" },
@@ -166,14 +158,13 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
     pageTitle = meta?.title || activeCategory!.toUpperCase();
     pageDescription = meta?.description || "";
   } else {
-    // Main photography page - show all merged
-    const projectImages = portfolioItems
-      .filter((item) => item.photoCategories && item.photoCategories.length > 0)
-      .map((item) => ({ src: item.image, alt: item.title }));
+    /* Main photography page - category galleries only (client-provided
+       photos). The old portfolioItems thumbnail merge was removed per
+       Ashkan 6/11: those thumbs were AI/stock placeholders, now parked
+       in C:/Ashakan-Studio/Removed-Images outside the site. */
     const galleryImages = Object.values(categoryGallery).flat();
-
     const seen = new Set<string>();
-    for (const img of [...projectImages, ...galleryImages]) {
+    for (const img of galleryImages) {
       if (!seen.has(img.src)) {
         seen.add(img.src);
         displayImages.push(img);
