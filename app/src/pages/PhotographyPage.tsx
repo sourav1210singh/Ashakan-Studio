@@ -215,6 +215,23 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                 </p>
               )}
 
+              {/* SEO intro paragraph (client-supplied, Ashkan 6/12) - main
+                  page only, gives the previously content-less gallery real
+                  copy for search engines. */}
+              {!isCategory && (
+                <p className="text-base sm:text-lg text-white/60 max-w-3xl mt-6 leading-relaxed">
+                  Ashkan Studios is Houston&apos;s full-service photography
+                  production team with over 12 years of experience. From
+                  fashion and editorial to retail product photography, fine
+                  art portraits, and professional headshots, we do it all
+                  &mdash; concept to final image. We partner with brands,
+                  creatives, and executives across Houston and beyond to
+                  create imagery that defines, not just documents. Explore
+                  our portfolio below and see what&apos;s possible when craft
+                  meets vision.
+                </p>
+              )}
+
               {/* EXPLORE pills - shown only on the all-photography view,
                   let visitors jump directly to a sub-category page per
                   Brandi's page-19/20 review note. Hidden on the category
