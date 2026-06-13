@@ -342,7 +342,13 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                     className="relative z-20 w-full self-stretch flex items-center text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
-                    {item.label}
+                    {/* nudge the all-caps text down ~0.05em so the visible
+                        letters sit at the true vertical centre of the bar
+                        (the font reserves more empty space below the caps
+                        than above, so a flex-centred line box reads high). */}
+                    <span className="inline-block translate-y-[0.05em] leading-none">
+                      {item.label}
+                    </span>
                   </button>
                 </div>
               ))}
