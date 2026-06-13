@@ -105,6 +105,22 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                   {pageDescription}
                 </p>
               )}
+
+              {/* SEO intro paragraph (client-supplied, Ashkan 6/12) - main
+                  page only, gives the gallery real copy for search engines. */}
+              {!isCategory && (
+                <p className="text-base sm:text-lg text-white/60 max-w-3xl mt-6 leading-relaxed">
+                  Ashkan Studios is Houston&apos;s full-service video
+                  production team with over 12 years of experience telling
+                  stories that move. From retail commercials and industrial
+                  videos to documentary filmmaking, narrative productions,
+                  and arts coverage, we handle every phase &mdash; concept,
+                  production, and post. We partner with brands, businesses,
+                  and creatives across Houston who need more than footage
+                  &mdash; they need a story. Explore our work below and
+                  discover what&apos;s possible when vision meets execution.
+                </p>
+              )}
               {/* 'N Videos' counter line removed 2026-05-12 per user
                   request - applies to the all-videography page and
                   every category sub-page. */}
