@@ -252,7 +252,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               <img
                 src="/images/logo.png"
                 alt="Ashkan Studios"
-                className="h-16 sm:h-20 md:h-24 lg:h-[120px] xl:h-[140px] w-auto transition-all duration-300"
+                className="h-20 sm:h-24 md:h-28 lg:h-[160px] xl:h-[190px] w-auto transition-all duration-300"
                 style={{
                   filter: isDarkPage && !isScrolled && !isMenuOpen ? "brightness(0) invert(1)" : "none",
                 }}
@@ -339,7 +339,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                       off THE STUDIO + footer at ~768 px tall screens). */}
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="relative z-20 w-full h-full flex items-center text-left font-hero-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 py-3 sm:py-4 lg:py-5 transition-colors duration-300 group-hover:text-white uppercase font-black"
+                    className="relative z-20 w-full self-stretch flex items-center text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-tight px-6 sm:px-10 lg:px-16 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {item.label}
