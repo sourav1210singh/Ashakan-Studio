@@ -39,24 +39,23 @@ const CAMPAIGN_CARDS: CampaignCard[] = [
     image: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
     slug: "deutsch",
   },
-  {
-    id: "weissman",
-    label: "WEISSMAN ELITE",
-    image: "/images/campaigns/weissman/weissman-01.jpg",
-    slug: "weissman",
-  },
+  /* Order: Eye Gallery before Weissman, and new covers per Ashkan 6/12. */
   {
     id: "eye-gallery",
     label: "THE EYE GALLERY",
-    image: "/images/campaigns/eye-gallery/eye-gallery-01.jpg",
+    image: "/images/campaigns/eye-gallery/eye-gallery-cover-home.jpg",
     slug: "eye-gallery",
+  },
+  {
+    id: "weissman",
+    label: "WEISSMAN ELITE",
+    image: "/images/campaigns/weissman/weissman-cover-home.jpg",
+    slug: "weissman",
   },
   {
     id: "monarch-school",
     label: "THE MONARCH SCHOOL",
-    /* Image swapped per Brandi new-PDF page 3 - client supplied a
-       new portrait (smiling student in Monarch polo). */
-    image: "/images/campaigns/monarch/monarch-feature.jpg",
+    image: "/images/campaigns/monarch/monarch-cover-home.jpg",
     slug: "monarch-school",
   },
 ];
