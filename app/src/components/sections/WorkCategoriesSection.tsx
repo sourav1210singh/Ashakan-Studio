@@ -55,7 +55,8 @@ const WORK_TILES: WorkTile[] = [
     type: "PHOTOGRAPHY",
     category: "RETAIL",
     description: "Editorial product and lifestyle imagery for premium retail brands.",
-    image: "/images/categories/retail/mustang-095.jpg",
+    /* Cover swapped per Ashkan 6/12. */
+    image: "/images/categories/retail/6c1a8388.jpg",
     href: "/work/photography/retail/",
   },
   // V/Retail
@@ -98,7 +99,8 @@ const WORK_TILES: WorkTile[] = [
     type: "PHOTOGRAPHY",
     category: "FASHION",
     description: "Editorial fashion stories with cinematic light and bold styling.",
-    image: "/images/categories/fashion/citybook-2024-1000.jpg",
+    /* Cover swapped per Ashkan 6/12. */
+    image: "/images/categories/fashion/zina-659.jpg",
     href: "/work/photography/fashion/",
   },
   // V/Documentary
