@@ -102,23 +102,26 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
      facility work), now titled Headshots. The previous dedicated
      headshots page is archived at /work/photography/old-headshot. */
   headshots: [
+    /* New client-delivered headshots (Ashkan 6/12) replacing the removed
+       tattum-159/unbridaled/venus-24499/venus-24526/4q7a8747. */
+    { src: "/images/categories/industrial/headshots-25.jpg", alt: "Headshot - studio portrait" },
+    { src: "/images/categories/industrial/headshots-23.jpg", alt: "Headshot - corporate portrait" },
+    { src: "/images/categories/industrial/headshots-24.jpg", alt: "Headshot - professional portrait" },
+    { src: "/images/categories/industrial/headshots-22.jpg", alt: "Headshot - executive portrait" },
+    { src: "/images/categories/industrial/headshots-21.jpg", alt: "Headshot - branding portrait" },
+    { src: "/images/categories/industrial/headshots-13.jpg", alt: "Headshot - editorial portrait" },
     { src: "/images/categories/industrial/daniella-1937.jpg", alt: "Daniella - corporate portrait" },
     { src: "/images/categories/industrial/reagan-thomas-3630.jpg", alt: "Reagan Thomas - corporate portrait" },
     { src: "/images/categories/industrial/michelle-leagans-2025-048.jpg", alt: "Michelle Leagans - corporate portrait" },
     { src: "/images/categories/industrial/cici-3845-edit-2.jpg", alt: "CICI - corporate portrait" },
     { src: "/images/categories/industrial/elevation-on-tour-headshot-061.jpg", alt: "Elevation on Tour - headshot" },
-    { src: "/images/categories/industrial/tattum-159.jpg", alt: "Tattum - portrait" },
-    { src: "/images/categories/industrial/unbridaled-124.jpg", alt: "Unbridaled - portrait" },
     { src: "/images/categories/industrial/2venus-aerospace-24470-2.jpg", alt: "Venus Aerospace - facility" },
     { src: "/images/categories/industrial/2venus-aerospace-24545.jpg", alt: "Venus Aerospace - operations" },
     { src: "/images/categories/industrial/venus-aerospace-24424-edit.jpg", alt: "Venus Aerospace - engineering" },
     { src: "/images/categories/industrial/venus-aerospace-24443-edit.jpg", alt: "Venus Aerospace - innovation" },
-    { src: "/images/categories/industrial/venus-aerospace-24499.jpg", alt: "Venus Aerospace - facility detail" },
-    { src: "/images/categories/industrial/venus-aerospace-24526.jpg", alt: "Venus Aerospace - operations" },
     { src: "/images/categories/industrial/4q7a0824.jpg", alt: "Industrial photography" },
     { src: "/images/categories/industrial/4q7a8716.jpg", alt: "Industrial - engineering" },
     { src: "/images/categories/industrial/4q7a8728.jpg", alt: "Industrial - equipment" },
-    { src: "/images/categories/industrial/4q7a8747.jpg", alt: "Industrial - operations" },
     { src: "/images/categories/industrial/4q7a8780.jpg", alt: "Industrial - workshop" },
   ],
 };
