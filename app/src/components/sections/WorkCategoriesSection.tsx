@@ -123,7 +123,7 @@ const WORK_TILES: WorkTile[] = [
     type: "PHOTOGRAPHY",
     category: "HEADSHOTS",
     description: "Professional headshots and corporate portraits for executives, teams, and brands.",
-    image: "/images/categories/industrial/daniella-1937.jpg",
+    image: "/images/categories/industrial/headshots17.jpg",
     href: "/work/photography/headshots/",
   },
   // V/Industrial
