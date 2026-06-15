@@ -339,7 +339,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                       off THE STUDIO + footer at ~768 px tall screens). */}
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="relative z-20 w-full self-stretch flex items-center text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-[0.04em] px-6 sm:px-10 lg:px-16 transition-colors duration-300 group-hover:text-white uppercase font-black"
+                    className="relative z-20 w-full self-stretch flex items-center text-left font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-[0.04em] px-6 sm:px-10 lg:px-16 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {/* nudge the all-caps text down ~0.05em so the visible
