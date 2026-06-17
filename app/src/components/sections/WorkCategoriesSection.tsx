@@ -297,7 +297,7 @@ export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
   return (
     <section
       id="work"
-      className="relative bg-dark py-20 sm:py-28 lg:py-32 mb-12 sm:mb-16 lg:mb-20"
+      className="relative bg-dark py-20 sm:py-28 lg:py-32"
     >
       {/* Header - Brandi new-PDF page 4:
           • paragraph moved ABOVE the heading
