@@ -506,22 +506,22 @@ export const BRANDI_VIDEOS: BrandiVideo[] = [
 /** Ordered Vimeo IDs shown on the main /work/videography page
  *  ("TOP CHOICES FOR VIDEOGRAPHY FULL PAGE" from Brandi's doc). */
 export const TOP_CHOICE_ORDER: string[] = [
-  "1189131033",
-  "824223043",
-  "1190188606",
-  "1100401603",
-  "950064546",
-  "1151967437",
-  "875774223",
-  "1002076560",
-  "865765822",
-  "1002121348",
-  "954997422",
-  "1189131655",
-  "894189739",
-  "1125611606",
-  "1189136660",
-  "1189137962",
+  "1189131033", // Cacao & Cardamom Valentines / Red Heart Box
+  "824223043",  // Weissman Fall 2023 Front Cover Light Wall
+  "1190188606", // The Eye Gallery 25-26 Brand Reel
+  "1100401603", // RadioMedix Changing the Landscape
+  "1189131655", // Buddy Walk 2025 (Brandi 6/16: moved up to #5)
+  "950064546",  // Weissman Fall 2024 Season Cross Genre
+  "1151967437", // Monarch Transforming Lives 25-26
+  "1022971286", // Vitacca Season Promo 24-25 (Brandi 6/16: replaced 23-24 875774223)
+  "1002076560", // Cecilia Duarte Second Solo Album
+  "865765822",  // Kinetik Once Upon a Time
+  "1002121348", // The Eye Gallery Mix Reel 001
+  "954997422",  // Safari Vet League City
+  "894189739",  // Weissman Spring 2024 Quirky/Stripes
+  "1125611606", // Cacao & Cardamom Delicious Impressions
+  "1189136660", // 1968 Mustang GT / Auto Shop
+  "1189137962", // Facet Seven Nutrition Chapter 2.2
 ];
 
 /* ════════════════════════════════════════════════════════════════════
@@ -533,9 +533,45 @@ export function getVideosByCampaign(slug: CampaignSlug): BrandiVideo[] {
   return BRANDI_VIDEOS.filter((v) => v.campaign === slug);
 }
 
-/** All videos tagged in a given portfolio category, in catalog order */
+/* Per-category display order (Brandi 6/16 review notes - vimeoId order
+   taken verbatim from the "WORK PORTFOLIOS" section of her doc). Kept
+   here as explicit lists so each category page can be ordered
+   independently of the global catalog order. industrial + narrative
+   were "all ok" in her notes but are listed for completeness. */
+const PORTFOLIO_ORDER: Record<PortfolioCategory, string[]> = {
+  retail: [
+    "1189131033", "1190188606", "1094764251", "1189138937", "999290876",
+    "950064546", "1189131500", "824868764", "1125611606", "1189130989",
+    "894189739", "1189131036", "947075031", "782973181", "1125611474",
+  ],
+  "the-arts": [
+    "1002076560", "1022971286", "1043474069", "1002076393", "875774223",
+  ],
+  industrial: [
+    "1100401603", "865765822", "1189136660", "778678445", "437963536",
+    "660525644", "1100405072",
+  ],
+  documentary: [
+    "1189131655", "1002076560", "1151967437", "1125664311", "1189136660",
+    "1189136524", "1003383102", "1190189406",
+  ],
+  narrative: [
+    "865765822", "954997422", "1189137962", "954988957",
+  ],
+};
+
+/** All videos tagged in a given portfolio category, sorted into Brandi's
+ *  doc order (PORTFOLIO_ORDER). Any tagged video not listed in the order
+ *  map falls to the end, preserving catalog order, so nothing disappears. */
 export function getVideosByPortfolio(category: PortfolioCategory): BrandiVideo[] {
-  return BRANDI_VIDEOS.filter((v) => v.portfolios.includes(category));
+  const order = PORTFOLIO_ORDER[category] ?? [];
+  const rank = (v: BrandiVideo) => {
+    const i = order.indexOf(v.vimeoId);
+    return i === -1 ? Number.MAX_SAFE_INTEGER : i;
+  };
+  return BRANDI_VIDEOS
+    .filter((v) => v.portfolios.includes(category))
+    .sort((a, b) => rank(a) - rank(b));
 }
 
 /** Build a Vimeo embed URL with optional hash + query params */
