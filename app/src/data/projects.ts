@@ -685,8 +685,9 @@ export const projects: Project[] = [
       "BRANDED PHOTOS/VIDEOS, SOCIAL MEDIA REELS, DIGITAL ADS LOOKBOOKS, SEO/BLOG CONTENT, PRINT, EMAIL",
     /* Featured spot - horizontal photo (not video) per Brandi's
        'Obviously this needs to change to photo from gallery, horizontal'.
-       eye-gallery-15 is the April '26 JMM acetate alt - clean product hero. */
-    featuredImage: "/images/campaigns/eye-gallery/eye-gallery-15.jpg",
+       Updated to COVER 2 (Ashkan 6/17 Discord: change the Story & Intent
+       image to cover 2 from the Eye Gallery folder). */
+    featuredImage: "/images/campaigns/eye-gallery/eye-gallery-cover2.jpg",
     /* Brandi: 'Hide this section for now, we will create a new single
        video compilation of behind the scene footage for this purpose'.
        All photos AND videos render in the main gallery. */
