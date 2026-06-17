@@ -529,47 +529,57 @@ export const projects: Project[] = [
        'Front Cover Light Wall' was the same file as 'Season Cross Genre'
        per Brandi's correction. Older 2023/2022 seasons are video-only
        (no photo deliverables) and naturally cluster near the back. */
+    /* Gallery rebuilt 2026-06-17 per Brandi's review: videos reordered to
+       her doc's Weissman sequence and interleaved 1:1 with the photos so
+       they are no longer bunched at the bottom. Photos keep their original
+       weissman-01..21 order; the 20 videos follow the doc order exactly
+       (824223043 Fall 2023 Front Cover Light Wall added). */
     gallery: [
       { src: "/images/campaigns/weissman/weissman-01.jpg", alt: "Weissman cover styling - apparel detail", type: "image", aspectRatio: "portrait" },
-      { src: "/images/campaigns/weissman/weissman-02.jpg", alt: "Weissman editorial group shot - color blocking", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Spring 2026 Season Cross Genre", type: "video", vimeoId: "1145783498", vimeoHash: "6e07bd9e26", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-03.jpg", alt: "Weissman dancewear spread - black + white", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-04.jpg", alt: "Weissman gold metallic - solo pose", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Fall 2025 Season Cross Genre", type: "video", vimeoId: "1094764251", vimeoHash: "17dfb40e13", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-05.jpg", alt: "Weissman cheetah print collection", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-06.jpg", alt: "Weissman cover release - featured tile", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Spring 2025 Season Cross Genre", type: "video", vimeoId: "1030112459", vimeoHash: "3a116c25a3", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-07.jpg", alt: "Weissman gray cover - minimal palette", type: "image", aspectRatio: "portrait" },
-      { src: "/images/campaigns/weissman/weissman-08.jpg", alt: "Weissman amethyst - soft jewel tones", type: "image", aspectRatio: "portrait" },
+      { src: "/images/campaigns/weissman/weissman-02.jpg", alt: "Weissman editorial group shot - color blocking", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2024 Season Cross Genre", type: "video", vimeoId: "950064546", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-09.jpg", alt: "Weissman vanilla - neutral motion", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-10.jpg", alt: "Weissman black - bold silhouette", type: "image", aspectRatio: "portrait" },
+      { src: "/images/campaigns/weissman/weissman-03.jpg", alt: "Weissman dancewear spread - black + white", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2026 Season Cross Genre", type: "video", vimeoId: "1145783498", vimeoHash: "6e07bd9e26", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-04.jpg", alt: "Weissman gold metallic - solo pose", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Fall 2023 Front Cover Light Wall", type: "video", vimeoId: "824223043", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-05.jpg", alt: "Weissman cheetah print collection", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2025 Season Cross Genre", type: "video", vimeoId: "1030112459", vimeoHash: "3a116c25a3", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-06.jpg", alt: "Weissman cover release - featured tile", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Fall 2024 Bright Suiting", type: "video", vimeoId: "950064503", vimeoHash: "7b6c207cac", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-11.jpg", alt: "Weissman copper + black layered look", type: "image", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-12.jpg", alt: "Weissman group lineup - copper studio set", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Fall 2024 Red Hip Hop", type: "video", vimeoId: "950064549", vimeoHash: "bdaa506f69", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-13.jpg", alt: "Weissman navy duo - layered styling", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Fall 2024 Mixify", type: "video", vimeoId: "950064513", vimeoHash: "530165a338", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-14.jpg", alt: "Weissman mulberry tone - solo editorial", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Winter 2024 Season Cross Genre", type: "video", vimeoId: "1145746235", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-15.jpg", alt: "Weissman HAVE collection - multicolor lineup (white / canary / red / turquoise)", type: "image", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-07.jpg", alt: "Weissman gray cover - minimal palette", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Winter 2024 Gothic Glam", type: "video", vimeoId: "1003351680", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-16.jpg", alt: "Weissman black + black cherry - duo motion", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Winter 2024 Create Your Own Spotlight", type: "video", vimeoId: "999687742", vimeoHash: "88aae298bd", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-17.jpg", alt: "Weissman lime accent - high-energy motion", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Winter 2024 Neon Hip Hop", type: "video", vimeoId: "999687723", vimeoHash: "db85e5ad2b", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-18.jpg", alt: "Weissman mixed pastels - group shot", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Spring 2024 Season Cross Genre", type: "video", vimeoId: "886600264", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-19.jpg", alt: "Weissman pear - solo pose study", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Spring 2024 Quirky / Stripes", type: "video", vimeoId: "894189739", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-20.jpg", alt: "Weissman HAVE collection - final cover", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "Weissman Spring 2024 Neons", type: "video", vimeoId: "894189648", vimeoHash: "dcc8da9197", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-21.jpg", alt: "Weissman HAVE collection - full set styling", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "Weissman Fall 2023 Season Cross Genre", type: "video", vimeoId: "824868764", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-08.jpg", alt: "Weissman amethyst - soft jewel tones", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Winter 2024 Season Cross Genre", type: "video", vimeoId: "1145746235", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-09.jpg", alt: "Weissman vanilla - neutral motion", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2023 Back Cover Light Floor", type: "video", vimeoId: "824219543", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-10.jpg", alt: "Weissman black - bold silhouette", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Winter 2024 Create Your Own Spotlight", type: "video", vimeoId: "999687742", vimeoHash: "88aae298bd", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-11.jpg", alt: "Weissman copper + black layered look", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Winter 2024 Neon Hip Hop", type: "video", vimeoId: "999687723", vimeoHash: "db85e5ad2b", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-12.jpg", alt: "Weissman group lineup - copper studio set", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2024 Season Cross Genre", type: "video", vimeoId: "886600264", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-13.jpg", alt: "Weissman navy duo - layered styling", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Spring 2024 Quirky / Stripes", type: "video", vimeoId: "894189739", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-14.jpg", alt: "Weissman mulberry tone - solo editorial", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Fall 2024 Red Hip Hop", type: "video", vimeoId: "950064549", vimeoHash: "bdaa506f69", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-16.jpg", alt: "Weissman black + black cherry - duo motion", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Spring 2024 Neons", type: "video", vimeoId: "894189648", vimeoHash: "dcc8da9197", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-17.jpg", alt: "Weissman lime accent - high-energy motion", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "Weissman Fall 2024 Mixify", type: "video", vimeoId: "950064513", vimeoHash: "530165a338", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-18.jpg", alt: "Weissman mixed pastels - group shot", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "Weissman Fall 2023 Season Cross Genre", type: "video", vimeoId: "824868764", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-19.jpg", alt: "Weissman pear - solo pose study", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Fall 2023 Acro", type: "video", vimeoId: "824219420", vimeoHash: "9cfb4b79e8", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-20.jpg", alt: "Weissman HAVE collection - final cover", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Winter 2023 Season Cross Genre", type: "video", vimeoId: "867250099", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-21.jpg", alt: "Weissman HAVE collection - full set styling", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Winter 2022 Season Cross Genre", type: "video", vimeoId: "740849869", aspectRatio: "landscape" },
+      /* weissman-15 sits last: it is the featuredImage, so CampaignDetailPage
+         pulls it out into the Featured spot and the gallery never renders it
+         here. Parking it at the end keeps the remaining 20 photos + 20 videos
+         in clean 1:1 alternation with no two videos adjacent. */
+      { src: "/images/campaigns/weissman/weissman-15.jpg", alt: "Weissman HAVE collection - multicolor lineup (white / canary / red / turquoise)", type: "image", aspectRatio: "landscape" },
     ],
     relatedProjects: ["elastique-athletics", "eye-gallery"],
   },
@@ -708,50 +718,41 @@ export const projects: Project[] = [
        the photos have been put in a specific order'. Pattern is
        img-img-vid (3-item groups), keeping videos spread evenly with
        no two adjacent and respecting Brandi's photo sequence. */
+    /* Gallery video order updated 2026-06-17 to match Brandi's doc
+       sequence for The Eye Gallery. Photos keep their pre-numbered
+       order (eye-gallery-01..19); only the 11 video slots were
+       resequenced. img-img-video grouping kept so no two videos sit
+       adjacent. No duplicate videos found. (Photography refresh from
+       the numbered Drive folder is a separate follow-up.) */
     gallery: [
-      /* Brand Reel - added per Brandi 6/4 Discord (A10): 'make sure the
-         gallery is updated for Eye Gallery, link provided in last'. This
-         25-26 Brand Reel is the only new video in her latest doc; placed
-         first (doc order) and followed by two photos so no two videos
-         sit adjacent. */
       { src: "", alt: "The Eye Gallery 25-26 Brand Reel", type: "video", vimeoId: "1190188606", vimeoHash: "cd8f606a81", aspectRatio: "landscape" },
-      /* 001 + 002 → Mix Reel intro */
       { src: "/images/campaigns/eye-gallery/eye-gallery-01.jpg", alt: "Eye Gallery - Aug 2025 cover styling", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-02.jpg", alt: "Eye Gallery - April '26 JMM acetate", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "The Eye Gallery Mix Reel 001", type: "video", vimeoId: "1002121348", aspectRatio: "landscape" },
-      /* 002a + 003 → Summer 2025 Campaign */
       { src: "/images/campaigns/eye-gallery/eye-gallery-03.jpg", alt: "Eye Gallery - Tina + Fikri design feature", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-04.jpg", alt: "Eye Gallery - Q3 Scale best frame", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "The Eye Gallery - Summer 2025 Campaign Ad H", type: "video", vimeoId: "1145748255", aspectRatio: "landscape" },
-      /* 004 + 005 → Summer Sunglass Sale */
+      { src: "", alt: "The Eye Gallery Scale SASS 001 Reel", type: "video", vimeoId: "1189131771", vimeoHash: "49584fc6ca", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-05.jpg", alt: "Eye Gallery - Q3 Doggy month best", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-06.jpg", alt: "Eye Gallery - Q1 Valentines featured", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "The Eye Gallery Summer Sunglass Sale Ad H", type: "video", vimeoId: "1189130989", vimeoHash: "3148f2df70", aspectRatio: "landscape" },
-      /* 006 + 007 → In-Store Ad */
+      { src: "", alt: "The Eye Gallery Jacques Marie Mage Trunk Show Store Ad H", type: "video", vimeoId: "1189140629", vimeoHash: "294990893e", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-07.jpg", alt: "Eye Gallery - Q1 April topless edit", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-08.jpg", alt: "Eye Gallery - editorial detail", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery In-Store Ad 001 H", type: "video", vimeoId: "1189138937", vimeoHash: "9d970d79b7", aspectRatio: "landscape" },
-      /* 007a + 008 → JMM Trunk Show */
       { src: "/images/campaigns/eye-gallery/eye-gallery-09.jpg", alt: "Eye Gallery - Tina + Fikri trunk piece", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-10.jpg", alt: "Eye Gallery - Q1 Valentines pair", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "The Eye Gallery Jacques Marie Mage Trunk Show Store Ad H", type: "video", vimeoId: "1189140629", vimeoHash: "294990893e", aspectRatio: "landscape" },
-      /* 009 + 010 → Dog Month Campaign */
+      { src: "", alt: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel", type: "video", vimeoId: "1189131500", vimeoHash: "f87548f64b", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-11.jpg", alt: "Eye Gallery - moody close-up", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-12.jpg", alt: "Eye Gallery - Q1 April topless edit alt", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery Dog Month Campaign", type: "video", vimeoId: "1189130986", vimeoHash: "c229954ac0", aspectRatio: "landscape" },
-      /* 011 + 012 → In-store Service & Care Reel */
       { src: "/images/campaigns/eye-gallery/eye-gallery-13.jpg", alt: "Eye Gallery - Q3 Juicy collection", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-14.jpg", alt: "Eye Gallery - Q3 Scale square", type: "image", aspectRatio: "square" },
       { src: "", alt: "The Eye Gallery In-store Service & Care Reel", type: "video", vimeoId: "1189131472", vimeoHash: "42147d4bc3", aspectRatio: "landscape" },
-      /* 013 + 014 → Scale SASS 001 */
       { src: "/images/campaigns/eye-gallery/eye-gallery-15.jpg", alt: "Eye Gallery - April '26 JMM acetate alt", type: "image", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-16.jpg", alt: "Eye Gallery - Tina + Fikri lineup", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "The Eye Gallery Scale SASS 001 Reel", type: "video", vimeoId: "1189131771", vimeoHash: "49584fc6ca", aspectRatio: "landscape" },
-      /* 014b + 015 → Scale Oversized SASS 002 */
+      { src: "", alt: "The Eye Gallery Summer Sunglass Sale Ad H", type: "video", vimeoId: "1189130989", vimeoHash: "3148f2df70", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-17.jpg", alt: "Eye Gallery - Aug 2025 alternate", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-18.jpg", alt: "Eye Gallery - Q3 Juicy square", type: "image", aspectRatio: "square" },
-      { src: "", alt: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel", type: "video", vimeoId: "1189131500", vimeoHash: "f87548f64b", aspectRatio: "landscape" },
-      /* 016 → Scale SASS 003 closer */
+      { src: "", alt: "The Eye Gallery - Summer 2025 Campaign Ad H", type: "video", vimeoId: "1145748255", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-19.jpg", alt: "Eye Gallery - Q3 Scale best alt frame", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery Scale SASS 003 Reel", type: "video", vimeoId: "1189130987", vimeoHash: "6d5b53a3d1", aspectRatio: "landscape" },
     ],
