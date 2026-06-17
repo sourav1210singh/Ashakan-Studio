@@ -718,12 +718,14 @@ export const projects: Project[] = [
        the photos have been put in a specific order'. Pattern is
        img-img-vid (3-item groups), keeping videos spread evenly with
        no two adjacent and respecting Brandi's photo sequence. */
-    /* Gallery video order updated 2026-06-17 to match Brandi's doc
-       sequence for The Eye Gallery. Photos keep their pre-numbered
-       order (eye-gallery-01..19); only the 11 video slots were
-       resequenced. img-img-video grouping kept so no two videos sit
-       adjacent. No duplicate videos found. (Photography refresh from
-       the numbered Drive folder is a separate follow-up.) */
+    /* Gallery updated 2026-06-17 (Brandi 6/16). VIDEO order matches her
+       doc; PHOTO order now follows her re-curated numbered Drive folder
+       (Eye Gallery: 001, 002, 002a, 003, 004, 005B, 006B, 007, 008, 009,
+       010, 011, 012, 013, 014, 014b, 015, 016). Two folder additions
+       (003B, 013B) aren't in our set so they're skipped (no images added).
+       eye-gallery-09 (old 007a, dropped from her folder) is kept per
+       request and parked at the last photo slot. img-img-video grouping
+       preserved so no two videos sit adjacent. */
     gallery: [
       { src: "", alt: "The Eye Gallery 25-26 Brand Reel", type: "video", vimeoId: "1190188606", vimeoHash: "cd8f606a81", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-01.jpg", alt: "Eye Gallery - Aug 2025 cover styling", type: "image", aspectRatio: "landscape" },
@@ -738,22 +740,22 @@ export const projects: Project[] = [
       { src: "/images/campaigns/eye-gallery/eye-gallery-07.jpg", alt: "Eye Gallery - Q1 April topless edit", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-08.jpg", alt: "Eye Gallery - editorial detail", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "The Eye Gallery In-Store Ad 001 H", type: "video", vimeoId: "1189138937", vimeoHash: "9d970d79b7", aspectRatio: "landscape" },
-      { src: "/images/campaigns/eye-gallery/eye-gallery-09.jpg", alt: "Eye Gallery - Tina + Fikri trunk piece", type: "image", aspectRatio: "portrait" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-10.jpg", alt: "Eye Gallery - Q1 Valentines pair", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel", type: "video", vimeoId: "1189131500", vimeoHash: "f87548f64b", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-11.jpg", alt: "Eye Gallery - moody close-up", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "The Eye Gallery Scale Oversized Eyewear SASS 002 Reel", type: "video", vimeoId: "1189131500", vimeoHash: "f87548f64b", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-12.jpg", alt: "Eye Gallery - Q1 April topless edit alt", type: "image", aspectRatio: "landscape" },
-      { src: "", alt: "The Eye Gallery Dog Month Campaign", type: "video", vimeoId: "1189130986", vimeoHash: "c229954ac0", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-13.jpg", alt: "Eye Gallery - Q3 Juicy collection", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "The Eye Gallery Dog Month Campaign", type: "video", vimeoId: "1189130986", vimeoHash: "c229954ac0", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-14.jpg", alt: "Eye Gallery - Q3 Scale square", type: "image", aspectRatio: "square" },
-      { src: "", alt: "The Eye Gallery In-store Service & Care Reel", type: "video", vimeoId: "1189131472", vimeoHash: "42147d4bc3", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-15.jpg", alt: "Eye Gallery - April '26 JMM acetate alt", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery In-store Service & Care Reel", type: "video", vimeoId: "1189131472", vimeoHash: "42147d4bc3", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-16.jpg", alt: "Eye Gallery - Tina + Fikri lineup", type: "image", aspectRatio: "portrait" },
-      { src: "", alt: "The Eye Gallery Summer Sunglass Sale Ad H", type: "video", vimeoId: "1189130989", vimeoHash: "3148f2df70", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-17.jpg", alt: "Eye Gallery - Aug 2025 alternate", type: "image", aspectRatio: "portrait" },
+      { src: "", alt: "The Eye Gallery Summer Sunglass Sale Ad H", type: "video", vimeoId: "1189130989", vimeoHash: "3148f2df70", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-18.jpg", alt: "Eye Gallery - Q3 Juicy square", type: "image", aspectRatio: "square" },
-      { src: "", alt: "The Eye Gallery - Summer 2025 Campaign Ad H", type: "video", vimeoId: "1145748255", aspectRatio: "landscape" },
       { src: "/images/campaigns/eye-gallery/eye-gallery-19.jpg", alt: "Eye Gallery - Q3 Scale best alt frame", type: "image", aspectRatio: "landscape" },
+      { src: "", alt: "The Eye Gallery - Summer 2025 Campaign Ad H", type: "video", vimeoId: "1145748255", aspectRatio: "landscape" },
+      { src: "/images/campaigns/eye-gallery/eye-gallery-09.jpg", alt: "Eye Gallery - Tina + Fikri trunk piece", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "The Eye Gallery Scale SASS 003 Reel", type: "video", vimeoId: "1189130987", vimeoHash: "6d5b53a3d1", aspectRatio: "landscape" },
     ],
     relatedProjects: ["audaja-skincare", "deutsch-fine-jewelry"],
