@@ -43,6 +43,18 @@
       "statusCode": 301
     },
     {
+      "source": "/commercial-photography-houston",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/work/photography/retail/",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-houston",
+      "has": [{ "type": "host", "value": "ashkanimage.com" }],
+      "destination": "https://ashkanstudios.com/work/photography/retail/",
+      "statusCode": 301
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "ashkanimage.com" }],
       "destination": "https://ashkanstudios.com/",
@@ -52,6 +64,132 @@
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.ashkanimage.com" }],
       "destination": "https://ashkanstudios.com/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photography-in-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/product-photography-in-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photographer-in-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/product-photographer-in-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/product-photographer-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/product-photographer-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photography-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/commercial-photography-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/houston-commercial-photography",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/houston-commercial-photography/",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-photographer-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/commercial-photographer-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/business-marketing-photography-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/business-marketing-photography-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/headshot-photography-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/headshot-photography-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/cinematography-services-in-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/cinematography-services-in-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-videographers-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/commercial-videographers-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/video-editing-services-in-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/video-editing-services-in-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/video-production-services-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/video-production-services-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/videographer-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/videographer-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/videography-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/videography-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/videography-in-the-woodlands",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/videography-in-the-woodlands/",
+      "statusCode": 301
+    },
+    {
+      "source": "/videography-in-texas",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/videography-in-texas/",
+      "statusCode": 301
+    },
+    {
+      "source": "/videographer-in-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/videographer-in-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/commercial-videography-in-houston",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/commercial-videography-in-houston/",
+      "statusCode": 301
+    },
+    {
+      "source": "/vsl-arts-industry",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/vsl-arts-industry/",
+      "statusCode": 301
+    },
+    {
+      "source": "/vsl-retail-industry",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/vsl-retail-industry/",
+      "statusCode": 301
+    },
+    {
+      "source": "/vsl-li-industry",
+      "has": [{ "type": "host", "value": "ashkanmedia.com" }],
+      "destination": "https://ashkanstudios.com/vsl-li-industry/",
       "statusCode": 301
     },
     {
@@ -668,7 +806,7 @@
     },
     {
       "source": "/houston-portrait-studio",
-      "destination": "/photography/headshots",
+      "destination": "/work/photography/headshots",
       "statusCode": 301
     },
     {
