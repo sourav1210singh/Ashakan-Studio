@@ -167,7 +167,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         {/* ============================================================ */}
         <div className="pt-6 border-t border-white/10">
           <p className="text-xs sm:text-sm text-white/40 text-center">
-            © 2025 ASHKAN STUDIOS | ALL RIGHTS RESERVED
+            © {new Date().getFullYear()} ASHKAN STUDIOS | ALL RIGHTS RESERVED
           </p>
           {/* Agency credit - same muted color/size as the copyright,
               normal case (no uppercase / no bold), link brightens on
