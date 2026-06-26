@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 /** Pages that use a dark background - header needs white text initially */
-const DARK_PAGES: View[] = ["photography", "videography", "campaigns", "booking"];
+const DARK_PAGES: View[] = ["photography", "videography", "campaigns", "booking", "headshots"];
 
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);

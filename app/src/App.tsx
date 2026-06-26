@@ -20,6 +20,7 @@ import { getSeoPageBySlug } from "@/data/seo-pages";
 export type View =
   | "home"
   | "photography"
+  | "headshots"
   | "videography"
   | "campaigns"
   | "services"
@@ -81,6 +82,12 @@ function parseRoute(rawPathname: string): ParsedRoute {
     return { view: "home", slug: null, category: null };
   }
 
+  // Dedicated standalone Headshots page - lives at /photography/headshots
+  // (outside the /work/ portfolio tree). Unarchived 2026-06-26.
+  if (pathname === "/photography/headshots") {
+    return { view: "headshots", slug: null, category: null };
+  }
+
   // Top-level pages
   const pageMap: Record<string, View> = {
     "/what-we-do": "services",
@@ -107,6 +114,7 @@ function parseRoute(rawPathname: string): ParsedRoute {
 const pathMap: Record<View, string> = {
   home: "/",
   photography: "/work/photography/",
+  headshots: "/photography/headshots/",
   videography: "/work/videography/",
   campaigns: "/work/campaigns/",
   services: "/what-we-do/",
@@ -199,13 +207,12 @@ function App() {
       case "home":
         return <HomePage onNavigate={navigateTo} />;
       case "photography":
-        /* The old dedicated headshots page is archived at "old-headshot".
-           "headshots" is now the renamed Industrial category, rendered by
-           PhotographyPage with the industrial gallery (Ashkan 6/10). */
-        if (selectedCategory === "old-headshot") {
-          return <HeadshotsPage onNavigate={navigateTo} />;
-        }
         return <PhotographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
+      case "headshots":
+        /* Dedicated standalone Headshots page at /photography/headshots
+           (unarchived 2026-06-26). Separate from the WORK gallery at
+           /work/photography/headshots/. */
+        return <HeadshotsPage onNavigate={navigateTo} />;
       case "videography":
         return <VideographyPage onNavigate={navigateTo} activeCategory={selectedCategory} />;
       case "campaigns":
