@@ -38,7 +38,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
         {/* Gallery Grid - Headshot samples from portfolio */}
         <section className="py-16 sm:py-24">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
               {[
                 { src: "/images/headshots/headshot-1.jpg", alt: "Professional portrait - studio lighting", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-2.jpg", alt: "Dance headshot - natural expression", aspect: "aspect-[3/4]" },
@@ -62,14 +62,14 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                 { src: "/images/headshots/headshot-20.jpg", alt: "Lifestyle portrait - personal branding", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-21.jpg", alt: "Madison McClain - dancer headshot", aspect: "aspect-[3/4]" },
               ].map((img, index) => (
-                <FadeIn key={img.alt} delay={index * 0.08}>
-                  <div className={`relative overflow-hidden ${img.aspect} group`}>
+                <FadeIn key={img.alt} delay={Math.min(index * 0.06, 0.6)} className="break-inside-avoid mb-4 sm:mb-6">
+                  <div className="relative overflow-hidden w-full group">
                     <img
                       src={img.src}
                       alt={img.alt}
-                      className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
+                    <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
                   </div>
                 </FadeIn>
               ))}
