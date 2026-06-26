@@ -6,6 +6,7 @@
   <url><loc>https://ashkanstudios.com/what-we-do/</loc><priority>0.9</priority></url>
   <url><loc>https://ashkanstudios.com/studio/</loc><priority>0.8</priority></url>
   <url><loc>https://ashkanstudios.com/contact/</loc><priority>0.8</priority></url>
+  <url><loc>https://ashkanstudios.com/contact/booking/</loc><priority>0.7</priority></url>
   <url><loc>https://ashkanstudios.com/storytime/</loc><priority>0.7</priority></url>
   <url><loc>https://ashkanstudios.com/press/</loc><priority>0.7</priority></url>
 
@@ -16,6 +17,7 @@
   <url><loc>https://ashkanstudios.com/work/photography/fashion/</loc><priority>0.7</priority></url>
   <url><loc>https://ashkanstudios.com/work/photography/industrial/</loc><priority>0.7</priority></url>
   <url><loc>https://ashkanstudios.com/work/photography/headshots/</loc><priority>0.7</priority></url>
+  <url><loc>https://ashkanstudios.com/photography/headshots/</loc><priority>0.7</priority></url>
 
   <!-- Videography -->
   <url><loc>https://ashkanstudios.com/work/videography/</loc><priority>0.8</priority></url>

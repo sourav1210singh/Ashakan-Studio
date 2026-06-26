@@ -23,6 +23,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
   const NAV_PATHS: Record<View, string> = {
     home: "/",
     photography: "/work/photography/",
+    headshots: "/photography/headshots/",
     videography: "/work/videography/",
     campaigns: "/work/campaigns/",
     services: "/what-we-do/",

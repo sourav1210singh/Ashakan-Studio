@@ -39,7 +39,7 @@
     {
       "source": "/houston-portrait-studio",
       "has": [{ "type": "host", "value": "ashkanimage.com" }],
-      "destination": "https://ashkanstudios.com/work/photography/headshots/",
+      "destination": "https://ashkanstudios.com/photography/headshots/",
       "statusCode": 301
     },
     {
@@ -806,7 +806,12 @@
     },
     {
       "source": "/houston-portrait-studio",
-      "destination": "/work/photography/headshots",
+      "destination": "/photography/headshots",
+      "statusCode": 301
+    },
+    {
+      "source": "/work/photography/old-headshot",
+      "destination": "/photography/headshots",
       "statusCode": 301
     },
     {
