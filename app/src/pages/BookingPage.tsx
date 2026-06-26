@@ -62,7 +62,7 @@ const processSteps = [
 export function BookingPage({ onNavigate }: BookingPageProps) {
   return (
     <>
-      <main className="pt-20">
+      <main className="pt-20 bg-dark">
         {/* ━━━ SECTION 1 - Hero ━━━ */}
         <section className="py-20 sm:py-32 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
