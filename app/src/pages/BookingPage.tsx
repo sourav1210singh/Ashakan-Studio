@@ -1,4 +1,4 @@
-import { Calendar, Camera, Video, Lightbulb, Users, ArrowLeft } from "lucide-react";
+import { Calendar, Camera, Video, Lightbulb, Users, ArrowLeft, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
@@ -63,23 +63,26 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
   return (
     <>
       <main className="pt-20">
-        {/* Hero */}
+        {/* ━━━ SECTION 1 - Hero ━━━ */}
         <section className="py-20 sm:py-32 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
               <button
                 onClick={() => onNavigate("contact")}
-                className="flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-8 text-sm tracking-wider"
+                className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-10 text-sm font-medium tracking-wider"
               >
                 <ArrowLeft className="w-4 h-4" />
                 BACK TO CONTACT
               </button>
-              <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-[120px] tracking-tight leading-none mb-6">
+              <span className="text-sm font-medium tracking-[0.2em] text-white/60 uppercase mb-4 block">
+                BOOKING · ASHKAN STUDIOS
+              </span>
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.95] mb-6">
                 BOOK YOUR
                 <br />
                 SESSION
               </h1>
-              <p className="text-lg sm:text-xl text-white/70 max-w-2xl">
+              <p className="text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed">
                 Whether you need a commercial shoot, private coaching, or a full production -
                 we'll build a session tailored to your goals. Located at Sawyer Yards,
                 one of Houston's most cutting-edge creative spaces.
@@ -88,34 +91,37 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
           </div>
         </section>
 
-        {/* Session Types */}
+        {/* ━━━ SECTION 2 - Session Types ━━━ */}
         <section className="py-16 sm:py-24 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h2 className="font-display text-3xl sm:text-5xl text-dark tracking-tight mb-4">
+              <span className="text-sm font-medium tracking-wider text-dark/40 uppercase mb-4 block">
+                WHAT WE OFFER
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[0.95] mb-6">
                 SESSION TYPES
               </h2>
-              <p className="text-dark/60 max-w-xl mb-12">
+              <p className="text-lg text-dark/60 max-w-xl mb-12 sm:mb-16 leading-relaxed">
                 Every session is customized. Select the type that fits your project,
                 or contact us for a custom package.
               </p>
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {sessionTypes.map((session, i) => (
                 <FadeIn key={session.title} delay={i * 0.1}>
                   <div className="border border-dark/10 p-8 sm:p-10 h-full hover:border-dark/30 transition-colors">
-                    <session.icon className="w-8 h-8 text-dark mb-6" />
-                    <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight mb-3">
+                    <session.icon className="w-8 h-8 text-dark mb-8" />
+                    <h3 className="font-display text-xl sm:text-2xl text-dark tracking-tight leading-tight mb-4">
                       {session.title}
                     </h3>
-                    <p className="text-dark/60 leading-relaxed mb-6">
+                    <p className="text-dark/60 leading-relaxed mb-8">
                       {session.description}
                     </p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                       {session.includes.map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-sm text-dark/70">
-                          <span className="w-1.5 h-1.5 rounded-full bg-dark/40 flex-shrink-0" />
+                        <li key={item} className="flex items-center gap-3 text-sm text-dark/70">
+                          <span className="w-1.5 h-1.5 rounded-full bg-dark/40 shrink-0" />
                           {item}
                         </li>
                       ))}
@@ -127,26 +133,29 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
           </div>
         </section>
 
-        {/* Process */}
-        <section className="py-16 sm:py-24 border-t border-dark/10">
+        {/* ━━━ SECTION 3 - Process ━━━ */}
+        <section className="py-20 sm:py-28 bg-dark text-white">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h2 className="font-display text-3xl sm:text-5xl text-dark tracking-tight mb-12">
+              <span className="text-sm font-medium tracking-wider text-white/40 uppercase mb-4 block">
+                THE PROCESS
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[0.95] mb-12 sm:mb-16">
                 HOW IT WORKS
               </h2>
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12">
               {processSteps.map((step, i) => (
                 <FadeIn key={step.step} delay={i * 0.1}>
                   <div>
-                    <span className="font-display text-6xl sm:text-7xl text-dark/10 leading-none">
+                    <span className="font-display text-6xl sm:text-7xl text-white/15 leading-none block mb-4">
                       {step.step}
                     </span>
-                    <h3 className="font-display text-xl text-dark tracking-tight mt-2 mb-3">
+                    <h3 className="font-display text-xl sm:text-2xl tracking-tight mb-4">
                       {step.title}
                     </h3>
-                    <p className="text-dark/60 leading-relaxed">
+                    <p className="text-base text-white/65 leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -156,14 +165,17 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
           </div>
         </section>
 
-        {/* CTA - Book Now */}
-        <section className="py-16 sm:py-24 bg-dark text-white">
+        {/* ━━━ SECTION 4 - CTA / Book Now ━━━ */}
+        <section className="py-20 sm:py-28 border-t border-dark/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
             <FadeIn>
-              <h2 className="font-display text-3xl sm:text-5xl tracking-tight mb-4">
+              <span className="text-sm font-medium tracking-wider text-dark/40 uppercase mb-4 block">
+                LET'S BEGIN
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[0.95] mb-6">
                 READY TO GET STARTED?
               </h2>
-              <p className="text-white/60 mb-8 max-w-xl mx-auto">
+              <p className="text-lg text-dark/60 mb-10 max-w-xl mx-auto leading-relaxed">
                 Schedule a free consultation to discuss your project. We'll help you
                 choose the right session and plan every detail.
               </p>
@@ -172,19 +184,20 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
                   href="https://calendly.com/ashkanstudios"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm hover:bg-white/90 transition-colors"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
                 >
                   <Calendar className="w-4 h-4" />
                   SCHEDULE A CONSULTATION
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <button
                   onClick={() => onNavigate("contact")}
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/30 text-white font-medium tracking-wider text-sm hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-dark/30 text-dark font-medium tracking-wider text-sm hover:bg-dark hover:text-white transition-colors"
                 >
                   SEND US A MESSAGE
                 </button>
               </div>
-              <p className="text-white/40 text-sm mt-6">
+              <p className="text-dark/40 text-sm mt-8">
                 1502 Sawyer St #108, Houston, TX 77007 &nbsp;·&nbsp; (346) 335-7973
               </p>
             </FadeIn>
