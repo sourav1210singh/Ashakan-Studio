@@ -49,7 +49,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
   };
 
   return (
-    <footer id="contact" className="bg-dark text-white py-10 sm:py-12 lg:py-14">
+    <footer id="contact" className="bg-dark text-white py-10 sm:py-12 lg:py-14 border-t border-white/15">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
 
         {/* ============================================================ */}
