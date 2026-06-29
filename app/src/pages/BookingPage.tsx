@@ -1,4 +1,5 @@
-import { Calendar, Camera, Video, Lightbulb, Users, ArrowLeft, ArrowRight } from "lucide-react";
+import { useEffect } from "react";
+import { Camera, Video, Lightbulb, Users, ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
@@ -60,6 +61,18 @@ const processSteps = [
 ];
 
 export function BookingPage({ onNavigate }: BookingPageProps) {
+  /* Acuity's embed script auto-resizes the scheduler iframe to fit its
+     content (no inner scrollbar). Client's Acuity owner id: 17496490. */
+  useEffect(() => {
+    const s = document.createElement("script");
+    s.src = "https://embed.acuityscheduling.com/js/embed.js";
+    s.async = true;
+    document.body.appendChild(s);
+    return () => {
+      if (s.parentNode) s.parentNode.removeChild(s);
+    };
+  }, []);
+
   return (
     <>
       <main className="pt-20 bg-dark">
@@ -165,42 +178,52 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
           </div>
         </section>
 
-        {/* ━━━ SECTION 4 - CTA / Book Now ━━━ */}
-        <section className="py-20 sm:py-28 border-t border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
+        {/* ━━━ SECTION 4 - Book Now (embedded Acuity scheduler) ━━━
+            Client's live Acuity scheduler (owner 17496490 / slug a147a55c),
+            embedded so visitors book without leaving the site. The
+            embed.js loaded above auto-resizes this iframe. */}
+        <section className="py-20 sm:py-28 border-t border-dark/10 bg-cream">
+          <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <span className="text-sm font-medium tracking-wider text-dark/40 uppercase mb-4 block">
-                LET'S BEGIN
-              </span>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[0.95] mb-6">
-                READY TO GET STARTED?
-              </h2>
-              <p className="text-lg text-dark/60 mb-10 max-w-xl mx-auto leading-relaxed">
-                Schedule a free consultation to discuss your project. We'll help you
-                choose the right session and plan every detail.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://app.acuityscheduling.com/schedule/a147a55c"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
-                >
-                  <Calendar className="w-4 h-4" />
-                  BOOK A SESSION
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <button
-                  onClick={() => onNavigate("contact")}
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-dark/30 text-dark font-medium tracking-wider text-sm hover:bg-dark hover:text-white transition-colors"
-                >
-                  SEND US A MESSAGE
-                </button>
+              <div className="text-center mb-12 sm:mb-16">
+                <span className="text-sm font-medium tracking-wider text-dark/40 uppercase mb-4 block">
+                  LET'S BEGIN
+                </span>
+                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[0.95] mb-6">
+                  BOOK YOUR SESSION
+                </h2>
+                <p className="text-lg text-dark/60 max-w-xl mx-auto leading-relaxed">
+                  Pick a time below to schedule directly. Prefer to talk first?
+                  Send us a message and we'll help plan every detail.
+                </p>
               </div>
+            </FadeIn>
+
+            <FadeIn delay={0.1}>
+              <div className="bg-white border border-dark/10 overflow-hidden">
+                <iframe
+                  src="https://app.acuityscheduling.com/schedule.php?owner=17496490&ref=embedded_csp"
+                  title="Schedule an appointment with Ashkan Studios"
+                  width="100%"
+                  height="800"
+                  frameBorder="0"
+                  className="w-full block"
+                  style={{ minHeight: 800 }}
+                />
+              </div>
+            </FadeIn>
+
+            <div className="text-center mt-10 sm:mt-12">
+              <button
+                onClick={() => onNavigate("contact")}
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 border border-dark/30 text-dark font-medium tracking-wider text-sm hover:bg-dark hover:text-white transition-colors"
+              >
+                SEND US A MESSAGE
+              </button>
               <p className="text-dark/40 text-sm mt-8">
                 1502 Sawyer St #108, Houston, TX 77007 &nbsp;·&nbsp; (346) 335-7973
               </p>
-            </FadeIn>
+            </div>
           </div>
         </section>
       </main>
