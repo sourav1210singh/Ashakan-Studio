@@ -202,7 +202,7 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
             <FadeIn delay={0.1}>
               <div className="bg-white border border-dark/10 overflow-hidden">
                 <iframe
-                  src="https://app.acuityscheduling.com/schedule.php?owner=17496490&ref=embedded_csp"
+                  src="https://app.acuityscheduling.com/schedule.php?owner=17496490&appointmentType=72947428&ref=embedded_csp"
                   title="Schedule an appointment with Ashkan Studios"
                   width="100%"
                   height="800"
