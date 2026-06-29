@@ -181,13 +181,13 @@ export function BookingPage({ onNavigate }: BookingPageProps) {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://calendly.com/ashkanstudios"
+                  href="https://app.acuityscheduling.com/schedule/a147a55c"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
                 >
                   <Calendar className="w-4 h-4" />
-                  SCHEDULE A CONSULTATION
+                  BOOK A SESSION
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <button

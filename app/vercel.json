@@ -376,7 +376,7 @@
     },
     {
       "source": "/buildyoursession",
-      "destination": "/contact",
+      "destination": "/contact/booking",
       "statusCode": 301
     },
     {
@@ -701,12 +701,12 @@
     },
     {
       "source": "/photography-teacher-in-houston",
-      "destination": "/contact",
+      "destination": "/contact/booking",
       "statusCode": 301
     },
     {
       "source": "/photography-coaching-in-houston",
-      "destination": "/contact",
+      "destination": "/contact/booking",
       "statusCode": 301
     },
     {
@@ -901,7 +901,7 @@
     },
     {
       "source": "/lighting-design-workshop",
-      "destination": "/contact",
+      "destination": "/contact/booking",
       "statusCode": 301
     },
     {
@@ -911,7 +911,7 @@
     },
     {
       "source": "/dance-photography-workshops",
-      "destination": "/contact",
+      "destination": "/contact/booking",
       "statusCode": 301
     },
     {
