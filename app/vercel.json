@@ -7,36 +7,6 @@
       "statusCode": 301
     },
     {
-      "source": "/buildyoursession",
-      "has": [{ "type": "host", "value": "ashkanimage.com" }],
-      "destination": "https://ashkanstudios.com/contact/booking/",
-      "statusCode": 301
-    },
-    {
-      "source": "/photography-teacher-in-houston",
-      "has": [{ "type": "host", "value": "ashkanimage.com" }],
-      "destination": "https://ashkanstudios.com/contact/booking/",
-      "statusCode": 301
-    },
-    {
-      "source": "/photography-coaching-in-houston",
-      "has": [{ "type": "host", "value": "ashkanimage.com" }],
-      "destination": "https://ashkanstudios.com/contact/booking/",
-      "statusCode": 301
-    },
-    {
-      "source": "/lighting-design-workshop",
-      "has": [{ "type": "host", "value": "ashkanimage.com" }],
-      "destination": "https://ashkanstudios.com/contact/booking/",
-      "statusCode": 301
-    },
-    {
-      "source": "/dance-photography-workshops",
-      "has": [{ "type": "host", "value": "ashkanimage.com" }],
-      "destination": "https://ashkanstudios.com/contact/booking/",
-      "statusCode": 301
-    },
-    {
       "source": "/houston-portrait-studio",
       "has": [{ "type": "host", "value": "ashkanimage.com" }],
       "destination": "https://ashkanstudios.com/photography/headshots/",
@@ -375,11 +345,6 @@
       "statusCode": 301
     },
     {
-      "source": "/buildyoursession",
-      "destination": "/contact/booking",
-      "statusCode": 301
-    },
-    {
       "source": "/tips-for-dance-audition-photos",
       "destination": "/storytime",
       "statusCode": 301
@@ -700,16 +665,6 @@
       "statusCode": 301
     },
     {
-      "source": "/photography-teacher-in-houston",
-      "destination": "/contact/booking",
-      "statusCode": 301
-    },
-    {
-      "source": "/photography-coaching-in-houston",
-      "destination": "/contact/booking",
-      "statusCode": 301
-    },
-    {
       "source": "/photography-course-in-houston",
       "destination": "/storytime",
       "statusCode": 301
@@ -900,18 +855,8 @@
       "statusCode": 301
     },
     {
-      "source": "/lighting-design-workshop",
-      "destination": "/contact/booking",
-      "statusCode": 301
-    },
-    {
       "source": "/creative-sessions",
       "destination": "/work/photography/the-arts",
-      "statusCode": 301
-    },
-    {
-      "source": "/dance-photography-workshops",
-      "destination": "/contact/booking",
       "statusCode": 301
     },
     {
