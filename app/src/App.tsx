@@ -15,6 +15,7 @@ import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
 import { TestIndexPage } from "@/pages/TestIndexPage";
 import { TestPage } from "@/pages/TestPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
+import { applyRouteMeta } from "@/lib/seo-meta";
 
 export type View =
   | "home"
@@ -161,6 +162,18 @@ function App() {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  // ── Per-route SEO meta (title, description, canonical, OG, robots) ──
+  // Runs on initial load and after every route change so each page gets
+  // its own <title>/description and a self-referencing canonical instead
+  // of sharing the single static index.html meta.
+  useEffect(() => {
+    applyRouteMeta({
+      view: currentView,
+      category: selectedCategory,
+      slug: selectedProjectSlug,
+    });
+  }, [currentView, selectedCategory, selectedProjectSlug]);
 
   // ── Navigation ──
   const navigateTo = useCallback((view: View, slug?: string) => {
