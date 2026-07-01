@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 /** Pages that use a dark background - header needs white text initially */
-const DARK_PAGES: View[] = ["photography", "videography", "campaigns", "booking", "headshots"];
+const DARK_PAGES: View[] = ["photography", "videography", "campaigns", "headshots"];
 
 export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -105,8 +105,6 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
       onNavigate("services");
     } else if (href === "/studio") {
       onNavigate("studio");
-    } else if (href === "/contact/booking") {
-      onNavigate("booking");
     } else if (href === "/contact") {
       onNavigate("contact");
     } else if (href === "/storytime") {

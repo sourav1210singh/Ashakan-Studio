@@ -16,11 +16,29 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
     projectType: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    alert("Thank you for your inquiry! We'll be in touch soon.");
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to send your message.");
+      }
+      setStatus("sent");
+      setFormData({ name: "", email: "", company: "", projectType: "", message: "" });
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setStatus("error");
+    }
   };
 
   const projectTypes = [
@@ -129,11 +147,22 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   </div>
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
+                    disabled={status === "sending"}
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    SEND MESSAGE
+                    {status === "sending" ? "SENDING..." : "SEND MESSAGE"}
                     <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
+                  {status === "sent" && (
+                    <p className="text-sm text-dark mt-2">
+                      Thank you &mdash; your message has been sent. We&rsquo;ll be in touch soon.
+                    </p>
+                  )}
+                  {status === "error" && (
+                    <p className="text-sm text-red-600 mt-2">
+                      {errorMsg} You can also email us directly at info@ashkanstudios.com.
+                    </p>
+                  )}
                 </form>
               </FadeIn>
 

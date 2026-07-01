@@ -29,7 +29,6 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
     services: "/what-we-do/",
     studio: "/studio/",
     contact: "/contact/",
-    booking: "/contact/booking/",
     storytime: "/storytime/",
     press: "/press/",
     seo: "/",

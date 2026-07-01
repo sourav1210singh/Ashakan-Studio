@@ -11,7 +11,6 @@ import { StorytimePage } from "@/pages/StorytimePage";
 import { PressPage } from "@/pages/PressPage";
 import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
-import { BookingPage } from "@/pages/BookingPage";
 import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
 import { TestIndexPage } from "@/pages/TestIndexPage";
 import { TestPage } from "@/pages/TestPage";
@@ -29,7 +28,6 @@ export type View =
   | "storytime"
   | "press"
   | "seo"
-  | "booking"
   | "test";
 
 /* ── Route parsing (shared by initial load + popstate) ── */
@@ -92,7 +90,6 @@ function parseRoute(rawPathname: string): ParsedRoute {
   const pageMap: Record<string, View> = {
     "/what-we-do": "services",
     "/studio": "studio",
-    "/contact/booking": "booking",
     "/contact": "contact",
     "/storytime": "storytime",
     "/press": "press",
@@ -120,7 +117,6 @@ const pathMap: Record<View, string> = {
   services: "/what-we-do/",
   studio: "/studio/",
   contact: "/contact/",
-  booking: "/contact/booking/",
   storytime: "/storytime/",
   press: "/press/",
   seo: "/",
@@ -226,8 +222,6 @@ function App() {
         return <StudioPage onNavigate={navigateTo} />;
       case "contact":
         return <ContactPage onNavigate={navigateTo} />;
-      case "booking":
-        return <BookingPage onNavigate={navigateTo} />;
       case "storytime":
         return <StorytimePage onNavigate={navigateTo} />;
       case "press":
