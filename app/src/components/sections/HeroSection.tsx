@@ -481,7 +481,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.webp"
               alt="Vitacca Pro dancer cutout"
-              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-140px] xl:left-[-104px] 2xl:left-[-84px]"
+              className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-185px] xl:left-[-154px] 2xl:left-[-134px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"
               driftName="driftA"
@@ -528,7 +528,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             <InlineCutout
               src="/images/hero/cutouts/isabella-decandido-22138.webp"
               alt="Isabella DeCandido portrait cutout"
-              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-110px] lg:mt-[-80px] lg:top-[40px] xl:ml-[-140px] 2xl:ml-[-162px]"
+              className="inline-block ml-[-44px] mt-[-22px] top-[10px] md:ml-[-96px] md:mt-[-50px] md:top-[25px] lg:ml-[-110px] lg:mt-[-80px] lg:top-[40px] lg:left-[45px] xl:ml-[-140px] xl:left-[55px] 2xl:ml-[-162px] 2xl:left-[65px]"
               width="clamp(46px, 12vw, 185px)"
               height="clamp(76px, 19.2vw, 302px)"
               driftName="driftC"
