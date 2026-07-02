@@ -66,11 +66,16 @@ export function FullServiceHybridSection() {
           playsinline=1 (iOS inline autoplay) + a 540p/720p quality cap
           (ambient bg under a 60% dark overlay - full res is wasted). */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* IMPORTANT (iOS): the iframe must stay VISIBLE (opacity 1) -
+            iOS refuses to start videos inside invisible elements, so an
+            opacity-0-until-playing iframe deadlocks (never plays ->
+            never becomes visible). The poster below covers it instead
+            and fades once playback is confirmed. */}
         {near && (
           <iframe
             ref={iframeRef}
             src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=${bgVideoQuality()}&autopause=0&title=0&byline=0&portrait=0&controls=0`}
-            className="absolute transition-opacity duration-700"
+            className="absolute"
             style={{
               top: "50%",
               left: "50%",
@@ -78,7 +83,6 @@ export function FullServiceHybridSection() {
               height: "300%",
               transform: "translate(-50%, -50%)",
               border: 0,
-              opacity: playing ? 1 : 0,
             }}
             allow="autoplay; fullscreen"
             title="Ashkan Studios - production reel"

@@ -204,15 +204,21 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
           {/* playsinline=1: required for inline autoplay on iOS (Safari
               AND Chrome-on-iOS - both WebKit). quality=540p: tiles are
               at most ~340px wide, streaming more is wasted bandwidth
-              and was a big part of the mobile stutter. Fades in only
-              once actually playing - the poster image stays otherwise. */}
+              and was a big part of the mobile stutter.
+
+              IMPORTANT (iOS): the iframe must stay VISIBLE (opacity 1)
+              - iOS refuses to start videos inside invisible elements,
+              so an opacity-0-until-playing iframe deadlocks (never
+              plays -> never becomes visible). Instead the tile POSTER
+              overlays the iframe and fades out once playback is
+              confirmed - same pattern as the banner. */}
           <iframe
             ref={iframeRef}
             src={`https://player.vimeo.com/video/${tile.vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=540p&autopause=0&title=0&byline=0&portrait=0&controls=0&dnt=1${tile.vimeoHash ? `&h=${tile.vimeoHash}` : ""}`}
             loading="lazy"
             allow="autoplay; fullscreen"
             title={`${tile.category} - videography reel`}
-            className="absolute transition-[transform,opacity] duration-[1100ms] ease-out"
+            className="absolute transition-transform duration-[1100ms] ease-out"
             style={{
               top: "50%",
               left: "50%",
@@ -220,7 +226,19 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
               height: "300%",
               transform: `translate(-50%, -50%) scale(${isHovered ? 1.06 : 1})`,
               border: 0,
-              opacity: playing ? 1 : 0,
+            }}
+          />
+          {/* Poster overlay - covers the player until it actually plays
+              (blocked autoplay = poster stays; no black box). Mirrors
+              the base tile image incl. the hover Ken-Burns zoom. */}
+          <img
+            src={tile.image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover transition-[transform,opacity] duration-[1100ms] ease-out"
+            style={{
+              transform: isHovered ? "scale(1.06)" : "scale(1)",
+              opacity: playing ? 0 : 1,
             }}
           />
         </div>
