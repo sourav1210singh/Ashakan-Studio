@@ -93,6 +93,26 @@ add_action('rest_api_init', function () {
     ));
 });
 
+// Every submission is STORED FIRST in the WordPress database (visible
+// in wp-admin under "Enquiries"), and only then emailed. If Resend or
+// the email setup is ever down, no lead is lost: the entry sits in
+// wp-admin with status "failed" and is retried automatically every
+// 3 hours for up to 2 days.
+add_action('init', function () {
+    register_post_type('ashkan_enquiry', array(
+        'labels' => array(
+            'name'          => 'Enquiries',
+            'singular_name' => 'Enquiry',
+            'menu_name'     => 'Enquiries',
+        ),
+        'public'        => false,
+        'show_ui'       => true,
+        'menu_position' => 25,
+        'menu_icon'     => 'dashicons-email-alt',
+        'supports'      => array('title', 'editor'),
+    ));
+});
+
 function ashkan_studios_contact_handler(WP_REST_Request $req) {
     $name    = sanitize_text_field((string) $req->get_param('name'));
     $email   = sanitize_email((string) $req->get_param('email'));
@@ -103,9 +123,110 @@ function ashkan_studios_contact_handler(WP_REST_Request $req) {
     if ($name === '' || $email === '' || $message === '') {
         return new WP_REST_Response(array('error' => 'Please fill in your name, email, and message.'), 400);
     }
-    if (!defined('RESEND_API_KEY') || RESEND_API_KEY === '') {
-        return new WP_REST_Response(array('error' => 'Email service is not configured.'), 500);
+
+    // 1) STORE the enquiry first - the lead is safe no matter what
+    //    happens to the email below.
+    $post_id = wp_insert_post(array(
+        'post_type'    => 'ashkan_enquiry',
+        'post_status'  => 'private',
+        'post_title'   => $name . ($company !== '' ? ' - ' . $company : ''),
+        'post_content' => $message,
+    ));
+    if (is_wp_error($post_id)) { $post_id = 0; }
+    if ($post_id) {
+        update_post_meta($post_id, 'enquiry_email', $email);
+        update_post_meta($post_id, 'enquiry_company', $company);
+        update_post_meta($post_id, 'enquiry_project_type', $type);
+        update_post_meta($post_id, 'enquiry_email_status', 'pending');
+        update_post_meta($post_id, 'enquiry_attempts', 0);
     }
+
+    // 2) Send the notification email.
+    $sent = ashkan_send_enquiry_email($name, $email, $company, $type, $message);
+
+    if ($post_id) {
+        update_post_meta($post_id, 'enquiry_email_status', $sent ? 'sent' : 'failed');
+        update_post_meta($post_id, 'enquiry_attempts', 1);
+        if (!$sent) {
+            // Retry in 3 hours (repeats up to ~2 days - see retry hook).
+            wp_schedule_single_event(time() + 3 * HOUR_IN_SECONDS, 'ashkan_retry_enquiry_email', array($post_id));
+        }
+    }
+
+    // Saved OR emailed = the studio has the lead -> success for the
+    // visitor. Only fail when BOTH storage and email failed.
+    if ($post_id || $sent) {
+        return new WP_REST_Response(array('ok' => true), 200);
+    }
+    return new WP_REST_Response(array(
+        'error' => 'Could not send your message right now. Please try again, or email us at info@ashkanstudios.com.',
+    ), 502);
+}
+
+// Automatic retry for enquiries whose notification email failed:
+// every 3 hours, up to 16 attempts (~2 days of outage coverage).
+add_action('ashkan_retry_enquiry_email', function ($post_id) {
+    $post = get_post($post_id);
+    if (!$post || $post->post_type !== 'ashkan_enquiry') { return; }
+    if (get_post_meta($post_id, 'enquiry_email_status', true) === 'sent') { return; }
+
+    $attempts = (int) get_post_meta($post_id, 'enquiry_attempts', true);
+    $company  = (string) get_post_meta($post_id, 'enquiry_company', true);
+    $title    = $post->post_title;
+    $name     = ($company !== '' && substr($title, -strlen(' - ' . $company)) === ' - ' . $company)
+        ? substr($title, 0, strlen($title) - strlen(' - ' . $company))
+        : $title;
+
+    $sent = ashkan_send_enquiry_email(
+        $name,
+        (string) get_post_meta($post_id, 'enquiry_email', true),
+        $company,
+        (string) get_post_meta($post_id, 'enquiry_project_type', true),
+        (string) $post->post_content
+    );
+
+    update_post_meta($post_id, 'enquiry_attempts', $attempts + 1);
+    if ($sent) {
+        update_post_meta($post_id, 'enquiry_email_status', 'sent');
+    } elseif ($attempts + 1 < 16) {
+        wp_schedule_single_event(time() + 3 * HOUR_IN_SECONDS, 'ashkan_retry_enquiry_email', array($post_id));
+    }
+});
+
+// wp-admin "Enquiries" list: show the lead details at a glance.
+add_filter('manage_ashkan_enquiry_posts_columns', function ($cols) {
+    return array(
+        'cb'            => isset($cols['cb']) ? $cols['cb'] : '<input type="checkbox" />',
+        'title'         => 'Name',
+        'enquiry_email' => 'Email',
+        'enquiry_type'  => 'Project type',
+        'email_status'  => 'Email status',
+        'date'          => 'Date',
+    );
+});
+add_action('manage_ashkan_enquiry_posts_custom_column', function ($col, $post_id) {
+    if ($col === 'enquiry_email') {
+        $e = get_post_meta($post_id, 'enquiry_email', true);
+        echo $e !== '' ? '<a href="mailto:' . esc_attr($e) . '">' . esc_html($e) . '</a>' : '&mdash;';
+    } elseif ($col === 'enquiry_type') {
+        $t = get_post_meta($post_id, 'enquiry_project_type', true);
+        echo $t !== '' ? esc_html($t) : '&mdash;';
+    } elseif ($col === 'email_status') {
+        $s = get_post_meta($post_id, 'enquiry_email_status', true);
+        if ($s === 'sent') {
+            echo '<span style="color:#1a7a2e;font-weight:600">Sent</span>';
+        } elseif ($s === 'failed') {
+            echo '<span style="color:#b32d2e;font-weight:600">Failed (retrying)</span>';
+        } else {
+            echo esc_html($s !== '' ? $s : '&mdash;');
+        }
+    }
+}, 10, 2);
+
+// Builds + sends the brand-matched notification email via Resend.
+// Returns true on success. Requires RESEND_API_KEY in wp-config.php.
+function ashkan_send_enquiry_email($name, $email, $company, $type, $message) {
+    if (!defined('RESEND_API_KEY') || RESEND_API_KEY === '') { return false; }
 
     // Brand-matched HTML email - same template as the Vercel function
     // (dark #1A1A1A header, cream #F5F5F0 card, warmbeige #E8E0D1
@@ -169,11 +290,9 @@ function ashkan_studios_contact_handler(WP_REST_Request $req) {
     ));
 
     if (is_wp_error($resp) || wp_remote_retrieve_response_code($resp) >= 300) {
-        return new WP_REST_Response(array(
-            'error' => 'Could not send your message right now. Please try again, or email us at info@ashkanstudios.com.',
-        ), 502);
+        return false;
     }
-    return new WP_REST_Response(array('ok' => true), 200);
+    return true;
 }
 `
 );
