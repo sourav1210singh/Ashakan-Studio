@@ -91,7 +91,7 @@ function VideoTextWord({
             covers the wide, short text box at any aspect ratio
             (no letterbox bars peeking through the letters). */}
         <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&dnt=1&controls=0`}
+          src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=540p&dnt=1&controls=0`}
           title={children}
           allow="autoplay; fullscreen"
           style={{

@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { useNearViewport } from "@/hooks/useNearViewport";
+import { useVimeoPlaying } from "@/hooks/useVimeoPlaying";
 
 /* ════════════════════════════════════════════════════════════════════
    THE WORK - nine static category tiles (mixed Photography +
@@ -156,8 +158,19 @@ const WORK_TILES: WorkTile[] = [
 /* ──────────────────────────────────────────────────────────────────── */
 function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }) {
   const [isHovered, setIsHovered] = useState(false);
+  const tileRef = useRef<HTMLButtonElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  /* Boot the Vimeo player only when the tile approaches the viewport
+     (loading="lazy" alone still boots them too eagerly and isn't
+     supported by every Safari) - part of the 7/2 mobile-perf fixes. */
+  const near = useNearViewport(tileRef, "500px");
+  /* Poster stays visible until the player CONFIRMS it is playing, so
+     browsers that block autoplay (Safari Low Power Mode etc.) show the
+     tile image instead of a black/frozen player. */
+  const playing = useVimeoPlaying(iframeRef, near && !!tile.vimeoId);
   return (
     <button
+      ref={tileRef}
       type="button"
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
@@ -186,14 +199,20 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
           the tile is near the viewport, keeping the home page fast
           even with five embedded videos. The same Ken-Burns zoom
           is applied so the motion-feel matches Photography tiles. */}
-      {tile.type === "VIDEOGRAPHY" && tile.vimeoId && (
+      {tile.type === "VIDEOGRAPHY" && tile.vimeoId && near && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* playsinline=1: required for inline autoplay on iOS (Safari
+              AND Chrome-on-iOS - both WebKit). quality=540p: tiles are
+              at most ~340px wide, streaming more is wasted bandwidth
+              and was a big part of the mobile stutter. Fades in only
+              once actually playing - the poster image stays otherwise. */}
           <iframe
-            src={`https://player.vimeo.com/video/${tile.vimeoId}?background=1&autoplay=1&loop=1&muted=1&autopause=0&title=0&byline=0&portrait=0&controls=0&dnt=1${tile.vimeoHash ? `&h=${tile.vimeoHash}` : ""}`}
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${tile.vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=540p&autopause=0&title=0&byline=0&portrait=0&controls=0&dnt=1${tile.vimeoHash ? `&h=${tile.vimeoHash}` : ""}`}
             loading="lazy"
             allow="autoplay; fullscreen"
             title={`${tile.category} - videography reel`}
-            className="absolute transition-transform duration-[1100ms] ease-out"
+            className="absolute transition-[transform,opacity] duration-[1100ms] ease-out"
             style={{
               top: "50%",
               left: "50%",
@@ -201,6 +220,7 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
               height: "300%",
               transform: `translate(-50%, -50%) scale(${isHovered ? 1.06 : 1})`,
               border: 0,
+              opacity: playing ? 1 : 0,
             }}
           />
         </div>
