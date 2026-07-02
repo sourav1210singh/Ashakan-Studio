@@ -1,5 +1,6 @@
 import { useId, useRef, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
+import { scrollToTopInstant } from "@/lib/scroll";
 import {
   motion,
   useScroll,
@@ -820,7 +821,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
             onClick={() => {
               window.history.pushState(null, "", "/contact/");
               window.dispatchEvent(new PopStateEvent("popstate"));
-              window.scrollTo(0, 0);
+              scrollToTopInstant();
             }}
             className="group inline-flex items-center gap-3 px-7 sm:px-9 py-3.5 sm:py-4 bg-dark text-white font-medium tracking-[0.2em] text-xs sm:text-sm uppercase hover:bg-dark/90 transition-colors duration-300 cursor-pointer"
           >

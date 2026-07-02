@@ -16,6 +16,7 @@ import { TestIndexPage } from "@/pages/TestIndexPage";
 import { TestPage } from "@/pages/TestPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
 import { applyRouteMeta } from "@/lib/seo-meta";
+import { scrollToTopInstant } from "@/lib/scroll";
 
 export type View =
   | "home"
@@ -131,6 +132,14 @@ function App() {
 
   // ── Hash migration shim + initial route parse ──
   useEffect(() => {
+    /* SPA owns scroll positioning on history navigation. Without this,
+       Safari asynchronously restores the previous scroll position after
+       popstate (back/forward), overriding our scroll-to-top and leaving
+       pages stuck mid-scroll (part of Ashkan's 7/1 Safari bug report). */
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
     // Migrate legacy hash URLs (/#/work → /work) transparently
     const hash = window.location.hash;
     if (hash.startsWith("#/")) {
@@ -155,8 +164,9 @@ function App() {
          back/forward AND any programmatic `pushState +
          dispatchEvent(PopStateEvent)` call from sections /
          footer / etc. Per user request 2026-05-12: every page
-         should land at the hero/top, never mid- or bottom-scroll. */
-      window.scrollTo(0, 0);
+         should land at the hero/top, never mid- or bottom-scroll.
+         Instant (not smooth) so Safari can't cancel it mid-render. */
+      scrollToTopInstant();
     };
 
     window.addEventListener("popstate", handlePopState);
@@ -199,7 +209,7 @@ function App() {
       setSelectedCategory(null);
       window.history.pushState(null, "", pathMap[view]);
     }
-    window.scrollTo(0, 0);
+    scrollToTopInstant();
   }, []);
 
   const navigateToHome = useCallback(() => {
@@ -207,7 +217,7 @@ function App() {
     setSelectedProjectSlug(null);
     setSelectedCategory(null);
     window.history.pushState(null, "", "/");
-    window.scrollTo(0, 0);
+    scrollToTopInstant();
   }, []);
 
   // ── Render current view ──

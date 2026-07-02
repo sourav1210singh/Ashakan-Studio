@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { scrollToTopInstant } from "@/lib/scroll";
 
 /* ════════════════════════════════════════════════════════════════════
    THE CAMPAIGN - featured campaigns shown as four static 4:5 cards.
@@ -189,7 +190,7 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
             onClick={() => {
               window.history.pushState(null, "", "/contact/");
               window.dispatchEvent(new PopStateEvent("popstate"));
-              window.scrollTo(0, 0);
+              scrollToTopInstant();
             }}
             className="group inline-flex items-center gap-3 px-7 sm:px-9 py-3.5 sm:py-4 bg-dark text-white font-medium tracking-[0.2em] text-xs sm:text-sm uppercase hover:bg-dark/90 transition-colors duration-300 cursor-pointer"
           >
