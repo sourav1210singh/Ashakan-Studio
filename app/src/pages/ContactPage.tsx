@@ -24,14 +24,48 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
     setStatus("sending");
     setErrorMsg("");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to send your message.");
+      /* Backend differs by host:
+         - Vercel preview (ashakan-studio.vercel.app): /api/contact
+           serverless function.
+         - Live site (ashkanstudios.com on WP Engine): the wrapper
+           theme's REST endpoint. The ?rest_route= form is a fallback
+           in case the /wp-json pretty permalink ever breaks.
+         Every response is verified to be JSON with { ok: true } - the
+         WP SPA catch-all returns index.html with HTTP 200 for unknown
+         paths, which previously made the form claim "sent" without
+         any email actually being sent. */
+      const endpoints = window.location.hostname.endsWith(".vercel.app")
+        ? ["/api/contact"]
+        : ["/wp-json/ashkan/v1/contact", "/?rest_route=/ashkan/v1/contact"];
+
+      let confirmed = false;
+      let apiError = "";
+      for (const url of endpoints) {
+        let res: Response;
+        try {
+          res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+        } catch {
+          continue; // network hiccup - try the next endpoint
+        }
+        const data: unknown = await res.json().catch(() => null);
+        if (!data || typeof data !== "object") {
+          continue; // got HTML (SPA catch-all / cache), not the API - try next
+        }
+        if (res.ok && (data as { ok?: boolean }).ok === true) {
+          confirmed = true;
+        } else {
+          apiError =
+            (data as { error?: string }).error || "Failed to send your message.";
+        }
+        break; // a real API answered (success or error) - stop trying
+      }
+
+      if (!confirmed) {
+        throw new Error(apiError || "Failed to send your message.");
       }
       setStatus("sent");
       setFormData({ name: "", email: "", company: "", projectType: "", message: "" });
