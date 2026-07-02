@@ -1,5 +1,8 @@
+import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { useNearViewport } from "@/hooks/useNearViewport";
+import { useVimeoPlaying, bgVideoQuality } from "@/hooks/useVimeoPlaying";
 
 /* ════════════════════════════════════════════════════════════════════
    FULL-SERVICE PRODUCTION - single full-bleed row with a looping
@@ -28,6 +31,18 @@ import { scrollToTopInstant } from "@/lib/scroll";
 const BG_VIMEO_ID = "1147057440";
 
 export function FullServiceHybridSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  /* Boot the player only when the section is within ~800px of the
+     viewport - this section sits far below the fold, and eagerly
+     booting its player on page load was part of the 8-players-at-once
+     mobile stutter (7/2 fixes). */
+  const near = useNearViewport(sectionRef, "800px");
+  /* Poster stays up until the player confirms playback, so blocked
+     autoplay (Safari Low Power Mode etc.) shows a real still frame
+     instead of a black box. */
+  const playing = useVimeoPlaying(iframeRef, near);
+
   /* Per Brandi's new-PDF page 6: the CTA button label changed from
      'What We Do' to 'Let's Create' and now leads to the contact page
      instead of the services page. */
@@ -42,25 +57,41 @@ export function FullServiceHybridSection() {
   return (
     <section
       id="services"
+      ref={sectionRef}
       className="relative overflow-hidden bg-dark min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center"
     >
       {/* ── Background video - Vimeo iframe in 'background' mode ──
           The iframe is over-sized (300% w/h) and centred so it covers
-          the section at any viewport aspect ratio without letterboxing. */}
+          the section at any viewport aspect ratio without letterboxing.
+          playsinline=1 (iOS inline autoplay) + a 540p/720p quality cap
+          (ambient bg under a 60% dark overlay - full res is wasted). */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <iframe
-          src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
-          className="absolute"
-          style={{
-            top: "50%",
-            left: "50%",
-            width: "300%",
-            height: "300%",
-            transform: "translate(-50%, -50%)",
-            border: 0,
-          }}
-          allow="autoplay; fullscreen"
-          title="Ashkan Studios - production reel"
+        {near && (
+          <iframe
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${BG_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=${bgVideoQuality()}&autopause=0&title=0&byline=0&portrait=0&controls=0`}
+            className="absolute transition-opacity duration-700"
+            style={{
+              top: "50%",
+              left: "50%",
+              width: "300%",
+              height: "300%",
+              transform: "translate(-50%, -50%)",
+              border: 0,
+              opacity: playing ? 1 : 0,
+            }}
+            allow="autoplay; fullscreen"
+            title="Ashkan Studios - production reel"
+          />
+        )}
+        {/* Poster still (the video's own thumbnail) - first paint + the
+            permanent visual when autoplay is denied. */}
+        <img
+          src="/images/sections/full-service-poster.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          style={{ opacity: playing ? 0 : 1 }}
         />
       </div>
 

@@ -66,6 +66,36 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [currentView]);
 
+  /* Safety net for the iOS Safari "header gone at the top of the page"
+     report (Ashkan 7/2). The scroll handler only re-evaluates on scroll
+     events, so if the hidden state ever gets stuck (same-view navigation
+     like logo-click while already on home doesn't change currentView,
+     iOS toolbar collapse/expand fires resize not scroll, bfcache
+     restores...), nothing un-hides the header. These listeners force it
+     visible on every SPA navigation (popstate), page restore (pageshow),
+     tab return, and on resize/orientation change while near the top. */
+  useEffect(() => {
+    const show = () => setIsHidden(false);
+    const showIfNearTop = () => {
+      if (Math.max(0, window.scrollY) < 120) show();
+    };
+    const onVisibility = () => {
+      if (!document.hidden) showIfNearTop();
+    };
+    window.addEventListener("popstate", show);
+    window.addEventListener("pageshow", show);
+    window.addEventListener("resize", showIfNearTop);
+    window.addEventListener("orientationchange", show);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.removeEventListener("popstate", show);
+      window.removeEventListener("pageshow", show);
+      window.removeEventListener("resize", showIfNearTop);
+      window.removeEventListener("orientationchange", show);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+
   // Always show header when menu is open
   const headerHidden = isHidden && !isMenuOpen;
 

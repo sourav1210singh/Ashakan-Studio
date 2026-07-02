@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { useVimeoPlaying, bgVideoQuality } from "@/hooks/useVimeoPlaying";
 
 /* ════════════════════════════════════════════════════════════════════
    VIDEO BANNER - full-width looping Vimeo banner placed between the
@@ -24,44 +25,12 @@ const BANNER_VIMEO_ID = "1040829359";
 
 export function VideoBannerSection() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
-
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
-    const onMessage = (e: MessageEvent) => {
-      if (typeof e.origin === "string" && !e.origin.includes("vimeo.com")) return;
-      let data: { event?: string };
-      try {
-        data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-      } catch {
-        return;
-      }
-      if (data && (data.event === "playing" || data.event === "play")) {
-        setVideoReady(true);
-      }
-    };
-
-    const onLoad = () => {
-      ["play", "playing"].forEach((evt) =>
-        iframe.contentWindow?.postMessage(
-          JSON.stringify({ method: "addEventListener", value: evt }),
-          "*"
-        )
-      );
-    };
-
-    window.addEventListener("message", onMessage);
-    iframe.addEventListener("load", onLoad);
-    const fallback = window.setTimeout(() => setVideoReady(true), 4000);
-
-    return () => {
-      window.removeEventListener("message", onMessage);
-      iframe.removeEventListener("load", onLoad);
-      window.clearTimeout(fallback);
-    };
-  }, []);
+  /* Shared hook (7/2): scopes play-detection to THIS iframe via
+     e.source (the old inline listener accepted any Vimeo message, so
+     ANOTHER section's video starting used to fade this poster), and
+     drops the old 4s force-hide - if autoplay is denied (Safari Low
+     Power Mode etc.) the poster now simply stays, never a black box. */
+  const videoReady = useVimeoPlaying(iframeRef);
 
   return (
     <section className="relative w-full overflow-hidden bg-dark">
@@ -69,7 +38,7 @@ export function VideoBannerSection() {
       <div className="relative w-full h-[42vw] min-h-[220px] max-h-[640px]">
         <iframe
           ref={iframeRef}
-          src={`https://player.vimeo.com/video/${BANNER_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&autopause=0&title=0&byline=0&portrait=0&controls=0`}
+          src={`https://player.vimeo.com/video/${BANNER_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=${bgVideoQuality()}&autopause=0&title=0&byline=0&portrait=0&controls=0`}
           className="absolute"
           style={{
             top: "50%",
