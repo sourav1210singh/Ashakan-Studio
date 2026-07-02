@@ -255,12 +255,25 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
 
   return (
     <>
+      {/* iOS PAINT BUG FIX (Ashkan/Sourav 7/2, iPhone Safari + Chrome):
+          the header's CONTENT (logo, WORK/CONTACT, MENU, the X) stopped
+          painting - only a blurred band remained - while clicks kept
+          working. Hit-testing working = React state was correct; the
+          COMPOSITED LAYER had gone blank. Cause: the notorious iOS
+          WebKit combination of position:fixed + will-change:transform
+          + backdrop-filter + transform/opacity transitions. Fix:
+          1) willChange removed (forced a persistent compositing layer
+             that iOS fails to repaint after toolbar-resize/nav);
+          2) backdrop-blur-sm removed from the scrolled state - iOS
+             also keeps painting stale backdrop-filter regions that
+             ignore the element's own transform/opacity. bg-cream/95
+             is ~opaque so the visual difference is negligible. */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 ${
           isMenuOpen
             ? "bg-cream"
             : isScrolled
-              ? "bg-cream/95 backdrop-blur-sm shadow-sm"
+              ? "bg-cream/95 shadow-sm"
               : "bg-transparent"
         }`}
         style={{
@@ -269,7 +282,6 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
           transition:
             "transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease-out, background-color 0.4s ease-out, box-shadow 0.4s ease-out",
           pointerEvents: headerHidden ? "none" : "auto",
-          willChange: "transform, opacity",
         }}
       >
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
