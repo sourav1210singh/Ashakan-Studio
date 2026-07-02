@@ -22,14 +22,23 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
   const isDarkPage = DARK_PAGES.includes(currentView as View);
 
   useEffect(() => {
-    let lastY = window.scrollY;
+    /* Always reveal the header when the route changes. Without this,
+       if the page was scrolled down (isHidden=true) when the user
+       navigated, the hidden state carried over to the new page - on
+       Safari this left the menu invisible until a refresh (Ashkan's
+       7/1 bug report #1). */
+    setIsHidden(false);
+
+    /* Clamp: Safari's rubber-band overscroll reports NEGATIVE scrollY
+       at the top of the page, which corrupts the delta math below. */
+    let lastY = Math.max(0, window.scrollY);
     let ticking = false;
 
     const handleScroll = () => {
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
-        const y = window.scrollY;
+        const y = Math.max(0, window.scrollY);
 
         // On home page, keep header transparent for the entire door-portal
         // intro section (~3 viewports tall). Other pages use the small

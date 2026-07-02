@@ -1,5 +1,6 @@
 import { Instagram, Linkedin } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { scrollToTopInstant } from "@/lib/scroll";
 import type { View } from "@/App";
 
 interface FooterProps {
@@ -44,7 +45,10 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
     if (path) {
       window.history.pushState(null, "", path);
       window.dispatchEvent(new PopStateEvent("popstate"));
-      window.scrollTo(0, 0);
+      /* Instant jump (not smooth) - Safari cancels a smooth scroll when
+         the route re-renders, leaving the new page stuck at the footer
+         (Ashkan's 7/1 bug report #2). */
+      scrollToTopInstant();
     }
   };
 
@@ -171,9 +175,12 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           </p>
           {/* Agency credit - same muted color/size as the copyright,
               normal case (no uppercase / no bold), link brightens on
-              hover. Placed on its own line below so it stays subtle. */}
+              hover. Placed on its own line below so it stays subtle.
+              Wording per Ashkan (Discord 7/1): "Created by Incrementors.
+              We walk you through every aspect of the design on this
+              website." replaces the previous "Designed by Incrementors". */}
           <p className="text-xs sm:text-sm text-white/40 text-center mt-1.5">
-            Designed by{" "}
+            Created by{" "}
             <a
               href="https://www.incrementors.com/"
               target="_blank"
@@ -182,6 +189,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
             >
               Incrementors
             </a>
+            . We walk you through every aspect of the design on this website.
           </p>
         </div>
       </div>

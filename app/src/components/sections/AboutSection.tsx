@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { scrollToTopInstant } from "@/lib/scroll";
 
 const ABOUT_IMAGE = {
   src: "/images/sections/studio-2026.jpg",
@@ -81,7 +82,7 @@ export function AboutSection() {
                 onClick={() => {
                   window.history.pushState(null, "", "/contact/");
                   window.dispatchEvent(new PopStateEvent("popstate"));
-                  window.scrollTo(0, 0);
+                  scrollToTopInstant();
                 }}
                 className="inline-flex items-center gap-2 sm:gap-3 text-dark group transition-transform duration-200 hover:translate-x-1"
               >

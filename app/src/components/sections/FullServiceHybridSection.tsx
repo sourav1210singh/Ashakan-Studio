@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { scrollToTopInstant } from "@/lib/scroll";
 
 /* ════════════════════════════════════════════════════════════════════
    FULL-SERVICE PRODUCTION - single full-bleed row with a looping
@@ -34,8 +35,8 @@ export function FullServiceHybridSection() {
     window.history.pushState(null, "", "/contact/");
     window.dispatchEvent(new PopStateEvent("popstate"));
     /* Defensive scroll-to-top - App's popstate handler also calls
-       scrollTo(0,0), this is here for redundancy. */
-    window.scrollTo(0, 0);
+       scrollToTopInstant(), this is here for redundancy. */
+    scrollToTopInstant();
   };
 
   return (

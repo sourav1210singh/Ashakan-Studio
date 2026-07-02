@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { scrollToTopInstant } from "@/lib/scroll";
 
 /* ════════════════════════════════════════════════════════════════════
    THE WORK - nine static category tiles (mixed Photography +
@@ -283,7 +284,7 @@ export function WorkCategoriesSection(_props: WorkCategoriesSectionProps) {
   const navigate = (href: string) => {
     window.history.pushState(null, "", href);
     window.dispatchEvent(new PopStateEvent("popstate"));
-    window.scrollTo(0, 0);
+    scrollToTopInstant();
   };
 
   /* Scroll the tile strip by roughly one tile-and-a-half per click. */
