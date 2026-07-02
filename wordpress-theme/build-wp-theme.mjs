@@ -4,17 +4,23 @@
 // routing falls through to it for every front-end URL (so the React
 // client-side router handles deep links like /work/photography/).
 //
-// Run AFTER `npx vite build`:   node build-wp-theme.mjs
+// Lives OUTSIDE app/ (in wordpress-theme/) so the app folder stays a
+// clean React project. Reads the build from ../app/dist and writes the
+// theme next to itself. Run from anywhere:
+//   cd app && npx vite build
+//   node ../wordpress-theme/build-wp-theme.mjs
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
-const ROOT = path.resolve(".");
-const DIST = path.join(ROOT, "dist");
-const OUT = path.join(ROOT, "wp-theme-dist");
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const APP = path.resolve(HERE, "..", "app");
+const DIST = path.join(APP, "dist");
+const OUT = path.join(HERE, "wp-theme-dist");
 const THEME = path.join(OUT, "ashkan-studios");
 
 if (!fs.existsSync(path.join(DIST, "index.html"))) {
-  console.error("dist/index.html not found. Run `npx vite build` first.");
+  console.error("app/dist/index.html not found. Run `npx vite build` in app/ first.");
   process.exit(1);
 }
 
