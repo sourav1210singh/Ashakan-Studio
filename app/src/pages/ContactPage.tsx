@@ -27,16 +27,23 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
       /* Backend differs by host:
          - Vercel preview (ashakan-studio.vercel.app): /api/contact
            serverless function.
-         - Live site (ashkanstudios.com on WP Engine): the wrapper
-           theme's REST endpoint. The ?rest_route= form is a fallback
-           in case the /wp-json pretty permalink ever breaks.
+         - Live site (ashkanstudios.com on WP Engine): a static React
+           build with NO WordPress installed, so the backend is the
+           standalone /contact.php endpoint (repo: wp-engine/contact.php)
+           uploaded to the webroot. The /wp-json entries are harmless
+           fallbacks in case the site ever runs inside WordPress again
+           (the wrapper-theme REST endpoint from wordpress-theme/).
          Every response is verified to be JSON with { ok: true } - the
-         WP SPA catch-all returns index.html with HTTP 200 for unknown
+         SPA catch-all returns index.html with HTTP 200 for unknown
          paths, which previously made the form claim "sent" without
          any email actually being sent. */
       const endpoints = window.location.hostname.endsWith(".vercel.app")
         ? ["/api/contact"]
-        : ["/wp-json/ashkan/v1/contact", "/?rest_route=/ashkan/v1/contact"];
+        : [
+            "/contact.php",
+            "/wp-json/ashkan/v1/contact",
+            "/?rest_route=/ashkan/v1/contact",
+          ];
 
       let confirmed = false;
       let apiError = "";
