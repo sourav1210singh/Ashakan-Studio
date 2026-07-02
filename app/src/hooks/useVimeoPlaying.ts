@@ -59,6 +59,17 @@ export function useVimeoPlaying(
     iframe.addEventListener("load", subscribe);
     subscribe(); // in case the iframe already loaded
 
+    /* Gesture kickstart (iOS): if the initial autoplay attempt was
+       denied or lost a boot race, retry play() on the user's FIRST
+       interaction - muted+playsinline playback is allowed to start
+       from a page interaction on WebKit. Harmless when already
+       playing. (Low Power Mode still blocks autoplay entirely; the
+       poster stays in that case.) */
+    const kick = () => post({ method: "play" });
+    window.addEventListener("touchend", kick, { passive: true, once: true });
+    window.addEventListener("pointerdown", kick, { once: true });
+    window.addEventListener("scroll", kick, { passive: true, once: true });
+
     const poll = window.setInterval(() => {
       subscribe();
       post({ method: "getPaused" });
@@ -70,6 +81,9 @@ export function useVimeoPlaying(
     return () => {
       window.removeEventListener("message", onMessage);
       iframe.removeEventListener("load", subscribe);
+      window.removeEventListener("touchend", kick);
+      window.removeEventListener("pointerdown", kick);
+      window.removeEventListener("scroll", kick);
       window.clearInterval(poll);
       window.clearTimeout(stop);
     };
