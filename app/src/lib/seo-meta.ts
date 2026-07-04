@@ -105,7 +105,7 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
 
     case "services":
       return {
-        title: `What We Do — Photography, Video & Creative Direction | ${SITE_NAME}`,
+        title: `Photography, Video & Creative Direction | ${SITE_NAME}`,
         description:
           "Ashkan Studios is a full-service Houston production company offering commercial photography, cinematic videography, and creative direction.",
         path: "/what-we-do/",
@@ -129,7 +129,7 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
 
     case "storytime":
       return {
-        title: `Storytime — Studio Journal & Behind the Scenes | ${SITE_NAME}`,
+        title: `Storytime — Journal & Behind the Scenes | ${SITE_NAME}`,
         description:
           "Storytime is the Ashkan Studios journal — studio updates, behind-the-scenes from shoots, campaign recaps, press features, and thoughts from the industry.",
         path: "/storytime/",
@@ -224,11 +224,17 @@ export function applyRouteMeta(input: RouteInput): void {
   setMetaByName("description", meta.description);
   setMetaByName("robots", meta.noindex ? "noindex, nofollow" : "index, follow");
 
+  const ogImage = window.location.origin + "/og-image.jpg";
   setMetaByProp("og:title", meta.title);
   setMetaByProp("og:description", meta.description);
   setMetaByProp("og:url", canonical);
   setMetaByProp("og:type", "website");
   setMetaByProp("og:site_name", SITE_NAME);
+  setMetaByProp("og:image", ogImage);
+  setMetaByName("twitter:card", "summary_large_image");
+  setMetaByName("twitter:title", meta.title);
+  setMetaByName("twitter:description", meta.description);
+  setMetaByName("twitter:image", ogImage);
 
   setCanonical(canonical);
 }

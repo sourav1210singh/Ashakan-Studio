@@ -556,10 +556,12 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
             from hero by design), falling back to heroImage for older
             campaigns that don't have a featured image. */}
         <section className="relative py-32 sm:py-44 lg:py-52 overflow-hidden">
-          {/* Background image with dark overlay */}
+          {/* Background image with dark overlay - decorative, so empty
+              alt + aria-hidden keeps it out of the accessibility tree. */}
           <img
             src={project.featuredImage ?? project.heroImage}
             alt=""
+            aria-hidden="true"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/75" />
