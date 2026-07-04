@@ -32,6 +32,46 @@ export type View =
   | "seo"
   | "test";
 
+/* ── Legacy URL map: OLD ashkanstudios.com (WordPress) → new site ──
+   The REAL 301s live in the WP Engine portal's Redirect Rules (server
+   level - that's what transfers rankings). This map is the in-app
+   safety net: the static-hosting catch-all serves the SPA for ANY
+   path, so without it an un-redirected old URL would render the HOME
+   page. Instead we replaceState to the right new page (visitors land
+   correctly, and Google's JS render sees the target content +
+   canonical). Sources from the 2026-07-01 old-site audit CSV. */
+const LEGACY_REDIRECTS: Record<string, string> = {
+  "/about-me": "/studio/",
+  "/portfolios": "/work/photography/",
+  "/portfolios-new": "/work/photography/",
+  "/production-studio-in-houston-2": "/what-we-do/",
+  "/houston-production-studio": "/what-we-do/",
+  "/portfolios/brandon-blackwood": "/work/photography/retail/",
+  "/portfolios/audaja-skincare": "/work/photography/retail/",
+  "/portfolios/elastique-athletics": "/work/photography/retail/",
+  "/portfolios/cacao-cardamom": "/work/photography/retail/",
+  "/portfolios/cecilia-duarte": "/work/photography/the-arts/",
+  "/portfolios/lauren-anderson": "/work/photography/the-arts/",
+  "/portfolios/vitacca-ballet": "/work/photography/the-arts/",
+  "/portfolios/fashion": "/work/photography/fashion/",
+  "/portfolios/publications": "/work/photography/",
+  "/portfolios/miscellaneous": "/work/photography/",
+  "/portfolios/car-collections": "/work/photography/",
+  "/portfolios/weissman-elite": "/work/campaigns/weissman/",
+  "/portfolios/eye-gallery": "/work/campaigns/eye-gallery/",
+  "/portfolios/deutsch-fine-jewelry": "/work/campaigns/deutsch/",
+  "/portfolios/the-monarch-school-and-institute": "/work/campaigns/monarch-school/",
+  "/portfolios/kinetik": "/work/videography/narrative/",
+  "/portfolios/radiomedix": "/work/videography/industrial/",
+};
+
+/** Returns the new-site path for a legacy old-site URL, else null. */
+function resolveLegacyPath(rawPathname: string): string | null {
+  const pathname =
+    rawPathname.length > 1 ? rawPathname.replace(/\/+$/, "") : rawPathname;
+  return LEGACY_REDIRECTS[pathname] ?? null;
+}
+
 /* ── Route parsing (shared by initial load + popstate) ── */
 interface ParsedRoute {
   view: View;
@@ -147,6 +187,13 @@ function App() {
       window.history.replaceState(null, "", cleanPath);
     }
 
+    // Old-site URL landed directly (bookmark/Google) → swap to the
+    // new-site path before routing.
+    const legacy = resolveLegacyPath(window.location.pathname);
+    if (legacy) {
+      window.history.replaceState(null, "", legacy);
+    }
+
     const { view, slug, category } = parseRoute(window.location.pathname);
     setCurrentView(view);
     setSelectedProjectSlug(slug);
@@ -156,6 +203,11 @@ function App() {
   // ── Handle browser back/forward + programmatic pushState ──
   useEffect(() => {
     const handlePopState = () => {
+      // Old-site URL arriving via history navigation → normalize first.
+      const legacy = resolveLegacyPath(window.location.pathname);
+      if (legacy) {
+        window.history.replaceState(null, "", legacy);
+      }
       const { view, slug, category } = parseRoute(window.location.pathname);
       setCurrentView(view);
       setSelectedProjectSlug(slug);
