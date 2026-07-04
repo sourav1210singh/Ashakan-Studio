@@ -34,6 +34,14 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       <main>
+        {/* SEO H1: the visual hero renders "WE CREATE VISUAL STORIES
+            THAT INSPIRE" as animated spans (not a heading tag), so the
+            home page had no H1 at all. This screen-reader-only H1
+            supplies it without touching the approved hero design. */}
+        <h1 className="sr-only">
+          Ashkan Studios — Houston Commercial Photography, Videography
+          &amp; Creative Production. We create visual stories that inspire.
+        </h1>
         {/* interNaturalWidth = WE CREATE / THAT in Oswald 200 (Brandi's
             approved banner font), replacing the old Inter + squeeze. */}
         <HeroSection interNaturalWidth />
