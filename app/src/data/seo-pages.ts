@@ -705,7 +705,7 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Video content that moves products off shelves and into carts. Let's create your next campaign.",
     ctaButton: { label: "GET STARTED", view: "contact" },
-    metaTitle: "Video Production for Retail Industry | Ashkan Studios Houston",
+    metaTitle: "Video Production for Retail Industry | Ashkan Studios",
     metaDescription:
       "Retail video production in Houston by Ashkan Studios. Product demos, testimonials, and ecommerce video content that drives sales.",
   },
@@ -740,7 +740,7 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Professional video production for the industrial and corporate sector. Let's create content that moves your business forward.",
     ctaButton: { label: "START YOUR PROJECT", view: "contact" },
-    metaTitle: "Video for Industrial & Corporate Sector | Ashkan Studios Houston",
+    metaTitle: "Video for Industrial & Corporate Sector | Ashkan Studios",
     metaDescription:
       "Industrial and corporate video production in Houston. Ashkan Studios creates training, communications, and marketing videos for enterprise clients.",
   },
