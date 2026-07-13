@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   LogOut, Plus, Pencil, Trash2, Image as ImageIcon, Eye, EyeOff,
-  ArrowLeft, Loader2, ExternalLink,
+  ArrowLeft, Loader2, ExternalLink, BookOpen, Users, RefreshCw,
+  ChevronDown, Mail,
 } from "lucide-react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
-import { blogApi, formatPostDate, type BlogPostSummary } from "@/lib/blog";
+import { blogApi, formatPostDate, type BlogPostSummary, type Lead } from "@/lib/blog";
 import type { View } from "@/App";
 
 interface BlogAdminPageProps {
@@ -46,8 +47,36 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
   const [showPreview, setShowPreview] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  /* Dashboard sections: BLOG (posts) | LEADS (contact-form submissions
+     logged by contact.php). /admin/leads pre-selects the Leads tab. */
+  const [section, setSection] = useState<"blog" | "leads">(() =>
+    typeof window !== "undefined" && window.location.pathname.startsWith("/admin/leads")
+      ? "leads"
+      : "blog"
+  );
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [leadsBusy, setLeadsBusy] = useState(false);
+  const [expandedLead, setExpandedLead] = useState<number | null>(null);
+
   const refresh = () =>
     blogApi.all().then(setPosts).catch((e: Error) => setError(e.message));
+
+  const loadLeads = () => {
+    setLeadsBusy(true);
+    blogApi
+      .leads()
+      .then(setLeads)
+      .catch((e: Error) => setError(e.message))
+      .finally(() => setLeadsBusy(false));
+  };
+
+  const switchSection = (s: "blog" | "leads") => {
+    setSection(s);
+    setError("");
+    setNotice("");
+    window.history.replaceState(null, "", s === "leads" ? "/admin/leads/" : "/admin/blog/");
+    if (s === "leads") loadLeads();
+  };
 
   useEffect(() => {
     blogApi
@@ -56,6 +85,7 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
         if (authed) {
           setPhase("list");
           refresh();
+          if (window.location.pathname.startsWith("/admin/leads")) loadLeads();
         } else {
           setPhase("login");
         }
@@ -77,6 +107,7 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
       setPassword("");
       setPhase("list");
       await refresh();
+      if (section === "leads") loadLeads();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed.");
     } finally {
@@ -213,6 +244,37 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
           <p className="text-dark/50 text-sm tracking-wider">CHECKING SESSION…</p>
         )}
 
+        {/* ── Section tabs: BLOG | LEADS ── */}
+        {(phase === "list" || phase === "edit") && (
+          <div className="flex gap-2 mb-8 border-b border-dark/10">
+            <button
+              onClick={() => switchSection("blog")}
+              className={`inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold tracking-[0.15em] border-b-2 -mb-px transition-colors ${
+                section === "blog"
+                  ? "border-dark text-dark"
+                  : "border-transparent text-dark/45 hover:text-dark"
+              }`}
+            >
+              <BookOpen className="w-4 h-4" /> BLOG
+            </button>
+            <button
+              onClick={() => switchSection("leads")}
+              className={`inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold tracking-[0.15em] border-b-2 -mb-px transition-colors ${
+                section === "leads"
+                  ? "border-dark text-dark"
+                  : "border-transparent text-dark/45 hover:text-dark"
+              }`}
+            >
+              <Users className="w-4 h-4" /> LEADS
+              {leads.length > 0 && (
+                <span className="text-[11px] bg-dark text-white rounded-full px-2 py-0.5">
+                  {leads.length}
+                </span>
+              )}
+            </button>
+          </div>
+        )}
+
         {/* ── Login ── */}
         {phase === "login" && (
           <form onSubmit={handleLogin} className="max-w-sm">
@@ -235,8 +297,84 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
           </form>
         )}
 
+        {/* ── LEADS: contact-form submissions ── */}
+        {section === "leads" && (phase === "list" || phase === "edit") && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <p className="text-sm text-dark/60">
+                {leads.length} lead{leads.length === 1 ? "" : "s"} — every
+                contact-form submission is saved here, even if its email failed.
+              </p>
+              <button
+                onClick={loadLeads}
+                disabled={leadsBusy}
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-dark/25 text-dark text-sm hover:bg-dark hover:text-white transition-colors disabled:opacity-60"
+              >
+                <RefreshCw className={`w-4 h-4 ${leadsBusy ? "animate-spin" : ""}`} />
+                Refresh
+              </button>
+            </div>
+
+            <div className="border border-dark/10 rounded-lg overflow-hidden bg-white/50">
+              {leads.length === 0 && (
+                <p className="px-5 py-10 text-center text-dark/50 text-sm">
+                  {leadsBusy ? "Loading…" : "No leads yet — form submissions will appear here."}
+                </p>
+              )}
+              {leads.map((l, i) => (
+                <div key={i} className="border-b border-dark/10 last:border-b-0">
+                  <button
+                    onClick={() => setExpandedLead(expandedLead === i ? null : i)}
+                    className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-dark/[0.03] transition-colors"
+                  >
+                    <div className="w-28 shrink-0">
+                      <p className="text-xs text-dark/50">{formatPostDate(l.time)}</p>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-dark truncate">{l.name}</p>
+                      <p className="text-xs text-dark/50 truncate">
+                        {l.email}
+                        {l.company ? ` · ${l.company}` : ""}
+                        {l.projectType ? ` · ${l.projectType}` : ""}
+                      </p>
+                    </div>
+                    <span
+                      className={`text-[11px] font-semibold tracking-wider px-2.5 py-1 rounded-full shrink-0 ${
+                        l.emailStatus === "sent"
+                          ? "bg-dark text-white"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                      title={l.emailStatus === "sent" ? "Notification email delivered" : "Email failed - lead saved here"}
+                    >
+                      {l.emailStatus === "sent" ? "EMAILED" : "SAVED"}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-dark/40 shrink-0 transition-transform ${
+                        expandedLead === i ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {expandedLead === i && (
+                    <div className="px-5 pb-5 pt-1">
+                      <div className="bg-warmbeige/60 rounded-lg px-4 py-3 text-sm text-dark/80 whitespace-pre-wrap leading-relaxed">
+                        {l.message}
+                      </div>
+                      <a
+                        href={`mailto:${l.email}?subject=${encodeURIComponent("Re: Your enquiry with Ashkan Studios")}`}
+                        className="mt-3 inline-flex items-center gap-2 text-xs font-medium tracking-wider text-dark/70 hover:text-dark"
+                      >
+                        <Mail className="w-3.5 h-3.5" /> REPLY TO {l.name.toUpperCase()}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ── Post list ── */}
-        {phase === "list" && (
+        {section === "blog" && phase === "list" && (
           <>
             <div className="flex items-center justify-between mb-6">
               <p className="text-sm text-dark/60">
@@ -313,7 +451,7 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
         )}
 
         {/* ── Editor ── */}
-        {phase === "edit" && (
+        {section === "blog" && phase === "edit" && (
           <div>
             <button
               onClick={() => { setPhase("list"); refresh(); }}

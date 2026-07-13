@@ -21,6 +21,17 @@ export interface BlogPost extends BlogPostSummary {
   content: string;
 }
 
+/** A contact-form submission logged by contact.php on the live host. */
+export interface Lead {
+  time: string;
+  name: string;
+  email: string;
+  company: string;
+  projectType: string;
+  message: string;
+  emailStatus: "sent" | "failed" | "not-configured" | string;
+}
+
 async function call<T>(action: string, data: Record<string, unknown> = {}): Promise<T> {
   const res = await fetch("/blog-api.php", {
     method: "POST",
@@ -50,6 +61,8 @@ export const blogApi = {
 
   /** All posts incl. drafts (admin). */
   all: () => call<{ posts: BlogPostSummary[] }>("all").then((r) => r.posts),
+  /** Contact-form leads, newest first (admin). */
+  leads: () => call<{ leads: Lead[] }>("leads").then((r) => r.leads),
   get: (id: string) => call<{ post: BlogPost }>("get", { id }).then((r) => r.post),
   save: (post: Partial<BlogPost>) =>
     call<{ id: string; slug: string }>("save", post as Record<string, unknown>),
