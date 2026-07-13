@@ -31,6 +31,8 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
     studio: "/studio/",
     contact: "/contact/",
     storytime: "/storytime/",
+    storytimePost: "/storytime/",
+    admin: "/admin/blog/",
     press: "/press/",
     seo: "/",
     test: "/test/",

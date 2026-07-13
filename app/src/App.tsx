@@ -8,6 +8,8 @@ import { ServicesPage } from "@/pages/ServicesPage";
 import { StudioPage } from "@/pages/StudioPage";
 import { ContactPage } from "@/pages/ContactPage";
 import { StorytimePage } from "@/pages/StorytimePage";
+import { StorytimePostPage } from "@/pages/StorytimePostPage";
+import { BlogAdminPage } from "@/pages/BlogAdminPage";
 import { PressPage } from "@/pages/PressPage";
 import { HeadshotsPage } from "@/pages/HeadshotsPage";
 import { SeoPage } from "@/pages/SeoPage";
@@ -28,6 +30,8 @@ export type View =
   | "studio"
   | "contact"
   | "storytime"
+  | "storytimePost"
+  | "admin"
   | "press"
   | "seo"
   | "test";
@@ -128,6 +132,20 @@ function parseRoute(rawPathname: string): ParsedRoute {
     return { view: "headshots", slug: null, category: null };
   }
 
+  // Storytime blog: /storytime/<slug>/ = single post (authored via the
+  // /admin/blog dashboard). Bare /storytime stays the listing page.
+  if (pathname.startsWith("/storytime/")) {
+    const slugMatch = pathname.match(/^\/storytime\/([^/]+)/);
+    if (slugMatch) {
+      return { view: "storytimePost", slug: slugMatch[1], category: null };
+    }
+  }
+
+  // Blog admin dashboard (login-protected, noindex).
+  if (pathname === "/admin" || pathname === "/admin/blog") {
+    return { view: "admin", slug: null, category: null };
+  }
+
   // Top-level pages
   const pageMap: Record<string, View> = {
     "/what-we-do": "services",
@@ -160,6 +178,8 @@ const pathMap: Record<View, string> = {
   studio: "/studio/",
   contact: "/contact/",
   storytime: "/storytime/",
+  storytimePost: "/storytime/",
+  admin: "/admin/blog/",
   press: "/press/",
   seo: "/",
   test: "/test/",
@@ -244,6 +264,11 @@ function App() {
       setSelectedCategory(null);
       setCurrentView("seo");
       window.history.pushState(null, "", `/${slug}/`);
+    } else if (view === "storytimePost" && slug) {
+      setSelectedProjectSlug(slug);
+      setSelectedCategory(null);
+      setCurrentView("storytimePost");
+      window.history.pushState(null, "", `/storytime/${slug}/`);
     } else if (view === "test" && slug) {
       setSelectedCategory(slug);
       setCurrentView("test");
@@ -299,6 +324,13 @@ function App() {
         return <ContactPage onNavigate={navigateTo} />;
       case "storytime":
         return <StorytimePage onNavigate={navigateTo} />;
+      case "storytimePost":
+        if (selectedProjectSlug) {
+          return <StorytimePostPage slug={selectedProjectSlug} onNavigate={navigateTo} />;
+        }
+        return <StorytimePage onNavigate={navigateTo} />;
+      case "admin":
+        return <BlogAdminPage onNavigate={navigateTo} />;
       case "press":
         return <PressPage onNavigate={navigateTo} />;
       case "test":

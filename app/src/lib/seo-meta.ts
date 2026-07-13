@@ -135,6 +135,25 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
         path: "/storytime/",
       };
 
+    case "storytimePost":
+      // Generic shell - StorytimePostPage overwrites title/description
+      // with the real post data once it loads from the blog API.
+      return {
+        title: `Storytime | ${SITE_NAME}`,
+        description:
+          "A story from the Ashkan Studios journal — studio updates, behind-the-scenes, campaign recaps, and thoughts from the industry.",
+        path: slug ? `/storytime/${slug}/` : "/storytime/",
+      };
+
+    case "admin":
+      // Client-only dashboard - never index.
+      return {
+        title: `Storytime Admin | ${SITE_NAME}`,
+        description: DEFAULT_DESC,
+        path: "/admin/blog/",
+        noindex: true,
+      };
+
     case "press":
       return {
         title: `Press | ${SITE_NAME}`,
