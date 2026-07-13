@@ -141,8 +141,9 @@ function parseRoute(rawPathname: string): ParsedRoute {
     }
   }
 
-  // Blog admin dashboard (login-protected, noindex).
-  if (pathname === "/admin" || pathname === "/admin/blog") {
+  // Admin dashboard (login-protected, noindex): /admin, /admin/blog,
+  // /admin/leads - the page itself switches sections by pathname.
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
     return { view: "admin", slug: null, category: null };
   }
 

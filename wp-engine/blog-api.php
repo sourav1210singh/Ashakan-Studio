@@ -151,6 +151,26 @@ if ($action === 'me') {
 // ── Everything below requires auth ──
 if (!$authed) { respond(array('error' => 'Not logged in.'), 401); }
 
+if ($action === 'leads') {
+    // Contact-form submissions logged by contact.php (same webroot).
+    // Newest first, capped at 500 for the dashboard.
+    $file = __DIR__ . '/enquiries-log.php';
+    $leads = array();
+    if (file_exists($file)) {
+        $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (is_array($lines)) {
+            foreach ($lines as $ln) {
+                if (strpos($ln, '<?php') === 0) { continue; } // guard line
+                $row = json_decode($ln, true);
+                if (is_array($row)) { $leads[] = $row; }
+            }
+        }
+    }
+    $leads = array_reverse($leads);
+    if (count($leads) > 500) { $leads = array_slice($leads, 0, 500); }
+    respond(array('ok' => true, 'leads' => $leads));
+}
+
 if ($action === 'all') {
     $posts = load_posts($DATA_FILE, $GUARD);
     $out = array();
