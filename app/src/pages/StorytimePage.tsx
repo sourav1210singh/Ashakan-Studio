@@ -1,6 +1,8 @@
-import { BookOpen } from "lucide-react";
+import { useEffect, useState } from "react";
+import { BookOpen, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { blogApi, formatPostDate, type BlogPostSummary } from "@/lib/blog";
 import type { View } from "@/App";
 
 interface StorytimePageProps {
@@ -26,6 +28,25 @@ interface StorytimePageProps {
  * reintroduced at the same time once the real categories are known.
  */
 export function StorytimePage({ onNavigate }: StorytimePageProps) {
+  /* Real posts come from the /admin/blog dashboard via blog-api.php
+     (live host only). While loading - or on hosts without the PHP
+     backend, or with zero published posts - the page falls back to
+     the approved Coming Soon state below. */
+  const [posts, setPosts] = useState<BlogPostSummary[]>([]);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let alive = true;
+    blogApi
+      .posts()
+      .then((p) => alive && setPosts(p))
+      .catch(() => {/* backend absent -> Coming Soon fallback */})
+      .finally(() => alive && setLoaded(true));
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   return (
     <>
       <main className="pt-20">
@@ -56,29 +77,78 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
             When real posts arrive, this section can be replaced with
             a post grid; the newsletter section below can stay as the
             recurring engagement hook. */}
-        <section className="py-24 sm:py-32 border-t border-dark/10">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
-            <FadeIn>
-              <div className="max-w-2xl mx-auto text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-dark/20 mb-8">
-                  <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-dark/60" />
-                </div>
-                <p className="text-xs sm:text-sm font-semibold tracking-[0.4em] text-dark/45 uppercase mb-6">
-                  Coming Soon
-                </p>
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight leading-tight mb-6">
-                  Stories in the making.
-                </h2>
-                <p className="text-base sm:text-lg text-dark/65 leading-relaxed">
-                  We're putting together the first round of stories: campaign
-                  recaps, behind-the-scenes notes, press features, and a few
-                  honest takes from the industry. Subscribe below and we'll
-                  let you know the moment the first piece goes live.
-                </p>
+        {posts.length > 0 ? (
+          /* ━━━ Published posts grid (authored via /admin/blog) ━━━ */
+          <section className="py-16 sm:py-24 border-t border-dark/10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                {posts.map((post, i) => (
+                  <FadeIn key={post.id} delay={Math.min(i * 0.06, 0.3)}>
+                    <button
+                      onClick={() => onNavigate("storytimePost", post.slug)}
+                      className="group text-left w-full"
+                    >
+                      <div className="aspect-[16/10] overflow-hidden bg-dark/5 mb-5">
+                        {post.image ? (
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <BookOpen className="w-8 h-8 text-dark/25" />
+                          </div>
+                        )}
+                      </div>
+                      <p className="text-[11px] font-semibold tracking-[0.3em] text-dark/45 uppercase mb-3">
+                        {formatPostDate(post.createdAt)}
+                      </p>
+                      <h2 className="font-display text-2xl sm:text-[1.7rem] text-dark tracking-tight leading-tight mb-3 group-hover:opacity-70 transition-opacity">
+                        {post.title}
+                      </h2>
+                      {post.excerpt && (
+                        <p className="text-sm text-dark/60 leading-relaxed line-clamp-3 mb-4">
+                          {post.excerpt}
+                        </p>
+                      )}
+                      <span className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] text-dark/70 group-hover:text-dark transition-colors">
+                        READ STORY
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    </button>
+                  </FadeIn>
+                ))}
               </div>
-            </FadeIn>
-          </div>
-        </section>
+            </div>
+          </section>
+        ) : (
+          /* ━━━ Coming Soon empty state (no published posts yet) ━━━ */
+          <section className="py-24 sm:py-32 border-t border-dark/10">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+              <FadeIn>
+                <div className="max-w-2xl mx-auto text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full border border-dark/20 mb-8">
+                    <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-dark/60" />
+                  </div>
+                  <p className="text-xs sm:text-sm font-semibold tracking-[0.4em] text-dark/45 uppercase mb-6">
+                    {loaded ? "Coming Soon" : "Loading"}
+                  </p>
+                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight leading-tight mb-6">
+                    Stories in the making.
+                  </h2>
+                  <p className="text-base sm:text-lg text-dark/65 leading-relaxed">
+                    We're putting together the first round of stories: campaign
+                    recaps, behind-the-scenes notes, press features, and a few
+                    honest takes from the industry. Subscribe below and we'll
+                    let you know the moment the first piece goes live.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+          </section>
+        )}
 
         {/* ━━━ SECTION 3 - Newsletter ━━━
             Retained from the previous layout - gives visitors a way
