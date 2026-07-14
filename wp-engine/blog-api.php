@@ -127,7 +127,11 @@ if ($action === 'post') {
 // ── Auth ──
 if ($action === 'login') {
     $pw = isset($body['password']) ? (string) $body['password'] : '';
-    if (BLOG_ADMIN_PASSWORD === 'SET_A_PASSWORD_BEFORE_UPLOAD' || BLOG_ADMIN_PASSWORD === '') {
+    // Placeholder is split so a blind find-replace that sets the real
+    // password on line 29 can never rewrite THIS guard too (that bug
+    // made login permanently return "not configured").
+    $placeholder = 'SET_A_PASSWORD_' . 'BEFORE_UPLOAD';
+    if (BLOG_ADMIN_PASSWORD === $placeholder || BLOG_ADMIN_PASSWORD === '') {
         respond(array('error' => 'Blog admin is not configured yet.'), 500);
     }
     if (!hash_equals(BLOG_ADMIN_PASSWORD, $pw)) {
@@ -210,7 +214,13 @@ if ($action === 'save') {
 
     if ($excerpt === '') {
         $plain = trim(preg_replace('/\s+/', ' ', preg_replace('/[#>*_`\[\]()!-]/', ' ', $content)));
-        $excerpt = mb_substr($plain, 0, 160) . (mb_strlen($plain) > 160 ? '…' : '');
+        // mbstring is standard on WP Engine, but fall back to plain
+        // substr so the API never fatals on a host without it.
+        if (function_exists('mb_substr')) {
+            $excerpt = mb_substr($plain, 0, 160) . (mb_strlen($plain) > 160 ? '…' : '');
+        } else {
+            $excerpt = substr($plain, 0, 160) . (strlen($plain) > 160 ? '...' : '');
+        }
     }
 
     $posts = load_posts($DATA_FILE, $GUARD);
