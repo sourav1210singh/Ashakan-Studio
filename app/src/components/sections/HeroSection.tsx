@@ -1,6 +1,7 @@
 import { useId, useRef, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { AppLink } from "@/components/AppLink";
 import {
   motion,
   useScroll,
@@ -816,9 +817,9 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
           <span className="font-sans text-xs sm:text-sm font-medium tracking-wider text-dark/50 mb-4">
             READY TO START YOUR PROJECT?
           </span>
-          <button
-            type="button"
-            onClick={() => {
+          <AppLink
+            href="/contact/"
+            onNav={() => {
               window.history.pushState(null, "", "/contact/");
               window.dispatchEvent(new PopStateEvent("popstate"));
               scrollToTopInstant();
@@ -827,7 +828,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
           >
             Get in Touch
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </AppLink>
         </div>
       </motion.div>
 

@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 export interface SeoPageData {
@@ -165,15 +166,16 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto leading-relaxed">
                 {data.ctaText}
               </p>
-              <button
-                onClick={() =>
+              <AppLink
+                href={data.ctaButton.view === "contact" ? "/contact/" : "/"}
+                onNav={() =>
                   onNavigate(data.ctaButton.view, data.ctaButton.slug)
                 }
                 className="inline-flex items-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm group"
               >
                 {data.ctaButton.label}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </AppLink>
             </FadeIn>
           </div>
         </section>

@@ -1,6 +1,7 @@
 import { Instagram, Linkedin } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface FooterProps {
@@ -71,13 +72,13 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
               <p className="text-sm sm:text-base font-medium tracking-wider text-white/60 mb-4">
                 WANT TO WORK WITH US?
               </p>
-              <button
-                type="button"
-                onClick={() => handleNavClick("contact")}
+              <AppLink
+                href="/contact/"
+                onNav={() => handleNavClick("contact")}
                 className="inline-flex items-center gap-2 mb-4 px-5 py-2.5 bg-white text-dark text-sm sm:text-base font-medium tracking-wider hover:bg-white/90 transition-colors"
               >
                 Talk to our team
-              </button>
+              </AppLink>
               <a
                 href="mailto:info@ashkanstudios.com"
                 className="block text-lg sm:text-xl font-medium hover:text-warmbeige transition-colors mb-3"
@@ -96,16 +97,18 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           {/* ---- CENTER: Logo (enlarged again per Brandi new-PDF page 7) ---- */}
           <FadeIn delay={0.1}>
             <div className="flex flex-col items-center justify-center text-center">
-              <button
-                onClick={handleLogoClick}
-                className="hover:opacity-80 transition-opacity"
+              <AppLink
+                href="/"
+                onNav={handleLogoClick}
+                aria-label="Ashkan Studios — home"
+                className="inline-block hover:opacity-80 transition-opacity"
               >
                 <img
                   src="/images/logo.png"
                   alt="Ashkan Studios"
                   className="h-40 sm:h-52 lg:h-64 xl:h-72 w-auto invert"
                 />
-              </button>
+              </AppLink>
             </div>
           </FadeIn>
 
@@ -134,12 +137,16 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         {/* ============================================================ */}
         <div className="pt-6 border-t border-white/10 mb-6">
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
-            <button onClick={() => handleNavClick("home")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">HOME</button>
-            <button onClick={() => handleNavClick("campaigns")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CAMPAIGNS</button>
-            <button onClick={() => handleNavClick("services")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">WHAT WE DO</button>
-            <button onClick={() => handleNavClick("studio")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">THE STUDIO</button>
-            <button onClick={() => handleNavClick("contact")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">CONTACT</button>
-            <button onClick={() => handleNavClick("storytime")} className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300">STORYTIME</button>
+            {(["home", "campaigns", "services", "studio", "contact", "storytime"] as View[]).map((v) => (
+              <AppLink
+                key={v}
+                href={NAV_PATHS[v]}
+                onNav={() => handleNavClick(v)}
+                className="text-sm sm:text-base font-medium tracking-wider text-white/50 hover:text-white transition-colors duration-300"
+              >
+                {{ home: "HOME", campaigns: "CAMPAIGNS", services: "WHAT WE DO", studio: "THE STUDIO", contact: "CONTACT", storytime: "STORYTIME" }[v as string]}
+              </AppLink>
+            ))}
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
+import { AppLink } from "@/components/AppLink";
 
 /* ════════════════════════════════════════════════════════════════════
    PortfolioCta - call-to-action band shown at the bottom of the dark
@@ -29,14 +30,14 @@ export function PortfolioCta({ text, onContactClick }: PortfolioCtaProps) {
             <p className="text-base sm:text-lg lg:text-xl text-white/70 max-w-2xl mx-auto mb-8 text-balance">
               {text}
             </p>
-            <button
-              type="button"
-              onClick={onContactClick}
+            <AppLink
+              href="/contact/"
+              onNav={onContactClick}
               className="group inline-flex items-center gap-3 sm:gap-4 px-7 sm:px-9 py-3.5 sm:py-4 border border-white text-white font-semibold tracking-[0.3em] text-xs sm:text-sm uppercase hover:bg-white hover:text-dark transition-colors duration-300 cursor-pointer"
             >
               Get in Touch
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </AppLink>
           </div>
         </FadeIn>
       </div>

@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface HeadshotsPageProps {
@@ -15,15 +16,16 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
         <section className="relative py-20 sm:py-32 overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <button
-                onClick={() => onNavigate("photography")}
+              <AppLink
+                href="/work/photography/"
+                onNav={() => onNavigate("photography")}
                 className="group flex items-center gap-3 mb-8"
               >
                 <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
                 <span className="text-sm font-medium tracking-wider text-white">BACK TO PHOTOGRAPHY</span>
-              </button>
+              </AppLink>
               <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-none mb-6">
                 HEADSHOTS
               </h1>
@@ -178,13 +180,14 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
               <p className="text-lg text-white/50 mb-10 max-w-xl mx-auto">
                 Ready for headshots that make an impact? Let's talk about your vision.
               </p>
-              <button
-                onClick={() => onNavigate("contact")}
+              <AppLink
+                href="/contact/"
+                onNav={() => onNavigate("contact")}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm group"
               >
                 GET IN TOUCH
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </AppLink>
             </FadeIn>
           </div>
         </section>

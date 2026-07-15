@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { AppLink } from "@/components/AppLink";
 
 const ABOUT_IMAGE = {
   src: "/images/sections/studio-2026.jpg",
@@ -77,9 +78,9 @@ export function AboutSection() {
             {/* LET'S CREATE Button - Brandi's new-PDF page 7: relabeled
                 from 'ABOUT US' and now leads to the contact page. */}
             <FadeIn delay={0.35}>
-              <button
-                type="button"
-                onClick={() => {
+              <AppLink
+                href="/contact/"
+                onNav={() => {
                   window.history.pushState(null, "", "/contact/");
                   window.dispatchEvent(new PopStateEvent("popstate"));
                   scrollToTopInstant();
@@ -92,7 +93,7 @@ export function AboutSection() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-dark flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-colors">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-              </button>
+              </AppLink>
             </FadeIn>
           </div>
 

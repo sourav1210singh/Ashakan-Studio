@@ -3,6 +3,7 @@ import { BookOpen, ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { blogApi, formatPostDate, type BlogPostSummary } from "@/lib/blog";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface StorytimePageProps {
@@ -84,9 +85,10 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                 {posts.map((post, i) => (
                   <FadeIn key={post.id} delay={Math.min(i * 0.06, 0.3)}>
-                    <button
-                      onClick={() => onNavigate("storytimePost", post.slug)}
-                      className="group text-left w-full"
+                    <AppLink
+                      href={`/storytime/${post.slug}/`}
+                      onNav={() => onNavigate("storytimePost", post.slug)}
+                      className="group block text-left w-full"
                     >
                       <div className="aspect-[16/10] overflow-hidden bg-dark/5 mb-5">
                         {post.image ? (
@@ -117,7 +119,7 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
                         READ STORY
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </span>
-                    </button>
+                    </AppLink>
                   </FadeIn>
                 ))}
               </div>

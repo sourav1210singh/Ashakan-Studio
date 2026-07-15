@@ -5,6 +5,7 @@ import DOMPurify from "dompurify";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { blogApi, formatPostDate, type BlogPost } from "@/lib/blog";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface StorytimePostPageProps {
@@ -69,12 +70,13 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
             <p className="text-dark/60 mb-8">
               This story may have been moved or unpublished.
             </p>
-            <button
-              onClick={() => onNavigate("storytime")}
+            <AppLink
+              href="/storytime/"
+              onNav={() => onNavigate("storytime")}
               className="inline-flex items-center gap-2 px-6 py-3 bg-dark text-white text-sm font-medium tracking-wider"
             >
               <ArrowLeft className="w-4 h-4" /> BACK TO STORYTIME
-            </button>
+            </AppLink>
           </div>
         )}
 
@@ -93,12 +95,13 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
 
             <div className="max-w-[820px] mx-auto px-4 sm:px-6 py-14 sm:py-20">
               <FadeIn>
-                <button
-                  onClick={() => onNavigate("storytime")}
+                <AppLink
+                  href="/storytime/"
+                  onNav={() => onNavigate("storytime")}
                   className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] text-dark/50 hover:text-dark transition-colors mb-8"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" /> STORYTIME
-                </button>
+                </AppLink>
 
                 <p className="text-xs font-semibold tracking-[0.3em] text-dark/45 uppercase mb-5">
                   {formatPostDate(post.createdAt)}

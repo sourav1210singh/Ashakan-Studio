@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 import { getProjectById, type GalleryItem } from "@/data/projects";
 
@@ -246,12 +247,13 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
       <main className="pt-20 bg-dark min-h-screen flex items-center justify-center">
         <div className="text-center text-white">
           <h1 className="font-display text-4xl mb-4">Campaign Not Found</h1>
-          <button
-            onClick={() => onNavigate("campaigns")}
+          <AppLink
+            href="/work/campaigns/"
+            onNav={() => onNavigate("campaigns")}
             className="text-white/60 hover:text-white transition-colors"
           >
             Back to Campaigns
-          </button>
+          </AppLink>
         </div>
       </main>
     );
@@ -628,13 +630,14 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
               <p className="text-lg text-white/50 mb-10 max-w-xl mx-auto">
                 Have a project in mind? We'd love to bring your vision to life.
               </p>
-              <button
-                onClick={() => onNavigate("contact")}
+              <AppLink
+                href="/contact/"
+                onNav={() => onNavigate("contact")}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm group hover:bg-white/90 transition-colors"
               >
                 GET IN TOUCH
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </AppLink>
             </FadeIn>
           </div>
         </section>
@@ -643,9 +646,10 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
         <section className="border-t border-white/10 bg-dark">
           <div className="grid grid-cols-2">
             {prev.project && (
-              <button
-                onClick={() => onNavigate("campaigns", prev.slug)}
-                className="group relative h-64 sm:h-80 overflow-hidden border-r border-white/10"
+              <AppLink
+                href={`/work/campaigns/${prev.slug}/`}
+                onNav={() => onNavigate("campaigns", prev.slug)}
+                className="group relative block h-64 sm:h-80 overflow-hidden border-r border-white/10"
               >
                 <img
                   src={prev.project.heroImage}
@@ -659,12 +663,13 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                     {prev.project.client}
                   </span>
                 </div>
-              </button>
+              </AppLink>
             )}
             {next.project && (
-              <button
-                onClick={() => onNavigate("campaigns", next.slug)}
-                className="group relative h-64 sm:h-80 overflow-hidden"
+              <AppLink
+                href={`/work/campaigns/${next.slug}/`}
+                onNav={() => onNavigate("campaigns", next.slug)}
+                className="group relative block h-64 sm:h-80 overflow-hidden"
               >
                 <img
                   src={next.project.heroImage}
@@ -678,7 +683,7 @@ export function CampaignDetailPage({ campaignSlug, onNavigate }: CampaignDetailP
                     {next.project.client}
                   </span>
                 </div>
-              </button>
+              </AppLink>
             )}
           </div>
         </section>

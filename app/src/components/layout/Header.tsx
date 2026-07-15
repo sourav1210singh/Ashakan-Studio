@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, ChevronDown } from "lucide-react";
 import { mainNavigation } from "@/data/navigation";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface HeaderProps {
@@ -188,22 +189,39 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
         setActiveSubDropdown(null);
       }}
     >
-      <button
-        onClick={() => handleNavClick(item.href)}
-        className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium tracking-wider transition-colors flex items-center gap-1 whitespace-nowrap ${
-          isActive(item.href)
-            ? isDarkPage && !isScrolled && !isMenuOpen ? "text-white" : "text-dark"
-            : isDarkPage && !isScrolled && !isMenuOpen ? "text-white/70 hover:text-white" : "text-dark/70 hover:text-dark"
-        }`}
-      >
-        {item.label}
-        {item.children && (
+      {item.children ? (
+        /* WORK is a dropdown OPENER (navigates nowhere) - stays a button;
+           its children below are the real crawlable links. */
+        <button
+          onClick={() => handleNavClick(item.href)}
+          className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium tracking-wider transition-colors flex items-center gap-1 whitespace-nowrap ${
+            isActive(item.href)
+              ? isDarkPage && !isScrolled && !isMenuOpen ? "text-white" : "text-dark"
+              : isDarkPage && !isScrolled && !isMenuOpen ? "text-white/70 hover:text-white" : "text-dark/70 hover:text-dark"
+          }`}
+        >
+          {item.label}
           <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === item.label ? "rotate-180" : ""}`} />
-        )}
-        {isActive(item.href) && (
-          <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled && !isMenuOpen ? "bg-white" : "bg-dark"}`} />
-        )}
-      </button>
+          {isActive(item.href) && (
+            <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled && !isMenuOpen ? "bg-white" : "bg-dark"}`} />
+          )}
+        </button>
+      ) : (
+        <AppLink
+          href={item.href.endsWith("/") ? item.href : item.href + "/"}
+          onNav={() => handleNavClick(item.href)}
+          className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium tracking-wider transition-colors flex items-center gap-1 whitespace-nowrap ${
+            isActive(item.href)
+              ? isDarkPage && !isScrolled && !isMenuOpen ? "text-white" : "text-dark"
+              : isDarkPage && !isScrolled && !isMenuOpen ? "text-white/70 hover:text-white" : "text-dark/70 hover:text-dark"
+          }`}
+        >
+          {item.label}
+          {isActive(item.href) && (
+            <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled && !isMenuOpen ? "bg-white" : "bg-dark"}`} />
+          )}
+        </AppLink>
+      )}
 
       {/* Dropdown Menu - anchored to the RIGHT edge of the trigger so it
           extends leftward (the WORK item sits near the right edge of the
@@ -218,15 +236,16 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                 onMouseEnter={() => child.children && setActiveSubDropdown(child.label)}
                 onMouseLeave={() => setActiveSubDropdown(null)}
               >
-                <button
-                  onClick={() => handleNavClick(child.href)}
+                <AppLink
+                  href={child.href.endsWith("/") ? child.href : child.href + "/"}
+                  onNav={() => handleNavClick(child.href)}
                   className="w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors flex items-center justify-between"
                 >
                   {child.label}
                   {child.children && (
                     <ChevronDown className="w-3 h-3 rotate-90" />
                   )}
-                </button>
+                </AppLink>
 
                 {/* Sub-dropdown (flyout LEFT) - opens toward the centre of
                     the screen so it never gets clipped by the right edge. */}
@@ -234,13 +253,14 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   <div className="absolute right-full top-0 pr-2 z-50">
                     <div className="bg-cream border border-dark/10 rounded-lg shadow-lg py-2 min-w-[180px]">
                       {child.children.map((sub) => (
-                        <button
+                        <AppLink
                           key={sub.label}
-                          onClick={() => handleNavClick(sub.href)}
-                          className="w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors"
+                          href={sub.href.endsWith("/") ? sub.href : sub.href + "/"}
+                          onNav={() => handleNavClick(sub.href)}
+                          className="block w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors"
                         >
                           {sub.label}
-                        </button>
+                        </AppLink>
                       ))}
                     </div>
                   </div>
@@ -294,8 +314,10 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
             <div className="hidden lg:flex flex-1" />
 
             {/* Center Logo */}
-            <button
-              onClick={handleLogoClick}
+            <AppLink
+              href="/"
+              onNav={handleLogoClick}
+              aria-label="Ashkan Studios — home"
               className="flex-shrink-0 hover:opacity-80 transition-opacity mx-4 lg:mx-8"
             >
               <img
@@ -306,7 +328,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   filter: isDarkPage && !isScrolled && !isMenuOpen ? "brightness(0) invert(1)" : "none",
                 }}
               />
-            </button>
+            </AppLink>
 
             {/* Right Navigation (WORK only) + Menu Button */}
             <div className="flex items-center gap-0 xl:gap-1 flex-1 justify-end">
@@ -386,8 +408,9 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                       2026-05-12 so all five items + bottom bar fit on
                       a standard 100 %-zoom laptop viewport (was cutting
                       off THE STUDIO + footer at ~768 px tall screens). */}
-                  <button
-                    onClick={() => handleNavClick(item.href)}
+                  <AppLink
+                    href={item.href + "/"}
+                    onNav={() => handleNavClick(item.href)}
                     className="relative z-20 w-full self-stretch flex items-center text-left font-hero-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-dark tracking-[0.04em] px-6 sm:px-10 lg:px-16 transition-colors duration-300 group-hover:text-white uppercase font-black"
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
@@ -398,7 +421,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                     <span className="inline-block translate-y-[0.05em] leading-none">
                       {item.label}
                     </span>
-                  </button>
+                  </AppLink>
                 </div>
               ))}
             </nav>

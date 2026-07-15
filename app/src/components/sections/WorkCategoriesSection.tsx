@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
 import { useNearViewport } from "@/hooks/useNearViewport";
 import { useVimeoPlaying } from "@/hooks/useVimeoPlaying";
+import { AppLink } from "@/components/AppLink";
 
 /* ════════════════════════════════════════════════════════════════════
    THE WORK - nine static category tiles (mixed Photography +
@@ -158,7 +159,7 @@ const WORK_TILES: WorkTile[] = [
 /* ──────────────────────────────────────────────────────────────────── */
 function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }) {
   const [isHovered, setIsHovered] = useState(false);
-  const tileRef = useRef<HTMLButtonElement>(null);
+  const tileRef = useRef<HTMLAnchorElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   /* Boot the Vimeo player only when the tile approaches the viewport
      (loading="lazy" alone still boots them too eagerly and isn't
@@ -169,13 +170,13 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
      tile image instead of a black/frozen player. */
   const playing = useVimeoPlaying(iframeRef, near && !!tile.vimeoId);
   return (
-    <button
+    <AppLink
       ref={tileRef}
-      type="button"
-      onClick={onClick}
+      href={tile.href}
+      onNav={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden text-left flex-shrink-0 aspect-[4/5]"
+      className="group relative block overflow-hidden text-left flex-shrink-0 aspect-[4/5]"
       style={{
         width: "clamp(240px, 22vw, 340px)",
         scrollSnapAlign: "start",
@@ -300,7 +301,7 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
         className="absolute top-0 left-0 right-0 h-px transition-colors duration-500 pointer-events-none"
         style={{ backgroundColor: isHovered ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.12)" }}
       />
-    </button>
+    </AppLink>
   );
 }
 
