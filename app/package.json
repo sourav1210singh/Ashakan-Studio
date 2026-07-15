@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:seo": "tsc -b && vite build && node ../prerender/prerender.mjs",
+    "prerender": "node ../prerender/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
