@@ -16,6 +16,12 @@ import { getSeoPageBySlug } from "@/data/seo-pages";
 import type { View } from "@/App";
 
 const SITE_NAME = "Ashkan Studios";
+/* Canonical/OG URLs always use the PRODUCTION origin - never
+   window.location.origin. Two reasons: (1) the prerender pipeline
+   renders on a localhost server, and origin-based URLs would bake
+   "http://127.0.0.1:..." into the static HTML; (2) preview domains
+   (vercel.app) should canonicalize to the live site anyway. */
+const SITE_ORIGIN = "https://ashkanstudios.com";
 const DEFAULT_DESC =
   "Ashkan Studios - Full-service production company specializing in commercial photography, videography, and creative direction. Based in Houston, TX.";
 
@@ -237,13 +243,13 @@ function setCanonical(href: string): void {
  */
 export function applyRouteMeta(input: RouteInput): void {
   const meta = getRouteMeta(input);
-  const canonical = window.location.origin + meta.path;
+  const canonical = SITE_ORIGIN + meta.path;
 
   document.title = meta.title;
   setMetaByName("description", meta.description);
   setMetaByName("robots", meta.noindex ? "noindex, nofollow" : "index, follow");
 
-  const ogImage = window.location.origin + "/og-image.jpg";
+  const ogImage = SITE_ORIGIN + "/og-image.jpg";
   setMetaByProp("og:title", meta.title);
   setMetaByProp("og:description", meta.description);
   setMetaByProp("og:url", canonical);
