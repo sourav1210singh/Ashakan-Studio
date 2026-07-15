@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import type { View } from "@/App";
 import {
@@ -86,8 +87,9 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
         <section className="py-12 sm:py-16 border-b border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <button
-                onClick={() => onNavigate(isCategory ? "videography" : "home")}
+              <AppLink
+                href={isCategory ? "/work/videography/" : "/"}
+                onNav={() => onNavigate(isCategory ? "videography" : "home")}
                 className="group flex items-center gap-3 mb-8"
               >
                 <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
@@ -96,7 +98,7 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                 <span className="text-sm font-medium tracking-wider text-white/70">
                   {isCategory ? "BACK TO VIDEOGRAPHY" : "BACK TO HOME"}
                 </span>
-              </button>
+              </AppLink>
               <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
                 {pageTitle}
               </h1>
@@ -141,13 +143,14 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                     { label: "DOCUMENTARY", slug: "documentary" },
                     { label: "NARRATIVE", slug: "narrative" },
                   ].map((cat) => (
-                    <button
+                    <AppLink
                       key={cat.slug}
-                      onClick={() => onNavigate("videography", cat.slug)}
-                      className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-4 sm:px-5 py-2 sm:py-2.5 transition-colors duration-300"
+                      href={`/work/videography/${cat.slug}/`}
+                      onNav={() => onNavigate("videography", cat.slug)}
+                      className="inline-block text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-4 sm:px-5 py-2 sm:py-2.5 transition-colors duration-300"
                     >
                       {cat.label}
-                    </button>
+                    </AppLink>
                   ))}
                 </div>
               )}

@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import { campaigns } from "@/data/navigation";
 import { portfolioItems } from "@/data/portfolio";
@@ -28,15 +29,16 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
         <section className="py-12 sm:py-16 border-b border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <button
-                onClick={() => onNavigate("home")}
+              <AppLink
+                href="/"
+                onNav={() => onNavigate("home")}
                 className="group flex items-center gap-3 mb-8"
               >
                 <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
                   <ArrowLeft className="w-4 h-4" />
                 </div>
                 <span className="text-sm font-medium tracking-wider text-white/70">BACK TO HOME</span>
-              </button>
+              </AppLink>
               <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
                 CAMPAIGNS
               </h1>
@@ -55,8 +57,9 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               {campaignData.map((campaign, index) => (
                 <FadeIn key={campaign.id} delay={index * 0.15}>
-                  <button
-                    onClick={() => onNavigate("campaigns", campaign.id)}
+                  <AppLink
+                    href={`/work/campaigns/${campaign.id}/`}
+                    onNav={() => onNavigate("campaigns", campaign.id)}
                     className="group block relative overflow-hidden w-full text-left"
                   >
                     <div className="relative overflow-hidden aspect-[16/10]">
@@ -75,7 +78,7 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                         </h3>
                       </div>
                     </div>
-                  </button>
+                  </AppLink>
                 </FadeIn>
               ))}
             </div>

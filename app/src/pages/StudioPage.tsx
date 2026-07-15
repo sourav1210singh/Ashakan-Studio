@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight, MapPin, Play } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import { Lightbox } from "@/components/ui/Lightbox";
 import type { View } from "@/App";
 
@@ -474,13 +475,14 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   just the space, we're here to make it happen.' removed
                   2026-05-12 per user request. The CTA now flows
                   directly from the heading into the button. */}
-              <button
-                onClick={() => onNavigate("contact")}
+              <AppLink
+                href="/contact/"
+                onNav={() => onNavigate("contact")}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-dark text-white font-medium tracking-wider text-sm group"
               >
                 START A PROJECT
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </AppLink>
             </FadeIn>
           </div>
         </section>

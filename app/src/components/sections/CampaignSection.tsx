@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { AppLink } from "@/components/AppLink";
 
 /* ════════════════════════════════════════════════════════════════════
    THE CAMPAIGN - featured campaigns shown as four static 4:5 cards.
@@ -75,12 +76,12 @@ function CampaignCardTile({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <AppLink
+      href={`/work/campaigns/${card.slug}/`}
+      onNav={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative overflow-hidden text-left aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-[68vh] min-w-0 w-full"
+      className="group relative block overflow-hidden text-left aspect-[3/4] sm:aspect-[4/5] lg:aspect-auto lg:h-[68vh] min-w-0 w-full"
     >
       {/* Image with slow zoom on hover */}
       <img
@@ -131,7 +132,7 @@ function CampaignCardTile({
         className="absolute top-0 left-0 right-0 h-px transition-colors duration-500 pointer-events-none"
         style={{ backgroundColor: isHovered ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.12)" }}
       />
-    </button>
+    </AppLink>
   );
 }
 
@@ -185,9 +186,9 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
             Ready to create a campaign that defines your brand? Partner with
             our Houston photography and video team to bring your next story to life.
           </p>
-          <button
-            type="button"
-            onClick={() => {
+          <AppLink
+            href="/contact/"
+            onNav={() => {
               window.history.pushState(null, "", "/contact/");
               window.dispatchEvent(new PopStateEvent("popstate"));
               scrollToTopInstant();
@@ -196,7 +197,7 @@ export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
           >
             Get in Touch
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </AppLink>
         </div>
       </div>
     </section>

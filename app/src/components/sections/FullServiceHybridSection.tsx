@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
+import { AppLink } from "@/components/AppLink";
 import { useNearViewport } from "@/hooks/useNearViewport";
 import { useVimeoPlaying, bgVideoQuality } from "@/hooks/useVimeoPlaying";
 
@@ -129,13 +130,14 @@ export function FullServiceHybridSection() {
         </p>
 
         {/* LET'S CREATE CTA - outlined white, hover invert, leads to contact */}
-        <button
-          onClick={goToContact}
+        <AppLink
+          href="/contact/"
+          onNav={goToContact}
           className="group inline-flex items-center gap-3 sm:gap-4 px-7 sm:px-9 lg:px-11 py-3.5 sm:py-4 lg:py-5 border border-white text-white font-semibold tracking-[0.3em] text-xs sm:text-sm uppercase hover:bg-white hover:text-dark transition-colors duration-300 cursor-pointer"
         >
           Let's Create
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </button>
+        </AppLink>
       </div>
     </section>
   );

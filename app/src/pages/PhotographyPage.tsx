@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import type { View } from "@/App";
@@ -195,8 +196,9 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
         <section className="py-12 sm:py-16 border-b border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <button
-                onClick={() => onNavigate(isCategory ? "photography" : "home")}
+              <AppLink
+                href={isCategory ? "/work/photography/" : "/"}
+                onNav={() => onNavigate(isCategory ? "photography" : "home")}
                 className="group flex items-center gap-3 mb-8"
               >
                 <div className="w-10 h-10 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-colors text-white">
@@ -205,7 +207,7 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                 <span className="text-sm font-medium tracking-wider text-white/70">
                   {isCategory ? "BACK TO PHOTOGRAPHY" : "BACK TO HOME"}
                 </span>
-              </button>
+              </AppLink>
               <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
                 {pageTitle}
               </h1>
@@ -247,13 +249,14 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                     { label: "FASHION", slug: "fashion" },
                     { label: "HEADSHOTS", slug: "headshots" },
                   ].map((cat) => (
-                    <button
+                    <AppLink
                       key={cat.slug}
-                      onClick={() => onNavigate("photography", cat.slug)}
-                      className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-4 sm:px-5 py-2 sm:py-2.5 transition-colors duration-300"
+                      href={`/work/photography/${cat.slug}/`}
+                      onNav={() => onNavigate("photography", cat.slug)}
+                      className="inline-block text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-4 sm:px-5 py-2 sm:py-2.5 transition-colors duration-300"
                     >
                       {cat.label}
-                    </button>
+                    </AppLink>
                   ))}
                 </div>
               )}

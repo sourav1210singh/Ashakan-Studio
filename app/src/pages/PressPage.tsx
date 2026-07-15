@@ -1,6 +1,7 @@
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface PressPageProps {
@@ -175,13 +176,14 @@ export function PressPage({ onNavigate }: PressPageProps) {
                   For media inquiries, interview requests, or press kit access,
                   reach out to our communications team.
                 </p>
-                <button
-                  onClick={() => onNavigate("contact")}
+                <AppLink
+                  href="/contact/"
+                  onNav={() => onNavigate("contact")}
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm hover:bg-white/90 transition-colors"
                 >
                   GET IN TOUCH
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </AppLink>
               </FadeIn>
             </div>
           </div>

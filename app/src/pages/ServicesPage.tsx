@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { AppLink } from "@/components/AppLink";
 import type { View } from "@/App";
 
 interface ServicesPageProps {
@@ -199,13 +200,14 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">
                 Explore how we bring brands to life through strategic visual storytelling.
               </p>
-              <button
-                onClick={() => onNavigate("campaigns")}
+              <AppLink
+                href="/work/campaigns/"
+                onNav={() => onNavigate("campaigns")}
                 className="inline-flex items-center gap-3 px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm group"
               >
                 VIEW CAMPAIGNS
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </AppLink>
             </FadeIn>
           </div>
         </section>
