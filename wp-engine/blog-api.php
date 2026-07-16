@@ -3,8 +3,14 @@
 // Ashkan Studios — Storytime blog backend (standalone PHP, no WordPress).
 //
 // Powers the public Storytime blog + the /admin/blog dashboard on the
-// static React site. Posts live in blog-data.php (a PHP-guarded JSON
-// file browsers can't read); uploaded images go to /blog-uploads/.
+// static React site. Uploaded images go to /blog-uploads/.
+//
+// WHERE POSTS ARE STORED: WP Engine blocks PHP from writing .php files
+// in the webroot (malware protection), so on WPE the data lives in
+// _wpeprivate/ashkan-blog-data.json — WPE's private directory that PHP
+// can write to and that is never served over HTTP. On any other host
+// (e.g. local testing) it falls back to blog-data.php in the webroot,
+// a PHP-guarded JSON file browsers can't read.
 //
 // SETUP (one time):
 //   1. Set the admin password on the line below (client will use this
@@ -28,9 +34,11 @@
 
 define('BLOG_ADMIN_PASSWORD', 'SET_A_PASSWORD_BEFORE_UPLOAD');
 
-$DATA_FILE  = __DIR__ . '/blog-data.php';
-$UPLOAD_DIR = __DIR__ . '/blog-uploads';
-$GUARD      = "<?php http_response_code(404); exit; // Ashkan Studios blog data - do not delete ?>\n";
+$PRIVATE_DIR = __DIR__ . '/_wpeprivate';
+$USE_PRIVATE = is_dir($PRIVATE_DIR) && is_writable($PRIVATE_DIR);
+$DATA_FILE   = $USE_PRIVATE ? $PRIVATE_DIR . '/ashkan-blog-data.json' : __DIR__ . '/blog-data.php';
+$LEADS_FILES = array($PRIVATE_DIR . '/ashkan-enquiries.jsonl', __DIR__ . '/enquiries-log.php');
+$UPLOAD_DIR  = __DIR__ . '/blog-uploads';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -62,21 +70,29 @@ function respond($data, $code = 200) {
     exit;
 }
 
-function load_posts($file, $guard) {
+function load_posts($file) {
     if (!file_exists($file)) { return array(); }
     $txt = file_get_contents($file);
-    $nl  = strpos($txt, "\n");
-    $json = $nl === false ? '' : substr($txt, $nl + 1);
-    $arr = json_decode($json, true);
+    // Webroot variant is PHP-guarded: JSON starts after the guard line.
+    if (strpos($txt, '<?php') === 0) {
+        $nl  = strpos($txt, "\n");
+        $txt = $nl === false ? '' : substr($txt, $nl + 1);
+    }
+    $arr = json_decode($txt, true);
     return is_array($arr) ? $arr : array();
 }
 
-function save_posts($file, $guard, $posts) {
+function save_posts($file, $posts) {
     // newest first, stable
     usort($posts, function ($a, $b) {
         return strcmp(isset($b['createdAt']) ? $b['createdAt'] : '', isset($a['createdAt']) ? $a['createdAt'] : '');
     });
-    return (bool) file_put_contents($file, $guard . json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
+    // Only the webroot .php variant needs the guard; _wpeprivate is
+    // never served over HTTP.
+    $prefix = substr($file, -4) === '.php'
+        ? "<?php http_response_code(404); exit; // Ashkan Studios blog data - do not delete ?>\n"
+        : '';
+    return (bool) file_put_contents($file, $prefix . json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
 }
 
 function make_slug($title) {
@@ -105,7 +121,7 @@ $authed = !empty($_SESSION['ashkan_blog_authed']);
 
 // ── Public actions ──
 if ($action === 'posts') {
-    $posts = load_posts($DATA_FILE, $GUARD);
+    $posts = load_posts($DATA_FILE);
     $out = array();
     foreach ($posts as $p) {
         if (isset($p['status']) && $p['status'] === 'published') { $out[] = public_fields($p); }
@@ -115,7 +131,7 @@ if ($action === 'posts') {
 
 if ($action === 'post') {
     $slug = isset($body['slug']) ? (string) $body['slug'] : '';
-    $posts = load_posts($DATA_FILE, $GUARD);
+    $posts = load_posts($DATA_FILE);
     foreach ($posts as $p) {
         if ($p['slug'] === $slug && isset($p['status']) && $p['status'] === 'published') {
             respond(array('ok' => true, 'post' => public_fields($p, true)));
@@ -128,8 +144,8 @@ if ($action === 'post') {
 if ($action === 'login') {
     $pw = isset($body['password']) ? (string) $body['password'] : '';
     // Placeholder is split so a blind find-replace that sets the real
-    // password on line 29 can never rewrite THIS guard too (that bug
-    // made login permanently return "not configured").
+    // password in the define above can never rewrite THIS guard too
+    // (that bug made login permanently return "not configured").
     $placeholder = 'SET_A_PASSWORD_' . 'BEFORE_UPLOAD';
     if (BLOG_ADMIN_PASSWORD === $placeholder || BLOG_ADMIN_PASSWORD === '') {
         respond(array('error' => 'Blog admin is not configured yet.'), 500);
@@ -156,11 +172,12 @@ if ($action === 'me') {
 if (!$authed) { respond(array('error' => 'Not logged in.'), 401); }
 
 if ($action === 'leads') {
-    // Contact-form submissions logged by contact.php (same webroot).
-    // Newest first, capped at 500 for the dashboard.
-    $file = __DIR__ . '/enquiries-log.php';
+    // Contact-form submissions logged by contact.php. Reads BOTH
+    // locations (_wpeprivate on WP Engine + the webroot fallback) so
+    // no lead is missed. Newest first, capped at 500 for the dashboard.
     $leads = array();
-    if (file_exists($file)) {
+    foreach ($LEADS_FILES as $file) {
+        if (!file_exists($file)) { continue; }
         $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (is_array($lines)) {
             foreach ($lines as $ln) {
@@ -170,13 +187,16 @@ if ($action === 'leads') {
             }
         }
     }
+    usort($leads, function ($a, $b) {
+        return strcmp(isset($a['time']) ? $a['time'] : '', isset($b['time']) ? $b['time'] : '');
+    });
     $leads = array_reverse($leads);
     if (count($leads) > 500) { $leads = array_slice($leads, 0, 500); }
     respond(array('ok' => true, 'leads' => $leads));
 }
 
 if ($action === 'all') {
-    $posts = load_posts($DATA_FILE, $GUARD);
+    $posts = load_posts($DATA_FILE);
     $out = array();
     foreach ($posts as $p) {
         $f = public_fields($p);
@@ -188,7 +208,7 @@ if ($action === 'all') {
 
 if ($action === 'get') {
     $id = isset($body['id']) ? (string) $body['id'] : '';
-    $posts = load_posts($DATA_FILE, $GUARD);
+    $posts = load_posts($DATA_FILE);
     foreach ($posts as $p) {
         if ($p['id'] === $id) {
             $f = public_fields($p, true);
@@ -223,7 +243,7 @@ if ($action === 'save') {
         }
     }
 
-    $posts = load_posts($DATA_FILE, $GUARD);
+    $posts = load_posts($DATA_FILE);
     $slug = make_slug($slugIn !== '' ? $slugIn : $title);
     // ensure slug unique (excluding self)
     $base = $slug; $n = 2;
@@ -259,7 +279,7 @@ if ($action === 'save') {
         );
     }
 
-    if (!save_posts($DATA_FILE, $GUARD, $posts)) {
+    if (!save_posts($DATA_FILE, $posts)) {
         respond(array('error' => 'Could not save the post.'), 500);
     }
     respond(array('ok' => true, 'id' => $id, 'slug' => $slug));
@@ -267,7 +287,7 @@ if ($action === 'save') {
 
 if ($action === 'delete') {
     $id = isset($body['id']) ? (string) $body['id'] : '';
-    $posts = load_posts($DATA_FILE, $GUARD);
+    $posts = load_posts($DATA_FILE);
     $kept = array();
     $removed = false;
     foreach ($posts as $p) {
@@ -275,7 +295,7 @@ if ($action === 'delete') {
         $kept[] = $p;
     }
     if (!$removed) { respond(array('error' => 'Post not found'), 404); }
-    if (!save_posts($DATA_FILE, $GUARD, $kept)) {
+    if (!save_posts($DATA_FILE, $kept)) {
         respond(array('error' => 'Could not delete the post.'), 500);
     }
     respond(array('ok' => true));

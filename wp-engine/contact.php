@@ -12,10 +12,14 @@
 //      that contains index.html and the assets/ folder.
 //   That's it. The key lives only on the server - never in the repo.
 //
-// Every submission is APPENDED FIRST to enquiries-log.php in the same
-// folder (a PHP-guarded log that browsers can't read), then emailed
-// via Resend. If email ever breaks, no lead is lost - download
-// enquiries-log.php over SFTP to see every submission + its status.
+// Every submission is LOGGED as well as emailed via Resend, so if
+// email ever breaks no lead is lost. WP Engine blocks PHP from writing
+// .php files in the webroot, so on WPE the log lives at
+// _wpeprivate/ashkan-enquiries.jsonl (WPE's private dir — PHP-writable,
+// never served over HTTP). On other hosts it falls back to
+// enquiries-log.php in the webroot (PHP-guarded, browsers get a 404).
+// The /admin LEADS tab reads both via blog-api.php; you can also
+// download the file over SFTP.
 // ────────────────────────────────────────────────────────────────
 
 define('RESEND_API_KEY', 'PASTE_YOUR_RESEND_KEY_HERE');
@@ -130,11 +134,18 @@ if ($configured) {
     $sent = ($resp !== false && $code >= 200 && $code < 300);
 }
 
-// ── 2) Log the enquiry (PHP-guarded file - browsers get a 404,
-//       but over SFTP you can read every lead + its email status) ──
+// ── 2) Log the enquiry ──
+// _wpeprivate on WP Engine (PHP-writable, never served over HTTP);
+// elsewhere a PHP-guarded file in the webroot (browsers get a 404).
 $logged = false;
-$logFile = __DIR__ . '/enquiries-log.php';
-$guard   = "<?php http_response_code(404); exit; // Ashkan Studios enquiry log - do not delete ?>\n";
+$privateDir = __DIR__ . '/_wpeprivate';
+if (is_dir($privateDir) && is_writable($privateDir)) {
+    $logFile = $privateDir . '/ashkan-enquiries.jsonl';
+    $guard   = '';
+} else {
+    $logFile = __DIR__ . '/enquiries-log.php';
+    $guard   = "<?php http_response_code(404); exit; // Ashkan Studios enquiry log - do not delete ?>\n";
+}
 $entry   = json_encode(array(
     'time'        => gmdate('c'),
     'name'        => $name,
@@ -145,7 +156,7 @@ $entry   = json_encode(array(
     'emailStatus' => $sent ? 'sent' : ($configured ? 'failed' : 'not-configured'),
 ), JSON_UNESCAPED_UNICODE);
 if ($entry !== false) {
-    if (!file_exists($logFile)) {
+    if ($guard !== '' && !file_exists($logFile)) {
         @file_put_contents($logFile, $guard, LOCK_EX);
     }
     $logged = (bool) @file_put_contents($logFile, $entry . "\n", FILE_APPEND | LOCK_EX);
