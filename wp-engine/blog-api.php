@@ -5,12 +5,18 @@
 // Powers the public Storytime blog + the /admin/blog dashboard on the
 // static React site. Uploaded images go to /blog-uploads/.
 //
-// WHERE POSTS ARE STORED: WP Engine blocks PHP from writing .php files
-// in the webroot (malware protection), so on WPE the data lives in
-// _wpeprivate/ashkan-blog-data.json — WPE's private directory that PHP
-// can write to and that is never served over HTTP. On any other host
-// (e.g. local testing) it falls back to blog-data.php in the webroot,
-// a PHP-guarded JSON file browsers can't read.
+// WHERE POSTS ARE STORED — a try-ladder, because WP Engine blocks PHP
+// from writing .php files anywhere (verified: a .png and an index.php
+// written to the same PHP-created dir in the same request — png ok,
+// php silently blocked) and _wpeprivate writability varies:
+//   1. _wpeprivate/ashkan-blog-data.json — WPE's private dir (nginx
+//      returns 403 for it, verified) — used when writable.
+//   2. blog-data/posts-<hash>.json — a directory THIS script mkdirs
+//      (PHP-owned dirs are always writable, proven by blog-uploads/),
+//      filename suffixed with sha256(admin password) so it can't be
+//      guessed over HTTP; a guard index.php is attempted best-effort.
+//   3. blog-data.php in the webroot (PHP-guarded) — legacy/local hosts.
+// Reads walk the same ladder, first existing file wins.
 //
 // SETUP (one time):
 //   1. Set the admin password on the line below (client will use this
@@ -35,9 +41,23 @@
 define('BLOG_ADMIN_PASSWORD', 'SET_A_PASSWORD_BEFORE_UPLOAD');
 
 $PRIVATE_DIR = __DIR__ . '/_wpeprivate';
-$USE_PRIVATE = is_dir($PRIVATE_DIR) && is_writable($PRIVATE_DIR);
-$DATA_FILE   = $USE_PRIVATE ? $PRIVATE_DIR . '/ashkan-blog-data.json' : __DIR__ . '/blog-data.php';
-$LEADS_FILES = array($PRIVATE_DIR . '/ashkan-enquiries.jsonl', __DIR__ . '/enquiries-log.php');
+$DATA_DIR    = __DIR__ . '/blog-data';
+$DATA_SUFFIX = substr(hash('sha256', 'ashkan-posts|' . BLOG_ADMIN_PASSWORD), 0, 12);
+// _wpeprivate is only on the ladder when the PLATFORM provides it —
+// never self-created: only WP Engine's nginx 403s that path, so a
+// self-made _wpeprivate on another host would be public.
+$DATA_LADDER = array();
+if (is_dir($PRIVATE_DIR)) { $DATA_LADDER[] = $PRIVATE_DIR . '/ashkan-blog-data.json'; }
+$DATA_LADDER[] = $DATA_DIR . '/posts-' . $DATA_SUFFIX . '.json';
+$DATA_LADDER[] = __DIR__ . '/blog-data.php';
+// Leads written by contact.php: private dir, hashed-name jsonl files in
+// blog-data/ (matched by glob - contact.php derives its own suffix from
+// the Resend key, this script doesn't need to know it), legacy webroot.
+$LEADS_GLOBS = array(
+    $PRIVATE_DIR . '/ashkan-enquiries.jsonl',
+    $DATA_DIR . '/enquiries-*.jsonl',
+    __DIR__ . '/enquiries-log.php',
+);
 $UPLOAD_DIR  = __DIR__ . '/blog-uploads';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -70,29 +90,43 @@ function respond($data, $code = 200) {
     exit;
 }
 
-function load_posts($file) {
-    if (!file_exists($file)) { return array(); }
-    $txt = file_get_contents($file);
-    // Webroot variant is PHP-guarded: JSON starts after the guard line.
-    if (strpos($txt, '<?php') === 0) {
-        $nl  = strpos($txt, "\n");
-        $txt = $nl === false ? '' : substr($txt, $nl + 1);
+function load_posts($ladder) {
+    foreach ($ladder as $file) {
+        if (!file_exists($file)) { continue; }
+        $txt = file_get_contents($file);
+        // Webroot variant is PHP-guarded: JSON starts after the guard line.
+        if (strpos($txt, '<?php') === 0) {
+            $nl  = strpos($txt, "\n");
+            $txt = $nl === false ? '' : substr($txt, $nl + 1);
+        }
+        $arr = json_decode($txt, true);
+        if (is_array($arr)) { return $arr; }
     }
-    $arr = json_decode($txt, true);
-    return is_array($arr) ? $arr : array();
+    return array();
 }
 
-function save_posts($file, $posts) {
+function save_posts($ladder, $posts) {
     // newest first, stable
     usort($posts, function ($a, $b) {
         return strcmp(isset($b['createdAt']) ? $b['createdAt'] : '', isset($a['createdAt']) ? $a['createdAt'] : '');
     });
-    // Only the webroot .php variant needs the guard; _wpeprivate is
-    // never served over HTTP.
-    $prefix = substr($file, -4) === '.php'
-        ? "<?php http_response_code(404); exit; // Ashkan Studios blog data - do not delete ?>\n"
-        : '';
-    return (bool) file_put_contents($file, $prefix . json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
+    $json = json_encode($posts, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    foreach ($ladder as $file) {
+        $dir = dirname($file);
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir, 0755, true)) { continue; }
+            // Best-effort guard for the PHP-created dir (WPE silently
+            // blocks .php writes; on other hosts it hides the folder).
+            @file_put_contents($dir . '/index.php', "<?php http_response_code(404); exit;\n");
+        }
+        $prefix = substr($file, -4) === '.php'
+            ? "<?php http_response_code(404); exit; // Ashkan Studios blog data - do not delete ?>\n"
+            : '';
+        if (@file_put_contents($file, $prefix . $json, LOCK_EX) !== false) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function make_slug($title) {
@@ -121,7 +155,7 @@ $authed = !empty($_SESSION['ashkan_blog_authed']);
 
 // ── Public actions ──
 if ($action === 'posts') {
-    $posts = load_posts($DATA_FILE);
+    $posts = load_posts($DATA_LADDER);
     $out = array();
     foreach ($posts as $p) {
         if (isset($p['status']) && $p['status'] === 'published') { $out[] = public_fields($p); }
@@ -131,7 +165,7 @@ if ($action === 'posts') {
 
 if ($action === 'post') {
     $slug = isset($body['slug']) ? (string) $body['slug'] : '';
-    $posts = load_posts($DATA_FILE);
+    $posts = load_posts($DATA_LADDER);
     foreach ($posts as $p) {
         if ($p['slug'] === $slug && isset($p['status']) && $p['status'] === 'published') {
             respond(array('ok' => true, 'post' => public_fields($p, true)));
@@ -165,18 +199,25 @@ if ($action === 'logout') {
 }
 
 if ($action === 'me') {
-    respond(array('ok' => true, 'authed' => $authed));
+    // v = backend revision, so a deploy can be verified from outside
+    // (v3 = storage try-ladder).
+    respond(array('ok' => true, 'authed' => $authed, 'v' => 3));
 }
 
 // ── Everything below requires auth ──
 if (!$authed) { respond(array('error' => 'Not logged in.'), 401); }
 
 if ($action === 'leads') {
-    // Contact-form submissions logged by contact.php. Reads BOTH
-    // locations (_wpeprivate on WP Engine + the webroot fallback) so
-    // no lead is missed. Newest first, capped at 500 for the dashboard.
+    // Contact-form submissions logged by contact.php. Reads every
+    // location contact.php's own ladder can write to, so no lead is
+    // missed. Newest first, capped at 500 for the dashboard.
+    $files = array();
+    foreach ($LEADS_GLOBS as $pattern) {
+        $hits = strpos($pattern, '*') !== false ? glob($pattern) : array($pattern);
+        if (is_array($hits)) { $files = array_merge($files, $hits); }
+    }
     $leads = array();
-    foreach ($LEADS_FILES as $file) {
+    foreach ($files as $file) {
         if (!file_exists($file)) { continue; }
         $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (is_array($lines)) {
@@ -196,7 +237,7 @@ if ($action === 'leads') {
 }
 
 if ($action === 'all') {
-    $posts = load_posts($DATA_FILE);
+    $posts = load_posts($DATA_LADDER);
     $out = array();
     foreach ($posts as $p) {
         $f = public_fields($p);
@@ -208,7 +249,7 @@ if ($action === 'all') {
 
 if ($action === 'get') {
     $id = isset($body['id']) ? (string) $body['id'] : '';
-    $posts = load_posts($DATA_FILE);
+    $posts = load_posts($DATA_LADDER);
     foreach ($posts as $p) {
         if ($p['id'] === $id) {
             $f = public_fields($p, true);
@@ -243,7 +284,7 @@ if ($action === 'save') {
         }
     }
 
-    $posts = load_posts($DATA_FILE);
+    $posts = load_posts($DATA_LADDER);
     $slug = make_slug($slugIn !== '' ? $slugIn : $title);
     // ensure slug unique (excluding self)
     $base = $slug; $n = 2;
@@ -279,7 +320,7 @@ if ($action === 'save') {
         );
     }
 
-    if (!save_posts($DATA_FILE, $posts)) {
+    if (!save_posts($DATA_LADDER, $posts)) {
         respond(array('error' => 'Could not save the post.'), 500);
     }
     respond(array('ok' => true, 'id' => $id, 'slug' => $slug));
@@ -287,7 +328,7 @@ if ($action === 'save') {
 
 if ($action === 'delete') {
     $id = isset($body['id']) ? (string) $body['id'] : '';
-    $posts = load_posts($DATA_FILE);
+    $posts = load_posts($DATA_LADDER);
     $kept = array();
     $removed = false;
     foreach ($posts as $p) {
@@ -295,7 +336,7 @@ if ($action === 'delete') {
         $kept[] = $p;
     }
     if (!$removed) { respond(array('error' => 'Post not found'), 404); }
-    if (!save_posts($DATA_FILE, $kept)) {
+    if (!save_posts($DATA_LADDER, $kept)) {
         respond(array('error' => 'Could not delete the post.'), 500);
     }
     respond(array('ok' => true));

@@ -13,13 +13,11 @@
 //   That's it. The key lives only on the server - never in the repo.
 //
 // Every submission is LOGGED as well as emailed via Resend, so if
-// email ever breaks no lead is lost. WP Engine blocks PHP from writing
-// .php files in the webroot, so on WPE the log lives at
-// _wpeprivate/ashkan-enquiries.jsonl (WPE's private dir — PHP-writable,
-// never served over HTTP). On other hosts it falls back to
-// enquiries-log.php in the webroot (PHP-guarded, browsers get a 404).
-// The /admin LEADS tab reads both via blog-api.php; you can also
-// download the file over SFTP.
+// email ever breaks no lead is lost. The log location is a try-ladder
+// (see the comment at the logging step below) because WP Engine
+// restricts where PHP may write. The /admin LEADS tab reads every
+// ladder location via blog-api.php; the files are also downloadable
+// over SFTP.
 // ────────────────────────────────────────────────────────────────
 
 define('RESEND_API_KEY', 'PASTE_YOUR_RESEND_KEY_HERE');
@@ -57,8 +55,10 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $configured = (RESEND_API_KEY !== '' && strpos(RESEND_API_KEY, 're_') === 0);
 
 // ── 1) Send the notification email via Resend ──
+// (curl is standard on WP Engine; the function_exists guard just keeps
+// a curl-less host logging leads instead of fataling.)
 $sent = false;
-if ($configured) {
+if ($configured && function_exists('curl_init')) {
     $esc = function ($v) {
         return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
     };
@@ -135,17 +135,26 @@ if ($configured) {
 }
 
 // ── 2) Log the enquiry ──
-// _wpeprivate on WP Engine (PHP-writable, never served over HTTP);
-// elsewhere a PHP-guarded file in the webroot (browsers get a 404).
-$logged = false;
-$privateDir = __DIR__ . '/_wpeprivate';
-if (is_dir($privateDir) && is_writable($privateDir)) {
-    $logFile = $privateDir . '/ashkan-enquiries.jsonl';
-    $guard   = '';
-} else {
-    $logFile = __DIR__ . '/enquiries-log.php';
-    $guard   = "<?php http_response_code(404); exit; // Ashkan Studios enquiry log - do not delete ?>\n";
+// Try-ladder (same idea as blog-api.php - WP Engine blocks PHP from
+// writing .php files anywhere, and _wpeprivate writability varies):
+//   1. _wpeprivate/ashkan-enquiries.jsonl - WPE's private dir (nginx
+//      403s it) - used when writable.
+//   2. blog-data/enquiries-<hash>.jsonl - a PHP-created dir (always
+//      writable), name suffixed with sha256(Resend key) so it can't
+//      be guessed over HTTP. blog-api's leads action globs for it.
+//   3. enquiries-log.php in the webroot (PHP-guarded) - local hosts.
+// If every rung fails, the email is still the durable record.
+$logged  = false;
+$dataDir = __DIR__ . '/blog-data';
+$ladder  = array();
+// _wpeprivate only when the PLATFORM provides it (never self-created:
+// only WP Engine's nginx 403s that path — elsewhere it would be public).
+if (is_dir(__DIR__ . '/_wpeprivate')) {
+    $ladder[] = array(__DIR__ . '/_wpeprivate/ashkan-enquiries.jsonl', '');
 }
+$ladder[] = array($dataDir . '/enquiries-' . substr(hash('sha256', 'ashkan-leads|' . RESEND_API_KEY), 0, 12) . '.jsonl', '');
+$ladder[] = array(__DIR__ . '/enquiries-log.php',
+    "<?php http_response_code(404); exit; // Ashkan Studios enquiry log - do not delete ?>\n");
 $entry   = json_encode(array(
     'time'        => gmdate('c'),
     'name'        => $name,
@@ -156,10 +165,21 @@ $entry   = json_encode(array(
     'emailStatus' => $sent ? 'sent' : ($configured ? 'failed' : 'not-configured'),
 ), JSON_UNESCAPED_UNICODE);
 if ($entry !== false) {
-    if ($guard !== '' && !file_exists($logFile)) {
-        @file_put_contents($logFile, $guard, LOCK_EX);
+    foreach ($ladder as $rung) {
+        list($logFile, $guard) = $rung;
+        $dir = dirname($logFile);
+        if (!is_dir($dir)) {
+            if (!@mkdir($dir, 0755, true)) { continue; }
+            @file_put_contents($dir . '/index.php', "<?php http_response_code(404); exit;\n");
+        }
+        if ($guard !== '' && !file_exists($logFile)) {
+            @file_put_contents($logFile, $guard, LOCK_EX);
+        }
+        if (@file_put_contents($logFile, $entry . "\n", FILE_APPEND | LOCK_EX) !== false) {
+            $logged = true;
+            break;
+        }
     }
-    $logged = (bool) @file_put_contents($logFile, $entry . "\n", FILE_APPEND | LOCK_EX);
 }
 
 // Lead saved OR emailed = the studio has it -> success for the visitor.
