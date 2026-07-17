@@ -97,9 +97,13 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
-                CONTACT
+              {/* SEO H1 (Mahendra 7/17 sheet) sr-only; visual unchanged. */}
+              <h1 className="sr-only">
+                Contact Ashkan Studios, Your Houston Video Production Company
               </h1>
+              <h2 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
+                CONTACT
+              </h2>
               {/* Brandi 5/7/26 (PDF page 75) - wording softened from
                   the original 'within 24 hours' to 'as soon as possible'
                   so we don't commit to a hard turnaround on the page. */}

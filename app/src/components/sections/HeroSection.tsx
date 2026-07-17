@@ -380,7 +380,9 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
      "change these words to OSWALD weight 240". Oswald is a condensed
      gothic, so it is naturally tall + narrow with no squeeze needed -
      this is why Inter never matched the reference letterforms. */
-  const interFontFamily = interNaturalWidth ? "'Oswald', sans-serif" : undefined;
+  /* 'Oswald-fb' = metric-adjusted Arial fallback (index.css) so the
+     pre-swap frame doesn't reflow the hero (desktop CLS fix 7/17). */
+  const interFontFamily = interNaturalWidth ? "'Oswald', 'Oswald-fb', sans-serif" : undefined;
   const interTransform = interNaturalWidth ? "none" : "scaleX(0.7)";
   const interLetterSpacing = interNaturalWidth ? "0.02em" : "0.012em";
   /* Oswald's variable axis only goes down to 200, so 200 is the thinnest

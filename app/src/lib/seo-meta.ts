@@ -22,8 +22,10 @@ const SITE_NAME = "Ashkan Studios";
    "http://127.0.0.1:..." into the static HTML; (2) preview domains
    (vercel.app) should canonicalize to the live site anyway. */
 const SITE_ORIGIN = "https://ashkanstudios.com";
+/* Home description per Mahendra's 7/17 on-page sheet (also the
+   fallback for admin/test/unknown routes). */
 const DEFAULT_DESC =
-  "Ashkan Studios - Full-service production company specializing in commercial photography, videography, and creative direction. Based in Houston, TX.";
+  "Ashkan Studios is Houston's full-service video production company and photography studio. Explore our work and start your project today.";
 
 export interface RouteInput {
   view: View;
@@ -46,9 +48,12 @@ function titleCase(s: string): string {
 
 export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
   switch (view) {
+    // Titles/descriptions for the 8 core pages follow Mahendra's 7/17
+    // on-page SEO sheet verbatim (location + service keywords, "-"
+    // separator instead of "|").
     case "home":
       return {
-        title: `${SITE_NAME} | Full-Service Production Company`,
+        title: `Video Production Company Houston, TX - ${SITE_NAME}`,
         description: DEFAULT_DESC,
         path: "/",
       };
@@ -63,9 +68,9 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
         };
       }
       return {
-        title: `Commercial Photography Portfolio | ${SITE_NAME}`,
+        title: `Professional Product Photographer Houston - ${SITE_NAME}`,
         description:
-          "Explore the Ashkan Studios commercial photography portfolio — retail, the arts, fashion, industrial, and headshots, produced in Houston, TX.",
+          "Ashkan Studios is a professional product and commercial photographer in Houston with 12+ years experience. View our portfolio and book a shoot.",
         path: "/work/photography/",
       };
 
@@ -79,9 +84,9 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
         };
       }
       return {
-        title: `Commercial Videography Portfolio | ${SITE_NAME}`,
+        title: `Video Production Agency Houston, TX - ${SITE_NAME}`,
         description:
-          "Cinematic commercial videography from Ashkan Studios — retail, the arts, industrial, documentary, and narrative work produced in Houston, TX.",
+          "Ashkan Studios is a Houston video production agency specializing in commercial, documentary and narrative videography. Start your project today.",
         path: "/work/videography/",
       };
 
@@ -95,9 +100,9 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
         };
       }
       return {
-        title: `Brand Campaigns | ${SITE_NAME}`,
+        title: `Brand Video Production & Campaigns Houston - ${SITE_NAME}`,
         description:
-          "Featured brand campaigns by Ashkan Studios — full-service commercial photography and video production for retail, dance, and lifestyle brands.",
+          "See how Ashkan Studios' brand video production and campaign work has helped Houston businesses tell their story. View our campaign portfolio.",
         path: "/work/campaigns/",
       };
 
@@ -111,33 +116,33 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
 
     case "services":
       return {
-        title: `Photography, Video & Creative Direction | ${SITE_NAME}`,
+        title: `Photography & Videography Services Houston - ${SITE_NAME}`,
         description:
-          "Ashkan Studios is a full-service Houston production company offering commercial photography, cinematic videography, and creative direction.",
+          "Explore Ashkan Studios' full range of photography and videography services in Houston, from concept to final delivery. Get in touch today.",
         path: "/what-we-do/",
       };
 
     case "studio":
       return {
-        title: `The Studio | ${SITE_NAME}`,
+        title: `Houston Photography Studio Space - ${SITE_NAME}`,
         description:
-          "Meet Ashkan Studios — a Houston-based creative production team uniting Ashkan Image and Ashkan Media into one full-service studio.",
+          "Tour Ashkan Studios' dedicated Houston photography studio space in Sawyer Yards. Full production facility, in-house team. Book a visit today.",
         path: "/studio/",
       };
 
     case "contact":
       return {
-        title: `Contact | ${SITE_NAME}`,
+        title: `Video Production Services Houston - Contact ${SITE_NAME}`,
         description:
-          "Get in touch with Ashkan Studios in Houston, TX. Tell us about your commercial photography, videography, or creative direction project.",
+          "Ready to hire a Houston production company for video production services or commercial photography? Contact Ashkan Studios today or call (346) 335-7973.",
         path: "/contact/",
       };
 
     case "storytime":
       return {
-        title: `Storytime — Journal & Behind the Scenes | ${SITE_NAME}`,
+        title: `Houston Production Company Blog - ${SITE_NAME} StoryTime`,
         description:
-          "Storytime is the Ashkan Studios journal — studio updates, behind-the-scenes from shoots, campaign recaps, press features, and thoughts from the industry.",
+          "Behind-the-scenes stories, campaign recaps and press features from Ashkan Studios, Houston's production company. Subscribe for updates.",
         path: "/storytime/",
       };
 

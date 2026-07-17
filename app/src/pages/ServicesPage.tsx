@@ -77,9 +77,14 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
-                WHAT WE DO
+              {/* SEO H1 (Mahendra 7/17 sheet) is screen-reader-only so the
+                  approved "WHAT WE DO" visual stays exactly as designed. */}
+              <h1 className="sr-only">
+                Photography and Videography Services in Houston, TX
               </h1>
+              <h2 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
+                WHAT WE DO
+              </h2>
               <div className="max-w-3xl">
                 <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed">
                   We create photography and cinematography content for brands and

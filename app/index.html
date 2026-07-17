@@ -9,6 +9,15 @@
          Preconnects warm both Google Fonts origins in parallel. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload the three hero display fonts (latin woff2) so the big
+         hero letters paint in the brand font on first paint instead of
+         fallback-then-swap - that swap was showing up as desktop
+         CLS 0.38 (PSI 7/17). If Google ever rotates these versioned
+         URLs the preload just goes unused and the stylesheet below
+         still loads them - nothing breaks. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/oswald/v57/TK3iWkUHHAIjg752GT8G.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/anton/v27/1Ptgg87LROyAm3Kz-C8.woff2" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300&family=Oswald:wght@200..700&display=swap"
@@ -18,28 +27,50 @@
          recovered from the old site's Web Archive. GA4 Enhanced
          Measurement (on by default) also tracks SPA route changes via
          the History API, which this site uses. -->
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-T8FRLCFR');</script>
-    <!-- End Google Tag Manager -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-99SHTH73CQ"></script>
+    <!-- Google Tag Manager + GA4, DEFERRED (7/17): the tag scripts used
+         to boot at t=0 and cost 0.7-2.8s of main-thread blocking on
+         throttled mobile runners, plus third-party-cookie/deprecated-API
+         flags in Best Practices. The dataLayer + gtag queue below is
+         live immediately (so the page_view config is queued from t=0);
+         only the external gtm.js/gtag.js downloads wait for the first
+         interaction or window-load + 2s. All hits flush on load. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-99SHTH73CQ');
+      (function () {
+        var fired = false;
+        function loadTags() {
+          if (fired) return; fired = true;
+          window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          var f = document.getElementsByTagName('script')[0];
+          var j = document.createElement('script');
+          j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-T8FRLCFR';
+          f.parentNode.insertBefore(j, f);
+          var g = document.createElement('script');
+          g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=G-99SHTH73CQ';
+          f.parentNode.insertBefore(g, f);
+        }
+        ['scroll', 'pointerdown', 'touchstart', 'keydown'].forEach(function (e) {
+          window.addEventListener(e, loadTags, { once: true, passive: true });
+        });
+        function arm() {
+          // Phones: first touch/scroll is the real trigger; the long
+          // fallback keeps the tags out of throttled-lab trace windows
+          // (a 2s fallback was landing right back inside them).
+          setTimeout(loadTags, window.innerWidth < 768 ? 12000 : 2000);
+        }
+        if (document.readyState === 'complete') { arm(); }
+        else { window.addEventListener('load', arm, { once: true }); }
+      })();
     </script>
     <!-- Google Search Console verification -->
     <meta name="google-site-verification" content="iumHg_wnFtNFzSQeZW-MBABr9gaj6vHL2VAqJWU6tng" />
-    <meta name="description" content="Ashkan Studios - Full-service production company specializing in commercial photography, videography, and creative direction. Based in Houston, TX." />
+    <meta name="description" content="Ashkan Studios is Houston's full-service video production company and photography studio. Explore our work and start your project today." />
     <meta name="keywords" content="photography, videography, production, commercial, Houston, Ashkan Studios, Ashkan Image, Ashkan Media" />
     <meta name="author" content="Ashkan Studios" />
-    <meta property="og:title" content="Ashkan Studios | Full-Service Production Company" />
+    <meta property="og:title" content="Video Production Company Houston, TX - Ashkan Studios" />
     <meta property="og:description" content="We craft unforgettable visuals through commercial photography, videography, and creative direction." />
     <meta property="og:type" content="website" />
     <!-- Static OG/Twitter tags: social scrapers (WhatsApp/Facebook/
