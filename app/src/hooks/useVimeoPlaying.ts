@@ -93,10 +93,11 @@ export function useVimeoPlaying(
 }
 
 /** Vimeo `quality` cap for ambient/background embeds: phones stream
- *  540p, larger screens 720p. Background videos sit behind overlays or
- *  fill small tiles, so anything higher is wasted bandwidth - the
- *  uncapped players were pulling ~58 MB on one home-page visit. */
-export function bgVideoQuality(): "540p" | "720p" {
+ *  360p, larger screens 720p. Background videos sit behind overlays or
+ *  fill small tiles/bands (the banner is ~165px tall on a phone), so
+ *  anything higher is wasted bandwidth - the uncapped players were
+ *  pulling ~58 MB on one home-page visit. */
+export function bgVideoQuality(): "360p" | "720p" {
   if (typeof window === "undefined") return "720p";
-  return window.innerWidth < 768 ? "540p" : "720p";
+  return window.innerWidth < 768 ? "360p" : "720p";
 }

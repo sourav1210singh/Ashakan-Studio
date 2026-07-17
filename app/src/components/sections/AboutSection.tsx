@@ -121,6 +121,8 @@ export function AboutSection() {
                 <img
                   src={ABOUT_IMAGE.src}
                   alt={ABOUT_IMAGE.alt}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto block transition-transform duration-1000 group-hover:scale-105"
                 />
                 <span className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />

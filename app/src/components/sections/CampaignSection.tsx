@@ -87,6 +87,8 @@ function CampaignCardTile({
       <img
         src={card.image}
         alt={card.label}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1100ms] ease-out"
         style={{ transform: isHovered ? "scale(1.06)" : "scale(1)" }}
       />

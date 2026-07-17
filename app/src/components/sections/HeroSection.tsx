@@ -2,6 +2,7 @@ import { useId, useRef, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { scrollToTopInstant } from "@/lib/scroll";
 import { AppLink } from "@/components/AppLink";
+import { useAfterWindowLoad } from "@/hooks/useAfterWindowLoad";
 import {
   motion,
   useScroll,
@@ -49,6 +50,13 @@ function VideoTextWord({
   vimeoId = HERO_VIDEO_ID,
 }: VideoTextWordProps) {
   const maskId = useId().replace(/:/g, "");
+  /* Perf (7/16): the player used to boot at t=0 and its ~6MB stream +
+     player.js competed with the hero paint on throttled mobile
+     (Lighthouse mobile ~30). Mount it on first interaction (or a few
+     seconds after load); until then Layer 1's dark backing fills the
+     letters - the same designed fallback shown when autoplay is
+     blocked. */
+  const videoOn = useAfterWindowLoad();
 
   return (
     <span
@@ -90,22 +98,25 @@ function VideoTextWord({
 
         {/* Layer 2: Vimeo iframe - over-sized + centred so it fully
             covers the wide, short text box at any aspect ratio
-            (no letterbox bars peeking through the letters). */}
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=540p&dnt=1&controls=0`}
-          title={children}
-          allow="autoplay; fullscreen"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "300%",
-            height: "300%",
-            transform: "translate(-50%, -50%)",
-            border: 0,
-            display: "block",
-          }}
-        />
+            (no letterbox bars peeking through the letters).
+            Mounted only after window load (see videoOn above). */}
+        {videoOn && (
+          <iframe
+            src={`https://player.vimeo.com/video/${vimeoId}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=540p&dnt=1&controls=0`}
+            title={children}
+            allow="autoplay; fullscreen"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              width: "300%",
+              height: "300%",
+              transform: "translate(-50%, -50%)",
+              border: 0,
+              display: "block",
+            }}
+          />
+        )}
       </span>
 
       {/* Layer 3: cream knockout overlay - fills the box with the
@@ -321,6 +332,7 @@ function InlineCutout({
         <img
           src={src}
           alt={alt}
+          decoding="async"
           className={`w-full h-full object-contain transition-all duration-500 group-hover:brightness-110 group-hover:saturate-110 ${imgClassName}`}
           style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.06))" }}
         />
