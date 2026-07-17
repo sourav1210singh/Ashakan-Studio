@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
  * player). Returns true - and stays true - on the FIRST of:
  *   - any user interaction (scroll / pointer / touch / key), or
  *   - a fallback timer after the window `load` event
- *     (phones 12s, desktop 0.6s - see armTimer below).
+ *     (phones 25s, desktop 0.6s - see armTimer below).
  *
  * Why not just "after load": the player's ~6MB stream landed right
  * back inside the Lighthouse trace window and kept mobile LCP/Speed
@@ -28,7 +28,7 @@ export function useAfterWindowLoad(): boolean {
          long safety timer - phone loads are exactly where the stream
          was wrecking the metrics. Desktop: start soon after load so an
          idle desktop viewer still sees the hero video come alive. */
-      const fallbackAfterLoadMs = window.innerWidth < 768 ? 12000 : 600;
+      const fallbackAfterLoadMs = window.innerWidth < 768 ? 25000 : 600;
       timer = window.setTimeout(fire, fallbackAfterLoadMs);
     };
 
