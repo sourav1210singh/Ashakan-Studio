@@ -1,6 +1,37 @@
 /* Google Fonts load from a <link> in index.html (7/16) - an @import
    here chained font discovery behind the CSS bundle and cost seconds
    of mobile FCP. Keep the font list in index.html only. */
+
+/* Metric-adjusted local fallbacks for the display fonts (7/17): while
+   a webfont is still downloading, text renders in Arial scaled to
+   roughly the webfont's metrics, so the swap doesn't reflow the giant
+   hero letters - PSI desktop was logging CLS 0.38 from that swap.
+   These faces only ever show for the pre-swap frame. */
+@font-face {
+  font-family: "Oswald-fb";
+  src: local("Arial Narrow"), local("Arial");
+  size-adjust: 88%;
+  ascent-override: 120%;
+  descent-override: 29%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "BebasNeue-fb";
+  src: local("Arial Narrow"), local("Arial");
+  size-adjust: 84%;
+  ascent-override: 106%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Anton-fb";
+  src: local("Arial");
+  size-adjust: 99%;
+  ascent-override: 110%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

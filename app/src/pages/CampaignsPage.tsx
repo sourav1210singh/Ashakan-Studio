@@ -39,9 +39,13 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                 </div>
                 <span className="text-sm font-medium tracking-wider text-white/70">BACK TO HOME</span>
               </AppLink>
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
-                CAMPAIGNS
+              {/* SEO H1 (Mahendra 7/17 sheet) sr-only; visual unchanged. */}
+              <h1 className="sr-only">
+                Brand Video Production and Campaign Work in Houston
               </h1>
+              <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
+                CAMPAIGNS
+              </h2>
               <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6">
                 A deeper dive into brand-defining campaigns, highlighting the
                 full scale of work - creative production, execution, and

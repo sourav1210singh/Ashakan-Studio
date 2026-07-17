@@ -44,9 +44,12 @@ module.exports = {
         midgray: "#525252",
       },
       fontFamily: {
-        display: ['Anton', 'sans-serif'],
+        // *-fb = metric-adjusted Arial fallbacks (src/index.css) shown
+        // only while the webfont downloads, so the swap doesn't reflow
+        // the huge display text (PSI desktop CLS fix 7/17).
+        display: ['Anton', 'Anton-fb', 'sans-serif'],
         sans: ['Inter', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        'hero-bold': ['"Bebas Neue"', 'Anton', 'sans-serif'],
+        'hero-bold': ['"Bebas Neue"', 'BebasNeue-fb', 'Anton', 'sans-serif'],
         'hero-thin': ['Montserrat', 'Inter', 'sans-serif'],
       },
       borderRadius: {

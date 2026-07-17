@@ -57,9 +57,13 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
-                STORYTIME
+              {/* SEO H1 (Mahendra 7/17 sheet) sr-only; visual unchanged. */}
+              <h1 className="sr-only">
+                Ashkan Studios StoryTime, Houston Production Company Blog
               </h1>
+              <h2 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
+                STORYTIME
+              </h2>
               <p className="text-lg sm:text-xl text-dark/70 max-w-2xl">
                 Studio updates, behind-the-scenes from shoots, campaign work,
                 press, and thoughts from the industry.
