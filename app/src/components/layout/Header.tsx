@@ -323,6 +323,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
               <img
                 src="/images/logo.png"
                 alt="Ashkan Studios"
+                fetchPriority="high"
                 className="h-20 sm:h-24 md:h-28 lg:h-[160px] xl:h-[190px] w-auto transition-all duration-300"
                 style={{
                   filter: isDarkPage && !isScrolled && !isMenuOpen ? "brightness(0) invert(1)" : "none",

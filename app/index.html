@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Fonts as a direct <link> (moved out of a CSS @import 7/16):
+         the @import made font discovery wait for the whole JS-injected
+         CSS bundle - a serial chain that pushed mobile FCP past 6s.
+         Preconnects warm both Google Fonts origins in parallel. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@100;200;300&family=Oswald:wght@200..700&display=swap"
+    />
     <!-- Client-supplied tracking stack (7/5): GTM container + GA4 +
          Search Console verification. This replaced the interim GA4 tag
          recovered from the old site's Web Archive. GA4 Enhanced

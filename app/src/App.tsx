@@ -1,24 +1,30 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { Header } from "@/components/layout/Header";
 import { HomePage } from "@/pages/HomePage";
-import { PhotographyPage } from "@/pages/PhotographyPage";
-import { VideographyPage } from "@/pages/VideographyPage";
-import { CampaignsPage } from "@/pages/CampaignsPage";
-import { ServicesPage } from "@/pages/ServicesPage";
-import { StudioPage } from "@/pages/StudioPage";
-import { ContactPage } from "@/pages/ContactPage";
-import { StorytimePage } from "@/pages/StorytimePage";
-import { StorytimePostPage } from "@/pages/StorytimePostPage";
-import { BlogAdminPage } from "@/pages/BlogAdminPage";
-import { PressPage } from "@/pages/PressPage";
-import { HeadshotsPage } from "@/pages/HeadshotsPage";
-import { SeoPage } from "@/pages/SeoPage";
-import { CampaignDetailPage } from "@/pages/CampaignDetailPage";
-import { TestIndexPage } from "@/pages/TestIndexPage";
-import { TestPage } from "@/pages/TestPage";
 import { getSeoPageBySlug } from "@/data/seo-pages";
 import { applyRouteMeta } from "@/lib/seo-meta";
 import { scrollToTopInstant } from "@/lib/scroll";
+
+/* Perf (7/16): every page used to sit in ONE 731KB bundle, costing ~4s
+   of main-thread bootup on throttled mobile before the home page could
+   settle. Only HomePage stays in the entry chunk; every other page (and
+   whatever only it imports - markdown renderer, gallery data, admin UI)
+   loads on demand. Pages use named exports, hence the .then() shims. */
+const PhotographyPage = lazy(() => import("@/pages/PhotographyPage").then((m) => ({ default: m.PhotographyPage })));
+const VideographyPage = lazy(() => import("@/pages/VideographyPage").then((m) => ({ default: m.VideographyPage })));
+const CampaignsPage = lazy(() => import("@/pages/CampaignsPage").then((m) => ({ default: m.CampaignsPage })));
+const ServicesPage = lazy(() => import("@/pages/ServicesPage").then((m) => ({ default: m.ServicesPage })));
+const StudioPage = lazy(() => import("@/pages/StudioPage").then((m) => ({ default: m.StudioPage })));
+const ContactPage = lazy(() => import("@/pages/ContactPage").then((m) => ({ default: m.ContactPage })));
+const StorytimePage = lazy(() => import("@/pages/StorytimePage").then((m) => ({ default: m.StorytimePage })));
+const StorytimePostPage = lazy(() => import("@/pages/StorytimePostPage").then((m) => ({ default: m.StorytimePostPage })));
+const BlogAdminPage = lazy(() => import("@/pages/BlogAdminPage").then((m) => ({ default: m.BlogAdminPage })));
+const PressPage = lazy(() => import("@/pages/PressPage").then((m) => ({ default: m.PressPage })));
+const HeadshotsPage = lazy(() => import("@/pages/HeadshotsPage").then((m) => ({ default: m.HeadshotsPage })));
+const SeoPage = lazy(() => import("@/pages/SeoPage").then((m) => ({ default: m.SeoPage })));
+const CampaignDetailPage = lazy(() => import("@/pages/CampaignDetailPage").then((m) => ({ default: m.CampaignDetailPage })));
+const TestIndexPage = lazy(() => import("@/pages/TestIndexPage").then((m) => ({ default: m.TestIndexPage })));
+const TestPage = lazy(() => import("@/pages/TestPage").then((m) => ({ default: m.TestPage })));
 
 export type View =
   | "home"
@@ -354,7 +360,11 @@ function App() {
   return (
     <div className="min-h-screen bg-cream">
       <Header onLogoClick={navigateToHome} onNavigate={navigateTo} currentView={currentView} />
-      {renderContent()}
+      {/* Lazy pages: while a page chunk loads (SPA nav), keep a cream
+          full-height block so the footer never flashes up mid-swap. */}
+      <Suspense fallback={<div className="min-h-screen bg-cream" />}>
+        {renderContent()}
+      </Suspense>
     </div>
   );
 }

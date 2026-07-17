@@ -95,6 +95,8 @@ export function FullServiceHybridSection() {
           src="/images/sections/full-service-poster.webp"
           alt=""
           aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
           style={{ opacity: playing ? 0 : 1 }}
         />

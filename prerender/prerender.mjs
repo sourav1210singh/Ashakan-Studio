@@ -88,8 +88,24 @@ for (const r of routes) {
     // animations reach their (opacity-1) end state.
     await page.waitForSelector("#root h1, #root h2", { timeout: 15000 });
     await page.waitForTimeout(1800);
-    const html = await page.evaluate(
+    let html = await page.evaluate(
       () => "<!doctype html>\n" + document.documentElement.outerHTML
+    );
+    // Freeze hero entrance animations at their END state. The snapshot
+    // catches them as "opacity:0 + animation ... forwards" - invisible
+    // until the animation runs, so in static form the hero never
+    // painted and Lighthouse took the tiny header logo as the LCP
+    // element (~13s simulated). With the entrance frozen visible, the
+    // big hero text/cutouts paint with first render. React re-mounts
+    // on load and replays the entrance as usual.
+    html = html.replace(
+      /style="([^"]*animation:[^"]*(?:heroSlideUp|cutoutFadeIn|fadeInUp|fadeIn)[^"]*)"/g,
+      (_m, css) => {
+        const fixed = css
+          .replace(/animation:[^;"]*;? ?/, "")
+          .replace(/opacity: ?0;? ?/, "opacity: 1; ");
+        return `style="${fixed}"`;
+      }
     );
     const stats = await page.evaluate(() => ({
       title: document.title.length,

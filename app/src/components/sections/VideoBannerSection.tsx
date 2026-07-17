@@ -1,5 +1,7 @@
 import { useRef } from "react";
 import { useVimeoPlaying, bgVideoQuality } from "@/hooks/useVimeoPlaying";
+import { useNearViewport } from "@/hooks/useNearViewport";
+import { useAfterWindowLoad } from "@/hooks/useAfterWindowLoad";
 
 /* ════════════════════════════════════════════════════════════════════
    VIDEO BANNER - full-width looping Vimeo banner placed between the
@@ -24,33 +26,46 @@ import { useVimeoPlaying, bgVideoQuality } from "@/hooks/useVimeoPlaying";
 const BANNER_VIMEO_ID = "1040829359";
 
 export function VideoBannerSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  /* Perf (7/16): this player used to boot at t=0 alongside the hero's
+     and their combined streams (~12MB in the Lighthouse window) sank
+     mobile scores into the 20s. The band sits just below the fold, so
+     proximity alone still fired at load - it must ALSO wait for the
+     first interaction (or the post-load fallback). Scrolling to see
+     the band IS an interaction, and the poster below covers the iframe
+     until the video actually plays, so nothing visibly changes. */
+  const near = useNearViewport(sectionRef, "300px");
+  const afterLoad = useAfterWindowLoad();
+  const mountVideo = near && afterLoad;
   /* Shared hook (7/2): scopes play-detection to THIS iframe via
      e.source (the old inline listener accepted any Vimeo message, so
      ANOTHER section's video starting used to fade this poster), and
      drops the old 4s force-hide - if autoplay is denied (Safari Low
      Power Mode etc.) the poster now simply stays, never a black box. */
-  const videoReady = useVimeoPlaying(iframeRef);
+  const videoReady = useVimeoPlaying(iframeRef, mountVideo);
 
   return (
-    <section className="relative w-full overflow-hidden bg-dark">
+    <section ref={sectionRef} className="relative w-full overflow-hidden bg-dark">
       {/* Aspect-controlled band: shorter on mobile, taller on desktop. */}
       <div className="relative w-full h-[42vw] min-h-[220px] max-h-[640px]">
-        <iframe
-          ref={iframeRef}
-          src={`https://player.vimeo.com/video/${BANNER_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=${bgVideoQuality()}&autopause=0&title=0&byline=0&portrait=0&controls=0`}
-          className="absolute"
-          style={{
-            top: "50%",
-            left: "50%",
-            width: "max(177.78vh, 100vw)",
-            height: "max(56.25vw, 100%)",
-            transform: "translate(-50%, -50%)",
-            border: 0,
-          }}
-          allow="autoplay; fullscreen"
-          title="Ashkan Studios - campaign reel"
-        />
+        {mountVideo && (
+          <iframe
+            ref={iframeRef}
+            src={`https://player.vimeo.com/video/${BANNER_VIMEO_ID}?background=1&autoplay=1&loop=1&muted=1&playsinline=1&quality=${bgVideoQuality()}&autopause=0&title=0&byline=0&portrait=0&controls=0`}
+            className="absolute"
+            style={{
+              top: "50%",
+              left: "50%",
+              width: "max(177.78vh, 100vw)",
+              height: "max(56.25vw, 100%)",
+              transform: "translate(-50%, -50%)",
+              border: 0,
+            }}
+            allow="autoplay; fullscreen"
+            title="Ashkan Studios - campaign reel"
+          />
+        )}
 
         {/* Poster still (the video's own thumbnail) - covers Vimeo's black
             background instantly, fades out once the video starts playing. */}

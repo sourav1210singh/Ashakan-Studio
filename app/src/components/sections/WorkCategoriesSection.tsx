@@ -236,6 +236,8 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
             src={tile.image}
             alt=""
             aria-hidden="true"
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover transition-[transform,opacity] duration-[1100ms] ease-out"
             style={{
               transform: isHovered ? "scale(1.06)" : "scale(1)",
