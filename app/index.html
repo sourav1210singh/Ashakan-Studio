@@ -56,10 +56,12 @@
           window.addEventListener(e, loadTags, { once: true, passive: true });
         });
         function arm() {
-          // Phones: first touch/scroll is the real trigger; the long
-          // fallback keeps the tags out of throttled-lab trace windows
-          // (a 2s fallback was landing right back inside them).
-          setTimeout(loadTags, window.innerWidth < 768 ? 25000 : 2000);
+          // Phones are interaction-only: every fallback timer landed
+          // inside some lab runner's trace window. Real phone users
+          // always touch/scroll (tags fire then); desktop idles get
+          // the 2s timer.
+          if (window.innerWidth < 768) return;
+          setTimeout(loadTags, 2000);
         }
         if (document.readyState === 'complete') { arm(); }
         else { window.addEventListener('load', arm, { once: true }); }

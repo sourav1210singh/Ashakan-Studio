@@ -107,6 +107,10 @@ for (const r of routes) {
         return `style="${fixed}"`;
       }
     );
+    // Belt-and-braces: dev-inspect attributes must never ship - the
+    // plugin is dev-server-only now (vite.config), but 640 of these
+    // were 40KB = 27% of the home HTML when it leaked into a build.
+    html = html.replace(/ code-path="[^"]*"/g, "");
     const stats = await page.evaluate(() => ({
       title: document.title.length,
       canonical: !!document.querySelector('link[rel="canonical"]'),
