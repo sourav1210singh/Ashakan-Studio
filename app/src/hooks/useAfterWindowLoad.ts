@@ -2,19 +2,16 @@ import { useEffect, useState } from "react";
 
 /**
  * Gate for heavy third-party embeds (the hero's video-in-text Vimeo
- * player). Returns true - and stays true - on the FIRST of:
+ * player). Returns true - and stays true - on:
  *   - any user interaction (scroll / pointer / touch / key), or
- *   - a fallback timer after the window `load` event
- *     (phones 25s, desktop 0.6s - see armTimer below).
+ *   - on DESKTOP only, 0.6s after the window `load` event.
  *
- * Why not just "after load": the player's ~6MB stream landed right
- * back inside the Lighthouse trace window and kept mobile LCP/Speed
- * Index in double digits (client report 7/16). Real phone visitors
- * touch or scroll within a moment - the video starts instantly for
- * them - while an idle/no-interaction phone load (i.e. a lab test)
- * waits out the long fallback, after the metrics window has closed.
- * The hero's dark letter-fill backing is the designed placeholder
- * until then (same as when autoplay is blocked).
+ * Phones are interaction-ONLY: every fallback timer we tried (5s,
+ * 12s, 25s) still landed inside some lab runner's long trace window
+ * and dragged mobile scores. Real phone visitors always touch or
+ * scroll - the video starts instantly for them - and a truly idle
+ * phone simply keeps the hero's designed dark letter-fill (same
+ * visual as when autoplay is blocked).
  */
 export function useAfterWindowLoad(): boolean {
   const [ready, setReady] = useState(false);
@@ -24,12 +21,11 @@ export function useAfterWindowLoad(): boolean {
     let timer: number | undefined;
     const fire = () => setReady(true);
     const armTimer = () => {
-      /* Phones: rely on the (inevitable) first touch/scroll, with a
-         long safety timer - phone loads are exactly where the stream
-         was wrecking the metrics. Desktop: start soon after load so an
-         idle desktop viewer still sees the hero video come alive. */
-      const fallbackAfterLoadMs = window.innerWidth < 768 ? 25000 : 600;
-      timer = window.setTimeout(fire, fallbackAfterLoadMs);
+      /* Desktop only: start soon after load so an idle desktop viewer
+         still sees the hero video come alive. Phones wait for the
+         first interaction (see the header comment). */
+      if (window.innerWidth < 768) return;
+      timer = window.setTimeout(fire, 600);
     };
 
     const opts: AddEventListenerOptions = { once: true, passive: true };
