@@ -144,7 +144,8 @@ server.registerTool(
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${OPENAI_KEY}` },
       // quality "medium" looks the same at blog-banner size and costs
       // ~4x less per image than "high" (client will generate plenty).
-      body: JSON.stringify({ model: "gpt-image-1", prompt: styled, size: "1536x1024", quality: "medium", n: 1 }),
+      // webp@82 keeps banners ~10x smaller than the default 2MB PNG.
+      body: JSON.stringify({ model: "gpt-image-1", prompt: styled, size: "1536x1024", quality: "medium", n: 1, output_format: "webp", output_compression: 82 }),
     });
     const img = await res.json();
     if (!res.ok || !img.data?.[0]?.b64_json) {
@@ -155,7 +156,7 @@ server.registerTool(
     if (!sessionCookie) await login();
     const fd = new FormData();
     fd.append("action", "upload");
-    fd.append("file", new Blob([bytes], { type: "image/png" }), `${slug}.png`);
+    fd.append("file", new Blob([bytes], { type: "image/webp" }), `${slug}.webp`);
     const up = await fetch(API, { method: "POST", headers: { Cookie: sessionCookie }, body: fd });
     captureCookie(up);
     const upData = await up.json().catch(() => ({}));
