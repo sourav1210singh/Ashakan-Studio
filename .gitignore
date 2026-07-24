@@ -9,3 +9,7 @@ Thumbs.db
 
 # Client images removed from the site but preserved locally (Ashkan 6/11)
 Removed-Images/
+
+# local secret files
+OpenAPi ky.txt
+*.key.txt
