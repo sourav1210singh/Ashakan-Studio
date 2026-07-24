@@ -35,6 +35,11 @@ define('BLOG_ADMIN_PASSWORD', 'SET_A_PASSWORD_BEFORE_UPLOAD');
 define('MCP_OAUTH_SECRET',    'SET_OAUTH_SECRET_BEFORE_UPLOAD');
 define('MCP_LOGIN_USER',      'SET_LOGIN_USER_BEFORE_UPLOAD');
 define('MCP_LOGIN_PASS',      'SET_LOGIN_PASS_BEFORE_UPLOAD');
+// Simple alternative to OAuth: a client that can send a custom header
+// (X-MCP-Secret, or Authorization: Bearer <this value>) skips the whole
+// OAuth flow. Whoever holds this value can publish - treat it like a
+// password. OAuth still works too; this is just an easier second door.
+define('MCP_SHARED_SECRET',   'SET_SHARED_SECRET_BEFORE_UPLOAD');
 define('OPENAI_API_KEY',      '');
 
 $SITE = 'https://ashkanstudios.com';
@@ -60,7 +65,7 @@ $GLOBALS['__RAW'] = file_get_contents('php://input');
 // from a server. Bearer auth (no cookies) means "*" is safe here.
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Authorization, Content-Type, mcp-protocol-version, mcp-session-id');
+header('Access-Control-Allow-Headers: Authorization, Content-Type, mcp-protocol-version, mcp-session-id, x-mcp-secret');
 header('Access-Control-Expose-Headers: WWW-Authenticate, mcp-session-id');
 header('Access-Control-Max-Age: 86400');
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
@@ -550,10 +555,21 @@ function issue_tokens() {
     );
 }
 
-// ── default: the MCP endpoint (Bearer-gated) ────────────────────
-if (!jwt_verify('at', bearer_token())) {
+// ── default: the MCP endpoint ───────────────────────────────────
+// Auth: accept EITHER the shared secret (header X-MCP-Secret, or
+// Authorization: Bearer <shared secret>) OR a valid OAuth access token.
+// Placeholder split so the deploy find-replace can't disable the guard.
+$sharedConfigured = MCP_SHARED_SECRET !== 'SET_SHARED_SECRET_' . 'BEFORE_UPLOAD' && MCP_SHARED_SECRET !== '';
+$authed = false;
+if ($sharedConfigured) {
+    $hdrSecret = $_SERVER['HTTP_X_MCP_SECRET'] ?? '';
+    if ($hdrSecret !== '' && hash_equals(MCP_SHARED_SECRET, $hdrSecret)) { $authed = true; }
+    elseif (($bt = bearer_token()) !== '' && hash_equals(MCP_SHARED_SECRET, $bt)) { $authed = true; }
+}
+if (!$authed && jwt_verify('at', bearer_token())) { $authed = true; }
+if (!$authed) {
     header('WWW-Authenticate: Bearer resource_metadata="' . $base . '/.well-known/oauth-protected-resource"');
-    json_out(array('error' => 'invalid_token', 'error_description' => 'Sign in to the Ashkan blog connector.'), 401);
+    json_out(array('error' => 'invalid_token', 'error_description' => 'Sign in, or send the X-MCP-Secret header.'), 401);
 }
 if ($method !== 'POST') json_out(array('error' => 'POST only'), 405);
 
