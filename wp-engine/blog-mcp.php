@@ -91,7 +91,7 @@ if (MCP_DEBUG) {
         't'      => gmdate('H:i:s'),
         'method' => $_SERVER['REQUEST_METHOD'] ?? '',
         'uri'    => $_SERVER['REQUEST_URI'] ?? '',
-        'p'      => $_GET['p'] ?? '',
+        'p'      => mcp_endpoint(),
         'origin' => $_SERVER['HTTP_ORIGIN'] ?? '',
         'ua'     => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 60),
         'ctype'  => $_SERVER['HTTP_CONTENT_TYPE'] ?? '',
@@ -99,6 +99,18 @@ if (MCP_DEBUG) {
         'body'   => substr($GLOBALS['__RAW'], 0, 600),
     );
     @file_put_contents(dbg_file(), json_encode($entry) . "\n", FILE_APPEND | LOCK_EX);
+}
+
+// Which endpoint is this request for? Supports BOTH a clean path
+// (/blog-mcp.php/register) and the ?p= query form. Anthropic's OAuth
+// client mishandles a registration_endpoint that carries a query
+// string, so the metadata now advertises the clean-path form; ?p= is
+// kept for the index.php-routed .well-known paths and back-compat.
+function mcp_endpoint() {
+    if (isset($_GET['p']) && $_GET['p'] !== '') return $_GET['p'];
+    $path = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    if (preg_match('#/blog-mcp\.php/([a-z_-]+)#', (string) $path, $m)) return $m[1];
+    return '';
 }
 
 // ── crypto / token helpers ──────────────────────────────────────
@@ -392,7 +404,7 @@ function login_page($base, $q, $error) {
         $hidden .= '<input type="hidden" name="' . $k . '" value="' . htmlspecialchars($q[$k] ?? '', ENT_QUOTES) . '">';
     }
     $err = $error ? '<div class="err">' . htmlspecialchars($error, ENT_QUOTES) . '</div>' : '';
-    $action = htmlspecialchars($base . '/blog-mcp.php?p=authorize', ENT_QUOTES);
+    $action = htmlspecialchars($base . '/blog-mcp.php/authorize', ENT_QUOTES);
     return '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         . '<meta name="viewport" content="width=device-width, initial-scale=1"><title>Sign in — Ashkan Studios Blog</title>'
         . '<style>:root{color-scheme:light dark}*{box-sizing:border-box}'
@@ -422,16 +434,16 @@ function login_page($base, $q, $error) {
 }
 
 // ══ dispatch ═══════════════════════════════════════════════════
-$p = $_GET['p'] ?? '';
+$p = mcp_endpoint();
 $base = base_url();
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($p === 'as-meta') {
     json_out(array(
         'issuer' => $base,
-        'authorization_endpoint' => $base . '/blog-mcp.php?p=authorize',
-        'token_endpoint' => $base . '/blog-mcp.php?p=token',
-        'registration_endpoint' => $base . '/blog-mcp.php?p=register',
+        'authorization_endpoint' => $base . '/blog-mcp.php/authorize',
+        'token_endpoint' => $base . '/blog-mcp.php/token',
+        'registration_endpoint' => $base . '/blog-mcp.php/register',
         'response_types_supported' => array('code'),
         'grant_types_supported' => array('authorization_code', 'refresh_token'),
         'code_challenge_methods_supported' => array('S256'),
