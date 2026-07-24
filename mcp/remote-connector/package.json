@@ -1,0 +1,8 @@
+{
+  "name": "ashkan-blog-remote-connector",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "OAuth-secured remote MCP connector for the Ashkan Studios Storytime blog (deploys as its own Vercel project)",
+  "engines": { "node": ">=18" }
+}
