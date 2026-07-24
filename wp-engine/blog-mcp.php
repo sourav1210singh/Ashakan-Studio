@@ -51,6 +51,12 @@ $CODE_TTL    = 300;
 $CID_TTL     = 180 * 24 * 3600;
 
 header('Cache-Control: no-store');
+// WP Engine + Cloudflare both OVERRODE no-store and cached the GET
+// metadata (as-meta) for 10 min, so a deployed metadata change kept
+// serving the stale version and the OAuth client saw old endpoints.
+// Both caches skip any response that sets a cookie (they treat it as
+// per-user) - so this harmless cookie forces every response fresh.
+header('Set-Cookie: mcp_nc=1; Path=/; HttpOnly; SameSite=Lax');
 
 // Capture the raw request body ONCE (php://input isn't reliably
 // re-readable); everything below reuses this.
