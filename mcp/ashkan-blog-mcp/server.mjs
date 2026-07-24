@@ -142,7 +142,9 @@ server.registerTool(
     const res = await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${OPENAI_KEY}` },
-      body: JSON.stringify({ model: "gpt-image-1", prompt: styled, size: "1536x1024", quality: "high", n: 1 }),
+      // quality "medium" looks the same at blog-banner size and costs
+      // ~4x less per image than "high" (client will generate plenty).
+      body: JSON.stringify({ model: "gpt-image-1", prompt: styled, size: "1536x1024", quality: "medium", n: 1 }),
     });
     const img = await res.json();
     if (!res.ok || !img.data?.[0]?.b64_json) {
