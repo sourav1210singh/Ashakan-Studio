@@ -16,6 +16,17 @@
 //
 // Deploy: ship this file in the webroot next to index.html.
 // ────────────────────────────────────────────────────────────────
+
+// OAuth discovery for the blog MCP connector (blog-mcp.php). These two
+// well-known paths are fixed by spec and have no physical file, so they
+// land here; route them into blog-mcp.php with the right selector.
+$reqPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+if (strpos($reqPath, '/.well-known/oauth-') === 0 && file_exists(__DIR__ . '/blog-mcp.php')) {
+    $_GET['p'] = (strpos($reqPath, 'protected-resource') !== false) ? 'pr-meta' : 'as-meta';
+    require __DIR__ . '/blog-mcp.php';
+    exit;
+}
+
 http_response_code(200);
 header('Content-Type: text/html; charset=UTF-8');
 readfile(__DIR__ . '/index.html');
