@@ -47,6 +47,10 @@ $CID_TTL     = 180 * 24 * 3600;
 
 header('Cache-Control: no-store');
 
+// Capture the raw request body ONCE (php://input isn't reliably
+// re-readable); everything below reuses this.
+$GLOBALS['__RAW'] = file_get_contents('php://input');
+
 // ── CORS ────────────────────────────────────────────────────────
 // claude.ai's web app runs the OAuth discovery / registration / token
 // calls from the BROWSER, so every endpoint must allow cross-origin
@@ -62,6 +66,39 @@ header('Access-Control-Max-Age: 86400');
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
     http_response_code(204);
     exit;
+}
+
+// ── TEMP debug logging (remove after diagnosing the connector) ──
+// Captures exactly what the OAuth client sends. Read it back with
+//   GET /blog-mcp.php?p=_dbg&k=<MCP_OAUTH_SECRET>
+// Writes to a PHP-created dir (always writable), unguessable filename.
+define('MCP_DEBUG', true);
+function dbg_file() {
+    $dir = __DIR__ . '/blog-data';
+    if (!is_dir($dir)) { @mkdir($dir, 0755, true); @file_put_contents($dir . '/index.php', "<?php http_response_code(404); exit;\n"); }
+    return $dir . '/mcp-debug-' . substr(hash('sha256', 'dbg|' . MCP_OAUTH_SECRET), 0, 12) . '.log';
+}
+if (MCP_DEBUG && ($_GET['p'] ?? '') === '_dbg') {
+    header('Content-Type: text/plain; charset=utf-8');
+    if (($_GET['k'] ?? '') !== MCP_OAUTH_SECRET) { http_response_code(403); exit('no'); }
+    $f = dbg_file();
+    echo file_exists($f) ? file_get_contents($f) : '(empty)';
+    if (isset($_GET['clear'])) @unlink($f);
+    exit;
+}
+if (MCP_DEBUG) {
+    $entry = array(
+        't'      => gmdate('H:i:s'),
+        'method' => $_SERVER['REQUEST_METHOD'] ?? '',
+        'uri'    => $_SERVER['REQUEST_URI'] ?? '',
+        'p'      => $_GET['p'] ?? '',
+        'origin' => $_SERVER['HTTP_ORIGIN'] ?? '',
+        'ua'     => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 60),
+        'ctype'  => $_SERVER['HTTP_CONTENT_TYPE'] ?? '',
+        'hasAuth'=> isset($_SERVER['HTTP_AUTHORIZATION']) ? 'y' : 'n',
+        'body'   => substr($GLOBALS['__RAW'], 0, 600),
+    );
+    @file_put_contents(dbg_file(), json_encode($entry) . "\n", FILE_APPEND | LOCK_EX);
 }
 
 // ── crypto / token helpers ──────────────────────────────────────
@@ -108,8 +145,7 @@ function json_out($data, $code = 200) {
     exit;
 }
 function read_json_body() {
-    $raw = file_get_contents('php://input');
-    $b = json_decode($raw, true);
+    $b = json_decode(isset($GLOBALS['__RAW']) ? $GLOBALS['__RAW'] : file_get_contents('php://input'), true);
     return is_array($b) ? $b : array();
 }
 function bearer_token() {
