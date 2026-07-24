@@ -1,20 +1,6 @@
-// ────────────────────────────────────────────────────────────────
-// Remote MCP endpoint (streamable HTTP, stateless JSON) so the
-// Ashkan Storytime blog tools can be added to claude.ai as a shared
-// "custom connector" — no local install needed by whoever gets the
-// URL. The URL's <token> segment is the access key.
-//
-// Runs as a Vercel function. Env vars (Vercel dashboard):
-//   MCP_SHARED_TOKEN      required — must match the URL segment
-//   ASHKAN_BLOG_PASSWORD  required — /admin password (stays server-side)
-//   OPENAI_API_KEY        optional — image generation
-//   ASHKAN_SITE_URL       optional — defaults to production
-//
-// Hand-rolled protocol subset (initialize / tools/list / tools/call /
-// ping, notifications accepted) — deliberately dependency-free so the
-// serverless bundle stays tiny and there's no SDK/zod version dance.
-// ────────────────────────────────────────────────────────────────
-
+// Blog tools — same 5 as the local MCP, talking to the site's
+// blog-api.php over HTTPS (proven to work from Vercel). Claude is the
+// writer; nothing here calls a text model.
 const SITE = (process.env.ASHKAN_SITE_URL || "https://ashkanstudios.com").replace(/\/+$/, "");
 const API = `${SITE}/blog-api.php`;
 
@@ -30,7 +16,7 @@ function captureCookie(res) {
 
 async function login() {
   const pw = process.env.ASHKAN_BLOG_PASSWORD || "";
-  if (!pw) throw new Error("ASHKAN_BLOG_PASSWORD env var is not set on the server (Vercel project settings).");
+  if (!pw) throw new Error("ASHKAN_BLOG_PASSWORD env var is not set on the server.");
   const res = await fetch(API, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -61,12 +47,19 @@ async function api(action, body = {}, { auth = false, retry = true } = {}) {
 
 const liveUrl = (slug) => `${SITE}/storytime/${slug}/`;
 
-// ── tools ──
-const TOOLS = [
+export const INSTRUCTIONS = [
+  "Publishing workflow for the Ashkan Studios Storytime blog (Houston commercial photo/video studio journal):",
+  "1. Call list_recent_posts first so you never repeat a slug or topic.",
+  "2. Write the article yourself in markdown: 500-900 words, short intro, 3-5 ## sections, natural human studio-journal voice. No AI-sounding filler.",
+  "3. Call generate_blog_image with a short scene description, then publish_blog_post with the returned image path.",
+  "4. Report the live URL back to the user. If the user gives only a title, that's enough - write the whole post from it.",
+].join("\n");
+
+export const TOOLS = [
   {
     name: "list_recent_posts",
     description:
-      "List Storytime posts (id, title, slug, status, live URL). include_drafts=true also shows drafts. Call this before publishing to avoid duplicate slugs/topics.",
+      "List Storytime posts (id, title, slug, status, live URL). include_drafts=true also shows drafts. Call before publishing to avoid duplicate slugs/topics.",
     inputSchema: {
       type: "object",
       properties: {
@@ -97,7 +90,7 @@ const TOOLS = [
     },
     handler: async ({ prompt, slug }) => {
       const key = process.env.OPENAI_API_KEY || "";
-      if (!key) throw new Error("OPENAI_API_KEY is not set on the server, so image generation is off. Publish without an image, or add the key in Vercel settings.");
+      if (!key) throw new Error("OPENAI_API_KEY is not set on the server, so image generation is off. Publish without an image, or add the key in the Vercel project settings.");
       const styled = `${prompt}. Cinematic editorial photography, warm natural light, shallow depth of field, premium commercial-studio aesthetic, photorealistic, no text, no logos, no watermarks.`;
       const res = await fetch("https://api.openai.com/v1/images/generations", {
         method: "POST",
@@ -196,80 +189,3 @@ const TOOLS = [
     },
   },
 ];
-
-const INSTRUCTIONS = [
-  "Publishing workflow for the Ashkan Studios Storytime blog (Houston commercial photo/video studio journal):",
-  "1. Call list_recent_posts first so you never repeat a slug or topic.",
-  "2. Write the article yourself in markdown: 500-900 words, short intro, 3-5 ## sections, natural human studio-journal voice. No AI-sounding filler.",
-  "3. Call generate_blog_image with a short scene description, then publish_blog_post with the returned image path.",
-  "4. Report the live URL back to the user. If the user gives only a title, that's enough - write the whole post from it.",
-].join("\n");
-
-// ── JSON-RPC over streamable HTTP (stateless) ──
-async function handleMessage(msg) {
-  const { id, method, params = {} } = msg || {};
-  const reply = (result) => ({ jsonrpc: "2.0", id, result });
-  const fail = (code, message) => ({ jsonrpc: "2.0", id, error: { code, message } });
-
-  if (id === undefined || id === null) return null; // notification - just accept
-
-  switch (method) {
-    case "initialize":
-      return reply({
-        protocolVersion: params.protocolVersion || "2025-03-26",
-        capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: "ashkan-blog", version: "1.1.0" },
-        instructions: INSTRUCTIONS,
-      });
-    case "ping":
-      return reply({});
-    case "tools/list":
-      return reply({ tools: TOOLS.map(({ name, description, inputSchema }) => ({ name, description, inputSchema })) });
-    case "tools/call": {
-      const tool = TOOLS.find((t) => t.name === params.name);
-      if (!tool) return fail(-32602, `Unknown tool: ${params.name}`);
-      try {
-        const out = await tool.handler(params.arguments || {});
-        return reply({ content: [{ type: "text", text: JSON.stringify(out, null, 2) }], isError: false });
-      } catch (e) {
-        return reply({ content: [{ type: "text", text: `Error: ${e.message}` }], isError: true });
-      }
-    }
-    default:
-      return fail(-32601, `Method not found: ${method}`);
-  }
-}
-
-export default async function handler(req, res) {
-  const expected = process.env.MCP_SHARED_TOKEN || "";
-  if (!expected || req.query.token !== expected) {
-    res.status(404).json({ error: "Not found" });
-    return;
-  }
-  if (req.method === "GET" || req.method === "DELETE") {
-    // Stateless server: no SSE stream, no sessions to end.
-    res.status(405).json({ error: "POST only" });
-    return;
-  }
-  if (req.method !== "POST") {
-    res.status(405).json({ error: "POST only" });
-    return;
-  }
-
-  const body = req.body;
-  try {
-    if (Array.isArray(body)) {
-      const replies = (await Promise.all(body.map(handleMessage))).filter(Boolean);
-      if (replies.length === 0) { res.status(202).end(); return; }
-      res.status(200).json(replies);
-      return;
-    }
-    const reply = await handleMessage(body);
-    if (!reply) { res.status(202).end(); return; }
-    res.status(200).json(reply);
-  } catch (e) {
-    res.status(200).json({ jsonrpc: "2.0", id: body?.id ?? null, error: { code: -32603, message: e.message } });
-  }
-}
-
-export const config = { maxDuration: 60 };

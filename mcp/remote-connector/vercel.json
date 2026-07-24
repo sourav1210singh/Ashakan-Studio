@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/.well-known/oauth-authorization-server", "destination": "/api/oauth/as-meta" },
+    { "source": "/.well-known/oauth-authorization-server/api/mcp", "destination": "/api/oauth/as-meta" },
+    { "source": "/.well-known/oauth-protected-resource", "destination": "/api/oauth/pr-meta" },
+    { "source": "/.well-known/oauth-protected-resource/api/mcp", "destination": "/api/oauth/pr-meta" }
+  ]
+}
