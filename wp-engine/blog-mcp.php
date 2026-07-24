@@ -47,6 +47,23 @@ $CID_TTL     = 180 * 24 * 3600;
 
 header('Cache-Control: no-store');
 
+// ── CORS ────────────────────────────────────────────────────────
+// claude.ai's web app runs the OAuth discovery / registration / token
+// calls from the BROWSER, so every endpoint must allow cross-origin
+// requests, answer the preflight, and expose WWW-Authenticate (the
+// browser reads the resource_metadata URL out of it). Without this the
+// connector fails at "Couldn't register" even though the endpoints work
+// from a server. Bearer auth (no cookies) means "*" is safe here.
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Authorization, Content-Type, mcp-protocol-version, mcp-session-id');
+header('Access-Control-Expose-Headers: WWW-Authenticate, mcp-session-id');
+header('Access-Control-Max-Age: 86400');
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 // ── crypto / token helpers ──────────────────────────────────────
 function b64url($bin) {
     return rtrim(strtr(base64_encode($bin), '+/', '-_'), '=');
