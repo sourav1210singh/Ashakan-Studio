@@ -5,7 +5,7 @@ export const seoPages: SeoPageData[] = [
 
   {
     slug: "product-photography-in-houston",
-    title: "PRODUCT PHOTOGRAPHY IN HOUSTON",
+    title: "Professional Product Photography in Houston, TX",
     subtitle: "Don't Forget the Details",
     heroImage: "/images/seo/photography/ASH_1251.jpg",
     intro:
@@ -47,9 +47,9 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "We know a thing or two about product photography in Houston. We are happy to help get your products noticed, and create imagery that truly shows off the blood, sweat, and tears you have put into your products.",
     ctaButton: { label: "LET US KNOW HOW WE CAN HELP", view: "contact" },
-    metaTitle: "Product Photography in Houston | Ashkan Studios",
+    metaTitle: "Product Photography in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Professional product photography in Houston by Ashkan Studios. Detail-focused imagery for ecommerce, catalogs, social media, and marketing.",
+      "Professional product photography in Houston, TX for ecommerce, catalogs & social. Ashkan Studios delivers detail-rich images that sell - book a shoot.",
   },
 
   {
@@ -95,7 +95,7 @@ export const seoPages: SeoPageData[] = [
 
   {
     slug: "product-photographer-houston",
-    title: "PRODUCT PHOTOGRAPHER HOUSTON",
+    title: "Professional Product Photographer in Houston, TX",
     subtitle: "Product & Food Photography",
     heroImage: "/images/seo/photography/MinimalLogo-5.jpg",
     intro:
@@ -123,14 +123,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Let's create some beautiful imagery for you. Professional product and food photography that represents your business at its best.",
     ctaButton: { label: "GET IN TOUCH", view: "contact" },
-    metaTitle: "Product Photographer Houston | Ashkan Studios",
+    metaTitle: "Product Photographer in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Houston product and food photographer. Ashkan Studios creates alluring imagery for restaurants, retail, and businesses of all kinds.",
+      "Looking for a product photographer in Houston, TX? Ashkan Studios shoots alluring product & food imagery for retail, restaurants & brands. Book today.",
   },
 
   {
     slug: "commercial-photography-houston",
-    title: "COMMERCIAL PHOTOGRAPHY HOUSTON",
+    title: "Commercial Photography in Houston, TX",
     subtitle: "Professional Imagery That Represents Your Brand",
     heroImage: "/images/seo/photography/8Q1A8493.jpg",
     intro:
@@ -162,9 +162,9 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Have questions? Let's talk about your project. Beautiful photography that represents your brand starts here.",
     ctaButton: { label: "CONTACT US", view: "contact" },
-    metaTitle: "Commercial Photography Houston | Ashkan Studios",
+    metaTitle: "Commercial Photography in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Professional commercial photography in Houston. Product photography, headshots, and lifestyle imagery by Ashkan Studios.",
+      "Professional commercial photography in Houston, TX - product, headshot & lifestyle imagery for brands by Ashkan Studios. Let's plan your shoot today.",
   },
 
   {
@@ -203,7 +203,7 @@ export const seoPages: SeoPageData[] = [
 
   {
     slug: "commercial-photographer-houston",
-    title: "COMMERCIAL PHOTOGRAPHER HOUSTON",
+    title: "Commercial Photographer in Houston, TX",
     subtitle: "Visual Storytellers for Your Brand",
     heroImage: "/images/seo/photography/memorial-9318-1.jpg",
     intro:
@@ -231,14 +231,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Schedule your free call or virtual meeting. We want to learn more about your brand, and what we can do for you. Every image tells a story, and your success is our primary focus.",
     ctaButton: { label: "EMAIL US", view: "contact" },
-    metaTitle: "Commercial Photographer Houston | Ashkan Studios",
+    metaTitle: "Commercial Photographer in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Trusted commercial photographer in Houston. Ashkan Studios delivers compelling imagery and visual storytelling tailored to your brand.",
+      "Trusted commercial photographer in Houston, TX. Ashkan Studios delivers compelling brand imagery & visual storytelling. View our work & book a shoot.",
   },
 
   {
     slug: "business-marketing-photography-houston",
-    title: "BUSINESS MARKETING PHOTOGRAPHY HOUSTON",
+    title: "Business Marketing Photography in Houston, TX",
     subtitle: "Unleashing the Power of Visual Storytelling",
     heroImage: "/images/seo/photography/July-28.png",
     intro:
@@ -271,14 +271,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Elevate your visual reach with business marketing photography crafted specifically for your needs. Our passion and dedication to bringing your brand's vision to life will redefine the way your audience engages with your business.",
     ctaButton: { label: "LET'S CREATE TOGETHER", view: "contact" },
-    metaTitle: "Business Marketing Photography Houston | Ashkan Studios",
+    metaTitle: "Business Marketing Photography in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Strategic business marketing photography in Houston. Ashkan Studios creates visual content that drives growth, engagement, and conversions.",
+      "Strategic business marketing photography in Houston that drives growth, engagement & conversions. Ashkan Studios creates the visuals - get started.",
   },
 
   {
     slug: "headshot-photography-houston",
-    title: "HEADSHOT PHOTOGRAPHY HOUSTON",
+    title: "Headshot Photography in Houston, TX",
     subtitle: "Corporate Headshot Photography",
     heroImage: "/images/seo/photography/ASH_2710.jpg",
     intro:
@@ -306,16 +306,16 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "We leave you with beautiful professional imagery to be used on your social media, your website, print, and more. Contact us today!",
     ctaButton: { label: "BOOK NOW", view: "contact" },
-    metaTitle: "Headshot Photography Houston | Ashkan Studios",
+    metaTitle: "Headshot Photography in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Professional headshot photography in Houston. Corporate, editorial, and creative headshots by Ashkan Studios. Book your session today.",
+      "Professional headshot photography in Houston, TX - corporate, editorial & creative headshots by Ashkan Studios. Book your session today.",
   },
 
   // ─── VIDEOGRAPHY SEO PAGES ─────────────────────────────────
 
   {
     slug: "cinematography-services-in-houston",
-    title: "CINEMATOGRAPHY SERVICES IN HOUSTON",
+    title: "Cinematography Services in Houston, TX",
     subtitle: "Creative Commercial Videography",
     heroImage: "/images/seo/photography/ASH_1251.jpg",
     intro:
@@ -343,14 +343,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "We create commercial videography for businesses across every industry. Contact us today to start your project.",
     ctaButton: { label: "START YOUR PROJECT", view: "contact" },
-    metaTitle: "Cinematography Services in Houston | Ashkan Studios",
+    metaTitle: "Cinematography Services in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Professional cinematography services in Houston by Ashkan Studios. Creative commercial videography for brands and businesses.",
+      "Professional cinematography services in Houston, TX. Ashkan Studios crafts cinematic commercial videography for brands & businesses. Start your project.",
   },
 
   {
     slug: "commercial-videographers-houston",
-    title: "COMMERCIAL VIDEOGRAPHERS HOUSTON",
+    title: "Commercial Videographers in Houston, TX",
     subtitle: "The Creative Videographers Houston Needs",
     heroImage: "/images/seo/photography/ASH_1251.jpg",
     intro:
@@ -371,14 +371,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "We create commercial videography for businesses across every industry. Contact us today.",
     ctaButton: { label: "GET STARTED", view: "contact" },
-    metaTitle: "Commercial Videographers Houston | Ashkan Studios",
+    metaTitle: "Commercial Videographers in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Trusted commercial videographers in Houston. Ashkan Studios produces creative, professional video content for businesses.",
+      "Trusted commercial videographers in Houston, TX. Ashkan Studios produces creative, professional video content for businesses. View our reel & connect.",
   },
 
   {
     slug: "video-editing-services-in-houston",
-    title: "VIDEO EDITING SERVICES IN HOUSTON",
+    title: "Video Editing Services in Houston, TX",
     subtitle: "Professional Video Editing & Post-Production",
     heroImage: "/images/seo/photography/July-28.png",
     intro:
@@ -406,14 +406,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Send us your footage and let us work our magic. Professional video editing that elevates your content.",
     ctaButton: { label: "SEND YOUR FOOTAGE", view: "contact" },
-    metaTitle: "Video Editing Services in Houston | Ashkan Studios",
+    metaTitle: "Video Editing Services in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Professional video editing services in Houston. Ashkan Studios delivers expert post-production, color grading, and creative editing.",
+      "Professional video editing services in Houston, TX. Expert post-production, color grading & creative editing by Ashkan Studios. Get a quote today.",
   },
 
   {
     slug: "video-production-services-houston",
-    title: "VIDEO PRODUCTION SERVICES HOUSTON",
+    title: "Video Production Services in Houston, TX",
     subtitle: "Full-Service Video Production",
     heroImage: "/images/seo/photography/ASH_1251.jpg",
     intro:
@@ -441,9 +441,9 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Full-scale video production services ready to bring your project to life. Contact us today.",
     ctaButton: { label: "REQUEST A QUOTE", view: "contact" },
-    metaTitle: "Video Production Services Houston | Ashkan Studios",
+    metaTitle: "Video Production Services in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Full-service video production in Houston by Ashkan Studios. From concept to delivery - commercials, brand films, and promotional videos.",
+      "Full-service video production in Houston, TX - from concept to delivery. Commercials, brand films & promo videos by Ashkan Studios. Start your project.",
   },
 
   {
@@ -515,7 +515,7 @@ export const seoPages: SeoPageData[] = [
 
   {
     slug: "videography-in-the-woodlands",
-    title: "VIDEOGRAPHY IN THE WOODLANDS",
+    title: "Videography Services in The Woodlands, TX",
     subtitle: "Conveniently Located Near Downtown Houston",
     heroImage: "/images/seo/photography/memorial-9318-1.jpg",
     intro:
@@ -536,14 +536,14 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Beautiful videography appeals to even the least engaged scrollers. Let's team up for your next project!",
     ctaButton: { label: "SCHEDULE A SHOOT", view: "contact" },
-    metaTitle: "Videography in The Woodlands TX | Ashkan Studios",
+    metaTitle: "Videography Services in The Woodlands, TX - Ashkan Studios",
     metaDescription:
-      "Professional videography in The Woodlands, TX by Ashkan Studios. Located near downtown Houston, serving the greater Houston area.",
+      "Professional videography services in The Woodlands, TX. Ashkan Studios produces commercials, brand & event video for the greater Houston area. Connect.",
   },
 
   {
     slug: "videography-in-texas",
-    title: "VIDEOGRAPHY IN TEXAS",
+    title: "Videography Services in Texas",
     subtitle: "Texas-Based Creative Video Production",
     heroImage: "/images/seo/photography/ASH_1251.jpg",
     intro:
@@ -564,9 +564,9 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "If you have ideas for your business's needs, we would love to collaborate and bring your vision to life. Let's team up!",
     ctaButton: { label: "PLAN YOUR SHOOT", view: "contact" },
-    metaTitle: "Videography in Texas | Ashkan Studios Houston",
+    metaTitle: "Videography Services in Texas - Ashkan Studios",
     metaDescription:
-      "Professional videography across Texas by Houston-based Ashkan Studios. Statewide video production for commercials, brands, and creative projects.",
+      "Professional videography services across Texas by Houston-based Ashkan Studios - statewide video production for commercials, brands & creative work.",
   },
 
   {
@@ -607,7 +607,7 @@ export const seoPages: SeoPageData[] = [
 
   {
     slug: "commercial-videography-in-houston",
-    title: "COMMERCIAL VIDEOGRAPHY IN HOUSTON",
+    title: "Commercial Videography in Houston, TX",
     subtitle: "Unlocking the Power of Commercial Videography",
     heroImage: "/images/seo/photography/MinimalLogo-5.jpg",
     intro:
@@ -635,9 +635,9 @@ export const seoPages: SeoPageData[] = [
     ctaText:
       "Choose Ashkan Studios for unparalleled expertise, tailored solutions, and a collaborative approach. Contact us today for a free consultation. Your story deserves to be told, and we're here to make it unforgettable.",
     ctaButton: { label: "GET A FREE CONSULTATION", view: "contact" },
-    metaTitle: "Commercial Videography in Houston | Ashkan Studios",
+    metaTitle: "Commercial Videography in Houston, TX - Ashkan Studios",
     metaDescription:
-      "Professional commercial videography in Houston. Ashkan Studios creates strategic video content for commercials, brand films, and marketing.",
+      "Professional commercial videography in Houston, TX - strategic commercials, brand films & marketing video by Ashkan Studios. Let's tell your story.",
   },
 
   // ─── VSL PAGES ─────────────────────────────────────────────
