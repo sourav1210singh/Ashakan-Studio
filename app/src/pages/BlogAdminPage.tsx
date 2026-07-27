@@ -20,13 +20,14 @@ interface EditorState {
   keywords: string;
   image: string;
   excerpt: string;
+  metaDescription: string;
   content: string;
   status: "draft" | "published";
 }
 
 const EMPTY: EditorState = {
   id: "", title: "", slug: "", keywords: "", image: "",
-  excerpt: "", content: "", status: "published",
+  excerpt: "", metaDescription: "", content: "", status: "published",
 };
 
 /**
@@ -46,6 +47,11 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
   const [notice, setNotice] = useState("");
   const [showPreview, setShowPreview] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  /* Content-image flow: a second uploader that drops the uploaded
+     image as Markdown at the cursor inside the content textarea, so
+     posts can carry images between sections (Mahendra/doc 7/27). */
+  const contentFileRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   /* Dashboard sections: BLOG (posts) | LEADS (contact-form submissions
      logged by contact.php). /admin/leads pre-selects the Leads tab. */
@@ -135,7 +141,9 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
       const p = await blogApi.get(id);
       setEditor({
         id: p.id, title: p.title, slug: p.slug, keywords: p.keywords,
-        image: p.image, excerpt: p.excerpt, content: p.content,
+        image: p.image, excerpt: p.excerpt,
+        metaDescription: p.metaDescription || "",
+        content: p.content,
         status: (p.status as "draft" | "published") || "draft",
       });
       setShowPreview(false);
@@ -191,6 +199,28 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
     } finally {
       setBusy(false);
       if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  /* Upload + insert `![alt](url)` into the content at the caret (or at
+     the end when the preview is open / textarea unfocused). */
+  const handleContentImage = async (file: File) => {
+    setBusy(true);
+    setError("");
+    try {
+      const url = await blogApi.upload(file);
+      const alt = file.name.replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " ");
+      const snippet = `\n\n![${alt}](${url})\n\n`;
+      setEditor((s) => {
+        const at = contentRef.current?.selectionStart ?? s.content.length;
+        return { ...s, content: s.content.slice(0, at) + snippet + s.content.slice(at) };
+      });
+      setNotice("Image inserted into content ✓");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setBusy(false);
+      if (contentFileRef.current) contentFileRef.current.value = "";
     }
   };
 
@@ -478,17 +508,36 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                     <label className={label + " mb-0"}>
                       Content * <span className="normal-case font-normal">(Markdown)</span>
                     </label>
-                    <button
-                      type="button"
-                      onClick={() => setShowPreview(!showPreview)}
-                      className="inline-flex items-center gap-1.5 text-xs text-dark/60 hover:text-dark"
-                    >
-                      {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                      {showPreview ? "Hide preview" : "Preview"}
-                    </button>
+                    <div className="flex items-center gap-4">
+                      <input
+                        ref={contentFileRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif"
+                        className="hidden"
+                        onChange={(e) => e.target.files?.[0] && handleContentImage(e.target.files[0])}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => contentFileRef.current?.click()}
+                        disabled={busy || showPreview}
+                        title="Upload an image and insert it at the cursor"
+                        className="inline-flex items-center gap-1.5 text-xs text-dark/60 hover:text-dark disabled:opacity-50"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" /> Insert image
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowPreview(!showPreview)}
+                        className="inline-flex items-center gap-1.5 text-xs text-dark/60 hover:text-dark"
+                      >
+                        {showPreview ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                        {showPreview ? "Hide preview" : "Preview"}
+                      </button>
+                    </div>
                   </div>
                   {!showPreview ? (
                     <textarea
+                      ref={contentRef}
                       className={input + " font-mono text-sm resize-y"}
                       rows={18}
                       value={editor.content}
@@ -575,6 +624,21 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                     onChange={(e) => setEditor({ ...editor, excerpt: e.target.value })}
                     placeholder="Short summary shown on the blog list (auto-generated if left empty)"
                   />
+                </div>
+
+                <div>
+                  <label className={label}>Meta description (SEO)</label>
+                  <textarea
+                    className={input + " resize-none text-sm"}
+                    rows={3}
+                    maxLength={170}
+                    value={editor.metaDescription}
+                    onChange={(e) => setEditor({ ...editor, metaDescription: e.target.value })}
+                    placeholder="What Google shows under the title (~150-160 characters; falls back to the excerpt if empty)"
+                  />
+                  <p className="text-xs text-dark/45 mt-1.5">
+                    {editor.metaDescription.length}/160
+                  </p>
                 </div>
 
                 <div className="pt-2 space-y-3">

@@ -12,6 +12,8 @@ export interface BlogPostSummary {
   keywords: string;
   image: string;
   excerpt: string;
+  /** SEO meta description (falls back to excerpt when empty). */
+  metaDescription?: string;
   createdAt: string;
   updatedAt: string;
   status?: "draft" | "published";

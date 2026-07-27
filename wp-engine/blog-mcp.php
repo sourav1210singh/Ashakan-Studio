@@ -297,7 +297,7 @@ function tool_generate_blog_image($a) {
 function tool_publish_blog_post($a) {
     $status = (isset($a['status']) && $a['status'] === 'draft') ? 'draft' : 'published';
     $fields = array('title' => $a['title'] ?? '', 'content' => $a['content'] ?? '');
-    foreach (array('keywords', 'excerpt', 'slug', 'image') as $k) if (isset($a[$k])) $fields[$k] = $a[$k];
+    foreach (array('keywords', 'excerpt', 'slug', 'image', 'metaDescription') as $k) if (isset($a[$k])) $fields[$k] = $a[$k];
     $fields['status'] = $status;
     $data = blog_api('save', $fields, true);
     return array(
@@ -314,6 +314,7 @@ function tool_update_blog_post($a) {
         'content' => $a['content'] ?? $cur['content'],
         'keywords' => $a['keywords'] ?? ($cur['keywords'] ?? ''),
         'excerpt' => $a['excerpt'] ?? ($cur['excerpt'] ?? ''),
+        'metaDescription' => $a['metaDescription'] ?? ($cur['metaDescription'] ?? ''),
         'slug' => $a['slug'] ?? $cur['slug'],
         'image' => $a['image'] ?? ($cur['image'] ?? ''),
         'status' => $a['status'] ?? ($cur['status'] ?? 'draft'),
@@ -344,12 +345,14 @@ function tools_spec() {
             'inputSchema' => array('type' => 'object', 'properties' => array(
                 'title' => array('type' => 'string'), 'content' => array('type' => 'string', 'description' => 'Full markdown body'),
                 'keywords' => array('type' => 'string'), 'excerpt' => array('type' => 'string'),
+                'metaDescription' => array('type' => 'string', 'description' => 'SEO meta description, ~150-160 chars'),
                 'slug' => array('type' => 'string'), 'image' => array('type' => 'string', 'description' => 'Path from generate_blog_image'),
                 'status' => array('type' => 'string', 'enum' => array('published', 'draft'))), 'required' => array('title', 'content'))),
         array('name' => 'update_blog_post', 'description' => 'Update an existing post by id (ids from list_recent_posts). Only passed fields change. Can flip draft/published via status.',
             'inputSchema' => array('type' => 'object', 'properties' => array(
                 'id' => array('type' => 'string'), 'title' => array('type' => 'string'), 'content' => array('type' => 'string'),
                 'keywords' => array('type' => 'string'), 'excerpt' => array('type' => 'string'), 'slug' => array('type' => 'string'),
+                'metaDescription' => array('type' => 'string'),
                 'image' => array('type' => 'string'), 'status' => array('type' => 'string', 'enum' => array('published', 'draft'))), 'required' => array('id'))),
         array('name' => 'delete_blog_post', 'description' => 'Permanently delete a post by id. Ask the user first; confirm must be true.',
             'inputSchema' => array('type' => 'object', 'properties' => array(

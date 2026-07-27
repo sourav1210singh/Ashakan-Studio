@@ -144,6 +144,7 @@ function public_fields($p, $withContent = false) {
         'keywords'  => isset($p['keywords']) ? $p['keywords'] : '',
         'image'     => isset($p['image']) ? $p['image'] : '',
         'excerpt'   => isset($p['excerpt']) ? $p['excerpt'] : '',
+        'metaDescription' => isset($p['metaDescription']) ? $p['metaDescription'] : '',
         'createdAt' => $p['createdAt'],
         'updatedAt' => isset($p['updatedAt']) ? $p['updatedAt'] : $p['createdAt'],
     );
@@ -270,6 +271,7 @@ if ($action === 'save') {
     $keywords = trim((string) (isset($body['keywords']) ? $body['keywords'] : ''));
     $image    = trim((string) (isset($body['image']) ? $body['image'] : ''));
     $excerpt  = trim((string) (isset($body['excerpt']) ? $body['excerpt'] : ''));
+    $metaDesc = trim((string) (isset($body['metaDescription']) ? $body['metaDescription'] : ''));
     $status   = (isset($body['status']) && $body['status'] === 'published') ? 'published' : 'draft';
     $slugIn   = trim((string) (isset($body['slug']) ? $body['slug'] : ''));
 
@@ -304,7 +306,8 @@ if ($action === 'save') {
             if ($p['id'] === $id) {
                 $posts[$i] = array_merge($p, array(
                     'title' => $title, 'slug' => $slug, 'keywords' => $keywords,
-                    'image' => $image, 'excerpt' => $excerpt, 'content' => $content,
+                    'image' => $image, 'excerpt' => $excerpt,
+                    'metaDescription' => $metaDesc, 'content' => $content,
                     'status' => $status, 'updatedAt' => $now,
                 ));
                 $found = true; break;
@@ -315,7 +318,8 @@ if ($action === 'save') {
         $id = 'p' . bin2hex(random_bytes(6));
         $posts[] = array(
             'id' => $id, 'title' => $title, 'slug' => $slug, 'keywords' => $keywords,
-            'image' => $image, 'excerpt' => $excerpt, 'content' => $content,
+            'image' => $image, 'excerpt' => $excerpt,
+            'metaDescription' => $metaDesc, 'content' => $content,
             'status' => $status, 'createdAt' => $now, 'updatedAt' => $now,
         );
     }
