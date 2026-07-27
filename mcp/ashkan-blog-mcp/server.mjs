@@ -172,6 +172,7 @@ const postFields = {
   content: z.string().min(100).describe("Full markdown body you wrote (## sections, 500-900 words)"),
   keywords: z.string().optional().describe("Comma-separated keywords, e.g. 'houston photography, bts'"),
   excerpt: z.string().optional().describe("1-2 sentence summary for the blog list (auto-generated if omitted)"),
+  metaDescription: z.string().optional().describe("SEO meta description (~150-160 chars; falls back to excerpt)"),
   slug: z.string().regex(/^[a-z0-9-]+$/).optional().describe("URL slug (auto from title if omitted)"),
   image: z.string().optional().describe("Featured image path from generate_blog_image, e.g. /blog-uploads/x.png"),
 };
@@ -210,6 +211,7 @@ server.registerTool(
       content: postFields.content.optional(),
       keywords: postFields.keywords,
       excerpt: postFields.excerpt,
+      metaDescription: postFields.metaDescription,
       slug: postFields.slug,
       image: postFields.image,
       status: z.enum(["published", "draft"]).optional(),
@@ -224,6 +226,7 @@ server.registerTool(
       content: changes.content ?? current.content,
       keywords: changes.keywords ?? current.keywords,
       excerpt: changes.excerpt ?? current.excerpt,
+      metaDescription: changes.metaDescription ?? current.metaDescription,
       slug: changes.slug ?? current.slug,
       image: changes.image ?? current.image,
       status: changes.status ?? current.status,

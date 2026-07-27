@@ -13,6 +13,43 @@ interface StorytimePostPageProps {
   onNavigate: (view: View, slug?: string) => void;
 }
 
+/* Turn a "FAQ" section of the rendered post into click-to-expand
+   accordions: inside the section that starts at an h2 whose text
+   mentions FAQ, every h3 becomes a <details><summary> toggle holding
+   the nodes that follow it (until the next h3/h2). Everything else
+   passes through untouched. Runs on sanitized HTML. */
+function accordionizeFaq(html: string): string {
+  if (!/faq|frequently asked/i.test(html)) return html;
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const headings = Array.from(doc.body.querySelectorAll("h2"));
+  const faqH2 = headings.find((h) => /faq|frequently asked/i.test(h.textContent || ""));
+  if (!faqH2) return html;
+
+  let node = faqH2.nextElementSibling;
+  while (node && node.tagName !== "H2") {
+    if (node.tagName === "H3") {
+      const details = doc.createElement("details");
+      details.className = "faq-item";
+      const summary = doc.createElement("summary");
+      summary.textContent = node.textContent || "";
+      details.appendChild(summary);
+      const next = () => details.nextElementSibling;
+      node.replaceWith(details);
+      // pull everything up to the next h3/h2 inside this details
+      let sib = next();
+      while (sib && sib.tagName !== "H3" && sib.tagName !== "H2") {
+        const grab = sib;
+        sib = grab.nextElementSibling;
+        details.appendChild(grab);
+      }
+      node = details.nextElementSibling;
+    } else {
+      node = node.nextElementSibling;
+    }
+  }
+  return doc.body.innerHTML;
+}
+
 /**
  * Public single-post page for the Storytime blog (/storytime/<slug>/).
  * Content is authored in the /admin/blog dashboard as Markdown and
@@ -39,18 +76,20 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
   }, [slug]);
 
   /* Per-post SEO meta - the route-level manager only knows the slug,
-     so the real title/description are applied once the post loads. */
+     so the real title/description are applied once the post loads.
+     metaDescription (the admin's SEO field) wins over the excerpt. */
   useEffect(() => {
     if (!post) return;
     document.title = `${post.title} | Ashkan Studios`;
     const d = document.head.querySelector<HTMLMetaElement>('meta[name="description"]');
-    if (d && post.excerpt) d.setAttribute("content", post.excerpt.slice(0, 160));
+    const desc = post.metaDescription || post.excerpt;
+    if (d && desc) d.setAttribute("content", desc.slice(0, 160));
   }, [post]);
 
   const html = useMemo(() => {
     if (!post) return "";
     const raw = marked.parse(post.content, { async: false, gfm: true, breaks: true }) as string;
-    return DOMPurify.sanitize(raw);
+    return accordionizeFaq(DOMPurify.sanitize(raw));
   }, [post]);
 
   return (
@@ -110,12 +149,19 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-dark tracking-tight leading-[1.05] mb-10">
                   {post.title}
                 </h1>
-
-                <div
-                  className="blog-prose"
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
               </FadeIn>
+
+              {/* Prose is OUTSIDE the FadeIn: FadeIn's IntersectionObserver
+                  needs 10% of the element in view, which a ~7000px-tall
+                  long post can never satisfy in a 900px viewport - the
+                  whole article stayed at opacity 0 (bug report 7/27,
+                  long posts only). A plain CSS mount-fade needs no
+                  intersection at all. */}
+              <div
+                className="blog-prose"
+                style={{ animation: "blogProseIn 0.6s ease both" }}
+                dangerouslySetInnerHTML={{ __html: html }}
+              />
             </div>
           </article>
         )}
@@ -149,6 +195,26 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
           .blog-prose pre { background: #1A1A1A; color: #F5F5F0; padding: 1.2em; overflow-x: auto; margin: 0 0 1.4em; }
           .blog-prose pre code { background: transparent; color: inherit; padding: 0; }
           .blog-prose strong { color: #1A1A1A; }
+          .blog-prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.8em; font-size: 0.95em; }
+          .blog-prose th { font-family: Anton, sans-serif; letter-spacing: 0.02em; text-align: left; background: #1A1A1A; color: #F5F5F0; padding: 0.7em 0.9em; }
+          .blog-prose td { padding: 0.7em 0.9em; border-bottom: 1px solid rgba(26,26,26,0.12); vertical-align: top; }
+          @keyframes blogProseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+          /* FAQ accordions (details/summary from accordionizeFaq) */
+          .blog-prose details.faq-item { border: 1px solid rgba(26,26,26,0.15); margin: 0 0 0.8em; background: rgba(255,255,255,0.5); }
+          .blog-prose details.faq-item summary {
+            cursor: pointer; list-style: none; padding: 1em 3em 1em 1.2em; position: relative;
+            font-family: Anton, sans-serif; font-size: 1.05rem; color: #1A1A1A; letter-spacing: 0.01em;
+          }
+          .blog-prose details.faq-item summary::-webkit-details-marker { display: none; }
+          .blog-prose details.faq-item summary::after {
+            content: "+"; position: absolute; right: 1.1em; top: 50%; transform: translateY(-50%);
+            font-size: 1.4em; line-height: 1; color: rgba(26,26,26,0.6); transition: transform 0.25s ease;
+          }
+          .blog-prose details.faq-item[open] summary::after { content: "\\2212"; }
+          .blog-prose details.faq-item[open] summary { border-bottom: 1px solid rgba(26,26,26,0.12); }
+          .blog-prose details.faq-item > *:not(summary) { margin-left: 1.2em; margin-right: 1.2em; }
+          .blog-prose details.faq-item > p:first-of-type { margin-top: 1em; }
+          .blog-prose details.faq-item > *:last-child { margin-bottom: 1em; }
         `}</style>
       </main>
       <Footer onLogoClick={() => onNavigate("home")} onNavigate={onNavigate} />
