@@ -53,6 +53,9 @@ const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[]
 
 export function Footer({ onLogoClick, onNavigate }: FooterProps) {
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [servicesSub, setServicesSub] = useState<string | null>(null);
+  const hoverDevice = () =>
+    typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
 
   /* SEO pages always navigate via pushState + popstate (the App's
      route parser handles /<slug>/), so this works on every page
@@ -188,10 +191,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         {/* ============================================================ */}
         {/*  Navigation - Center aligned, even spacing                    */}
         {/* ============================================================ */}
-        <div
-          className="pt-6 border-t border-white/10 mb-6"
-          onMouseLeave={() => setServicesOpen(false)}
-        >
+        <div className="pt-6 border-t border-white/10 mb-6">
           <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-10">
             {(["home", "campaigns", "services", "studio", "contact", "storytime"] as View[]).map((v) => (
               <AppLink
@@ -204,67 +204,89 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
               </AppLink>
             ))}
 
-            {/* OUR SERVICES - hover opens on desktop, tap toggles on
-                touch. It's a disclosure (button), not a link. */}
-            <button
-              type="button"
-              onMouseEnter={() => {
-                /* Touch devices fire a synthetic mouseenter right before
-                   click - together they'd open then instantly re-close.
-                   Only treat hover as "open" on true hover devices. */
-                if (window.matchMedia("(hover: hover)").matches) setServicesOpen(true);
+            {/* OUR SERVICES - same nested-dropdown UI as the header's
+                WORK menu, but opening UPWARD as an overlay so the
+                footer's height never changes. Hover opens on desktop
+                (matchMedia-gated - a tap's synthetic mouseenter would
+                otherwise cancel the click toggle), tap toggles on touch.
+                Closed panels use `hidden`, so all 21 anchors stay in the
+                DOM and in every page's prerendered HTML. */}
+            <div
+              className="relative"
+              onMouseLeave={() => {
+                if (hoverDevice()) {
+                  setServicesOpen(false);
+                  setServicesSub(null);
+                }
               }}
-              onClick={() => setServicesOpen((o) => !o)}
-              aria-expanded={servicesOpen}
-              aria-controls="footer-services-menu"
-              className={`inline-flex items-center gap-1.5 text-sm sm:text-base font-medium tracking-wider transition-colors duration-300 ${servicesOpen ? "text-white" : "text-white/50 hover:text-white"}`}
             >
-              OUR SERVICES
-              <ChevronDown
-                className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-          </div>
+              <button
+                type="button"
+                onMouseEnter={() => {
+                  if (hoverDevice()) setServicesOpen(true);
+                }}
+                onClick={() => setServicesOpen((o) => !o)}
+                aria-expanded={servicesOpen}
+                aria-controls="footer-services-menu"
+                className={`inline-flex items-center gap-1.5 text-sm sm:text-base font-medium tracking-wider transition-colors duration-300 ${servicesOpen ? "text-white" : "text-white/50 hover:text-white"}`}
+              >
+                OUR SERVICES
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
+                />
+              </button>
 
-          {/* Mega panel - collapsed via grid-rows so the 21 anchors stay
-              in the DOM (crawlable in the prerendered HTML) even when
-              visually closed. */}
-          <div
-            id="footer-services-menu"
-            className={`grid transition-all duration-500 ease-out ${servicesOpen ? "grid-rows-[1fr] opacity-100 mt-6" : "grid-rows-[0fr] opacity-0 mt-0"}`}
-          >
-            <div className="min-h-0 overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
-                {SERVICE_LINKS.map((col) => (
-                  <div key={col.heading} className="border border-white/10 p-5 sm:p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-xs sm:text-sm font-medium tracking-[0.2em] text-warmbeige">
+              {/* Level 1: PHOTOGRAPHY / VIDEOGRAPHY (opens upward) */}
+              <div
+                id="footer-services-menu"
+                className={`absolute bottom-full right-0 pb-2 z-50 ${servicesOpen ? "block" : "hidden"}`}
+              >
+                <div className="bg-cream border border-dark/10 rounded-lg shadow-lg py-2 min-w-[210px] max-h-[70vh] overflow-y-auto md:max-h-none md:overflow-visible">
+                  {SERVICE_LINKS.map((col) => (
+                    <div
+                      key={col.heading}
+                      className="relative"
+                      onMouseEnter={() => {
+                        if (hoverDevice()) setServicesSub(col.heading);
+                      }}
+                      onMouseLeave={() => {
+                        if (hoverDevice()) setServicesSub(null);
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setServicesSub((s) => (s === col.heading ? null : col.heading))
+                        }
+                        aria-expanded={servicesSub === col.heading}
+                        className={`w-full text-left px-4 py-2 text-sm font-medium tracking-wider transition-colors flex items-center justify-between gap-6 ${servicesSub === col.heading ? "text-dark bg-dark/5" : "text-dark/70 hover:text-dark hover:bg-dark/5"}`}
+                      >
                         {col.heading}
-                      </span>
-                      <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-white/10 text-white/60 tracking-wider">
-                        {col.pages.length} PAGES
-                      </span>
-                    </div>
-                    <ul className="space-y-3">
-                      {col.pages.map((p) => (
-                        <li key={p.slug}>
-                          <AppLink
-                            href={`/${p.slug}/`}
-                            onNav={() => handleServiceClick(p.slug)}
-                            className="group block"
-                          >
-                            <span className="block text-sm sm:text-[15px] text-white/80 group-hover:text-white transition-colors">
+                        <ChevronDown className="w-3 h-3 rotate-90" />
+                      </button>
+
+                      {/* Level 2: the pages. md+: side flyout to the LEFT,
+                          bottom-aligned so the tall list grows upward.
+                          Mobile: stacked inside the panel (accordion). */}
+                      <div
+                        className={`${servicesSub === col.heading ? "block" : "hidden"} md:absolute md:right-full md:bottom-0 md:pr-2 md:z-50`}
+                      >
+                        <div className="bg-cream md:border md:border-dark/10 md:rounded-lg md:shadow-lg py-1 md:py-2 md:min-w-[280px] pl-3 md:pl-0 border-l-2 border-dark/10 md:border-l">
+                          {col.pages.map((p) => (
+                            <AppLink
+                              key={p.slug}
+                              href={`/${p.slug}/`}
+                              onNav={() => handleServiceClick(p.slug)}
+                              className="block w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors whitespace-nowrap"
+                            >
                               {p.label}
-                            </span>
-                            <span className="block text-[11px] sm:text-xs text-white/30 group-hover:text-white/50 transition-colors">
-                              /{p.slug}/
-                            </span>
-                          </AppLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                            </AppLink>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
