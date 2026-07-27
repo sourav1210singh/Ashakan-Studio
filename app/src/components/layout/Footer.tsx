@@ -1,4 +1,5 @@
-import { Instagram, Linkedin } from "lucide-react";
+import { useState } from "react";
+import { Instagram, Linkedin, ChevronDown } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { scrollToTopInstant } from "@/lib/scroll";
 import { AppLink } from "@/components/AppLink";
@@ -9,7 +10,59 @@ interface FooterProps {
   onNavigate?: (view: View, slug?: string) => void;
 }
 
+/* ── OUR SERVICES mega menu (Mahendra 7/24) ──────────────────────
+   All 21 SEO landing pages (8 photography + 13 videography) were
+   orphaned - built during development but linked nowhere. The footer
+   now exposes every one of them sitewide behind one "OUR SERVICES"
+   entry. The panel's links are ALWAYS in the DOM (hidden by a
+   collapsed grid row, not display:none/unmount), so the prerendered
+   HTML of every page carries all 21 anchors for crawlers. */
+const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[] }[] = [
+  {
+    heading: "PHOTOGRAPHY",
+    pages: [
+      { label: "Product Photography in Houston", slug: "product-photography-in-houston" },
+      { label: "Product Photographer in Houston", slug: "product-photographer-in-houston" },
+      { label: "Product Photographer Houston", slug: "product-photographer-houston" },
+      { label: "Commercial Photography Houston", slug: "commercial-photography-houston" },
+      { label: "Houston Commercial Photography", slug: "houston-commercial-photography" },
+      { label: "Commercial Photographer Houston", slug: "commercial-photographer-houston" },
+      { label: "Business Marketing Photography Houston", slug: "business-marketing-photography-houston" },
+      { label: "Headshot Photography Houston", slug: "headshot-photography-houston" },
+    ],
+  },
+  {
+    heading: "VIDEOGRAPHY",
+    pages: [
+      { label: "Video Production Services Houston", slug: "video-production-services-houston" },
+      { label: "Commercial Videography in Houston", slug: "commercial-videography-in-houston" },
+      { label: "Commercial Videographers Houston", slug: "commercial-videographers-houston" },
+      { label: "Cinematography Services in Houston", slug: "cinematography-services-in-houston" },
+      { label: "Video Editing Services in Houston", slug: "video-editing-services-in-houston" },
+      { label: "Videographer Houston", slug: "videographer-houston" },
+      { label: "Videographer in Houston", slug: "videographer-in-houston" },
+      { label: "Videography Houston", slug: "videography-houston" },
+      { label: "Videography in The Woodlands", slug: "videography-in-the-woodlands" },
+      { label: "Videography in Texas", slug: "videography-in-texas" },
+      { label: "Video for the Arts", slug: "vsl-arts-industry" },
+      { label: "Video for Retail", slug: "vsl-retail-industry" },
+      { label: "Industrial & Corporate Video", slug: "vsl-li-industry" },
+    ],
+  },
+];
+
 export function Footer({ onLogoClick, onNavigate }: FooterProps) {
+  const [servicesOpen, setServicesOpen] = useState(false);
+
+  /* SEO pages always navigate via pushState + popstate (the App's
+     route parser handles /<slug>/), so this works on every page
+     whether or not onNavigate was passed. */
+  const handleServiceClick = (slug: string) => {
+    window.history.pushState(null, "", `/${slug}/`);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    scrollToTopInstant();
+  };
+
   const handleLogoClick = () => {
     if (onLogoClick) {
       onLogoClick();
@@ -135,8 +188,11 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
         {/* ============================================================ */}
         {/*  Navigation - Center aligned, even spacing                    */}
         {/* ============================================================ */}
-        <div className="pt-6 border-t border-white/10 mb-6">
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 lg:gap-10">
+        <div
+          className="pt-6 border-t border-white/10 mb-6"
+          onMouseLeave={() => setServicesOpen(false)}
+        >
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 lg:gap-10">
             {(["home", "campaigns", "services", "studio", "contact", "storytime"] as View[]).map((v) => (
               <AppLink
                 key={v}
@@ -147,6 +203,70 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 {{ home: "HOME", campaigns: "CAMPAIGNS", services: "WHAT WE DO", studio: "THE STUDIO", contact: "CONTACT", storytime: "STORYTIME" }[v as string]}
               </AppLink>
             ))}
+
+            {/* OUR SERVICES - hover opens on desktop, tap toggles on
+                touch. It's a disclosure (button), not a link. */}
+            <button
+              type="button"
+              onMouseEnter={() => {
+                /* Touch devices fire a synthetic mouseenter right before
+                   click - together they'd open then instantly re-close.
+                   Only treat hover as "open" on true hover devices. */
+                if (window.matchMedia("(hover: hover)").matches) setServicesOpen(true);
+              }}
+              onClick={() => setServicesOpen((o) => !o)}
+              aria-expanded={servicesOpen}
+              aria-controls="footer-services-menu"
+              className={`inline-flex items-center gap-1.5 text-sm sm:text-base font-medium tracking-wider transition-colors duration-300 ${servicesOpen ? "text-white" : "text-white/50 hover:text-white"}`}
+            >
+              OUR SERVICES
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+          </div>
+
+          {/* Mega panel - collapsed via grid-rows so the 21 anchors stay
+              in the DOM (crawlable in the prerendered HTML) even when
+              visually closed. */}
+          <div
+            id="footer-services-menu"
+            className={`grid transition-all duration-500 ease-out ${servicesOpen ? "grid-rows-[1fr] opacity-100 mt-6" : "grid-rows-[0fr] opacity-0 mt-0"}`}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+                {SERVICE_LINKS.map((col) => (
+                  <div key={col.heading} className="border border-white/10 p-5 sm:p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-xs sm:text-sm font-medium tracking-[0.2em] text-warmbeige">
+                        {col.heading}
+                      </span>
+                      <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-white/10 text-white/60 tracking-wider">
+                        {col.pages.length} PAGES
+                      </span>
+                    </div>
+                    <ul className="space-y-3">
+                      {col.pages.map((p) => (
+                        <li key={p.slug}>
+                          <AppLink
+                            href={`/${p.slug}/`}
+                            onNav={() => handleServiceClick(p.slug)}
+                            className="group block"
+                          >
+                            <span className="block text-sm sm:text-[15px] text-white/80 group-hover:text-white transition-colors">
+                              {p.label}
+                            </span>
+                            <span className="block text-[11px] sm:text-xs text-white/30 group-hover:text-white/50 transition-colors">
+                              /{p.slug}/
+                            </span>
+                          </AppLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
