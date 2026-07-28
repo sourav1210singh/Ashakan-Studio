@@ -27,6 +27,19 @@ if (strpos($reqPath, '/.well-known/oauth-') === 0 && file_exists(__DIR__ . '/blo
     exit;
 }
 
+// OpenID Connect discovery: this site is an OAuth 2.1 server, NOT an
+// OIDC provider. Clients commonly probe this path first; the SPA
+// fallback was answering with 200 + HTML, which a client parses as a
+// broken discovery document instead of falling back to
+// oauth-authorization-server. Answer honestly with a JSON 404.
+if (strpos($reqPath, '/.well-known/openid-configuration') === 0) {
+    http_response_code(404);
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: no-store');
+    echo '{"error":"not_found","error_description":"Not an OpenID provider. Use /.well-known/oauth-authorization-server"}';
+    exit;
+}
+
 http_response_code(200);
 header('Content-Type: text/html; charset=UTF-8');
 readfile(__DIR__ . '/index.html');

@@ -40,6 +40,13 @@ define('MCP_LOGIN_PASS',      'SET_LOGIN_PASS_BEFORE_UPLOAD');
 // OAuth flow. Whoever holds this value can publish - treat it like a
 // password. OAuth still works too; this is just an easier second door.
 define('MCP_SHARED_SECRET',   'SET_SHARED_SECRET_BEFORE_UPLOAD');
+// Pre-registered client id, for clients that can't complete Dynamic
+// Client Registration (claude.ai offers "add an OAuth Client ID in the
+// connector settings" when its DCR call fails). Paste this value there
+// and the OAuth flow proceeds with no registration step. Redirect URIs
+// are restricted to Anthropic's own domains, so it can't be abused as
+// an open redirect.
+define('MCP_MANUAL_CLIENT_ID', 'ashkan-blog-connector');
 define('OPENAI_API_KEY',      '');
 
 $SITE = 'https://ashkanstudios.com';
@@ -87,14 +94,25 @@ define('MCP_DEBUG', true);
 function dbg_file() {
     $dir = __DIR__ . '/blog-data';
     if (!is_dir($dir)) { @mkdir($dir, 0755, true); @file_put_contents($dir . '/index.php', "<?php http_response_code(404); exit;\n"); }
-    return $dir . '/mcp-debug-' . substr(hash('sha256', 'dbg|' . MCP_OAUTH_SECRET), 0, 12) . '.log';
+    // .json, not .log: WP Engine restricts which extensions PHP may
+    // write in the webroot, and the .log writes silently stopped.
+    return $dir . '/mcp-debug-' . substr(hash('sha256', 'dbg|' . MCP_OAUTH_SECRET), 0, 12) . '.json';
 }
 if (MCP_DEBUG && ($_GET['p'] ?? '') === '_dbg') {
     header('Content-Type: text/plain; charset=utf-8');
     if (($_GET['k'] ?? '') !== MCP_OAUTH_SECRET) { http_response_code(403); exit('no'); }
     $f = dbg_file();
+    $old = preg_replace('/\.json$/', '.log', $f);
+    // Report WHY a write failed, not just its result.
+    echo "file: $f\n"
+        . "exists: " . (file_exists($f) ? 'y' : 'n')
+        . " | file-writable: " . (file_exists($f) && is_writable($f) ? 'y' : 'n')
+        . " | dir-writable: " . (is_writable(dirname($f)) ? 'y' : 'n')
+        . " | probe: " . (@file_put_contents($f, "", FILE_APPEND) !== false ? 'ok' : 'FAILED') . "\n"
+        . "---\n";
+    if (file_exists($old)) { echo "[older .log file]\n" . file_get_contents($old) . "---\n"; }
     echo file_exists($f) ? file_get_contents($f) : '(empty)';
-    if (isset($_GET['clear'])) @unlink($f);
+    if (isset($_GET['clear'])) { @unlink($f); @unlink($old); }
     exit;
 }
 if (MCP_DEBUG) {
@@ -149,6 +167,21 @@ function jwt_verify($type, $token) {
     if (!is_array($payload) || empty($payload['exp']) || $payload['exp'] < time()) return null;
     return $payload;
 }
+/* A redirect_uri is allowed when it was registered for that client
+   (DCR path), or - for the pre-registered manual client id - when it
+   points at an Anthropic domain. Anything else is rejected, so this
+   can never become an open redirect. */
+function client_allows_redirect($clientId, $redirectUri) {
+    if ($clientId === '' || $redirectUri === '') return false;
+    if ($clientId === MCP_MANUAL_CLIENT_ID) {
+        $parts = parse_url($redirectUri);
+        if (empty($parts['host']) || ($parts['scheme'] ?? '') !== 'https') return false;
+        return (bool) preg_match('/(^|\.)(claude\.ai|claude\.com|anthropic\.com)$/i', $parts['host']);
+    }
+    $client = jwt_verify('cid', $clientId);
+    return $client && in_array($redirectUri, $client['redirect_uris'], true);
+}
+
 function pkce_matches($verifier, $challenge) {
     if (!$verifier || !$challenge) return false;
     $hash = b64url(hash('sha256', $verifier, true));
@@ -499,9 +532,10 @@ if ($p === 'authorize') {
     $q = ($method === 'POST') ? $_POST : $_GET;
     if (($q['response_type'] ?? '') !== 'code') { http_response_code(400); exit('response_type must be code'); }
     if (($q['code_challenge_method'] ?? '') !== 'S256' || empty($q['code_challenge'])) { http_response_code(400); exit('PKCE S256 code_challenge required'); }
-    $client = jwt_verify('cid', $q['client_id'] ?? '');
-    if (!$client) { http_response_code(400); exit('invalid client_id (reconnect)'); }
-    if (!in_array($q['redirect_uri'] ?? '', $client['redirect_uris'], true)) { http_response_code(400); exit('redirect_uri not registered'); }
+    if (!client_allows_redirect($q['client_id'] ?? '', $q['redirect_uri'] ?? '')) {
+        http_response_code(400);
+        exit('invalid client_id or redirect_uri (reconnect the connector)');
+    }
 
     if ($method === 'GET') {
         header('Content-Type: text/html; charset=utf-8');
