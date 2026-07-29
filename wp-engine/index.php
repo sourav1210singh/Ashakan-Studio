@@ -35,6 +35,19 @@ if (file_exists(__DIR__ . '/blog-mcp.php')) {
         require __DIR__ . '/blog-mcp.php';
         exit;
     }
+    /* ROOT-level OAuth endpoints. Claude's connector ignores the
+       endpoints our metadata advertises and calls issuer-root defaults
+       instead - it POSTed /register and opened /authorize at the root,
+       which the SPA fallback answered with HTML. That silent HTML is
+       what produced "Couldn't register" (and why nothing ever reached
+       blog-mcp.php's log). Serving them here makes that path work. */
+    $rootOauth = array('authorize' => 1, 'token' => 1, 'register' => 1);
+    $bare = strtolower(trim($reqPath, '/'));
+    if (isset($rootOauth[$bare])) {
+        $_GET['p'] = $bare;
+        require __DIR__ . '/blog-mcp.php';
+        exit;
+    }
 }
 
 // OpenID Connect discovery: this site is an OAuth 2.1 server, NOT an
