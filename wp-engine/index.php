@@ -17,14 +17,24 @@
 // Deploy: ship this file in the webroot next to index.html.
 // ────────────────────────────────────────────────────────────────
 
-// OAuth discovery for the blog MCP connector (blog-mcp.php). These two
-// well-known paths are fixed by spec and have no physical file, so they
-// land here; route them into blog-mcp.php with the right selector.
+// Blog MCP connector routing (blog-mcp.php). Two groups of paths have
+// no physical file, so nginx sends them here:
+//   /.well-known/oauth-*   OAuth discovery (fixed by spec)
+//   /mcp, /mcp/<endpoint>  the connector's public clean URL - this is
+//                          what people paste into claude.ai
 $reqPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-if (strpos($reqPath, '/.well-known/oauth-') === 0 && file_exists(__DIR__ . '/blog-mcp.php')) {
-    $_GET['p'] = (strpos($reqPath, 'protected-resource') !== false) ? 'pr-meta' : 'as-meta';
-    require __DIR__ . '/blog-mcp.php';
-    exit;
+if (file_exists(__DIR__ . '/blog-mcp.php')) {
+    if (strpos($reqPath, '/.well-known/oauth-') === 0) {
+        $_GET['p'] = (strpos($reqPath, 'protected-resource') !== false) ? 'pr-meta' : 'as-meta';
+        require __DIR__ . '/blog-mcp.php';
+        exit;
+    }
+    if ($reqPath === '/mcp' || strpos($reqPath, '/mcp/') === 0) {
+        $rest = trim(substr($reqPath, 4), '/');           // "" | authorize | token | register
+        if ($rest !== '') { $_GET['p'] = $rest; }
+        require __DIR__ . '/blog-mcp.php';
+        exit;
+    }
 }
 
 // OpenID Connect discovery: this site is an OAuth 2.1 server, NOT an

@@ -451,7 +451,7 @@ function login_page($base, $q, $error) {
         $hidden .= '<input type="hidden" name="' . $k . '" value="' . htmlspecialchars($q[$k] ?? '', ENT_QUOTES) . '">';
     }
     $err = $error ? '<div class="err">' . htmlspecialchars($error, ENT_QUOTES) . '</div>' : '';
-    $action = htmlspecialchars($base . '/blog-mcp.php/authorize', ENT_QUOTES);
+    $action = htmlspecialchars($base . MCP_PUBLIC_PATH . '/authorize', ENT_QUOTES);
     return '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         . '<meta name="viewport" content="width=device-width, initial-scale=1"><title>Sign in — Ashkan Studios Blog</title>'
         . '<style>:root{color-scheme:light dark}*{box-sizing:border-box}'
@@ -485,12 +485,17 @@ $p = mcp_endpoint();
 $base = base_url();
 $method = $_SERVER['REQUEST_METHOD'];
 
+// Public connector URL. /mcp (routed by index.php) is the clean address
+// people paste into claude.ai; /blog-mcp.php still works for anything
+// already pointed at it. Metadata always advertises the clean form.
+define('MCP_PUBLIC_PATH', '/mcp');
+
 if ($p === 'as-meta') {
     json_out(array(
         'issuer' => $base,
-        'authorization_endpoint' => $base . '/blog-mcp.php/authorize',
-        'token_endpoint' => $base . '/blog-mcp.php/token',
-        'registration_endpoint' => $base . '/blog-mcp.php/register',
+        'authorization_endpoint' => $base . MCP_PUBLIC_PATH . '/authorize',
+        'token_endpoint' => $base . MCP_PUBLIC_PATH . '/token',
+        'registration_endpoint' => $base . MCP_PUBLIC_PATH . '/register',
         'response_types_supported' => array('code'),
         'grant_types_supported' => array('authorization_code', 'refresh_token'),
         'code_challenge_methods_supported' => array('S256'),
@@ -501,7 +506,7 @@ if ($p === 'as-meta') {
 
 if ($p === 'pr-meta') {
     json_out(array(
-        'resource' => $base . '/blog-mcp.php',
+        'resource' => $base . MCP_PUBLIC_PATH,
         'authorization_servers' => array($base),
         'scopes_supported' => array('blog'),
         'bearer_methods_supported' => array('header'),
