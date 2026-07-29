@@ -14,9 +14,11 @@ export interface BlogPostSummary {
   excerpt: string;
   /** SEO meta description (falls back to excerpt when empty). */
   metaDescription?: string;
+  /** UTC ISO time a scheduled post goes live (empty unless scheduled). */
+  publishAt?: string;
   createdAt: string;
   updatedAt: string;
-  status?: "draft" | "published";
+  status?: "draft" | "published" | "scheduled";
 }
 
 export interface BlogPost extends BlogPostSummary {

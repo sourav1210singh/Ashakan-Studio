@@ -145,6 +145,7 @@ function public_fields($p, $withContent = false) {
         'image'     => isset($p['image']) ? $p['image'] : '',
         'excerpt'   => isset($p['excerpt']) ? $p['excerpt'] : '',
         'metaDescription' => isset($p['metaDescription']) ? $p['metaDescription'] : '',
+        'publishAt' => isset($p['publishAt']) ? $p['publishAt'] : '',
         'createdAt' => $p['createdAt'],
         'updatedAt' => isset($p['updatedAt']) ? $p['updatedAt'] : $p['createdAt'],
     );
@@ -152,11 +153,30 @@ function public_fields($p, $withContent = false) {
     return $out;
 }
 
+/* Scheduled publishing. A post saved with status 'scheduled' carries a
+   UTC publishAt timestamp; the moment that time has passed, the next
+   read flips it to 'published' for good. No cron is involved - every
+   read path calls this first, and the site itself provides the traffic
+   (the Storytime page fetches on load, and so does the admin). */
+function apply_schedule($posts, $ladder) {
+    $now = gmdate('c');
+    $changed = false;
+    foreach ($posts as $i => $p) {
+        if (($p['status'] ?? '') === 'scheduled' && !empty($p['publishAt']) && $p['publishAt'] <= $now) {
+            $posts[$i]['status'] = 'published';
+            $posts[$i]['updatedAt'] = $now;
+            $changed = true;
+        }
+    }
+    if ($changed) { save_posts($ladder, $posts); }
+    return $posts;
+}
+
 $authed = !empty($_SESSION['ashkan_blog_authed']);
 
 // ── Public actions ──
 if ($action === 'posts') {
-    $posts = load_posts($DATA_LADDER);
+    $posts = apply_schedule(load_posts($DATA_LADDER), $DATA_LADDER);
     $out = array();
     foreach ($posts as $p) {
         if (isset($p['status']) && $p['status'] === 'published') { $out[] = public_fields($p); }
@@ -166,7 +186,7 @@ if ($action === 'posts') {
 
 if ($action === 'post') {
     $slug = isset($body['slug']) ? (string) $body['slug'] : '';
-    $posts = load_posts($DATA_LADDER);
+    $posts = apply_schedule(load_posts($DATA_LADDER), $DATA_LADDER);
     foreach ($posts as $p) {
         if ($p['slug'] === $slug && isset($p['status']) && $p['status'] === 'published') {
             respond(array('ok' => true, 'post' => public_fields($p, true)));
@@ -238,7 +258,7 @@ if ($action === 'leads') {
 }
 
 if ($action === 'all') {
-    $posts = load_posts($DATA_LADDER);
+    $posts = apply_schedule(load_posts($DATA_LADDER), $DATA_LADDER);
     $out = array();
     foreach ($posts as $p) {
         $f = public_fields($p);
@@ -272,8 +292,24 @@ if ($action === 'save') {
     $image    = trim((string) (isset($body['image']) ? $body['image'] : ''));
     $excerpt  = trim((string) (isset($body['excerpt']) ? $body['excerpt'] : ''));
     $metaDesc = trim((string) (isset($body['metaDescription']) ? $body['metaDescription'] : ''));
-    $status   = (isset($body['status']) && $body['status'] === 'published') ? 'published' : 'draft';
+    $statusIn = isset($body['status']) ? (string) $body['status'] : '';
+    $status   = in_array($statusIn, array('published', 'scheduled'), true) ? $statusIn : 'draft';
     $slugIn   = trim((string) (isset($body['slug']) ? $body['slug'] : ''));
+
+    /* Scheduling: publishAt arrives as UTC ISO ("2026-07-31T14:00:00Z")
+       or as the browser's datetime-local value already converted by the
+       admin. A schedule in the past just goes live now. */
+    $publishAt = trim((string) (isset($body['publishAt']) ? $body['publishAt'] : ''));
+    if ($status === 'scheduled') {
+        $ts = $publishAt !== '' ? strtotime($publishAt) : false;
+        if ($ts === false) {
+            respond(array('error' => 'Pick a date and time to schedule this post.'), 400);
+        }
+        $publishAt = gmdate('c', $ts);
+        if ($publishAt <= gmdate('c')) { $status = 'published'; $publishAt = ''; }
+    } else {
+        $publishAt = '';
+    }
 
     if ($excerpt === '') {
         $plain = trim(preg_replace('/\s+/', ' ', preg_replace('/[#>*_`\[\]()!-]/', ' ', $content)));
@@ -308,7 +344,7 @@ if ($action === 'save') {
                     'title' => $title, 'slug' => $slug, 'keywords' => $keywords,
                     'image' => $image, 'excerpt' => $excerpt,
                     'metaDescription' => $metaDesc, 'content' => $content,
-                    'status' => $status, 'updatedAt' => $now,
+                    'status' => $status, 'publishAt' => $publishAt, 'updatedAt' => $now,
                 ));
                 $found = true; break;
             }
@@ -320,7 +356,8 @@ if ($action === 'save') {
             'id' => $id, 'title' => $title, 'slug' => $slug, 'keywords' => $keywords,
             'image' => $image, 'excerpt' => $excerpt,
             'metaDescription' => $metaDesc, 'content' => $content,
-            'status' => $status, 'createdAt' => $now, 'updatedAt' => $now,
+            'status' => $status, 'publishAt' => $publishAt,
+            'createdAt' => $now, 'updatedAt' => $now,
         );
     }
 
