@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   LogOut, Plus, Pencil, Trash2, Image as ImageIcon, Eye, EyeOff,
   ArrowLeft, Loader2, ExternalLink, BookOpen, Users, RefreshCw,
-  ChevronDown, Mail,
+  ChevronDown, Mail, CalendarClock,
 } from "lucide-react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
@@ -22,13 +22,30 @@ interface EditorState {
   excerpt: string;
   metaDescription: string;
   content: string;
-  status: "draft" | "published";
+  status: "draft" | "published" | "scheduled";
+  /** datetime-local value ("2026-07-31T14:00") in the author's timezone. */
+  publishAt: string;
 }
 
 const EMPTY: EditorState = {
   id: "", title: "", slug: "", keywords: "", image: "",
   excerpt: "", metaDescription: "", content: "", status: "published",
+  publishAt: "",
 };
+
+/* datetime-local <-> UTC ISO. The input is naive local time; the API
+   stores UTC, so the two conversions have to be explicit or a schedule
+   set for 9am India would fire at 9am UTC. */
+function localInputToIso(v: string): string {
+  return v ? new Date(v).toISOString() : "";
+}
+function isoToLocalInput(iso: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
 
 /**
  * /admin/blog - password-protected Storytime dashboard for the client.
@@ -144,7 +161,8 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
         image: p.image, excerpt: p.excerpt,
         metaDescription: p.metaDescription || "",
         content: p.content,
-        status: (p.status as "draft" | "published") || "draft",
+        status: (p.status as EditorState["status"]) || "draft",
+        publishAt: isoToLocalInput(p.publishAt || ""),
       });
       setShowPreview(false);
       setNotice("");
@@ -156,15 +174,34 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
     }
   };
 
-  const handleSave = async (status?: "draft" | "published") => {
+  const handleSave = async (status?: EditorState["status"]) => {
     setBusy(true);
     setError("");
     setNotice("");
     try {
-      const payload = { ...editor, status: status ?? editor.status };
+      const next = status ?? editor.status;
+      if (next === "scheduled" && !editor.publishAt) {
+        setError("Pick a date and time to schedule this post.");
+        setBusy(false);
+        return;
+      }
+      /* The picker gives naive local time; the API stores UTC, so the
+         conversion has to be explicit or a 9am schedule set in India
+         would fire at 9am UTC. */
+      const payload = {
+        ...editor,
+        status: next,
+        publishAt: next === "scheduled" ? localInputToIso(editor.publishAt) : "",
+      };
       const r = await blogApi.save(payload);
-      setEditor((s) => ({ ...s, id: r.id, slug: r.slug, status: payload.status }));
-      setNotice(payload.status === "published" ? "Published ✓" : "Draft saved ✓");
+      setEditor((s) => ({ ...s, id: r.id, slug: r.slug, status: next }));
+      setNotice(
+        next === "published"
+          ? "Published ✓"
+          : next === "scheduled"
+            ? `Scheduled for ${new Date(editor.publishAt).toLocaleString()} ✓`
+            : "Draft saved ✓"
+      );
       refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not save.");
@@ -446,10 +483,21 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                     className={`text-[11px] font-semibold tracking-wider px-2.5 py-1 rounded-full ${
                       p.status === "published"
                         ? "bg-dark text-white"
-                        : "bg-dark/10 text-dark/60"
+                        : p.status === "scheduled"
+                          ? "bg-warmbeige text-dark"
+                          : "bg-dark/10 text-dark/60"
                     }`}
+                    title={
+                      p.status === "scheduled" && p.publishAt
+                        ? `Goes live ${new Date(p.publishAt).toLocaleString()}`
+                        : undefined
+                    }
                   >
-                    {p.status === "published" ? "LIVE" : "DRAFT"}
+                    {p.status === "published"
+                      ? "LIVE"
+                      : p.status === "scheduled"
+                        ? "SCHEDULED"
+                        : "DRAFT"}
                   </span>
                   {p.status === "published" && (
                     <button
@@ -657,6 +705,33 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                   >
                     SAVE AS DRAFT
                   </button>
+
+                  {/* Schedule: pick a date/time and the post goes live on
+                      its own. The server flips it the first time anyone
+                      loads the blog after that moment - no cron needed. */}
+                  <div className="border border-dark/15 rounded-lg p-4 bg-white/50">
+                    <label className={label}>Schedule publish</label>
+                    <input
+                      type="datetime-local"
+                      className={input}
+                      value={editor.publishAt}
+                      min={isoToLocalInput(new Date().toISOString())}
+                      onChange={(e) => setEditor({ ...editor, publishAt: e.target.value })}
+                    />
+                    <button
+                      onClick={() => handleSave("scheduled")}
+                      disabled={busy || !editor.title || !editor.content || !editor.publishAt}
+                      className="w-full mt-3 inline-flex items-center justify-center gap-2 px-7 py-3 bg-warmbeige text-dark text-sm font-medium tracking-wider hover:bg-dark hover:text-white transition-colors disabled:opacity-50"
+                    >
+                      <CalendarClock className="w-4 h-4" />
+                      {editor.status === "scheduled" ? "UPDATE SCHEDULE" : "SCHEDULE"}
+                    </button>
+                    <p className="text-xs text-dark/45 mt-2 leading-relaxed">
+                      {editor.status === "scheduled" && editor.publishAt
+                        ? `Goes live ${new Date(editor.publishAt).toLocaleString()} - hidden until then.`
+                        : "Your local time. The post stays hidden until that moment."}
+                    </p>
+                  </div>
                   {editor.id && (
                     <button
                       onClick={() => handleDelete(editor.id, editor.title)}

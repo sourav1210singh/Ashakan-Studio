@@ -380,13 +380,15 @@ function tools_spec() {
                 'keywords' => array('type' => 'string'), 'excerpt' => array('type' => 'string'),
                 'metaDescription' => array('type' => 'string', 'description' => 'SEO meta description, ~150-160 chars'),
                 'slug' => array('type' => 'string'), 'image' => array('type' => 'string', 'description' => 'Path from generate_blog_image'),
-                'status' => array('type' => 'string', 'enum' => array('published', 'draft'))), 'required' => array('title', 'content'))),
+                'status' => array('type' => 'string', 'enum' => array('published', 'draft', 'scheduled')),
+                'publishAt' => array('type' => 'string', 'description' => 'UTC ISO time a scheduled post goes live, e.g. 2026-07-31T14:00:00Z')), 'required' => array('title', 'content'))),
         array('name' => 'update_blog_post', 'description' => 'Update an existing post by id (ids from list_recent_posts). Only passed fields change. Can flip draft/published via status.',
             'inputSchema' => array('type' => 'object', 'properties' => array(
                 'id' => array('type' => 'string'), 'title' => array('type' => 'string'), 'content' => array('type' => 'string'),
                 'keywords' => array('type' => 'string'), 'excerpt' => array('type' => 'string'), 'slug' => array('type' => 'string'),
                 'metaDescription' => array('type' => 'string'),
-                'image' => array('type' => 'string'), 'status' => array('type' => 'string', 'enum' => array('published', 'draft'))), 'required' => array('id'))),
+                'image' => array('type' => 'string'), 'status' => array('type' => 'string', 'enum' => array('published', 'draft', 'scheduled')),
+                'publishAt' => array('type' => 'string')), 'required' => array('id'))),
         array('name' => 'delete_blog_post', 'description' => 'Permanently delete a post by id. Ask the user first; confirm must be true.',
             'inputSchema' => array('type' => 'object', 'properties' => array(
                 'id' => array('type' => 'string'), 'confirm' => array('type' => 'boolean', 'description' => 'Must be true - deletion is permanent')), 'required' => array('id', 'confirm'))),

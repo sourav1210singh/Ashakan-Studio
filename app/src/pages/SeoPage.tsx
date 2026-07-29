@@ -1,7 +1,9 @@
-import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, Plus } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { AppLink } from "@/components/AppLink";
+import { seoFaqs } from "@/data/seo-faqs";
 import type { View } from "@/App";
 
 export interface SeoPageData {
@@ -31,6 +33,35 @@ interface SeoPageProps {
 }
 
 export function SeoPage({ data, onNavigate }: SeoPageProps) {
+  const faqs = seoFaqs[data.slug] || [];
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  /* FAQPage JSON-LD, generated from the SAME copy the page renders, so
+     the markup Google reads can never drift from what visitors see.
+     Injected into <head> on mount; the prerenderer snapshots the live
+     DOM, so it ends up in the static HTML of each page too. */
+  useEffect(() => {
+    if (faqs.length === 0) return;
+    const id = "faq-schema";
+    document.getElementById(id)?.remove();
+    const el = document.createElement("script");
+    el.id = id;
+    el.type = "application/ld+json";
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+    document.head.appendChild(el);
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, [faqs]);
+
   return (
     <>
       <main className="pt-20">
@@ -155,6 +186,56 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
             </div>
           </section>
         ))}
+
+        {/* ━━━ FAQ (SEO team copy; same source as the JSON-LD above) ━━━ */}
+        {faqs.length > 0 && (
+          <section className="py-20 sm:py-28 bg-cream">
+            <div className="max-w-[860px] mx-auto px-4 sm:px-6">
+              <FadeIn>
+                <p className="text-xs font-semibold tracking-[0.3em] text-dark/45 uppercase mb-4">
+                  FAQ
+                </p>
+                <h2 className="font-display text-4xl sm:text-5xl text-dark tracking-tight leading-[0.95] mb-10">
+                  FREQUENTLY ASKED QUESTIONS
+                </h2>
+              </FadeIn>
+
+              <div className="border-t border-dark/15">
+                {faqs.map((faq, i) => {
+                  const open = openFaq === i;
+                  return (
+                    <div key={faq.q} className="border-b border-dark/15">
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(open ? null : i)}
+                        aria-expanded={open}
+                        className="w-full flex items-start justify-between gap-6 text-left py-5 sm:py-6 group"
+                      >
+                        <span className="font-display text-lg sm:text-xl text-dark leading-snug tracking-tight">
+                          {faq.q}
+                        </span>
+                        <Plus
+                          className={`w-5 h-5 flex-shrink-0 mt-1 text-dark/50 group-hover:text-dark transition-transform duration-300 ${open ? "rotate-45" : ""}`}
+                        />
+                      </button>
+                      {/* Answers stay in the DOM when collapsed (grid-rows
+                          trick) so crawlers read every answer. */}
+                      <div
+                        className={`grid transition-all duration-300 ease-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                      >
+                        <div className="min-h-0 overflow-hidden">
+                          <p className="text-[15px] sm:text-base text-dark/70 leading-relaxed pb-6 pr-8">
+                            {faq.a}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ━━━ CTA ━━━ */}
         <section className="py-20 sm:py-28 bg-dark text-white">
