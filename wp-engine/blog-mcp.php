@@ -499,7 +499,7 @@ define('MCP_AUTH_BASE', '');
 // got a normal OAuth error back, while nothing from Claude's backend has
 // ever reached this host). Those relays forward to /token and /register
 // here. Set to '' to advertise this host again.
-define('MCP_BACKEND_ORIGIN', 'https://ashakan-studio.vercel.app');
+define('MCP_BACKEND_ORIGIN', '');
 
 if ($p === 'as-meta') {
     json_out(array(
@@ -581,10 +581,15 @@ if ($p === 'authorize') {
         echo login_page($base, $q, 'Wrong username or password. Try again.');
         exit;
     }
-    $code = jwt_sign('code', array(
-        'redirect_uri' => $q['redirect_uri'],
-        'code_challenge' => $q['code_challenge'],
-        'client_id' => $q['client_id'],
+    /* Keep the authorization code SHORT. The self-contained form that
+       embedded redirect_uri + client_id ran ~330 characters, and some
+       OAuth clients cap the code parameter (commonly 256). Only the
+       PKCE challenge has to survive verbatim; the redirect_uri and
+       client_id are stored as short hashes and re-derived at the token
+       endpoint, which keeps the code near 180 characters. */
+    $code = jwt_sign('c', array(
+        'r' => substr(hash('sha256', $q['redirect_uri']), 0, 16),
+        'k' => $q['code_challenge'],
     ), $GLOBALS['CODE_TTL']);
     $sep = (strpos($q['redirect_uri'], '?') !== false) ? '&' : '?';
     $loc = $q['redirect_uri'] . $sep . 'code=' . rawurlencode($code);
@@ -608,6 +613,16 @@ if ($p === 'token') {
     $b = !empty($_POST) ? $_POST : read_json_body();
     $grant = $b['grant_type'] ?? '';
     if ($grant === 'authorization_code') {
+        // New short code ('c'); the older self-contained one ('code')
+        // is still accepted so a code issued seconds before a deploy
+        // can still be exchanged.
+        $payload = jwt_verify('c', $b['code'] ?? '');
+        if ($payload) {
+            $rHash = substr(hash('sha256', (string) ($b['redirect_uri'] ?? '')), 0, 16);
+            if (!hash_equals($payload['r'] ?? '', $rHash)) json_out(array('error' => 'invalid_grant', 'error_description' => 'redirect_uri mismatch'), 400);
+            if (!pkce_matches($b['code_verifier'] ?? '', $payload['k'] ?? '')) json_out(array('error' => 'invalid_grant', 'error_description' => 'PKCE failed'), 400);
+            json_out(issue_tokens());
+        }
         $payload = jwt_verify('code', $b['code'] ?? '');
         if (!$payload) json_out(array('error' => 'invalid_grant', 'error_description' => 'code invalid or expired'), 400);
         if (($payload['redirect_uri'] ?? '') !== ($b['redirect_uri'] ?? '')) json_out(array('error' => 'invalid_grant', 'error_description' => 'redirect_uri mismatch'), 400);
