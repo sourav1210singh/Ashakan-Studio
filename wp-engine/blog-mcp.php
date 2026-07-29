@@ -506,6 +506,11 @@ if ($p === 'as-meta') {
         'code_challenge_methods_supported' => array('S256'),
         'token_endpoint_auth_methods_supported' => array('none'),
         'scopes_supported' => array('blog'),
+        // RFC 9207 - OAuth 2.1 clients (Claude's connector included)
+        // validate that the authorization response carries `iss`, and
+        // silently drop the callback when it is missing. That is why 21
+        // successful logins never produced a single token request.
+        'authorization_response_iss_parameter_supported' => true,
     ));
 }
 
@@ -574,6 +579,14 @@ if ($p === 'authorize') {
     $sep = (strpos($q['redirect_uri'], '?') !== false) ? '&' : '?';
     $loc = $q['redirect_uri'] . $sep . 'code=' . rawurlencode($code);
     if (!empty($q['state'])) $loc .= '&state=' . rawurlencode($q['state']);
+    // RFC 9207 issuer identification - required by OAuth 2.1 clients.
+    $loc .= '&iss=' . rawurlencode($base);
+    if (MCP_DEBUG) {
+        @file_put_contents(dbg_file(), json_encode(array(
+            't' => gmdate('H:i:s'), 'method' => 'REDIRECT', 'uri' => substr($loc, 0, 300),
+            'p' => 'authorize-ok', 'origin' => '', 'ua' => 'server', 'ctype' => '', 'hasAuth' => 'n', 'body' => '',
+        )) . "\n", FILE_APPEND | LOCK_EX);
+    }
     header('Location: ' . $loc);
     http_response_code(302);
     exit;
