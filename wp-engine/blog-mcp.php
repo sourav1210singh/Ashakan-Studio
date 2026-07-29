@@ -494,13 +494,23 @@ define('MCP_PUBLIC_PATH', '/mcp');
 // the metadata says - advertising them keeps every client on one path.
 // index.php routes root, /mcp/* and /blog-mcp.php/* to the same code.
 define('MCP_AUTH_BASE', '');
+// Token/registration endpoints are advertised on the Vercel deployment,
+// which is provably reachable from a datacenter (a probe POST from there
+// got a normal OAuth error back, while nothing from Claude's backend has
+// ever reached this host). Those relays forward to /token and /register
+// here. Set to '' to advertise this host again.
+define('MCP_BACKEND_ORIGIN', 'https://ashakan-studio.vercel.app');
 
 if ($p === 'as-meta') {
     json_out(array(
         'issuer' => $base,
         'authorization_endpoint' => $base . MCP_AUTH_BASE . '/authorize',
-        'token_endpoint' => $base . MCP_AUTH_BASE . '/token',
-        'registration_endpoint' => $base . MCP_AUTH_BASE . '/register',
+        'token_endpoint' => (MCP_BACKEND_ORIGIN !== '')
+            ? MCP_BACKEND_ORIGIN . '/api/oauth-token/'
+            : $base . MCP_AUTH_BASE . '/token',
+        'registration_endpoint' => (MCP_BACKEND_ORIGIN !== '')
+            ? MCP_BACKEND_ORIGIN . '/api/oauth-register/'
+            : $base . MCP_AUTH_BASE . '/register',
         'response_types_supported' => array('code'),
         'grant_types_supported' => array('authorization_code', 'refresh_token'),
         'code_challenge_methods_supported' => array('S256'),
