@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   LogOut, Plus, Pencil, Trash2, Image as ImageIcon, Eye, EyeOff,
   ArrowLeft, Loader2, ExternalLink, BookOpen, Users, RefreshCw,
-  ChevronDown, Mail, CalendarClock,
+  ChevronDown, Mail, CalendarClock, Wand2,
 } from "lucide-react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
@@ -81,8 +81,48 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
   const [leadsBusy, setLeadsBusy] = useState(false);
   const [expandedLead, setExpandedLead] = useState<number | null>(null);
 
+  const [optimizeBusy, setOptimizeBusy] = useState(false);
+  const [optimizeMsg, setOptimizeMsg] = useState("");
+
   const refresh = () =>
     blogApi.all().then(setPosts).catch((e: Error) => setError(e.message));
+
+  /* One-off cleanup of images uploaded before uploads were downscaled
+     automatically. The server caps each call at ~20s and reports what is
+     still left, so this loops until nothing remains. Filenames don't
+     change, so no post needs re-editing afterwards. */
+  const optimizeImages = async () => {
+    setOptimizeBusy(true);
+    setError("");
+    setOptimizeMsg("Checking images…");
+    try {
+      const scan = await blogApi.optimizeImages(true);
+      if (scan.oversized === 0) {
+        setOptimizeMsg(`All good — ${scan.scanned} image${scan.scanned === 1 ? "" : "s"} checked, none oversized.`);
+        return;
+      }
+      let done = 0, saved = 0, skipped = 0, pass = 0;
+      for (;;) {
+        setOptimizeMsg(`Resizing ${done}/${scan.oversized}…`);
+        const r = await blogApi.optimizeImages();
+        done += r.resized;
+        saved += r.savedKb;
+        skipped = r.failed;
+        if (r.remaining === 0 || r.resized === 0 || ++pass > 20) break;
+      }
+      const size = saved >= 1024 ? `${(saved / 1024).toFixed(1)} MB` : `${saved} KB`;
+      setOptimizeMsg(
+        `Done — ${done} image${done === 1 ? "" : "s"} resized, ${size} saved` +
+          (skipped ? `, ${skipped} left as-is (already optimal).` : ".")
+      );
+      refresh();
+    } catch (e) {
+      setError((e as Error).message);
+      setOptimizeMsg("");
+    } finally {
+      setOptimizeBusy(false);
+    }
+  };
 
   const loadLeads = () => {
     setLeadsBusy(true);
@@ -443,17 +483,41 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
         {/* ── Post list ── */}
         {section === "blog" && phase === "list" && (
           <>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <p className="text-sm text-dark/60">
                 {posts.length} post{posts.length === 1 ? "" : "s"}
               </p>
-              <button
-                onClick={openNew}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-dark text-white text-sm font-medium tracking-wider"
-              >
-                <Plus className="w-4 h-4" /> NEW POST
-              </button>
+              <div className="flex items-center gap-3">
+                {/* One-off: shrinks images uploaded before uploads were
+                    auto-downscaled. Safe to run any time - already-small
+                    images are skipped and URLs never change. */}
+                <button
+                  onClick={optimizeImages}
+                  disabled={optimizeBusy}
+                  title="Shrink oversized images already in /blog-uploads/ (safe to re-run)"
+                  className="inline-flex items-center gap-2 px-5 py-3 border border-dark/20 text-dark text-sm font-medium tracking-wider hover:bg-dark/5 transition-colors disabled:opacity-50"
+                >
+                  {optimizeBusy ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Wand2 className="w-4 h-4" />
+                  )}
+                  OPTIMIZE IMAGES
+                </button>
+                <button
+                  onClick={openNew}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-dark text-white text-sm font-medium tracking-wider"
+                >
+                  <Plus className="w-4 h-4" /> NEW POST
+                </button>
+              </div>
             </div>
+
+            {optimizeMsg && (
+              <p className="mb-4 text-sm text-dark/70 bg-warmbeige/40 border border-dark/10 px-4 py-3 rounded">
+                {optimizeMsg}
+              </p>
+            )}
 
             <div className="border border-dark/10 rounded-lg overflow-hidden bg-white/50">
               {posts.length === 0 && (
