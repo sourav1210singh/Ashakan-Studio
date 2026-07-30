@@ -36,6 +36,24 @@ export interface Lead {
   emailStatus: "sent" | "failed" | "not-configured" | string;
 }
 
+/** One pass of the /blog-uploads/ image cleanup (see blogApi.optimizeImages). */
+export interface OptimizeResult {
+  ok: true;
+  dryRun: boolean;
+  /** Images looked at in this pass. */
+  scanned: number;
+  /** Of those, how many are over the 1800px limit. */
+  oversized: number;
+  /** How many this pass actually shrank. */
+  resized: number;
+  /** Left untouched because resizing them wouldn't have helped. */
+  failed: number;
+  savedKb: number;
+  /** Still oversized when the pass ran out of time - call again. */
+  remaining: number;
+  changes: Array<{ file: string; from?: string; resize?: string; kb: string | number }>;
+}
+
 async function call<T>(action: string, data: Record<string, unknown> = {}): Promise<T> {
   const res = await fetch("/blog-api.php", {
     method: "POST",
@@ -71,6 +89,12 @@ export const blogApi = {
   save: (post: Partial<BlogPost>) =>
     call<{ id: string; slug: string }>("save", post as Record<string, unknown>),
   remove: (id: string) => call("delete", { id }),
+
+  /** Shrink already-uploaded oversized images (admin, one-off cleanup).
+      The server works for ~20s per call and reports what is left, so the
+      caller loops until `remaining` is 0. */
+  optimizeImages: (dryRun = false) =>
+    call<OptimizeResult>("optimize", { dryRun }),
 
   /** Multipart image upload (admin) -> public URL. */
   async upload(file: File): Promise<string> {

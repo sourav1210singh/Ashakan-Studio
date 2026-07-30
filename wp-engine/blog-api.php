@@ -453,4 +453,79 @@ if ($action === 'upload') {
     respond(array('ok' => true, 'url' => '/blog-uploads/' . $name, 'resized' => $resized));
 }
 
+if ($action === 'optimize') {
+    // One-time cleanup for images that were uploaded before uploads
+    // were downscaled automatically: walk /blog-uploads/ and shrink
+    // anything over 1800px. Filenames never change, so every post keeps
+    // pointing at the same URL and no content needs editing.
+    //
+    // Work is capped at ~20s per call (WP Engine kills long requests):
+    // whatever is left is reported as `remaining` and the caller just
+    // calls again until it hits 0. dryRun reports without touching
+    // anything.
+    if (!function_exists('imagecreatefromstring')) {
+        respond(array('error' => 'This server has no GD image library, so images cannot be resized here.'), 500);
+    }
+    $dry   = !empty($body['dryRun']);
+    $files = is_dir($UPLOAD_DIR) ? glob($UPLOAD_DIR . '/*') : array();
+    if (!is_array($files)) { $files = array(); }
+    sort($files);
+
+    $started   = microtime(true);
+    $changes   = array();
+    $scanned   = 0;
+    $oversized = 0;
+    $failed    = 0;
+    $remaining = 0;
+    $savedBytes = 0;
+    $outOfTime = false;
+
+    foreach ($files as $path) {
+        if (!is_file($path)) { continue; }
+        $info = @getimagesize($path);
+        if (!$info) { continue; }           // index.php and non-images
+        $scanned++;
+        if ($info['mime'] === 'image/gif') { continue; }   // animation
+        if ($info[0] <= 1800 && $info[1] <= 1800) { continue; }
+        $oversized++;
+        if ($dry || $outOfTime) {
+            if (!$dry) { $remaining++; }
+            if ($dry) {
+                $changes[] = array(
+                    'file'   => basename($path),
+                    'from'   => $info[0] . 'x' . $info[1],
+                    'kb'     => (int) round(filesize($path) / 1024),
+                );
+            }
+            continue;
+        }
+        $before = filesize($path);
+        $result = downscale_image($path, $info, 1800);
+        if ($result === '') {
+            $failed++;                      // left untouched, still usable
+        } else {
+            clearstatcache(true, $path);
+            $savedBytes += max(0, $before - filesize($path));
+            $changes[] = array(
+                'file'   => basename($path),
+                'resize' => $result,
+                'kb'     => (int) round($before / 1024) . ' -> ' . (int) round(filesize($path) / 1024),
+            );
+        }
+        if (microtime(true) - $started > 20) { $outOfTime = true; }
+    }
+
+    respond(array(
+        'ok'        => true,
+        'dryRun'    => $dry,
+        'scanned'   => $scanned,
+        'oversized' => $oversized,
+        'resized'   => $dry ? 0 : count($changes),
+        'failed'    => $failed,
+        'savedKb'   => (int) round($savedBytes / 1024),
+        'remaining' => $remaining,
+        'changes'   => $changes,
+    ));
+}
+
 respond(array('error' => 'Unknown action.'), 400);
