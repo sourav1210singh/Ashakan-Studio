@@ -129,6 +129,46 @@ function save_posts($ladder, $posts) {
     return false;
 }
 
+/* Shrink an uploaded image so its longest side is at most $max px.
+   Returns "WxH -> WxH" when it resized, '' when it left the file alone
+   (already small enough, a GIF, GD missing, or anything failed - the
+   original upload always stays usable). */
+function downscale_image($path, $info, $max = 1800) {
+    if (!function_exists('imagecreatefromstring')) { return ''; }
+    list($w, $h) = $info;
+    $mime = $info['mime'];
+    if ($mime === 'image/gif') { return ''; }
+    if ($w <= $max && $h <= $max) { return ''; }
+
+    $scale = $max / max($w, $h);
+    $nw = max(1, (int) round($w * $scale));
+    $nh = max(1, (int) round($h * $scale));
+
+    $src = @imagecreatefromstring(@file_get_contents($path));
+    if (!$src) { return ''; }
+    $dst = @imagecreatetruecolor($nw, $nh);
+    if (!$dst) { @imagedestroy($src); return ''; }
+    if ($mime === 'image/png' || $mime === 'image/webp') {
+        imagealphablending($dst, false);
+        imagesavealpha($dst, true);
+    }
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
+
+    $tmp = $path . '.tmp';
+    $ok = false;
+    if ($mime === 'image/jpeg') { $ok = @imagejpeg($dst, $tmp, 86); }
+    elseif ($mime === 'image/png') { $ok = @imagepng($dst, $tmp, 6); }
+    elseif ($mime === 'image/webp' && function_exists('imagewebp')) { $ok = @imagewebp($dst, $tmp, 86); }
+    @imagedestroy($src);
+    @imagedestroy($dst);
+
+    if (!$ok || !file_exists($tmp)) { @unlink($tmp); return ''; }
+    // Only keep the resized file if it is actually smaller on disk.
+    if (filesize($tmp) >= filesize($path)) { @unlink($tmp); return ''; }
+    if (!@rename($tmp, $path)) { @unlink($tmp); return ''; }
+    return $w . 'x' . $h . ' -> ' . $nw . 'x' . $nh;
+}
+
 function make_slug($title) {
     $s = strtolower(trim($title));
     $s = preg_replace('/[^a-z0-9]+/', '-', $s);
@@ -401,10 +441,16 @@ if ($action === 'upload') {
         @file_put_contents($UPLOAD_DIR . '/index.php', "<?php http_response_code(404); exit;\n");
     }
     $name = 'img-' . gmdate('Ymd') . '-' . bin2hex(random_bytes(5)) . '.' . $mimeExt[$info['mime']];
-    if (!move_uploaded_file($f['tmp_name'], $UPLOAD_DIR . '/' . $name)) {
+    $dest = $UPLOAD_DIR . '/' . $name;
+    if (!move_uploaded_file($f['tmp_name'], $dest)) {
         respond(array('error' => 'Could not store the image.'), 500);
     }
-    respond(array('ok' => true, 'url' => '/blog-uploads/' . $name));
+    // Oversized uploads are downscaled to a sane web size: a 4000px
+    // camera file was being served in full and then squeezed into an
+    // 820px column, which cost megabytes and looked soft. GIFs are left
+    // alone (animation), and any failure keeps the original file.
+    $resized = downscale_image($dest, $info, 1800);
+    respond(array('ok' => true, 'url' => '/blog-uploads/' . $name, 'resized' => $resized));
 }
 
 respond(array('error' => 'Unknown action.'), 400);
