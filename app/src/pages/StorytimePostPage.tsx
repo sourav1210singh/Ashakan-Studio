@@ -182,7 +182,23 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
           .blog-prose a:hover { opacity: 0.7; }
           .blog-prose ul, .blog-prose ol { margin: 0 0 1.4em; padding-left: 1.4em; }
           .blog-prose li { margin: 0.35em 0; }
-          .blog-prose img { width: 100%; height: auto; margin: 2em 0; }
+          /* Inline images: never upscale past their own resolution (that
+             is what made smaller uploads look soft), and cap the height so
+             a tall portrait shot doesn't swallow the article. Centred,
+             with the caption line that follows sitting right under it. */
+          .blog-prose img {
+            display: block; margin: 2.2em auto 0.6em;
+            width: auto; max-width: 100%;
+            height: auto; max-height: 78vh;
+          }
+          .blog-prose p > img { margin-bottom: 0.6em; }
+          /* The italic line right after an image reads as its caption. */
+          .blog-prose img + em,
+          .blog-prose p:has(> img) + p > em:only-child {
+            display: block; text-align: center;
+            font-size: 0.9rem; color: rgba(26,26,26,0.55);
+            margin: 0 auto 2.2em; max-width: 46ch;
+          }
           .blog-prose blockquote {
             border-left: 3px solid #1A1A1A; margin: 1.8em 0; padding: 0.2em 0 0.2em 1.2em;
             color: rgba(26,26,26,0.65); font-style: italic;
