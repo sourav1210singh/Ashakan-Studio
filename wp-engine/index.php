@@ -50,6 +50,28 @@ if (file_exists(__DIR__ . '/blog-mcp.php')) {
     }
 }
 
+// 301s for OLD-site URLs (pre-2026 WordPress: /about-me, /portfolios/*,
+// old blog slugs...). The map is generated from app/vercel.json - the
+// repo's redirect source of truth - which WP Engine never reads (it is
+// Vercel-only config), so without this lookup every old URL soft-404ed
+// into the homepage. Runs AFTER the MCP/OAuth routing above (those
+// paths are not in the map, but order keeps the invariant obvious) and
+// BEFORE the SPA fallback. Real files never reach this file at all, so
+// a map entry can never shadow a live page.
+$redirectsFile = __DIR__ . '/redirects-map.php';
+if (is_file($redirectsFile)) {
+    $redirects = include $redirectsFile;
+    $key = strtolower(trim($reqPath, '/'));
+    if ($key !== '' && is_array($redirects) && isset($redirects[$key])) {
+        // Absolute target = host + scheme canonicalisation in the same
+        // single hop (http://www.../about-me -> https://ashkanstudios.com/studio/).
+        $qs = (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] !== '')
+            ? '?' . $_SERVER['QUERY_STRING'] : '';
+        header('Location: https://ashkanstudios.com' . $redirects[$key] . $qs, true, 301);
+        exit;
+    }
+}
+
 // OpenID Connect discovery: this site is an OAuth 2.1 server, NOT an
 // OIDC provider. Clients commonly probe this path first; the SPA
 // fallback was answering with 200 + HTML, which a client parses as a
