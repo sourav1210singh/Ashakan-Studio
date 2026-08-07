@@ -205,6 +205,12 @@ function apply_schedule($posts, $ladder) {
         if (($p['status'] ?? '') === 'scheduled' && !empty($p['publishAt']) && $p['publishAt'] <= $now) {
             $posts[$i]['status'] = 'published';
             $posts[$i]['updatedAt'] = $now;
+            // The displayed post date is createdAt, which up to now was
+            // stuck at the moment the author clicked SCHEDULE (days
+            // before it actually went live). Move it to the date the
+            // author chose, so the site shows the intended publish date
+            // instead of the day it was written.
+            $posts[$i]['createdAt'] = $p['publishAt'];
             $changed = true;
         }
     }
@@ -351,6 +357,17 @@ if ($action === 'save') {
         $publishAt = '';
     }
 
+    // Optional: correct the displayed post date (e.g. a post that went
+    // out via the old scheduling bug and still shows the day it was
+    // written instead of the day it was meant to go live). Only applied
+    // when a valid date is actually sent - omitted or invalid leaves
+    // createdAt untouched.
+    $createdAtOverride = '';
+    if (isset($body['createdAt']) && trim((string) $body['createdAt']) !== '') {
+        $ts2 = strtotime((string) $body['createdAt']);
+        if ($ts2 !== false) { $createdAtOverride = gmdate('c', $ts2); }
+    }
+
     if ($excerpt === '') {
         $plain = trim(preg_replace('/\s+/', ' ', preg_replace('/[#>*_`\[\]()!-]/', ' ', $content)));
         // mbstring is standard on WP Engine, but fall back to plain
@@ -386,6 +403,7 @@ if ($action === 'save') {
                     'metaDescription' => $metaDesc, 'content' => $content,
                     'status' => $status, 'publishAt' => $publishAt, 'updatedAt' => $now,
                 ));
+                if ($createdAtOverride !== '') { $posts[$i]['createdAt'] = $createdAtOverride; }
                 $found = true; break;
             }
         }
