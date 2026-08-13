@@ -142,15 +142,18 @@ function CampaignCardTile({
 /*  Section wrapper                                                     */
 /* ──────────────────────────────────────────────────────────────────── */
 export function CampaignSection({ onProjectClick }: CampaignSectionProps) {
+  /* Tight top padding: on the home page the page H1 sits directly above
+     this block, and the old py-20/28 left a large empty band between the
+     two. Bottom spacing is unchanged. */
   return (
-    <section id="campaign" className="py-20 sm:py-28 bg-cream relative overflow-hidden">
+    <section id="campaign" className="pt-6 sm:pt-8 pb-20 sm:pb-28 bg-cream relative overflow-hidden">
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
         {/* Header - Brandi new-PDF page 3:
             • paragraph moved ABOVE the heading
             • CAMPAIGNS made WAY larger (still dark)
             • slide-in funky entrance on the word (scroll-triggered) */}
         <div className="mb-12 sm:mb-16">
-          <p className="text-base sm:text-lg text-dark/60 max-w-xl mb-5 sm:mb-7">
+          <p className="text-base sm:text-lg text-dark/60 max-w-4xl mb-5 sm:mb-7">
             A deeper dive into brand-defining campaigns, highlighting the
             full scale of work - creative production, execution, and
             overall campaign impact.
