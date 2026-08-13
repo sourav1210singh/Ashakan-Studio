@@ -53,10 +53,16 @@ export function HomePage({ onNavigate }: HomePageProps) {
             on screen, which the client rightly called out (8/10). It is
             now a real, visible heading, placed straight after the hero
             video so the approved hero composition is untouched. */}
-        <section className="bg-cream pt-14 sm:pt-20 pb-2 sm:pb-4">
+        <section className="bg-cream pt-14 sm:pt-20 pb-0">
           <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight leading-[1.05] max-w-4xl">
+              {/* One line from lg up. The size is fluid rather than a
+                  fixed text-5xl because at 1280px a 48px line overflowed
+                  the column and wrapped: this string renders 28.18x its
+                  font-size in Anton, so ~3.15vw keeps it inside the
+                  column at every width, capped at 60px once the 1800px
+                  container stops growing. Below lg it wraps normally. */}
+              <h1 className="font-display text-3xl sm:text-4xl lg:text-[clamp(1.75rem,3.15vw,60px)] text-dark tracking-tight leading-[1.05]">
                 Houston Video Production Company and Commercial Photography Studio
               </h1>
             </FadeIn>
