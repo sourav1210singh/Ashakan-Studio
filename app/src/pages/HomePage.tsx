@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { VideoBannerSection } from "@/components/sections/VideoBannerSection";
 import { LazySection } from "@/components/LazySection";
+import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import type { View } from "@/App";
 
@@ -42,17 +43,25 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <>
       <main>
-        {/* SEO H1: the visual hero renders "WE CREATE VISUAL STORIES
-            THAT INSPIRE" as animated spans (not a heading tag), so the
-            home page had no H1 at all. This screen-reader-only H1
-            supplies it without touching the approved hero design. */}
-        <h1 className="sr-only">
-          Houston Video Production Company and Commercial Photography Studio
-        </h1>
         {/* interNaturalWidth = WE CREATE / THAT in Oswald 200 (Brandi's
             approved banner font), replacing the old Inter + squeeze. */}
         <HeroSection interNaturalWidth />
         <VideoBannerSection />
+        {/* H1. The hero renders "WE CREATE VISUAL STORIES THAT INSPIRE"
+            as animated spans, so this page used to carry its H1 as
+            sr-only text at the top - present in the source but invisible
+            on screen, which the client rightly called out (8/10). It is
+            now a real, visible heading, placed straight after the hero
+            video so the approved hero composition is untouched. */}
+        <section className="bg-cream pt-14 sm:pt-20 pb-2 sm:pb-4">
+          <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+            <FadeIn>
+              <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight leading-[1.05] max-w-4xl">
+                Houston Video Production Company and Commercial Photography Studio
+              </h1>
+            </FadeIn>
+          </div>
+        </section>
         <Suspense fallback={null}>
           <LazySection minHeight="100vh">
             <CampaignSection

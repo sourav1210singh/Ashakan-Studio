@@ -85,6 +85,121 @@ if (strpos($reqPath, '/.well-known/openid-configuration') === 0) {
     exit;
 }
 
+/* ── Per-post SEO tags for /storytime/<slug>/ ──────────────────────
+   Blog posts are written in /admin AFTER the build, so the prerender
+   pass never sees them and this fallback served the homepage shell:
+   raw source showed the HOME title, the HOME description and
+   <link rel="canonical" href="https://ashkanstudios.com/">. The React
+   app corrects all three on mount, but a crawler reading the raw HTML
+   sees a post that declares itself a duplicate of the homepage - which
+   tells Google not to index the blog at all (client report 2026-08-10).
+
+   So: look the post up in the same store blog-api.php writes, and
+   rewrite the four head tags before sending the shell. Everything is
+   best-effort - any miss (no store, unknown slug, unpublished post,
+   tag not found) falls through to the untouched index.html, exactly
+   what this file did before. */
+function storytime_slug($path) {
+    if (strpos($path, '/storytime/') !== 0) { return ''; }
+    $rest = trim(substr($path, strlen('/storytime/')), '/');
+    // index page itself is prerendered; nested paths are not posts
+    if ($rest === '' || strpos($rest, '/') !== false) { return ''; }
+    return preg_match('/^[a-z0-9-]+$/', $rest) ? $rest : '';
+}
+
+function storytime_post($slug) {
+    // Mirrors blog-api.php's storage ladder. Kept as a local copy on
+    // purpose: including blog-api.php would run a whole API request.
+    if (!defined('BLOG_ADMIN_PASSWORD_FOR_LOOKUP')) {
+        // Same value blog-api.php uses; only the data-file name is
+        // derived from it here, never compared against user input.
+        define('BLOG_ADMIN_PASSWORD_FOR_LOOKUP', 'SET_A_PASSWORD_' . 'BEFORE_UPLOAD');
+    }
+    $suffix = substr(hash('sha256', 'ashkan-posts|' . BLOG_ADMIN_PASSWORD_FOR_LOOKUP), 0, 12);
+    $ladder = array();
+    if (is_dir(__DIR__ . '/_wpeprivate')) {
+        $ladder[] = __DIR__ . '/_wpeprivate/ashkan-blog-data.json';
+    }
+    $ladder[] = __DIR__ . '/blog-data/posts-' . $suffix . '.json';
+    $ladder[] = __DIR__ . '/blog-data.php';
+
+    foreach ($ladder as $file) {
+        if (!is_file($file)) { continue; }
+        $txt = @file_get_contents($file);
+        if ($txt === false) { continue; }
+        if (strpos($txt, '<?php') === 0) {          // webroot variant is PHP-guarded
+            $nl  = strpos($txt, "\n");
+            $txt = $nl === false ? '' : substr($txt, $nl + 1);
+        }
+        $posts = json_decode($txt, true);
+        if (!is_array($posts)) { continue; }
+        foreach ($posts as $p) {
+            if (!isset($p['slug']) || $p['slug'] !== $slug) { continue; }
+            // Drafts and not-yet-due scheduled posts are not public, so
+            // they keep the generic shell (the SPA 404s them anyway).
+            $status = isset($p['status']) ? $p['status'] : 'published';
+            if ($status !== 'published') { return null; }
+            return $p;
+        }
+        return null;                                 // store found, slug absent
+    }
+    return null;
+}
+
+$slug = storytime_slug($reqPath);
+$post = $slug !== '' ? storytime_post($slug) : null;
+
+if ($post !== null) {
+    $html = @file_get_contents(__DIR__ . '/index.html');
+    if ($html !== false) {
+        $esc   = function ($s) { return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8'); };
+        $title = $esc($post['title']) . ' | Ashkan Studios';
+        $descRaw = '';
+        if (!empty($post['metaDescription'])) { $descRaw = $post['metaDescription']; }
+        elseif (!empty($post['excerpt']))     { $descRaw = $post['excerpt']; }
+        // mbstring is standard on WP Engine, but blog-api.php guards it
+        // too - keep the same fallback so a host without it never fatals.
+        $descRaw = trim(preg_replace('/\s+/', ' ', $descRaw));
+        $desc = $esc(function_exists('mb_substr') ? mb_substr($descRaw, 0, 160) : substr($descRaw, 0, 160));
+        $url  = 'https://ashkanstudios.com/storytime/' . $slug . '/';
+        $img  = '';
+        if (!empty($post['image'])) {
+            $img = (strpos($post['image'], 'http') === 0)
+                ? $post['image']
+                : 'https://ashkanstudios.com' . $post['image'];
+        }
+
+        // Replace only the specific tags, leaving the rest of the head
+        // byte-identical. preg_replace with a count of 1 so a stray
+        // match later in the document can never be rewritten.
+        $sub = function ($pattern, $replacement, $subject) {
+            $out = preg_replace($pattern, str_replace('$', '\$', $replacement), $subject, 1, $n);
+            return ($out === null || $n === 0) ? $subject : $out;
+        };
+        $html = $sub('#<title>.*?</title>#is', '<title>' . $title . '</title>', $html);
+        $html = $sub('#<link rel="canonical"[^>]*>#i', '<link rel="canonical" href="' . $url . '">', $html);
+        if ($desc !== '') {
+            $html = $sub('#<meta name="description"[^>]*>#i', '<meta name="description" content="' . $desc . '">', $html);
+            $html = $sub('#<meta property="og:description"[^>]*>#i', '<meta property="og:description" content="' . $desc . '">', $html);
+            $html = $sub('#<meta name="twitter:description"[^>]*>#i', '<meta name="twitter:description" content="' . $desc . '">', $html);
+        }
+        $html = $sub('#<meta property="og:title"[^>]*>#i', '<meta property="og:title" content="' . $title . '">', $html);
+        $html = $sub('#<meta name="twitter:title"[^>]*>#i', '<meta name="twitter:title" content="' . $title . '">', $html);
+        $html = $sub('#<meta property="og:url"[^>]*>#i', '<meta property="og:url" content="' . $url . '">', $html);
+        // A post is an article, not the site's front page.
+        $html = $sub('#<meta property="og:type"[^>]*>#i', '<meta property="og:type" content="article">', $html);
+        if ($img !== '') {
+            $html = $sub('#<meta property="og:image"[^>]*>#i', '<meta property="og:image" content="' . $esc($img) . '">', $html);
+            $html = $sub('#<meta name="twitter:image"[^>]*>#i', '<meta name="twitter:image" content="' . $esc($img) . '">', $html);
+        }
+
+        http_response_code(200);
+        header('Content-Type: text/html; charset=UTF-8');
+        echo $html;
+        exit;
+    }
+}
+
 http_response_code(200);
 header('Content-Type: text/html; charset=UTF-8');
 readfile(__DIR__ . '/index.html');

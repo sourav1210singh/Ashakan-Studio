@@ -128,13 +128,11 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                     now used as the heading for THE SPACE section
                     further down the page (matches Brandi's PDF page
                     66 annotation). */}
-                {/* SEO H1 (Mahendra 7/17 sheet) sr-only; visual unchanged. */}
-                <h1 className="sr-only">
-                  Our Houston Photography Studio Space in Sawyer Yards
-                </h1>
-                <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95]">
+                {/* Visible heading carries the H1 (was an h2 under an
+                    sr-only h1 - see ServicesPage). Styling untouched. */}
+                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95]">
                   THE STUDIO
-                </h2>
+                </h1>
               </FadeIn>
             </div>
           </div>
