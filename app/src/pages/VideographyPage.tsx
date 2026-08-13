@@ -99,23 +99,12 @@ export function VideographyPage({ onNavigate, activeCategory }: VideographyPageP
                   {isCategory ? "BACK TO VIDEOGRAPHY" : "BACK TO HOME"}
                 </span>
               </AppLink>
-              {/* Main gallery page: SEO H1 (Mahendra 7/17 sheet) sr-only,
-                  visible "VIDEOGRAPHY" demoted to h2 - design unchanged.
-                  Category pages keep their category name as the real H1. */}
-              {isCategory ? (
-                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
-                  {pageTitle}
-                </h1>
-              ) : (
-                <>
-                  <h1 className="sr-only">
-                    Houston Video Production Agency and Cinematography Services
-                  </h1>
-                  <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
-                    {pageTitle}
-                  </h2>
-                </>
-              )}
+              {/* The visible page title is the H1 on both the main gallery
+                  and the category pages - see PhotographyPage for why the
+                  old sr-only h1 + visible h2 pairing was dropped. */}
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
+                {pageTitle}
+              </h1>
               {pageDescription && (
                 <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6 leading-relaxed">
                   {pageDescription}

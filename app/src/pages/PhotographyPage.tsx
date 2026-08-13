@@ -208,23 +208,14 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                   {isCategory ? "BACK TO PHOTOGRAPHY" : "BACK TO HOME"}
                 </span>
               </AppLink>
-              {/* Main gallery page: SEO H1 (Mahendra 7/17 sheet) sr-only,
-                  visible "PHOTOGRAPHY" demoted to h2 - design unchanged.
-                  Category pages keep their category name as the real H1. */}
-              {isCategory ? (
-                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
-                  {pageTitle}
-                </h1>
-              ) : (
-                <>
-                  <h1 className="sr-only">
-                    Professional Product and Commercial Photography in Houston
-                  </h1>
-                  <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
-                    {pageTitle}
-                  </h2>
-                </>
-              )}
+              {/* The visible page title is the H1 on both the main gallery
+                  and the category pages. The gallery page used to hide a
+                  keyword-rich sr-only h1 above a visible h2 (Mahendra 7/17
+                  sheet); the client called that out (8/10), so the heading
+                  people actually see now carries the tag. */}
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
+                {pageTitle}
+              </h1>
               {pageDescription && (
                 <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6 leading-relaxed">
                   {pageDescription}
