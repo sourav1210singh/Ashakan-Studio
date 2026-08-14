@@ -50,6 +50,52 @@ function accordionizeFaq(html: string): string {
   return doc.body.innerHTML;
 }
 
+/* Turn a [vimeo:<id>] / [vimeo:<id>:<hash>] shortcode into a real
+   player. Brandi asked (8/14) for video on the video-led posts, and a
+   raw <iframe> typed into a post never survives - DOMPurify strips it,
+   and loosening the sanitiser to allow iframes would let any embed onto
+   the blog. A shortcode keeps the sanitiser strict: this runs AFTER
+   sanitising and builds the element itself from an id and hash that are
+   validated as digits / hex, so nothing author-supplied reaches the DOM
+   as markup. Unlisted videos need the hash; public ones don't. */
+function embedVimeo(html: string): string {
+  if (!html.includes("[vimeo:")) return html;
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const pattern = /\[vimeo:(\d{6,12})(?::([a-f0-9]{6,16}))?\]/g;
+
+  const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+  const hits: Text[] = [];
+  let n: Node | null;
+  while ((n = walker.nextNode())) {
+    if (pattern.test(n.textContent || "")) hits.push(n as Text);
+    pattern.lastIndex = 0;
+  }
+
+  for (const textNode of hits) {
+    const m = pattern.exec(textNode.textContent || "");
+    pattern.lastIndex = 0;
+    if (!m) continue;
+    const [, id, hash] = m;
+    const wrap = doc.createElement("div");
+    wrap.className = "blog-video";
+    const frame = doc.createElement("iframe");
+    frame.setAttribute(
+      "src",
+      `https://player.vimeo.com/video/${id}${hash ? `?h=${hash}&` : "?"}title=0&byline=0&portrait=0&dnt=1`
+    );
+    frame.setAttribute("loading", "lazy");
+    frame.setAttribute("allow", "fullscreen; picture-in-picture");
+    frame.setAttribute("allowfullscreen", "");
+    frame.setAttribute("title", "Ashkan Studios video");
+    wrap.appendChild(frame);
+    // The shortcode sits alone in its own paragraph, so replace that.
+    const block = textNode.parentElement;
+    if (block && block.textContent?.trim() === m[0]) block.replaceWith(wrap);
+    else textNode.replaceWith(wrap);
+  }
+  return doc.body.innerHTML;
+}
+
 /**
  * Public single-post page for the Storytime blog (/storytime/<slug>/).
  * Content is authored in the /admin/blog dashboard as Markdown and
@@ -89,7 +135,7 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
   const html = useMemo(() => {
     if (!post) return "";
     const raw = marked.parse(post.content, { async: false, gfm: true, breaks: true }) as string;
-    return accordionizeFaq(DOMPurify.sanitize(raw));
+    return embedVimeo(accordionizeFaq(DOMPurify.sanitize(raw)));
   }, [post]);
 
   return (
@@ -198,6 +244,14 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
             display: block; text-align: center;
             font-size: 0.9rem; color: rgba(26,26,26,0.55);
             margin: 0 auto 2.2em; max-width: 46ch;
+          }
+          /* [vimeo:...] embeds - responsive 16:9, same rhythm as images */
+          .blog-prose .blog-video {
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            margin: 2.2em 0; background: #1A1A1A; overflow: hidden;
+          }
+          .blog-prose .blog-video iframe {
+            position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
           }
           .blog-prose blockquote {
             border-left: 3px solid #1A1A1A; margin: 1.8em 0; padding: 0.2em 0 0.2em 1.2em;
