@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MapPin, Phone, Mail, Instagram, Linkedin, Send } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
+import { PAGE_H1_SIZE } from "@/lib/heading";
 import type { View } from "@/App";
 
 interface ContactPageProps {
@@ -97,10 +98,11 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              {/* Visible heading carries the H1 (was an h2 under an
-                  sr-only h1 - see ServicesPage). Styling untouched. */}
-              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
-                CONTACT
+              {/* Keyword-rich H1 per the SEO sheet, replacing the generic
+                  all-caps "CONTACT". Fluid size keeps the longer line on
+                  one row - see PAGE_H1_SIZE. */}
+              <h1 className={`font-display ${PAGE_H1_SIZE} text-dark tracking-tight leading-[1.05] mb-8`}>
+                Contact Ashkan Studios - Houston Video &amp; Photography Studio
               </h1>
               {/* Brandi 5/7/26 (PDF page 75) - wording softened from
                   the original 'within 24 hours' to 'as soon as possible'

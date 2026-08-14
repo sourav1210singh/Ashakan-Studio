@@ -4,6 +4,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { AppLink } from "@/components/AppLink";
 import { Lightbox } from "@/components/ui/Lightbox";
+import { PAGE_H1_SIZE } from "@/lib/heading";
 import type { View } from "@/App";
 
 interface StudioPageProps {
@@ -128,10 +129,10 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                     now used as the heading for THE SPACE section
                     further down the page (matches Brandi's PDF page
                     66 annotation). */}
-                {/* Visible heading carries the H1 (was an h2 under an
-                    sr-only h1 - see ServicesPage). Styling untouched. */}
-                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-[0.95]">
-                  THE STUDIO
+                {/* Keyword-rich H1 per the SEO sheet, replacing the
+                    generic all-caps "THE STUDIO" - see PAGE_H1_SIZE. */}
+                <h1 className={`font-display ${PAGE_H1_SIZE} text-white tracking-tight leading-[1.05]`}>
+                  Houston Photography Studio Space - Sawyer Yards, TX
                 </h1>
               </FadeIn>
             </div>

@@ -5,6 +5,7 @@ import { AppLink } from "@/components/AppLink";
 import { PortfolioCta } from "@/components/ui/PortfolioCta";
 import { campaigns } from "@/data/navigation";
 import { portfolioItems } from "@/data/portfolio";
+import { PAGE_H1_SIZE } from "@/lib/heading";
 import type { View } from "@/App";
 
 interface CampaignsPageProps {
@@ -39,10 +40,10 @@ export function CampaignsPage({ onNavigate }: CampaignsPageProps) {
                 </div>
                 <span className="text-sm font-medium tracking-wider text-white/70">BACK TO HOME</span>
               </AppLink>
-              {/* Visible heading carries the H1 (was an h2 under an
-                  sr-only h1 - see ServicesPage). Styling untouched. */}
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
-                CAMPAIGNS
+              {/* Keyword-rich H1 per the SEO sheet, replacing the generic
+                  all-caps "CAMPAIGNS" - see PAGE_H1_SIZE. */}
+              <h1 className={`font-display ${PAGE_H1_SIZE} text-white tracking-tight leading-[1.05]`}>
+                Brand Campaign Videos &amp; Commercial Photography in Houston
               </h1>
               <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6">
                 A deeper dive into brand-defining campaigns, highlighting the
