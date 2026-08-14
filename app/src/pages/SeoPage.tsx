@@ -4,6 +4,7 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { AppLink } from "@/components/AppLink";
 import { seoFaqs } from "@/data/seo-faqs";
+import { PAGE_H1_SIZE } from "@/lib/heading";
 import type { View } from "@/App";
 
 export interface SeoPageData {
@@ -82,7 +83,10 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
                 <span className="text-sm font-medium tracking-[0.2em] text-white/60 uppercase mb-4 block">
                   ASHKAN STUDIOS · HOUSTON
                 </span>
-                <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight leading-[0.95]">
+                {/* Fluid size: the SEO sheet lengthened these headings
+                    from "VIDEOGRAPHER HOUSTON" to full sentences, which
+                    ran to three lines at the old lg:text-8xl. */}
+                <h1 className={`font-display ${PAGE_H1_SIZE} text-white tracking-tight leading-[1.05]`}>
                   {data.title}
                 </h1>
                 <p className="text-lg sm:text-xl text-white/70 max-w-2xl mt-6 leading-relaxed">

@@ -3,6 +3,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { AppLink } from "@/components/AppLink";
+import { PAGE_H1_SIZE } from "@/lib/heading";
 import type { View } from "@/App";
 
 interface ServicesPageProps {
@@ -77,13 +78,14 @@ export function ServicesPage({ onNavigate }: ServicesPageProps) {
         <section className="py-20 sm:py-32 bg-cream">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <FadeIn>
-              {/* The page heading IS the H1. It used to be an h2 with a
-                  keyword-rich sr-only h1 above it (Mahendra 7/17 sheet),
-                  but an invisible H1 is exactly what the client objected
-                  to (8/10) - so the visible heading now carries the tag.
-                  Styling is untouched, the page looks identical. */}
-              <h1 className="font-display text-6xl sm:text-8xl md:text-9xl lg:text-[120px] xl:text-[150px] text-dark tracking-tight leading-none mb-8">
-                WHAT WE DO
+              {/* The visible heading IS the H1 (the old sr-only h1 was
+                  what the client objected to on 8/10). The wording comes
+                  from the SEO sheet, which asked for a keyword-rich H1
+                  instead of the generic all-caps "WHAT WE DO"; the size
+                  is fluid so the longer line still sits on one row - see
+                  PAGE_H1_SIZE. */}
+              <h1 className={`font-display ${PAGE_H1_SIZE} text-dark tracking-tight leading-[1.05] mb-8`}>
+                Photography &amp; Videography Services in Houston, TX
               </h1>
               <div className="max-w-3xl">
                 <p className="text-xl sm:text-2xl text-dark/80 leading-relaxed">
