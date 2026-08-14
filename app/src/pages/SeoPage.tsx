@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { AppLink } from "@/components/AppLink";
 import { seoFaqs } from "@/data/seo-faqs";
 import { PAGE_H1_SIZE } from "@/lib/heading";
+import { seoPageVideos, SEO_VIDEO_SLUGS } from "@/data/seo-page-videos";
 import type { View } from "@/App";
 
 export interface SeoPageData {
@@ -118,7 +119,50 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
           </div>
         </section>
 
-        {/* ━━━ Video Embed ━━━ */}
+        {/* ━━━ Work reel - the five videos from the main portfolio ━━━
+            Brandi 8/14: "include the first 5 videos from the main video
+            portfolio page" on the videography landing pages. The first
+            plays inline; the rest load lazily so five Vimeo players
+            never boot at once (that was what sank mobile Lighthouse
+            into the 20s back in July). */}
+        {SEO_VIDEO_SLUGS.has(data.slug) && (
+          <section className="py-16 sm:py-24 bg-dark text-white">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+              <FadeIn>
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-3">
+                  Selected Work
+                </h2>
+                <p className="text-base sm:text-lg text-white/60 max-w-2xl mb-10">
+                  A look at recent brand films, campaigns and commercial
+                  video produced by our Houston team.
+                </p>
+              </FadeIn>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
+                {seoPageVideos.map((v, i) => (
+                  <FadeIn key={v.embedUrl} delay={Math.min(i * 0.08, 0.3)}>
+                    {/* First tile spans both columns - it reads as the
+                        lead film rather than one of a uniform grid. */}
+                    <div className={i === 0 ? "lg:col-span-2" : ""}>
+                      <div className="aspect-video overflow-hidden bg-white/5">
+                        <iframe
+                          src={v.embedUrl}
+                          loading={i === 0 ? "eager" : "lazy"}
+                          className="w-full h-full"
+                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                          allowFullScreen
+                          title={v.title}
+                        />
+                      </div>
+                      <p className="mt-3 text-sm text-white/55">{v.title}</p>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ━━━ Video Embed (single, page-specific) ━━━ */}
         {data.videoEmbed && (
           <section className="py-16 sm:py-24 bg-dark text-white">
             <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-10">
