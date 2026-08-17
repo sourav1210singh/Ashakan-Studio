@@ -229,4 +229,51 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
       a: "Just reach out to schedule a shoot. We begin with a consultation to understand your goals, style, and where the video will be used, then build a plan and timeline for filming in The Woodlands or at our Houston studio. From there our team handles production and editing through final delivery.",
     },
   ],
+
+  // ─── Fashion landing pages (client docs, 8/17) ───
+  "fashion-photography-in-houston": [
+    {
+      q: "What is included in a fashion photography session in Houston?",
+      a: "A typical session includes a pre-shoot consultation, creative and styling direction, professional lighting, and a set of fully retouched final images. Depending on your package we can also arrange models, hair and makeup, and multiple looks or backdrops at our Houston studio.",
+    },
+    {
+      q: "Do you offer both studio and on-location fashion shoots?",
+      a: "Yes. We shoot fashion photography at our studio in the Silos at Sawyer Yards and on location throughout Houston, TX. The choice depends on the mood you want, whether that is controlled editorial lighting in-studio or a real-world backdrop that fits your brand story.",
+    },
+    {
+      q: "Can you provide models, hair, and makeup for a fashion shoot?",
+      a: "We do. Ashkan Studios has models plus hair and makeup artists available in-house, so you can book a complete fashion production in one place instead of coordinating separate vendors across Houston.",
+    },
+    {
+      q: "What types of fashion photography do you shoot?",
+      a: "We cover editorial and high fashion, commercial and lookbook photography, campaign imagery, and model portfolios. Whether you are a designer showing a new collection or a boutique building a catalog, we tailor the styling and lighting to your brand.",
+    },
+    {
+      q: "How do I book a fashion photography shoot in Houston?",
+      a: "Reach out through our contact page or call the studio, and we will set up a consultation to discuss your collection, timeline, and creative direction. From there we build a shoot plan and lock in your date.",
+    },
+  ],
+
+  "fashion-video-production-services-houston": [
+    {
+      q: "What do fashion video production services in Houston include?",
+      a: "Our services cover the full production: creative concept, styling and casting, lighting, filming, editing, and color grading. Depending on your package we can add models, hair and makeup, and multiple looks, all produced at our Houston studio or on location.",
+    },
+    {
+      q: "What types of fashion videos do you produce?",
+      a: "We produce brand films, campaign videos, lookbook and collection videos, runway and editorial content, and social-first clips for designers and labels. We match the format and length to where the video will run.",
+    },
+    {
+      q: "Do you shoot fashion video in-studio or on location?",
+      a: "Both. We film at our studio in the Silos at Sawyer Yards and on location across Houston, TX, depending on the mood and setting your collection calls for.",
+    },
+    {
+      q: "Can you handle both photography and video in one shoot?",
+      a: "Yes. As a full-service production studio, Ashkan Studios can capture fashion photography and video in the same session, so you leave with a complete set of campaign assets from a single production day.",
+    },
+    {
+      q: "How do I get started with a fashion video project in Houston?",
+      a: "Contact our team or call the studio to set up a consultation. We will talk through your collection, goals, and timeline, then build a production plan and schedule your shoot.",
+    },
+  ],
 };

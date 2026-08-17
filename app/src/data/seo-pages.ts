@@ -744,6 +744,109 @@ export const seoPages: SeoPageData[] = [
     metaDescription:
       "Industrial and corporate video production in Houston. Ashkan Studios creates training, communications, and marketing videos for enterprise clients.",
   },
+
+  // ─── FASHION SEO PAGES (Mahendra 8/17, from client-approved docs) ──
+
+  {
+    slug: "fashion-photography-in-houston",
+    title: "Fashion Photography in Houston, TX",
+    subtitle: "Style, Story, and Standout Imagery",
+    heroImage: "/images/seo/approved/fashion-hero-fashion8.jpg",
+    intro:
+      "Fashion photography in Houston has to do more than look good. It has to sell a feeling, a label, and a point of view in a single frame. When a brand, designer, or model works with Ashkan Studios, we build images that carry your styling, your mood, and your story straight to the audience you want to reach. From editorial spreads to commercial campaigns, our Houston, TX studio turns clothing and concepts into visuals people remember.",
+    sections: [
+      {
+        heading: "Editorial and Commercial Fashion Photography",
+        body: "Our fashion photography covers the full range of what a modern brand needs. Editorial work leans into narrative, movement, and art direction. Commercial work keeps your product front and center while still feeling elevated. We shift between the two depending on where your images will live and what they need to do.",
+        bullets: [
+          "Editorial and high fashion shoots with strong art direction",
+          "Commercial photography and lookbook photography for collections and catalogs",
+          "Model portfolio and comp card imagery",
+          "Campaign photography for designers and emerging labels",
+          "On-figure apparel, accessories, and styling detail shots",
+          "Studio and location fashion shoots across Houston",
+        ],
+        image: "/images/seo/approved/fashion-editorial-fashion15.jpg",
+        imageAlt: "Houston fashion photographer editorial shoot",
+      },
+      {
+        heading: "Who We Photograph for in Houston",
+        body: "Houston's fashion scene runs from independent designers to established retail brands, and our work adapts to each of them. We collaborate with clients who need imagery that holds up on a magazine page, a product listing, and a social feed at the same time.",
+        bullets: [
+          "Fashion designers and clothing labels",
+          "Models building or refreshing a portfolio",
+          "Boutiques and retail brands",
+          "Editorial publications and stylists",
+          "Beauty and accessory brands",
+        ],
+      },
+      {
+        heading: "Our Fashion Photography Process",
+        body: "Every strong fashion shoot starts before the camera comes out. We begin with a consultation to understand your brand, your collection, and the mood you want to set. From there we plan concept, styling, lighting, and casting so the shoot day runs in a clear creative direction. With hair and makeup, models, and a full range of backdrops available in-house at our Silos at Sawyer Yards studio, we keep production under one roof and your vision intact from first look to final edit. We deliver retouched, campaign-ready fashion photography built to perform across your website, lookbooks, print editorials, and social channels.",
+        image: "/images/seo/approved/fashion-movement-fashion13.jpg",
+        imageAlt: "Fashion photoshoot in motion at Ashkan Studios Houston",
+      },
+    ],
+    ctaHeading: "READY TO SHOOT YOUR NEXT FASHION CAMPAIGN?",
+    ctaText:
+      "Ashkan Studios brings styling, lighting, and creative direction together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for fashion photography that defines your brand.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Fashion Photography in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Editorial and commercial fashion photography in Houston, TX. Ashkan Studios creates bold, campaign-ready images for designers, brands, and models. Book today.",
+  },
+
+  {
+    slug: "fashion-video-production-services-houston",
+    title: "Fashion Video Production Services in Houston, TX",
+    subtitle: "Motion That Makes Your Brand Move",
+    heroImage: "/images/seo/approved/fashionvideo-hero-4q7a0674.jpg",
+    intro:
+      "Fashion video production services in Houston, TX give your brand something a still image cannot: movement, rhythm, and story. When a designer or label needs to show how a collection moves, video is what carries it. Video is where fashion comes alive. A campaign film sets a mood in seconds, a lookbook video shows a full collection in motion, and social-first clips put your label in front of the audience already scrolling for it.",
+    sections: [
+      {
+        heading: "Brand Films, Lookbooks, and Campaign Videos",
+        body: "Our fashion video production covers everything from cinematic brand films to fast, social-ready cutdowns. We match the format to where your audience actually watches, so a single shoot day can feed a campaign, a website, and a season of social content.",
+        bullets: [
+          "Fashion brand films and campaign videos",
+          "Lookbook and collection videos",
+          "Runway and editorial fashion video",
+          "Social-first content and reels for designers and labels",
+          "Behind-the-scenes and process films",
+          "Model and portfolio video",
+        ],
+        video:
+          "https://player.vimeo.com/video/1094764251?h=17dfb40e13&title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "Weissman Fall 2025 Season Cross Genre",
+      },
+      {
+        heading: "Who We Produce Fashion Video for in Houston",
+        body: "Houston's designers, boutiques, and brands need video that competes on every screen. We produce fashion content for clients who want their collections seen in motion, whether that is a campaign film for a launch or a run of social cutdowns for the season.",
+        bullets: [
+          "Fashion designers and clothing labels",
+          "Boutiques and retail brands",
+          "Models and agencies",
+          "Editorial publications and stylists",
+          "Beauty and accessory brands",
+        ],
+      },
+      {
+        heading: "Our Fashion Video Production Process",
+        body: "Strong fashion video starts with a clear creative plan. We open with a consultation to understand your collection, your audience, and the story you want the film to tell, then build the concept, casting, styling, and shot list around it. Our team edits, color grades, and delivers final video cut for the platforms where your audience actually watches, from your website and campaigns to reels and paid social.",
+        video:
+          "https://player.vimeo.com/video/1145783498?h=6e07bd9e26&title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "Weissman Spring 2026 Season Cross Genre",
+      },
+    ],
+    ctaHeading: "READY TO PUT YOUR COLLECTION IN MOTION?",
+    ctaText:
+      "Ashkan Studios brings creative direction, filming, and post-production together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for fashion video that moves your brand forward.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Fashion Video Production Services in Houston | Ashkan Studios",
+    metaDescription:
+      "Fashion video production services in Houston, TX. Ashkan Studios creates brand films, lookbook videos, and fashion campaigns for designers and labels.",
+  },
+
 ];
 
 /** Look up an SEO page by its URL slug */

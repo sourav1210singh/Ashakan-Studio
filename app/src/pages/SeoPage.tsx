@@ -6,6 +6,7 @@ import { AppLink } from "@/components/AppLink";
 import { seoFaqs } from "@/data/seo-faqs";
 import { PAGE_H1_SIZE } from "@/lib/heading";
 import { seoPageVideos, SEO_VIDEO_SLUGS } from "@/data/seo-page-videos";
+import { SITE, STUDIO } from "@/data/studio";
 import type { View } from "@/App";
 
 export interface SeoPageData {
@@ -21,6 +22,11 @@ export interface SeoPageData {
     bullets?: string[];
     image?: string;
     imageAlt?: string;
+    /** Vimeo player URL. Takes the image slot, so a section shows one
+        or the other - used where the client asked for campaign video
+        in place of a still (fashion video production page, 8/17). */
+    video?: string;
+    videoTitle?: string;
   }[];
   ctaHeading: string;
   ctaText: string;
@@ -63,6 +69,58 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
       document.getElementById(id)?.remove();
     };
   }, [faqs]);
+
+  /* Service + LocalBusiness JSON-LD (Mahendra 8/17). Every field is
+     taken from what the page already renders or from the studio's real
+     NAP, so the markup can't claim anything the page doesn't say.
+     Injected the same way as the FAQ block above, which means the
+     prerenderer captures it into the static HTML too. */
+  useEffect(() => {
+    const id = "service-schema";
+    document.getElementById(id)?.remove();
+    const url = `${SITE}/${data.slug}/`;
+    const el = document.createElement("script");
+    el.id = id;
+    el.type = "application/ld+json";
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "@id": `${url}#service`,
+          name: data.title,
+          description: data.metaDescription,
+          url,
+          serviceType: data.title,
+          provider: { "@id": `${SITE}/#studio` },
+          areaServed: { "@type": "City", name: "Houston", containedInPlace: { "@type": "State", name: "Texas" } },
+          image: data.heroImage ? SITE + data.heroImage : undefined,
+        },
+        {
+          "@type": "LocalBusiness",
+          "@id": `${SITE}/#studio`,
+          name: "Ashkan Studios",
+          url: `${SITE}/`,
+          telephone: STUDIO.phone,
+          email: STUDIO.email,
+          image: data.heroImage ? SITE + data.heroImage : undefined,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: STUDIO.street,
+            addressLocality: STUDIO.city,
+            addressRegion: STUDIO.region,
+            postalCode: STUDIO.postalCode,
+            addressCountry: "US",
+          },
+          priceRange: "$$",
+        },
+      ],
+    });
+    document.head.appendChild(el);
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, [data]);
 
   return (
     <>
@@ -192,10 +250,16 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
               <div
                 className={`grid grid-cols-1 ${
-                  section.image ? "lg:grid-cols-2" : ""
+                  section.image || section.video ? "lg:grid-cols-2" : ""
                 } gap-12 lg:gap-20 items-center`}
               >
-                <div className={index % 2 === 1 && section.image ? "lg:order-2" : ""}>
+                <div
+                  className={
+                    index % 2 === 1 && (section.image || section.video)
+                      ? "lg:order-2"
+                      : ""
+                  }
+                >
                   <FadeIn>
                     <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-dark tracking-tight leading-[0.95] mb-6">
                       {section.heading}
@@ -217,16 +281,29 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
                     )}
                   </FadeIn>
                 </div>
-                {section.image && (
+                {(section.video || section.image) && (
                   <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                     <FadeIn delay={0.1}>
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img
-                          src={section.image}
-                          alt={section.imageAlt || section.heading}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+                      {section.video ? (
+                        <div className="aspect-video overflow-hidden bg-dark">
+                          <iframe
+                            src={section.video}
+                            loading="lazy"
+                            className="w-full h-full"
+                            allow="fullscreen; picture-in-picture"
+                            allowFullScreen
+                            title={section.videoTitle || section.heading}
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[4/3] overflow-hidden">
+                          <img
+                            src={section.image}
+                            alt={section.imageAlt || section.heading}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
                     </FadeIn>
                   </div>
                 )}
