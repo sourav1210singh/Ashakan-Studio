@@ -29,6 +29,7 @@ const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[]
       { label: "Commercial Photographer Houston", slug: "commercial-photographer-houston" },
       { label: "Business Marketing Photography Houston", slug: "business-marketing-photography-houston" },
       { label: "Headshot Photography Houston", slug: "headshot-photography-houston" },
+        { label: "Fashion Photography in Houston", slug: "fashion-photography-in-houston" },
     ],
   },
   {
@@ -47,6 +48,7 @@ const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[]
       { label: "Video for the Arts", slug: "vsl-arts-industry" },
       { label: "Video for Retail", slug: "vsl-retail-industry" },
       { label: "Industrial & Corporate Video", slug: "vsl-li-industry" },
+        { label: "Fashion Video Production Houston", slug: "fashion-video-production-services-houston" },
     ],
   },
 ];
