@@ -751,7 +751,7 @@ export const seoPages: SeoPageData[] = [
     slug: "fashion-photography-in-houston",
     title: "Fashion Photography in Houston, TX",
     subtitle: "Style, Story, and Standout Imagery",
-    heroImage: "/images/seo/approved/fashion-hero-fashion8.jpg",
+    heroImage: "/images/seo/approved/fashion-hero-citybook-633.jpg",
     intro:
       "Fashion photography in Houston has to do more than look good. It has to sell a feeling, a label, and a point of view in a single frame. When a brand, designer, or model works with Ashkan Studios, we build images that carry your styling, your mood, and your story straight to the audience you want to reach. From editorial spreads to commercial campaigns, our Houston, TX studio turns clothing and concepts into visuals people remember.",
     sections: [
@@ -766,8 +766,8 @@ export const seoPages: SeoPageData[] = [
           "On-figure apparel, accessories, and styling detail shots",
           "Studio and location fashion shoots across Houston",
         ],
-        image: "/images/seo/approved/fashion-editorial-fashion15.jpg",
-        imageAlt: "Houston fashion photographer editorial shoot",
+        image: "/images/seo/approved/fashion-editorial-6c1a8567.jpg",
+        imageAlt: "Editorial fashion photography by a Houston fashion photographer",
       },
       {
         heading: "Who We Photograph for in Houston",
@@ -783,8 +783,8 @@ export const seoPages: SeoPageData[] = [
       {
         heading: "Our Fashion Photography Process",
         body: "Every strong fashion shoot starts before the camera comes out. We begin with a consultation to understand your brand, your collection, and the mood you want to set. From there we plan concept, styling, lighting, and casting so the shoot day runs in a clear creative direction. With hair and makeup, models, and a full range of backdrops available in-house at our Silos at Sawyer Yards studio, we keep production under one roof and your vision intact from first look to final edit. We deliver retouched, campaign-ready fashion photography built to perform across your website, lookbooks, print editorials, and social channels.",
-        image: "/images/seo/approved/fashion-movement-fashion13.jpg",
-        imageAlt: "Fashion photoshoot in motion at Ashkan Studios Houston",
+        image: "/images/seo/approved/fashion-styling-fashion11.jpg",
+        imageAlt: "Fashion photoshoot styling and lighting at Ashkan Studios Houston",
       },
     ],
     ctaHeading: "READY TO SHOOT YOUR NEXT FASHION CAMPAIGN?",
