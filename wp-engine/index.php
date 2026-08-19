@@ -85,6 +85,40 @@ if (strpos($reqPath, '/.well-known/openid-configuration') === 0) {
     exit;
 }
 
+/* ── /sitemap-blog.xml ────────────────────────────────────────────
+   Blog posts are written in /admin after a deploy, so they can never
+   be in the static sitemap the build produces - which is why none of
+   them were being submitted to Google. sitemap.xml is now an index
+   pointing at sitemap-pages.xml (static) and this file, generated
+   from the same store the blog reads, so a new post is discoverable
+   the moment it publishes.
+
+   Only published posts are listed; drafts and not-yet-due scheduled
+   posts are skipped, matching what the public blog shows. */
+if ($reqPath === '/sitemap-blog.xml') {
+    header('Content-Type: application/xml; charset=utf-8');
+    $posts = storytime_posts();
+    $now = gmdate('c');
+    echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    echo "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n";
+    // the blog index itself lives in sitemap-pages.xml, so only posts here
+    foreach ($posts as $p) {
+        $status = isset($p['status']) ? $p['status'] : 'published';
+        if ($status !== 'published') { continue; }
+        if (!empty($p['publishAt']) && $p['publishAt'] > $now) { continue; }
+        if (empty($p['slug']) || !preg_match('/^[a-z0-9-]+$/', $p['slug'])) { continue; }
+        $lastmod = '';
+        foreach (array('updatedAt', 'createdAt') as $k) {
+            if (!empty($p[$k])) { $ts = strtotime($p[$k]); if ($ts) { $lastmod = gmdate('Y-m-d', $ts); } break; }
+        }
+        echo "  <url><loc>https://ashkanstudios.com/storytime/" . htmlspecialchars($p['slug'], ENT_QUOTES, 'UTF-8') . "/</loc>";
+        if ($lastmod !== '') { echo "<lastmod>" . $lastmod . "</lastmod>"; }
+        echo "<changefreq>monthly</changefreq><priority>0.7</priority></url>\n";
+    }
+    echo "</urlset>\n";
+    exit;
+}
+
 /* ── Per-post SEO tags for /storytime/<slug>/ ──────────────────────
    Blog posts are written in /admin AFTER the build, so the prerender
    pass never sees them and this fallback served the homepage shell:
@@ -107,9 +141,12 @@ function storytime_slug($path) {
     return preg_match('/^[a-z0-9-]+$/', $rest) ? $rest : '';
 }
 
-function storytime_post($slug) {
-    // Mirrors blog-api.php's storage ladder. Kept as a local copy on
-    // purpose: including blog-api.php would run a whole API request.
+/* Every post in the store, or an empty array. Mirrors blog-api.php's
+   storage ladder - kept as a local copy on purpose, because including
+   blog-api.php would run a whole API request. */
+function storytime_posts() {
+    static $cache = null;
+    if ($cache !== null) { return $cache; }
     if (!defined('BLOG_ADMIN_PASSWORD_FOR_LOOKUP')) {
         // Same value blog-api.php uses; only the data-file name is
         // derived from it here, never compared against user input.
@@ -132,18 +169,22 @@ function storytime_post($slug) {
             $txt = $nl === false ? '' : substr($txt, $nl + 1);
         }
         $posts = json_decode($txt, true);
-        if (!is_array($posts)) { continue; }
-        foreach ($posts as $p) {
-            if (!isset($p['slug']) || $p['slug'] !== $slug) { continue; }
-            // Drafts and not-yet-due scheduled posts are not public, so
-            // they keep the generic shell (the SPA 404s them anyway).
-            $status = isset($p['status']) ? $p['status'] : 'published';
-            if ($status !== 'published') { return null; }
-            return $p;
-        }
-        return null;                                 // store found, slug absent
+        if (is_array($posts)) { $cache = $posts; return $cache; }
     }
-    return null;
+    $cache = array();
+    return $cache;
+}
+
+function storytime_post($slug) {
+    foreach (storytime_posts() as $p) {
+        if (!isset($p['slug']) || $p['slug'] !== $slug) { continue; }
+        // Drafts and not-yet-due scheduled posts are not public, so
+        // they keep the generic shell (the SPA 404s them anyway).
+        $status = isset($p['status']) ? $p['status'] : 'published';
+        if ($status !== 'published') { return null; }
+        return $p;
+    }
+    return null;                                     // slug not in the store
 }
 
 $slug = storytime_slug($reqPath);

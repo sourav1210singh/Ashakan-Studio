@@ -42,7 +42,7 @@ if (!fs.existsSync(path.join(DIST, "index.html"))) {
 }
 
 // ── Routes from the sitemap (single source of truth) ──
-const sitemap = fs.readFileSync(path.join(DIST, "sitemap.xml"), "utf8");
+const sitemap = fs.readFileSync(path.join(DIST, "sitemap-pages.xml"), "utf8");
 const routes = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+(\/[^<]*)<\/loc>/g)]
   .map((m) => m[1])
   .filter((p, i, a) => a.indexOf(p) === i);

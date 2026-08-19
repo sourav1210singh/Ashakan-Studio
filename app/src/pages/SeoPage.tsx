@@ -296,11 +296,17 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[4/3] overflow-hidden">
+                        /* No fixed aspect box: the client's section
+                           photos are portraits, and forcing them into
+                           4:3 with object-cover was cutting heads off.
+                           Letting the image keep its own ratio shows
+                           the whole frame, capped so a tall portrait
+                           doesn't tower over the copy beside it. */
+                        <div className="overflow-hidden">
                           <img
                             src={section.image}
                             alt={section.imageAlt || section.heading}
-                            className="w-full h-full object-cover"
+                            className="w-auto h-auto max-w-full max-h-[720px] mx-auto"
                           />
                         </div>
                       )}
