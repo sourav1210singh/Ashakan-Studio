@@ -98,6 +98,9 @@ export const seoPages: SeoPageData[] = [
     title: "Professional Product Photographer in Houston, TX",
     subtitle: "Product & Food Photography",
     heroImage: "/images/seo/approved/product-retail12.jpg",
+    // Bag sits low in the frame; a centred crop clipped its base and
+    // strap. 70% lifts the product into the middle of the band.
+    heroPosition: "center 70%",
     intro:
       "As a Houston product photographer, Ashkan Studios creates alluring imagery of the food and products of your business to help represent you. Whether content for a website, print pieces, or social media, professional imagery can reflect the quality of service that you provide your customers.",
     sections: [
@@ -759,6 +762,9 @@ export const seoPages: SeoPageData[] = [
     title: "Fashion Photography in Houston, TX",
     subtitle: "Style, Story, and Standout Imagery",
     heroImage: "/images/seo/approved/fashion-hero-citybook-633.jpg",
+    // Her face and raised arm are in the top third, so a centred crop
+    // cut across the forehead. 30% brings the whole gesture into view.
+    heroPosition: "center 30%",
     intro:
       "Fashion photography in Houston has to do more than look good. It has to sell a feeling, a label, and a point of view in a single frame. When a brand, designer, or model works with Ashkan Studios, we build images that carry your styling, your mood, and your story straight to the audience you want to reach. From editorial spreads to commercial campaigns, our Houston, TX studio turns clothing and concepts into visuals people remember.",
     sections: [
@@ -773,8 +779,8 @@ export const seoPages: SeoPageData[] = [
           "On-figure apparel, accessories, and styling detail shots",
           "Studio and location fashion shoots across Houston",
         ],
-        image: "/images/seo/approved/fashion-doc-section1.jpg",
-        imageAlt: "Editorial fashion photography by a Houston fashion photographer",
+        image: "/images/seo/approved/fashion-editorial-fashion31.jpg",
+        imageAlt: "Editorial fashion photography with bold styling and art direction, Houston",
       },
       {
         heading: "Who We Photograph for in Houston",
