@@ -172,6 +172,7 @@ export const seoPages: SeoPageData[] = [
     title: "Houston Commercial Photography in TX",
     subtitle: "Alluring Imagery for Your Business",
     heroImage: "/images/seo/approved/commercialphotography-016-eyegallery-134.jpg",
+    heroFit: "contain",
     intro:
       "As a Houston commercial photography team, Ashkan Studios creates alluring imagery of the lifestyle and products of your business to help represent you. Whether content for a website, print pieces, or social media, professional imagery can reflect the quality of service that you provide your customers.",
     sections: [
@@ -281,6 +282,7 @@ export const seoPages: SeoPageData[] = [
     title: "Headshot Photography in Houston, TX",
     subtitle: "Corporate Headshot Photography",
     heroImage: "/images/seo/approved/headshot-headshots9.jpg",
+    heroPosition: "center 22%",
     intro:
       "Whether for a business profile, content for a website, or for advertising pieces, you can count on us. Ashkan Studios provides the headshot photography Houston needs. Headshots can reflect the quality of service that you provide your customers. We create professional images with a multitude of available backgrounds. These kinds of images can be used for websites, ads, or print work, and can be created in the studio or at your location.",
     sections: [
@@ -352,7 +354,7 @@ export const seoPages: SeoPageData[] = [
     slug: "commercial-videographers-houston",
     title: "Commercial Videographers in Houston, TX",
     subtitle: "The Creative Videographers Houston Needs",
-    heroImage: "/images/seo/approved/videography-15439-black-21660.jpg",
+    heroImage: "/images/seo/approved/videography-chocolate-box.jpg",
     intro:
       "We are the commercial videographers Houston needs! If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
     sections: [
@@ -450,7 +452,7 @@ export const seoPages: SeoPageData[] = [
     slug: "videographer-houston",
     title: "Videographer in Houston, TX",
     subtitle: "Make Your Business Stand Out",
-    heroImage: "/images/seo/approved/videography-15439-black-21660.jpg",
+    heroImage: "/images/seo/approved/videography-chocolate-bonbons.jpg",
     intro:
       "Videography is the BEST representation of your digital store-front and the best way to connect with your local audience. Whether you are looking to tell your story, promote your brand, or give yourself a digital revamp, Ashkan Studios in Houston can provide creative commercial videography to showcase what you have to offer. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience fully into your brand.",
     sections: [
@@ -545,7 +547,7 @@ export const seoPages: SeoPageData[] = [
     slug: "videography-in-texas",
     title: "Videography Services in Texas",
     subtitle: "Texas-Based Creative Video Production",
-    heroImage: "/images/seo/approved/videography-15439-black-21660.jpg",
+    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
     intro:
       "Are you looking for videography in Texas? Whether you are in the Panhandle, in East Texas, in Hill Country near Austin, or in our own backyard in Houston, Ashkan Studios is a top choice for any sort of videography needs. We have been privileged to work with prolific clients from all over the US, including Olympic athletes, luxury boutiques, athletic brands, and doctors.",
     sections: [
@@ -714,7 +716,8 @@ export const seoPages: SeoPageData[] = [
     slug: "vsl-li-industry",
     title: "Industrial & Corporate Video Production in Houston, TX",
     subtitle: "High-Quality, Strategic Video Content",
-    heroImage: "/images/seo/vsl/li-still-001.jpg",
+    heroImage: "/images/seo/approved/industrial-lab-portrait.jpg",
+    heroPosition: "center 30%",
     intro:
       "We here at Ashkan Studios have extensive experience operating within the industrial and corporate sector, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
     sections: [
@@ -732,8 +735,8 @@ export const seoPages: SeoPageData[] = [
           "Earnings reports presentations",
           "And much more",
         ],
-        image: "/images/seo/vsl/li-safari-003.jpg",
-        imageAlt: "Industrial corporate video production Houston",
+        image: "/images/seo/approved/industrial-aerospace-team.jpg",
+        imageAlt: "Industrial and corporate video production in Houston, TX",
       },
     ],
     ctaHeading: "ELEVATE YOUR CORPORATE VIDEO",
