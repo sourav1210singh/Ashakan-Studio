@@ -171,8 +171,7 @@ export const seoPages: SeoPageData[] = [
     slug: "houston-commercial-photography",
     title: "Houston Commercial Photography in TX",
     subtitle: "Alluring Imagery for Your Business",
-    heroImage: "/images/seo/approved/commercialphotography-016-eyegallery-134.jpg",
-    heroFit: "contain",
+    heroImage: "/images/seo/approved/commercialphotography-deutsch-lifestyle-595.jpg",
     intro:
       "As a Houston commercial photography team, Ashkan Studios creates alluring imagery of the lifestyle and products of your business to help represent you. Whether content for a website, print pieces, or social media, professional imagery can reflect the quality of service that you provide your customers.",
     sections: [
