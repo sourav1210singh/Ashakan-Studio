@@ -14,6 +14,16 @@ export interface SeoPageData {
   title: string;
   subtitle: string;
   heroImage: string;
+  /** CSS object-position for the hero crop. The hero band is ~2.3:1 on
+      desktop, so a centred crop lands on the middle of a tall frame and
+      cuts heads off. "center 25%" pulls the visible window up towards
+      the face. Only needed where the subject is not centred. */
+  heroPosition?: string;
+  /** "contain" stops a portrait hero being blown up to full-bleed:
+      the frame is shown whole, centred, with the dark section colour
+      either side. Client 8/18: a vertical image does not have to fill
+      the width - the face mattering more than the bleed. */
+  heroFit?: "cover" | "contain";
   intro: string;
   videoEmbed?: string;
   sections: {
@@ -131,7 +141,12 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
             <img
               src={data.heroImage}
               alt={data.title}
-              className="w-full h-full object-cover"
+              className={`w-full h-full ${
+                data.heroFit === "contain" ? "object-contain" : "object-cover"
+              }`}
+              style={
+                data.heroPosition ? { objectPosition: data.heroPosition } : undefined
+              }
             />
             <div className="absolute inset-0 bg-dark/55" />
           </div>
