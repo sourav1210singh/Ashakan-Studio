@@ -699,8 +699,9 @@ export const seoPages: SeoPageData[] = [
           "Customer support content",
           "And much more",
         ],
-        image: "/images/seo/vsl/retail-golf-008.jpg",
-        imageAlt: "Retail industry video production",
+        video:
+          "https://player.vimeo.com/video/1125611606?title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "Cacao & Cardamom: Delicious Impressions",
       },
     ],
     ctaHeading: "BOOST YOUR RETAIL BRAND",
@@ -735,8 +736,9 @@ export const seoPages: SeoPageData[] = [
           "Earnings reports presentations",
           "And much more",
         ],
-        image: "/images/seo/approved/industrial-aerospace-team.jpg",
-        imageAlt: "Industrial and corporate video production in Houston, TX",
+        video:
+          "https://player.vimeo.com/video/1100405072?title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "RadioMedix 2025: Where It All Began",
       },
     ],
     ctaHeading: "ELEVATE YOUR CORPORATE VIDEO",
