@@ -40,6 +40,11 @@ export interface SeoPageData {
   }[];
   ctaHeading: string;
   ctaText: string;
+  /* Label har page pe ek jaisa rakha gaya hai ("BOOK YOUR SHOOT", 8/22).
+     Pehle 23 pages pe 16 alag-alag labels the - "EMAIL US", "GET STARTED",
+     "REQUEST A QUOTE" - to visitor ko har landing page pe naya button
+     seekhna padta tha. Field ab bhi per-page hai taaki koi page zaroorat
+     padne par apna label de sake. */
   ctaButton: { label: string; view: View; slug?: string };
   metaTitle: string;
   metaDescription: string;
