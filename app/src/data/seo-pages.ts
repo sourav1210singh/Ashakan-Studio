@@ -56,7 +56,7 @@ export const seoPages: SeoPageData[] = [
     slug: "product-photographer-in-houston",
     title: "Product Photographer in Houston, TX",
     subtitle: "Product & Catalog Photography",
-    heroImage: "/images/seo/approved/product-retail22.jpg",
+    heroImage: "/images/seo/approved/product-cacao-bonbons-marble.jpg",
     intro:
       "If you're looking for a product photographer in Houston, Ashkan Studios is here to provide stunning imagery for you. Product, also known as catalog, photography allows us to create clean and controlled images with various lighting and mood whether for business or personal creativity. This style is most effective to showcase your products and their features in the simplest form, and are best to be used on your website or in print and graphic design.",
     sections: [
@@ -69,8 +69,8 @@ export const seoPages: SeoPageData[] = [
           "Optimized for websites, print, and social media",
           "Showcases product features in their simplest form",
         ],
-        image: "/images/seo/approved/product-fashion11.jpg",
-        imageAlt: "Product photographer Houston",
+        image: "/images/seo/approved/product-deutsch-ring-coupe.jpg",
+        imageAlt: "Clean, controlled product photography of fine jewellery in the Houston studio",
       },
       {
         heading: "Our Process",
@@ -211,7 +211,12 @@ export const seoPages: SeoPageData[] = [
     slug: "commercial-photographer-houston",
     title: "Commercial Photographer in Houston, TX",
     subtitle: "Visual Storytellers for Your Brand",
-    heroImage: "/images/seo/approved/commercialphotography-retail22b.jpg",
+    heroImage: "/images/seo/approved/commercialphotography-eyegallery-036.jpg",
+    /* Ferrari hataya - ek car commercial kaam hai, par is page ka lead
+       image studio ka asli brand/lifestyle kaam dikhana chahiye. Ye The
+       Eye Gallery campaign frame hai; 35% se chehra dono band ratios me
+       rehta hai aur left side khali rehti hai H1 ke liye. */
+    heroPosition: "center 35%",
     intro:
       "Welcome to Ashkan Studios - an exceptional commercial photographer in Houston. Elevate your brand with compelling imagery that narrates your distinctive story. We go beyond photography; we are visual storytellers committed to translating your commercial vision into captivating visuals that resonate.",
     sections: [
@@ -259,8 +264,8 @@ export const seoPages: SeoPageData[] = [
           "Long-standing media inventory for all your marketing needs",
           "Specialized in Houston's dynamic business landscape",
         ],
-        image: "/images/seo/approved/commercialphotography-retail35.jpg",
-        imageAlt: "Business marketing photography Houston",
+        image: "/images/seo/approved/commercialphotography-unbridaled-boutique.jpg",
+        imageAlt: "Business marketing photography for a Houston bridal boutique - owners and team on the retail floor",
       },
       {
         heading: "The Impact of Visual Storytelling on Your Brand",
@@ -813,7 +818,11 @@ export const seoPages: SeoPageData[] = [
     slug: "fashion-video-production-services-houston",
     title: "Fashion Video Production Services in Houston, TX",
     subtitle: "Motion That Makes Your Brand Move",
-    heroImage: "/images/seo/approved/fashionvideo-hero-4q7a0674.jpg",
+    heroImage: "/images/seo/approved/fashionvideo-hero-weissman-spring26.jpg",
+    /* Frame Weissman Spring FY26 film se hi liya hai - wahi film neeche
+       process section me chalti hai. 30% par chehra aur uthaya hua haath
+       dono band me poore rehte hain. */
+    heroPosition: "center 30%",
     intro:
       "Fashion video production services in Houston, TX give your brand something a still image cannot: movement, rhythm, and story. When a designer or label needs to show how a collection moves, video is what carries it. Video is where fashion comes alive. A campaign film sets a mood in seconds, a lookbook video shows a full collection in motion, and social-first clips put your label in front of the audience already scrolling for it.",
     sections: [
