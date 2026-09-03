@@ -869,6 +869,113 @@ export const seoPages: SeoPageData[] = [
       "Fashion video production services in Houston, TX. Ashkan Studios creates brand films, lookbook videos, and fashion campaigns for designers and labels.",
   },
 
+  /* ── Car / automotive, Mahendra 9/3 ─────────────────────────────────
+     Dono pages client ke supplied docs se hain. Doc ne har image slot ke
+     saath site ka filename bhi diya tha, to hero/section images wahi hain
+     - bas Drive ke 8192px originals se dobara banayi gayi hain, doc me
+     embedded 2046px copies se nahi. */
+  {
+    slug: "car-photography-houston",
+    title: "Car Photography in Houston, TX",
+    subtitle: "Every Angle, Every Detail, Built to Sell",
+    heroImage: "/images/seo/approved/car-hero-mustang-095.jpg",
+    intro:
+      "Car photography in Houston has to do more than show a vehicle. It has to capture the stance, the lines, the paint, and the detail that make a buyer stop and look. When a dealership, brand, or private collector works with Ashkan Studios, we shoot automotive images built to sell, whether the car is a daily driver, a luxury build, or an exotic on the showroom floor. We shoot cars the way they deserve to be seen, with controlled lighting, clean reflections, and composition that flatters every panel.",
+    sections: [
+      {
+        heading: "Commercial and Luxury Automotive Photography",
+        body: "Our car photography covers the full range of what a dealership or automotive brand needs, from clean commercial coverage that keeps the vehicle sharp and consistent to luxury and editorial work that gives a build the drama it deserves. We match the approach to where the images will live.",
+        bullets: [
+          "Dealership and inventory photography for listings",
+          "Luxury and exotic car photography with editorial lighting",
+          "Detail and interior shots that show craftsmanship",
+          "Rolling and location shoots for campaign imagery",
+          "Studio automotive photography with controlled reflections",
+          "Classic and collector car documentation",
+        ],
+        image: "/images/seo/approved/car-luxury-296gtb-070.jpg",
+        imageAlt: "Luxury car photography Houston - Ferrari 296 GTB",
+      },
+      {
+        heading: "Who We Photograph Cars for in Houston",
+        body: "Houston's automotive scene runs from high-volume dealerships to private collectors and aftermarket brands, and our work adapts to each. We shoot for clients who need images that hold up on a listing, a website, and a social feed at the same time.",
+        bullets: [
+          "Car dealerships and used-car lots",
+          "Luxury and exotic car dealers",
+          "Private collectors and enthusiasts",
+          "Automotive aftermarket and parts brands",
+          "Rental and specialty vehicle companies",
+        ],
+      },
+      {
+        heading: "Our Car Photography Process",
+        body: "Every strong automotive shoot starts before the camera comes out. We begin with a consultation to understand the vehicle, your goals, and where the images will run. From there we plan lighting, angles, and setting so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and detail that make or break a car image. We deliver retouched, ready-to-publish car photography built to perform across your listings, website, print, and social channels.",
+        image: "/images/seo/approved/car-classic-clenet-505.jpg",
+        imageAlt: "Classic car photography detail at Ashkan Studios Houston",
+      },
+    ],
+    ctaHeading: "READY TO SHOOT YOUR INVENTORY OR COLLECTION?",
+    ctaText:
+      "Ashkan Studios brings lighting, detail, and creative direction together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for car photography that sells the vehicle.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Car Photography in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Professional car photography in Houston, TX. Ashkan Studios shoots luxury, dealership, and commercial automotive images that sell vehicles. Book a shoot.",
+  },
+
+  {
+    slug: "automotive-video-production-houston",
+    title: "Automotive Video Production in Houston, TX",
+    subtitle: "Motion, Detail, and Cinematic Drive",
+    heroImage: "/images/seo/approved/autovideo-hero-mustang-111.jpg",
+    intro:
+      "Automotive video production in Houston gives a vehicle something photos cannot: motion, sound, and drama. When a dealership or automotive brand works with Ashkan Studios, we translate a car into a cinematic video that shows how it moves, how it sounds, and why it turns heads. From rolling shots to detail sequences, our Houston team produces automotive content built to sell. A cinematic brand film sets a mood in seconds, a walkaround video shows a vehicle in full, and social-first clips keep your inventory in front of buyers.",
+    sections: [
+      {
+        /* Doc ne yahan ek Ferrari still rakhi thi, par ye section hai hi
+           video formats ke baare me - to catalog ka asli automotive film
+           lagaya hai (1968 Mustang GT, auto shop me shoot hua). */
+        heading: "Cinematic Car Videos, Walkarounds, and Brand Films",
+        body: "Our automotive video production covers everything from cinematic brand films to fast, social-ready walkarounds. We match the format to your goal, whether that is launching a model, moving inventory, or feeding a content calendar.",
+        bullets: [
+          "Automotive brand films and campaign videos",
+          "Dealership walkaround and inventory videos",
+          "Rolling and tracking shots for cinematic motion",
+          "Detail and interior sequences",
+          "Social-first content and reels for dealers and brands",
+          "Luxury and exotic car feature films",
+        ],
+        video:
+          "https://player.vimeo.com/video/1189136660?h=00ea4a2e1c&title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "1968 Mustang GT / Auto Shop",
+      },
+      {
+        heading: "Who We Produce Automotive Video for in Houston",
+        body: "Houston's dealers, collectors, and automotive brands need video that competes on every screen. We produce content for clients who want their vehicles to look as strong in motion as they do in person.",
+        bullets: [
+          "Car dealerships and dealer groups",
+          "Luxury and exotic car dealers",
+          "Automotive aftermarket and parts brands",
+          "Private collectors and enthusiasts",
+          "Rental and specialty vehicle companies",
+        ],
+      },
+      {
+        heading: "Our Automotive Video Production Process",
+        body: "Strong automotive video starts with a clear plan. We open with a consultation to understand the vehicle, your audience, and the story you want in motion. From there we handle concept, location, lighting, and shot planning, then move into filming and post. With a controlled space and full setup at our Silos at Sawyer Yards studio, we keep your Houston automotive production under one roof. Our team edits, color grades, and delivers final video cut for the platforms where your buyers watch, from your website and listings to Instagram, TikTok, and YouTube.",
+        image: "/images/seo/approved/autovideo-detail-296gtb-121.jpg",
+        imageAlt: "Automotive video detail shoot at Ashkan Studios Houston",
+      },
+    ],
+    ctaHeading: "READY TO PUT YOUR VEHICLES IN MOTION?",
+    ctaText:
+      "Ashkan Studios brings direction, filming, and post-production together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for automotive video production that moves vehicles.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Automotive Video Production in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Automotive video production in Houston, TX. Ashkan Studios creates cinematic car videos, dealership content, and brand films that move vehicles. Get in touch.",
+  },
+
 ];
 
 /** Look up an SEO page by its URL slug */

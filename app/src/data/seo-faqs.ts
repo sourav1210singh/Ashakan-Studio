@@ -276,4 +276,49 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
       a: "Contact our team or call the studio to set up a consultation. We will talk through your collection, goals, and timeline, then build a production plan and schedule your shoot.",
     },
   ],
+  "car-photography-houston": [
+    {
+      q: "What is included in a car photography session in Houston?",
+      a: "A typical session includes a consultation, professional lighting, exterior, interior, and detail coverage, and a set of fully retouched final images. Depending on your package we can shoot in-studio or on location, and cover single vehicles or full dealership inventory.",
+    },
+    {
+      q: "Do you photograph dealership inventory and single vehicles?",
+      a: "Yes. We shoot high-volume dealership inventory for consistent listings as well as individual luxury, exotic, and collector cars that call for a more editorial approach. We scale the setup to the job.",
+    },
+    {
+      q: "Can you shoot cars in-studio and on location in Houston?",
+      a: "We do both. Our Houston studio at the Silos at Sawyer Yards gives full control over light and reflections, while location and rolling shoots add real-world context for campaign work. The choice depends on the look you need.",
+    },
+    {
+      q: "How do you handle reflections and detail on a car?",
+      a: "Controlled lighting is everything in car photography. We light to manage reflections on paint, glass, and chrome, and we shoot detail and interior frames that show the craftsmanship a buyer wants to see up close.",
+    },
+    {
+      q: "How do I book a car photography shoot in Houston?",
+      a: "Reach out through our contact page or call the studio, and we will set up a consultation to discuss the vehicles, timeline, and where the images will run. From there we build a shoot plan and lock in your date.",
+    },
+  ],
+
+  "automotive-video-production-houston": [
+    {
+      q: "What does automotive video production in Houston include?",
+      a: "Our services cover the full production: concept, location and lighting, filming, editing, and color grading. Depending on your package we can produce cinematic brand films, dealership walkarounds, rolling shots, and social-ready clips, shot in-studio or on location.",
+    },
+    {
+      q: "What types of automotive videos do you produce?",
+      a: "We produce brand films, dealership walkaround and inventory videos, rolling and tracking shots, detail sequences, and social-first clips for dealers and brands. We match the format and length to where the video will run.",
+    },
+    {
+      q: "Do you shoot car video in-studio or on location?",
+      a: "Both. We film at our studio in the Silos at Sawyer Yards and on location across Houston, TX, including rolling shots for cinematic motion. The setting depends on the look and the vehicle.",
+    },
+    {
+      q: "Can you handle both photography and video for our vehicles?",
+      a: "Yes. As a full-service production studio, Ashkan Studios can capture automotive photography and video in the same session, so you leave with a complete set of assets from a single production.",
+    },
+    {
+      q: "How do I start an automotive video project in Houston?",
+      a: "Contact our team or call the studio to set up a consultation. We will talk through the vehicles, goals, and timeline, then build a production plan and schedule your shoot.",
+    },
+  ],
 };
