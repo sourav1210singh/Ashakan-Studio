@@ -37,18 +37,26 @@ if (!is_array($body)) { $body = $_POST; }
 
 $name    = trim((string) ($body['name'] ?? ''));
 $email   = trim((string) ($body['email'] ?? ''));
+$phone   = trim((string) ($body['phone'] ?? ''));
 $company = trim((string) ($body['company'] ?? ''));
 $type    = trim((string) ($body['projectType'] ?? ''));
 $message = trim((string) ($body['message'] ?? ''));
 
-if ($name === '' || $email === '' || $message === '') {
+if ($name === '' || $email === '' || $phone === '' || $message === '') {
     http_response_code(400);
-    echo json_encode(array('error' => 'Please fill in your name, email, and message.'));
+    echo json_encode(array('error' => 'Please fill in your name, email, phone, and message.'));
     exit;
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     echo json_encode(array('error' => 'Please enter a valid email address.'));
+    exit;
+}
+// Phone required hai (client 9/5). Format nahi thopa - US, international,
+// extensions sab chalte hain - bas itne digits ho ki number asli lage.
+if (strlen(preg_replace('/\D/', '', $phone)) < 7) {
+    http_response_code(400);
+    echo json_encode(array('error' => 'Please enter a phone number we can reach you on.'));
     exit;
 }
 
@@ -64,6 +72,11 @@ if ($configured && function_exists('curl_init')) {
     };
     $n = $esc($name);
     $e = $esc($email);
+    $ph = $esc($phone);
+    // tel: link ke liye. Pehle "ext. 12" / "x12" jaisa suffix kaato -
+    // warna uske digits number me chipak kar galat number bana dete
+    // hain - phir spaces/brackets hata do, leading + rehne do.
+    $phLink = $esc(preg_replace('/[^\d+]/', '', preg_replace('/[A-Za-z].*$/', '', $phone)));
     $c = $esc($company);
     $t = $esc($type);
     $m = $esc($message);
@@ -90,6 +103,7 @@ if ($configured && function_exists('curl_init')) {
       . '<tr><td style="padding:14px 40px 0"><table role="presentation" cellpadding="0" cellspacing="0" width="100%">'
       . '<tr><td style="' . $rowL . '">Name</td><td style="' . $rowR . '"><strong style="font-weight:bold">' . $n . '</strong></td></tr>'
       . '<tr><td style="' . $rowL . '">Email</td><td style="' . $rowR . '"><a href="mailto:' . $e . '" style="color:#1A1A1A;text-decoration:underline">' . $e . '</a></td></tr>'
+      . '<tr><td style="' . $rowL . '">Phone</td><td style="' . $rowR . '"><a href="tel:' . $phLink . '" style="color:#1A1A1A;text-decoration:underline">' . $ph . '</a></td></tr>'
       . '<tr><td style="' . $rowL . '">Company</td><td style="' . $rowR . '">' . ($c !== '' ? $c : '&mdash;') . '</td></tr>'
       . '<tr><td style="' . $rowL . '">Project type</td><td style="' . $rowR . '">' . ($t !== '' ? $t : '&mdash;') . '</td></tr>'
       . '</table></td></tr>'
@@ -159,6 +173,7 @@ $entry   = json_encode(array(
     'time'        => gmdate('c'),
     'name'        => $name,
     'email'       => $email,
+    'phone'       => $phone,
     'company'     => $company,
     'projectType' => $type,
     'message'     => $message,

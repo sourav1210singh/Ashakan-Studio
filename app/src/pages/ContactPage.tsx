@@ -13,6 +13,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
     projectType: "",
     message: "",
@@ -22,6 +23,15 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    /* Phone ko required kiya gaya hai (client 9/5). type="tel" browser
+       me format enforce nahi karta, isliye digits gin lete hain - wahi
+       check contact.php me bhi hai, taaki koi form ko bypass karke
+       seedha POST kare to bhi khaali phone na aaye. */
+    if (formData.phone.replace(/\D/g, "").length < 7) {
+      setErrorMsg("Please enter a phone number we can reach you on.");
+      setStatus("error");
+      return;
+    }
     setStatus("sending");
     setErrorMsg("");
     try {
@@ -76,7 +86,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
         throw new Error(apiError || "Failed to send your message.");
       }
       setStatus("sent");
-      setFormData({ name: "", email: "", company: "", projectType: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", projectType: "", message: "" });
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
       setStatus("error");
@@ -124,7 +134,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium tracking-wider text-dark mb-2">
-                      NAME
+                      NAME <span className="text-dark/40">*</span>
                     </label>
                     <input
                       type="text"
@@ -137,7 +147,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   </div>
                   <div>
                     <label className="block text-sm font-medium tracking-wider text-dark mb-2">
-                      EMAIL
+                      EMAIL <span className="text-dark/40">*</span>
                     </label>
                     <input
                       type="email"
@@ -145,6 +155,20 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full px-4 py-3 border border-dark/20 rounded-lg focus:border-dark focus:outline-none transition-colors bg-transparent"
                       placeholder="your@email.com"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium tracking-wider text-dark mb-2">
+                      PHONE <span className="text-dark/40">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full px-4 py-3 border border-dark/20 rounded-lg focus:border-dark focus:outline-none transition-colors bg-transparent"
+                      placeholder="(346) 335-7973"
+                      autoComplete="tel"
                       required
                     />
                   </div>
@@ -179,7 +203,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   </div>
                   <div>
                     <label className="block text-sm font-medium tracking-wider text-dark mb-2">
-                      MESSAGE
+                      MESSAGE <span className="text-dark/40">*</span>
                     </label>
                     <textarea
                       value={formData.message}

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   LogOut, Plus, Pencil, Trash2, Image as ImageIcon, Eye, EyeOff,
   ArrowLeft, Loader2, ExternalLink, BookOpen, Users, RefreshCw,
-  ChevronDown, Mail, CalendarClock, Wand2,
+  ChevronDown, Mail, Phone, CalendarClock, Wand2,
 } from "lucide-react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
@@ -441,6 +441,7 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                       <p className="font-medium text-dark truncate">{l.name}</p>
                       <p className="text-xs text-dark/50 truncate">
                         {l.email}
+                        {l.phone ? ` · ${l.phone}` : ""}
                         {l.company ? ` · ${l.company}` : ""}
                         {l.projectType ? ` · ${l.projectType}` : ""}
                       </p>
@@ -466,12 +467,24 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                       <div className="bg-warmbeige/60 rounded-lg px-4 py-3 text-sm text-dark/80 whitespace-pre-wrap leading-relaxed">
                         {l.message}
                       </div>
-                      <a
-                        href={`mailto:${l.email}?subject=${encodeURIComponent("Re: Your enquiry with Ashkan Studios")}`}
-                        className="mt-3 inline-flex items-center gap-2 text-xs font-medium tracking-wider text-dark/70 hover:text-dark"
-                      >
-                        <Mail className="w-3.5 h-3.5" /> REPLY TO {l.name.toUpperCase()}
-                      </a>
+                      <div className="mt-3 flex flex-wrap items-center gap-5">
+                        <a
+                          href={`mailto:${l.email}?subject=${encodeURIComponent("Re: Your enquiry with Ashkan Studios")}`}
+                          className="inline-flex items-center gap-2 text-xs font-medium tracking-wider text-dark/70 hover:text-dark"
+                        >
+                          <Mail className="w-3.5 h-3.5" /> REPLY TO {l.name.toUpperCase()}
+                        </a>
+                        {/* Phone 9/5 se required hai; purani leads me nahi
+                            hai, to link tabhi dikhao jab number ho. */}
+                        {l.phone && (
+                          <a
+                            href={`tel:${l.phone.replace(/[A-Za-z].*$/, "").replace(/[^\d+]/g, "")}`}
+                            className="inline-flex items-center gap-2 text-xs font-medium tracking-wider text-dark/70 hover:text-dark"
+                          >
+                            <Phone className="w-3.5 h-3.5" /> {l.phone}
+                          </a>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
