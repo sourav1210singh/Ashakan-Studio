@@ -30,6 +30,9 @@ export interface Lead {
   time: string;
   name: string;
   email: string;
+  /** 9/5 se required. Us se pehle log hui leads me ye field nahi hai,
+      isliye optional - purani rows waise hi render hoti rahein. */
+  phone?: string;
   company: string;
   projectType: string;
   message: string;
