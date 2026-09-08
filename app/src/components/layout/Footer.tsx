@@ -344,7 +344,6 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
             >
               Incrementors
             </a>
-            .
           </p>
         </div>
       </div>
