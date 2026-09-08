@@ -331,9 +331,9 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           {/* Agency credit - same muted color/size as the copyright,
               normal case (no uppercase / no bold), link brightens on
               hover. Placed on its own line below so it stays subtle.
-              Wording per Ashkan (Discord 7/1): "Created by Incrementors.
-              We walk you through every aspect of the design on this
-              website." replaces the previous "Designed by Incrementors". */}
+              7/1 ki wording ke saath ek doosra vaakya bhi aaya tha; 9/8
+              ko Ashkan ne bataya ki wo unka internal context tha, kabhi
+              publish hone ke liye tha hi nahi. Ab sirf credit line. */}
           <p className="text-xs sm:text-sm text-white/40 text-center mt-1.5">
             Created by{" "}
             <a
@@ -344,7 +344,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
             >
               Incrementors
             </a>
-            . We walk you through every aspect of the design on this website.
+            .
           </p>
         </div>
       </div>
