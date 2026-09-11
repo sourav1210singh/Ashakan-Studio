@@ -485,13 +485,13 @@ export const projects: Project[] = [
   {
     id: "weissman-elite",
     client: "WEISSMAN ELITE",
-    title: "Dancewear That Inspires",
+    title: "Performance Apparel That Inspires",
     categories: ["RETAIL", "PHOTOGRAPHY", "VIDEOGRAPHY"],
     /* Dedicated 16:9 cover (Brandi 6/5) - landscape, fills the hero
        slot with no crop (the home-page tile is portrait). */
     heroImage: "/images/campaigns/covers/weissman-cover.webp",
     description:
-      "Weissman Elite is a leading name in performance dancewear. Across multiple seasons, from Winter 2022 through Spring 2026, we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of dance while highlighting Weissman's bold designs and innovative fabrics.",
+      "Weissman Elite is a leading name in performance apparel. Across multiple seasons, from Winter 2022 through Spring 2026, we produced photography and video campaigns showcasing their collections. Each shoot captures the energy, movement, and artistry of performance while highlighting Weissman's bold designs and innovative fabrics.",
 
     /* ── Brandi's 5/7/26 review-notes copy for Weissman ──────────────
        PDF pages 37-44. Story & Intent + IMPACT verbatim from Brandi.
@@ -499,10 +499,10 @@ export const projects: Project[] = [
        Brandi's PDF shows Deutsch placeholder text in that section
        (template overlap); waiting on Weissman-specific copy. */
     storyAndIntent:
-      "Weissman is one of the leading names in the American dance costume industry, producing seasonal campaigns that influence studios and buyers across the country. From Spring 2022 through Fall 2026, we led the full photo and video production for Weissman Elite line's seasonal launches, creating large-scale campaigns built around evolving creative themes designed to strengthen brand identity and support nationwide sales efforts. Each season introduced a new visual world, balancing fashion-forward storytelling with the technical demands of dance movement, product visibility, and commercial performance. The resulting campaigns became the foundation of Weissman Elite's multi-platform marketing ecosystem, spanning nationally distributed print catalogs, e-commerce platforms, social media, digital advertising, and email campaigns.",
+      "Weissman is one of the leading names in the American performance apparel industry, producing seasonal campaigns that influence studios and buyers across the country. From Spring 2022 through Fall 2026, we led the full photo and video production for Weissman Elite line's seasonal launches, creating large-scale campaigns built around evolving creative themes designed to strengthen brand identity and support nationwide sales efforts. Each season introduced a new visual world, balancing fashion-forward storytelling with the technical demands of movement, product visibility, and commercial performance. The resulting campaigns became the foundation of Weissman Elite's multi-platform marketing ecosystem, spanning nationally distributed print catalogs, e-commerce platforms, social media, digital advertising, and email campaigns.",
     impact: [
-      "This long-term partnership became a central part of Weissman Elite's seasonal marketing and sales ecosystem. Across more than 15 campaigns, thousands of products were photographed and filmed through productions ranging from two to six weeks, often involving crews of 10-20 alongside casts of 20-40 local and national dancers per project. The resulting content supported nearly every customer-facing touchpoint for the brand, including nationally distributed catalogs, e-commerce platforms, social media campaigns, digital advertising, trade shows, conventions, and web-based product experiences.",
-      "With approximately 8,000-10,000 catalogs distributed to dance studios across the country each season, the imagery and video content played a direct role in how products were presented, experienced, and ultimately purchased. From attention-grabbing campaign visuals to product-focused selling assets, the work helped shape the visual identity of Weissman Elite while supporting buyer engagement across both print and digital platforms.",
+      "This long-term partnership became a central part of Weissman Elite's seasonal marketing and sales ecosystem. Across more than 15 campaigns, thousands of products were photographed and filmed through productions ranging from two to six weeks, often involving crews of 10-20 alongside casts of 20-40 local and national performers per project. The resulting content supported nearly every customer-facing touchpoint for the brand, including nationally distributed catalogs, e-commerce platforms, social media campaigns, digital advertising, trade shows, conventions, and web-based product experiences.",
+      "With approximately 8,000-10,000 catalogs distributed to studios and retailers across the country each season, the imagery and video content played a direct role in how products were presented, experienced, and ultimately purchased. From attention-grabbing campaign visuals to product-focused selling assets, the work helped shape the visual identity of Weissman Elite while supporting buyer engagement across both print and digital platforms.",
     ],
     servicesLabel: "PHOTOGRAPHY / VIDEOGRAPHY",
     deliverablesLabel:
@@ -516,7 +516,7 @@ export const projects: Project[] = [
     hideBts: true,
     /* Custom quote - pulled from Brandi's new Story & Intent copy. */
     quote: {
-      text: "Each season introduced a new visual world, balancing fashion-forward storytelling with the technical demands of dance movement, product visibility, and commercial performance.",
+      text: "Each season introduced a new visual world, balancing fashion-forward storytelling with the technical demands of movement, product visibility, and commercial performance.",
       attribution: "Ashkan Studios - Weissman Elite Campaigns",
     },
 

@@ -341,7 +341,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "As videographers in Houston, we have an amazing variety of businesses to work with. First, we set up a consultation to discuss your services, your style, and your goals. In addition to your thoughts as well as our own artistic ideas, we create your videography shoot plan. Your shoot could take place inside our amazing studio, or we can work to find you a suitable commercial location. We have a plethora of background colors, and models in addition to hair and makeup artists. Our professional video editors will use your beautiful footage to create your finalized promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
+        body: "As videographers in Houston, we have an amazing variety of businesses to work with. First, we set up a consultation to discuss your services, your style, and your goals. In addition to your thoughts as well as our own artistic ideas, we create your videography shoot plan. Your shoot could take place inside our amazing studio, or we can work to find you a suitable commercial location. We have a plethora of background colors, and models in addition to hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
         bullets: [
           "Cancer research companies and medical offices",
           "Women's activewear companies",
@@ -404,7 +404,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "As videographers in Houston, we work with an amazing variety of businesses. We start with a consultation to discuss your services, style, and goals. Your shoot could take place inside our studio, or we can find you a suitable commercial location. We have a plethora of background options, models, and hair and makeup artists. Our professional editors create your finalized video at any length, with royalty-free music and full web and social media rights.",
+        body: "As videographers in Houston, we work with an amazing variety of businesses. We start with a consultation to discuss your services, style, and goals. Your shoot could take place inside our studio, or we can find you a suitable commercial location. We have a plethora of background options, models, and hair and makeup artists. Our production team delivers your finished video at any length, with royalty-free music and full web and social media rights.",
         bullets: [
           "Concept development to final delivery",
           "Professional crew and equipment",
@@ -927,7 +927,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Automotive Video Production Process",
-        body: "Strong automotive video starts with a clear plan. We open with a consultation to understand the vehicle, your audience, and the story you want in motion. From there we handle concept, location, lighting, and shot planning, then move into filming and post. With a controlled space and full setup at our Silos at Sawyer Yards studio, we keep your Houston automotive production under one roof. Our team edits, color grades, and delivers final video cut for the platforms where your buyers watch, from your website and listings to Instagram, TikTok, and YouTube.",
+        body: "Strong automotive video starts with a clear plan. We open with a consultation to understand the vehicle, your audience, and the story you want in motion. From there we handle concept, location, lighting, and shot planning, then move into filming and post. With a controlled space and full setup at our Silos at Sawyer Yards studio, we keep your Houston automotive production under one roof. Our team produces and finishes the film in-house, delivered for the platforms where your buyers watch, from your website and listings to Instagram, TikTok, and YouTube.",
         image: "/images/seo/approved/autovideo-detail-296gtb-121.jpg",
         imageAlt: "Automotive video detail shoot at Ashkan Studios Houston",
       },
