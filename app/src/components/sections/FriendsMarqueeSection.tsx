@@ -78,7 +78,7 @@ function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {
   const img = (
     <img
       src={logo.src}
-      alt={logo.name}
+      alt={logo.alt ?? logo.name}
       loading="lazy"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

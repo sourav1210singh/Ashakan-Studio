@@ -36,9 +36,9 @@ const CAPABILITIES = [
       "End-to-end production of photography and video campaigns built from concept to final delivery. We align creative direction with client goals to produce cohesive visual systems executed across a full production team.",
   },
   {
-    title: "POST PRODUCTION",
+    title: "FINISHING & DELIVERY",
     body:
-      "Editing, color, sound, and finishing for photography and video. We refine raw production into final campaign assets optimized for digital, print, and marketing use across platforms.",
+      "Every project is finished in-house - colour, sound and final delivery - so your campaign assets arrive ready to use across digital, print and marketing platforms.",
   },
 ];
 
@@ -59,10 +59,10 @@ const WORK_APPLICATIONS = [
   "Aerial Videography",
   "Documentary & Narrative",
   "Social Media Content",
-  "Retouching & Color Grading",
+  "Retouching & Finishing",
   "Script Assistance",
   "Voiceover/Interviews",
-  "Film Editing",
+  "Creative Direction",
   "Music Videos",
 ];
 

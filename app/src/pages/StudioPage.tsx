@@ -79,9 +79,9 @@ const PROCESS = [
   },
   {
     step: "03",
-    title: "POST PRODUCTION & DELIVERY",
+    title: "FINISHING & DELIVERY",
     body:
-      "All editing, color, retouching, and video finishing is handled in-house. Final assets are refined into cohesive, ready-to-use content built for digital, print, and campaign distribution.",
+      "Every project is finished in-house. Final assets are refined into cohesive, ready-to-use content built for digital, print and campaign distribution.",
   },
 ];
 
@@ -89,9 +89,9 @@ const PROCESS = [
    note 'this image, click to get to it directly' for the studio
    space photo cluster. Includes the wide hero shot for variety. */
 const STUDIO_GALLERY = [
-  { src: "/images/studio/studio-interior-2.jpg", alt: "Ashkan Studios - cyclorama wall and lighting setup" },
+  { src: "/images/studio/studio-interior-2.jpg", alt: "Ashkan Studios - production lighting setup" },
   { src: "/images/studio/studio-wide.jpg", alt: "Ashkan Studios - wide angle of the studio floor" },
-  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios - dancer in motion on teal backdrop" },
+  { src: "/images/studio/studio-sample-2.jpg", alt: "Ashkan Studios - subject in motion on teal backdrop" },
   { src: "/images/studio/studio-interior-1.jpg", alt: "Ashkan Studios - full studio interior" },
 ];
 
@@ -132,7 +132,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                 {/* Keyword-rich H1 per the SEO sheet, replacing the
                     generic all-caps "THE STUDIO" - see PAGE_H1_SIZE. */}
                 <h1 className={`font-display ${PAGE_H1_SIZE} text-white tracking-tight leading-[1.05]`}>
-                  Houston Photography Studio Space - Sawyer Yards, TX
+                  Our Houston Production Studio - Sawyer Yards, TX
                 </h1>
               </FadeIn>
             </div>
@@ -194,7 +194,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               <FadeIn>
-                <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">THE SPACE</span>
+                <span className="text-sm font-medium tracking-wider text-dark/40 mb-4 block">OUR FACILITY</span>
                 {/* Heading renamed 2026-05-12 from '1,500 SQ FT / OF
                     CREATIVE / POSSIBILITY.' to 'DEDICATED CREATIVE
                     STUDIO' per Brandi's PDF page 66 annotation. */}

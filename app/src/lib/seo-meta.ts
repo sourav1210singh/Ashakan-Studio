@@ -124,9 +124,9 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
 
     case "studio":
       return {
-        title: `Houston Photography Studio Space - ${SITE_NAME}`,
+        title: `The Studio - Our Houston Production Space | ${SITE_NAME}`,
         description:
-          "Tour Ashkan Studios' dedicated Houston photography studio space in Sawyer Yards. Full production facility, in-house team. Book a visit today.",
+          "Go inside Ashkan Studios' Houston production studio in Sawyer Yards - a full in-house team for commercial photography and video. Start your project today.",
         path: "/studio/",
       };
 

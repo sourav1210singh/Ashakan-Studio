@@ -78,7 +78,7 @@ export const seoPages: SeoPageData[] = [
         bullets: [
           "Women's activewear companies",
           "Hand-crafted African wood furniture creators",
-          "Dancewear designers",
+          "Performance apparel brands",
           "Luxury eyewear distributors",
           "Food and beverage brands",
         ],
@@ -141,7 +141,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "A Team of Artists",
-        body: "We take a special approach. Our team is made of artists of all sorts. We are filmmakers, commercial photographers, and dance/movement photographers. This gives us a very unique perspective and separates us from other photographers in the space. We know how to capture the best moments, light our subjects in the most flattering way, and capture images that truly stand out. It takes a team effort to produce the very best commercial photography in Houston.",
+        body: "We take a special approach. Our team is made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives us a very unique perspective and separates us from other photographers in the space. We know how to capture the best moments, light our subjects in the most flattering way, and capture images that truly stand out. It takes a team effort to produce the very best commercial photography in Houston.",
         bullets: [
           "Product photography with professional styling",
           "Commercial headshots for businesses",
@@ -376,7 +376,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "As videographers in Houston, we have an amazing variety of businesses to work with. We set up a consultation to discuss your services, your style, and your goals. With your thoughts as well as our artistic ideas, we create your videography shoot plan. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have background options, models, hair and makeup artists. Our professional video editors create your finalized promotional video at any length, with royalty-free music and full rights to use on the web and social media.",
+        body: "As videographers in Houston, we have an amazing variety of businesses to work with. We set up a consultation to discuss your services, your style, and your goals. With your thoughts as well as our artistic ideas, we create your videography shoot plan. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have background options, models, hair and makeup artists. Our production team then delivers your finished promotional video at any length, with royalty-free music and full rights to use on the web and social media.",
       },
     ],
     ctaHeading: "GROW WITH VIDEO",
@@ -386,41 +386,6 @@ export const seoPages: SeoPageData[] = [
     metaTitle: "Commercial Videographers in Houston, TX - Ashkan Studios",
     metaDescription:
       "Trusted commercial videographers in Houston, TX. Ashkan Studios produces creative, professional video content for businesses. View our reel & connect.",
-  },
-
-  {
-    slug: "video-editing-services-in-houston",
-    title: "Video Editing Services in Houston, TX",
-    subtitle: "Professional Video Editing & Post-Production",
-    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
-    intro:
-      "Are you looking for video editing services in Houston? If you're looking to have existing footage edited or re-edited, we're here for you! Whether you need a fresh cut or a complete overhaul, Ashkan Studios brings creative expertise and professional post-production to every project. With professional promotional videography, you bring your audience into your brand.",
-    sections: [
-      {
-        heading: "Expert Video Editing",
-        body: "Our professional video editors will use your beautiful footage to create your finalized promotional video at any length, with royalty-free music and rights to use on the web and in social media. Whether you need a social media cut, a full commercial edit, or re-editing of existing footage, we deliver polished results that represent your brand at its best.",
-        image: "/images/seo/approved/videography-010-eg-q1-april25.jpg",
-        imageAlt: "Video editing services Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "We set up a consultation to discuss your project, your style, and your goals. We combine your thoughts with our artistic ideas to create the perfect edit. From color grading to sound design, from motion graphics to final delivery, we handle every aspect of post-production to ensure your video exceeds expectations.",
-        bullets: [
-          "Fresh edits and complete overhauls",
-          "Royalty-free music and sound design",
-          "Color grading and visual effects",
-          "Optimized for web and social media",
-          "Multiple format delivery",
-        ],
-      },
-    ],
-    ctaHeading: "PERFECT YOUR VIDEO",
-    ctaText:
-      "Send us your footage and let us work our magic. Professional video editing that elevates your content.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Video Editing Services in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Professional video editing services in Houston, TX. Expert post-production, color grading & creative editing by Ashkan Studios. Get a quote today.",
   },
 
   {
@@ -444,7 +409,7 @@ export const seoPages: SeoPageData[] = [
           "Concept development to final delivery",
           "Professional crew and equipment",
           "Studio and on-location production",
-          "Post-production and editing",
+          "Post-production & final delivery",
           "Full rights for web and social media use",
         ],
       },
@@ -474,7 +439,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "As a Houston videographer team that has grown into an amazing creative force, we have worked with a wonderful variety of businesses. We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our professional video editors create your finalized promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
+        body: "As a Houston videographer team that has grown into an amazing creative force, we have worked with a wonderful variety of businesses. We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
         bullets: [
           "Cancer research companies and medical offices",
           "Women's activewear companies",
@@ -499,7 +464,7 @@ export const seoPages: SeoPageData[] = [
     subtitle: "Houston's Creative Videography Team",
     heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
     intro:
-      "Are you looking for videography in Houston? Ashkan Studios is here to help. We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and dance/movement photographers. This gives our imagery a notable artistic edge. When you work with us, you can expect a team of qualified, creative, and friendly professionals.",
+      "Are you looking for videography in Houston? Ashkan Studios is here to help. We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives our imagery a notable artistic edge. When you work with us, you can expect a team of qualified, creative, and friendly professionals.",
     sections: [
       {
         heading: "Why Choose Us for Videography in Houston",
@@ -535,7 +500,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "A Team of Creative Artists",
-        body: "We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and dance/movement photographers. This gives our creative content a distinctively artistic edge. When you work with Ashkan Studios, you can expect a team of qualified, creative, and friendly professionals. This is what makes us one of the most reliable options for videography in The Woodlands and the greater Houston area.",
+        body: "We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives our creative content a distinctively artistic edge. When you work with Ashkan Studios, you can expect a team of qualified, creative, and friendly professionals. This is what makes us one of the most reliable options for videography in The Woodlands and the greater Houston area.",
         image: "/images/seo/approved/videography-013-eg-april26-527.jpg",
         imageAlt: "Videography in The Woodlands TX",
       },
@@ -563,7 +528,7 @@ export const seoPages: SeoPageData[] = [
     sections: [
       {
         heading: "Statewide Video Production",
-        body: "No matter where in the state you are, Ashkan Studios is a solid choice if you are looking for top-quality videography in Texas. We are located near downtown Houston, and we love to travel! Whether working together means you come to our state-of-the-art studio, or we travel to you, we can guarantee you will love your videography results. We are a team made of artists of all sorts: filmmakers, commercial photographers, and dance/movement photographers. This gives our creative content a distinctively artistic edge.",
+        body: "No matter where in the state you are, Ashkan Studios is a solid choice if you are looking for top-quality videography in Texas. We are located near downtown Houston, and we love to travel! Whether working together means you come to our state-of-the-art studio, or we travel to you, we can guarantee you will love your videography results. We are a team made of artists of all sorts: filmmakers, commercial photographers, and movement photographers. This gives our creative content a distinctively artistic edge.",
         image: "/images/seo/approved/videography-010-eg-q1-april25.jpg",
         imageAlt: "Videography in Texas",
       },
@@ -605,7 +570,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Process",
-        body: "We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our professional video editors create your finalized promotional video at any length, with royalty-free music and rights to use on the web and social media.",
+        body: "We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and social media.",
       },
     ],
     ctaHeading: "FIND YOUR VIDEOGRAPHER",
@@ -656,7 +621,7 @@ export const seoPages: SeoPageData[] = [
 
   {
     slug: "vsl-arts-industry",
-    title: "Video Production for Arts & Dance Industry in Houston, TX",
+    title: "Video Production for the Arts & Culture Industry in Houston, TX",
     subtitle: "High-Quality, Strategic Video Content",
     heroImage: "/images/seo/approved/videography-the-art-5.jpg",
     videoEmbed: "https://player.vimeo.com/video/1040868785?h=90973fcfe1",
@@ -686,7 +651,7 @@ export const seoPages: SeoPageData[] = [
     ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
     metaTitle: "Video Production for Arts Industry | Ashkan Studios Houston",
     metaDescription:
-      "Video production for the arts industry in Houston. Ashkan Studios creates films for dance, visual arts, galleries, and cultural organizations.",
+      "Video production for the arts industry in Houston. Ashkan Studios creates films for visual arts, galleries, museums and cultural organizations.",
   },
 
   {
@@ -854,7 +819,7 @@ export const seoPages: SeoPageData[] = [
       },
       {
         heading: "Our Fashion Video Production Process",
-        body: "Strong fashion video starts with a clear creative plan. We open with a consultation to understand your collection, your audience, and the story you want the film to tell, then build the concept, casting, styling, and shot list around it. Our team edits, color grades, and delivers final video cut for the platforms where your audience actually watches, from your website and campaigns to reels and paid social.",
+        body: "Strong fashion video starts with a clear creative plan. We open with a consultation to understand your collection, your audience, and the story you want the film to tell, then build the concept, casting, styling, and shot list around it. Our team produces and finishes the film in-house, delivered for the platforms where your audience actually watches, from your website and campaigns to reels and paid social.",
         video:
           "https://player.vimeo.com/video/1145783498?h=6e07bd9e26&title=0&byline=0&portrait=0&dnt=1",
         videoTitle: "Weissman Spring 2026 Season Cross Genre",
