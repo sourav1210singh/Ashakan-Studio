@@ -182,7 +182,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
     },
     {
       q: "What's included when you deliver a commercial video, such as length, music, and revisions?",
-      a: "We deliver a finished, ready-to-publish video at the length your platform needs, with royalty-free music and full rights to use it on your website and social media. Sound design, colour and motion graphics are included in your finished delivery, and we align on revisions during planning so the final cut matches your expectations.",
+      a: "We deliver a finished, ready-to-publish video at the length your platform needs, with royalty-free music and full rights to use it on your website and social media. Sound design, colour and motion graphics are included in your finished delivery, and we align on revisions during planning so the final video matches your expectations.",
     },
   ],
   "videography-in-the-woodlands": [
@@ -280,7 +280,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
   "automotive-video-production-houston": [
     {
       q: "What does automotive video production in Houston include?",
-      a: "Our services cover the full production: concept, location and lighting, filming, editing, and color grading. Depending on your package we can produce cinematic brand films, dealership walkarounds, rolling shots, and social-ready clips, shot in-studio or on location.",
+      a: "Our services cover the full production: concept, location and lighting, filming, and full in-house finishing. Depending on your package we can produce cinematic brand films, dealership walkarounds, rolling shots, and social-ready clips, shot in-studio or on location.",
     },
     {
       q: "What types of automotive videos do you produce?",

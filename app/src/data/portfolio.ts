@@ -235,7 +235,10 @@ export const clientLogos: ClientLogo[] = [
   { name: "The Monarch School", src: "/images/logos/monarch.png",          priority: true, website: "https://www.monarchschool.org" },
   { name: "RadioMedix",        src: "/images/logos/radiomedix.png",        priority: true, website: "https://radiomedix.com" },
   { name: "Venus Aerospace",   src: "/images/logos/venus.png",             priority: true, website: "https://www.venusaero.com" },
-  { name: "Vitacca Ballet",    src: "/images/logos/vitacca.png",           priority: true, website: "https://vitaccaballet.org", alt: "Vitacca - Ashkan Studios client logo" },
+  /* Rows 30-31: logo proof ke liye rahega, par outbound link hataya
+     gaya - dance site se link hi wo signal tha jo Google ko is
+     domain ko dance se joda raha tha. */
+  { name: "Vitacca Ballet",    src: "/images/logos/vitacca.png",           priority: true, alt: "Vitacca - Ashkan Studios client logo" },
   { name: "Safari Vet",        src: "/images/logos/safari.png",            priority: true, website: "https://www.safarivet.com" },
   { name: "Citybook",          src: "/images/logos/citybook.png",          priority: true }, // client: do not link
   { name: "Bvlgari",           src: "/images/logos/bvlgari.png",           priority: true, website: "https://www.bulgari.com" },
@@ -253,7 +256,7 @@ export const clientLogos: ClientLogo[] = [
   { name: "Caspian",           src: "/images/logos/caspian.png",           priority: false, website: "https://cafecaspian.com" },
   { name: "Athletico",         src: "/images/logos/athletico.png",         priority: false },
   { name: "AG",                src: "/images/logos/ag.png",                priority: false },
-  { name: "ADC",               src: "/images/logos/adc.png",               priority: false, website: "https://theaustindanceconservatory.com" },
+  { name: "ADC",               src: "/images/logos/adc.png",               priority: false },
   { name: "Contour",           src: "/images/logos/contour.png",           priority: false },
   { name: "Élastique Athletics", src: "/images/logos/elastique.png",       priority: false, website: "https://www.elastiqueathletics.com" },
   { name: "Audaja Skincare",   src: "/images/logos/audaja.png",            priority: false, website: "https://audaja.com" },
