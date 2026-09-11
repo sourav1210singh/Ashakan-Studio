@@ -496,7 +496,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
                 classes (gentle on mobile, exact desktop value at lg). */}
             <InlineCutout
               src="/images/hero/cutouts/vitacca-pro-868.webp"
-              alt="Vitacca Pro dancer cutout"
+              alt="Ashkan Studios client - Vitacca"
               className="inline-block mr-[-26px] mt-[-46px] left-[-46px] md:mr-[-90px] md:mt-[-90px] md:left-[-64px] lg:mr-[-170px] lg:mt-[-140px] lg:left-[-185px] xl:left-[-154px] 2xl:left-[-134px]"
               width="clamp(78px, 23.4vw, 365px)"
               height="clamp(62px, 19.5vw, 295px)"

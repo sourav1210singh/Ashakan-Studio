@@ -26,7 +26,7 @@ const categoryMeta: Record<PortfolioCategory, { title: string; description: stri
   "the-arts": {
     title: "THE ARTS",
     description:
-      "Cinematic videography for performers, dancers, and artists. Capturing movement, emotion, and the artistry of performance, as well as the excellence in their craft.",
+      "Cinematic videography for performers and artists. Capturing movement, emotion, and the artistry of live performance, as well as the excellence in their craft.",
   },
   industrial: {
     title: "INDUSTRIAL",

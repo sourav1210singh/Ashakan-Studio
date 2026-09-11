@@ -30,7 +30,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                 HEADSHOTS
               </h1>
               <p className="text-lg sm:text-xl text-white/60 max-w-2xl">
-                Professional headshot photography for executives, actors, dancers, and creatives.
+                Professional headshot photography for executives, actors, and creatives.
                 Crafted in our Houston studio with expert lighting and direction.
               </p>
             </FadeIn>
@@ -43,21 +43,21 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
             <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
               {[
                 { src: "/images/headshots/headshot-1.jpg", alt: "Professional portrait - studio lighting", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-2.jpg", alt: "Dance headshot - natural expression", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-2.jpg", alt: "Headshot - natural expression", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-3.jpg", alt: "Creative portrait session", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-4.jpg", alt: "Performer headshot - editorial style", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-5.jpg", alt: "Professional headshot - clean backdrop", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-6.jpg", alt: "Personal branding portrait", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-7.jpg", alt: "Dilyn Bray - dance headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-7.jpg", alt: "Dilyn Bray - headshot", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-8.jpg", alt: "Isabel Wallace-Green - creative portrait", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-10.jpg", alt: "Grace - editorial headshot", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-12.jpg", alt: "Studio headshot - natural light", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-14.jpg", alt: "Traci Greene - professional portrait", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-16.jpg", alt: "Creative headshot - editorial lighting", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-17.jpg", alt: "Dance portrait - Memorial Dance", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-17.jpg", alt: "Studio portrait - Ashkan Studios", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-18.jpg", alt: "Personal branding - professional headshot", aspect: "aspect-[3/4]" },
                 { src: "/images/headshots/headshot-20.jpg", alt: "Lifestyle portrait - personal branding", aspect: "aspect-[3/4]" },
-                { src: "/images/headshots/headshot-21.jpg", alt: "Madison McClain - dancer headshot", aspect: "aspect-[3/4]" },
+                { src: "/images/headshots/headshot-21.jpg", alt: "Madison McClain - performer headshot", aspect: "aspect-[3/4]" },
               ].map((img, index) => (
                 <FadeIn key={img.alt} delay={Math.min(index * 0.06, 0.6)} className="break-inside-avoid mb-4 sm:mb-6">
                   <div className="relative overflow-hidden w-full group">
@@ -105,7 +105,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                     {[
                       "Executive & Corporate Headshots",
                       "Actor & Performer Headshots",
-                      "Dance Audition Photos",
+                      "Audition & Casting Photos",
                       "Personal Branding Portraits",
                       "Team & Group Headshots",
                       "LinkedIn & Professional Profiles",
@@ -144,7 +144,7 @@ export function HeadshotsPage({ onNavigate }: HeadshotsPageProps) {
                 {
                   step: "02",
                   title: "SESSION",
-                  desc: "In our 1,500 sq ft studio with professional Profoto lighting, we capture a variety of looks and expressions. Hair and makeup services available.",
+                  desc: "In our Houston studio with professional Profoto lighting, we capture a variety of looks and expressions. Hair and makeup services available.",
                 },
                 {
                   step: "03",

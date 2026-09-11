@@ -34,7 +34,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
   "commercial-videographers-houston": [
     {
       q: "What does hiring a commercial videographer at Ashkan Studios include?",
-      a: "You get more than one camera operator. Our commercial video projects come with a full creative team: videographers, on-set support like models and hair and makeup when needed, and professional editors for post-production. From concept and shoot planning through filming and the final edit, we handle the whole process so you don't have to coordinate separate vendors.",
+      a: "You get more than one camera operator. Our commercial video projects come with a full creative team: videographers, on-set support like models and hair and makeup when needed, and complete in-house finishing. From concept and shoot planning through filming and the final edit, we handle the whole process so you don't have to coordinate separate vendors.",
     },
     {
       q: "What questions should I ask before hiring a commercial videographer in Houston?",
@@ -42,7 +42,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
     },
     {
       q: "How involved will I be during the shoot, and how do you use my ideas?",
-      a: "Very involved, if you'd like to be. We start by combining your thoughts and goals with our creative direction to build the shoot plan, so the final video reflects your brand. On set you're welcome to collaborate, and we keep you in the loop from planning through the final cut.",
+      a: "Very involved, if you'd like to be. We start by combining your thoughts and goals with our creative direction to build the shoot plan, so the final video reflects your brand. On set you're welcome to collaborate, and we keep you in the loop from planning through to final delivery.",
     },
     {
       q: "Can I see a reel or examples of your commercial video work?",
@@ -68,7 +68,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
     },
     {
       q: "What experience do you have photographing different product categories?",
-      a: "Our team has photographed products across many categories, including women's activewear, dancewear, hand-crafted wood furniture, luxury eyewear, and food and beverage brands. That range means we understand how to light reflective surfaces, capture fabric texture, and style very different products so each one looks its best.",
+      a: "Our team has photographed products across many categories, including women's activewear, performance apparel, hand-crafted wood furniture, luxury eyewear, and food and beverage brands. That range means we understand how to light reflective surfaces, capture fabric texture, and style very different products so each one looks its best.",
     },
     {
       q: "How do you handle tricky products like reflective, transparent, or very small items?",
@@ -177,34 +177,12 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
       a: "Video cost depends on length, number of shoot days and locations, crew size, and the complexity of the edit, including motion graphics or effects. Because these variables differ for every brand, we quote each project individually. Share your vision in a free consultation and we'll outline a scope and price that fit your budget.",
     },
     {
-      q: "How long does commercial video production take from concept to final cut?",
-      a: "A typical project moves through consultation and planning, the shoot, and post-production editing, with total time depending on scope and revisions. Simple pieces can turn around quickly, while multi-location or highly produced videos take longer. We set a clear timeline before we start and keep you updated at each stage.",
+      q: "How long does commercial video production take from concept to final delivery?",
+      a: "A typical project moves through consultation and planning, the shoot, and finishing, with total time depending on scope and revisions. Simple pieces can turn around quickly, while multi-location or highly produced videos take longer. We set a clear timeline before we start and keep you updated at each stage.",
     },
     {
       q: "What's included when you deliver a commercial video, such as length, music, and revisions?",
-      a: "We deliver a finished, ready-to-publish video at the length your platform needs, with royalty-free music and full rights to use it on your website and social media. Sound design, color grading, and motion graphics are part of our post-production, and we align on revisions during planning so the final cut matches your expectations.",
-    },
-  ],
-  "video-editing-services-in-houston": [
-    {
-      q: "Can you edit footage I already shot myself?",
-      a: "Yes, that's a core part of what we do. Send us your existing footage and we'll give it a fresh cut or a complete overhaul, whether it's raw clips from a recent shoot or an older video that needs new life. You don't have to film with us to have us edit your project.",
-    },
-    {
-      q: "What does your post-production and editing service include?",
-      a: "We handle every aspect of post-production: cutting and story structure, color grading, sound design, royalty-free music, motion graphics, and visual effects, delivered in the formats you need. Whether you want a quick social-media cut or a full commercial edit, we take your footage from rough to polished, final-delivery ready.",
-    },
-    {
-      q: "How much do video editing services cost, and how is editing priced?",
-      a: "Editing cost depends on the amount of footage, the length of the final video, and how much color, sound, and motion-graphics work is involved. Projects can be quoted per video or per finished minute. Send us your footage and project details and we'll provide a clear, custom quote before any work begins.",
-    },
-    {
-      q: "How long does it take to edit a video, and how many revisions are included?",
-      a: "Turnaround depends on the length and complexity of the edit, and we confirm a delivery date up front so it meets your deadline. We also agree on the number of revision rounds during planning, so you have room to refine the cut and land on a final version you're happy with.",
-    },
-    {
-      q: "Do you provide editing and production services across Texas, or only Houston?",
-      a: "While our studio is in Houston, our editing and post-production work is footage-based, so we can serve clients throughout Texas and beyond; just send your footage and we'll handle the rest. For full production shoots we're based in Houston and can discuss travel for projects elsewhere in Texas during your consultation.",
+      a: "We deliver a finished, ready-to-publish video at the length your platform needs, with royalty-free music and full rights to use it on your website and social media. Sound design, colour and motion graphics are included in your finished delivery, and we align on revisions during planning so the final cut matches your expectations.",
     },
   ],
   "videography-in-the-woodlands": [
@@ -226,7 +204,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
     },
     {
       q: "How do we get started on a videography project in The Woodlands?",
-      a: "Just reach out to schedule a shoot. We begin with a consultation to understand your goals, style, and where the video will be used, then build a plan and timeline for filming in The Woodlands or at our Houston studio. From there our team handles production and editing through final delivery.",
+      a: "Just reach out to schedule a shoot. We begin with a consultation to understand your goals, style, and where the video will be used, then build a plan and timeline for filming in The Woodlands or at our Houston studio. From there our team handles production through to final delivery.",
     },
   ],
 
@@ -257,7 +235,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
   "fashion-video-production-services-houston": [
     {
       q: "What do fashion video production services in Houston include?",
-      a: "Our services cover the full production: creative concept, styling and casting, lighting, filming, editing, and color grading. Depending on your package we can add models, hair and makeup, and multiple looks, all produced at our Houston studio or on location.",
+      a: "Our services cover the full production: creative concept, styling and casting, lighting, filming, and full in-house finishing. Depending on your package we can add models, hair and makeup, and multiple looks, all produced at our Houston studio or on location.",
     },
     {
       q: "What types of fashion videos do you produce?",

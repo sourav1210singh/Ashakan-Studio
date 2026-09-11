@@ -539,7 +539,7 @@ export const projects: Project[] = [
       { src: "", alt: "Weissman Fall 2025 Season Cross Genre", type: "video", vimeoId: "1094764251", vimeoHash: "17dfb40e13", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-02.jpg", alt: "Weissman editorial group shot - color blocking", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Fall 2024 Season Cross Genre", type: "video", vimeoId: "950064546", aspectRatio: "landscape" },
-      { src: "/images/campaigns/weissman/weissman-03.jpg", alt: "Weissman dancewear spread - black + white", type: "image", aspectRatio: "landscape" },
+      { src: "/images/campaigns/weissman/weissman-03.jpg", alt: "Weissman campaign spread - black + white", type: "image", aspectRatio: "landscape" },
       { src: "", alt: "Weissman Spring 2026 Season Cross Genre", type: "video", vimeoId: "1145783498", vimeoHash: "6e07bd9e26", aspectRatio: "landscape" },
       { src: "/images/campaigns/weissman/weissman-04.jpg", alt: "Weissman gold metallic - solo pose", type: "image", aspectRatio: "portrait" },
       { src: "", alt: "Weissman Fall 2023 Front Cover Light Wall", type: "video", vimeoId: "824223043", aspectRatio: "landscape" },

@@ -82,7 +82,7 @@ const WORK_TILES: WorkTile[] = [
     id: "photo-the-arts",
     type: "PHOTOGRAPHY",
     category: "THE ARTS",
-    description: "Performance and portrait photography for dancers, musicians, and artists.",
+    description: "Portrait and editorial photography for artists, musicians, and creative professionals.",
     image: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg",
     href: "/work/photography/the-arts/",
   },
@@ -91,7 +91,7 @@ const WORK_TILES: WorkTile[] = [
     id: "video-the-arts",
     type: "VIDEOGRAPHY",
     category: "THE ARTS",
-    description: "Cinematic videography of performances, dance, and artistic expression.",
+    description: "Cinematic videography of live performance, exhibitions, and artistic expression.",
     image: "/images/categories/the-arts/_east-side-perfromming-art-584-edit.jpg",
     /* Vitacca Season Promo 24-25 - flagship dance/arts video */
     vimeoId: "1022971286",

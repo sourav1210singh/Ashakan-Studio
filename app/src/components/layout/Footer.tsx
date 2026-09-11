@@ -40,7 +40,6 @@ const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[]
       { label: "Commercial Videography in Houston", slug: "commercial-videography-in-houston" },
       { label: "Commercial Videographers Houston", slug: "commercial-videographers-houston" },
       { label: "Cinematography Services in Houston", slug: "cinematography-services-in-houston" },
-      { label: "Video Editing Services in Houston", slug: "video-editing-services-in-houston" },
       { label: "Videographer Houston", slug: "videographer-houston" },
       { label: "Videographer in Houston", slug: "videographer-in-houston" },
       { label: "Videography Houston", slug: "videography-houston" },

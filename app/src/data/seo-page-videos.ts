@@ -40,7 +40,6 @@ export const seoPageVideos: SeoPageVideo[] = TOP_CHOICE_ORDER.slice(
 export const SEO_VIDEO_SLUGS = new Set([
   "cinematography-services-in-houston",
   "commercial-videographers-houston",
-  "video-editing-services-in-houston",
   "video-production-services-houston",
   "videographer-houston",
   "videography-houston",

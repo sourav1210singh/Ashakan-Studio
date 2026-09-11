@@ -18,6 +18,9 @@ return array(
     'services' => '/what-we-do/',
     'production-studio-in-houston-2' => '/what-we-do/',
     'houston-production-studio' => '/what-we-do/',
+    // Video-editing page 9/11 ko hataya gaya (off-brand term audit
+    // row 3) - is URL ki GSC impressions thi, isliye 301.
+    'video-editing-services-in-houston' => '/video-production-services-houston/',
     'about-me' => '/studio/',
     'portfolios-new' => '/work/photography/',
     'portfolios/brandon-blackwood' => '/work/photography/fashion/',

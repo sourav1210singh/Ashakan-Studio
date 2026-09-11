@@ -51,7 +51,7 @@ const PRESS_ITEMS = [
     outlet: "PHOTOAWARDS",
     date: "2023",
     excerpt:
-      "A long-exposure photograph of a dancer with flowing veils, captured in the Houston studio, exploring how fabric in motion amplifies the drama and expressiveness of dance.",
+      "A long-exposure portrait with flowing veils, captured in the Houston studio, exploring how fabric in motion amplifies drama and expression.",
     /* AI thumb replaced with a real client arts photo (Ashkan 6/11) */
     image: "/images/categories/the-arts/_abstract-1599.jpg",
     link: "https://photoawards.com/winner/zoom.php?eid=8-1722603089-25",
@@ -82,7 +82,7 @@ const PRESS_ITEMS = [
     outlet: "VOYAGE HOUSTON",
     date: "JUN 2018",
     excerpt:
-      "Ashkan Roayaee discusses his journey from Iran to Houston, his mission to revive the city's creative spirit post-Hurricane Harvey through collaborative dance photography, and his vision of art as universal communication.",
+      "Ashkan Roayaee discusses his journey from Iran to Houston, his mission to revive the city's creative spirit post-Hurricane Harvey through collaborative movement and portrait photography, and his vision of art as universal communication.",
     image: "/images/categories/the-arts/lauren-anderson-2490-edit.jpg",
     link: "https://voyagehouston.com/interview/check-ashkan-roayaees-artwork/",
   },

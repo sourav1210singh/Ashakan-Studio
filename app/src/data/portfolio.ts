@@ -219,6 +219,9 @@ export interface ClientLogo {
    *  Only confident, verified URLs are filled in for now; Brandi will
    *  send the authoritative list to complete the rest. */
   website?: string;
+  /** ALT jab logo ka naam khud ek off-brand term ho (off-brand
+   *  audit row 29). Set na ho to alt = name, pehle jaisa. */
+  alt?: string;
 }
 
 export const clientLogos: ClientLogo[] = [
@@ -232,7 +235,7 @@ export const clientLogos: ClientLogo[] = [
   { name: "The Monarch School", src: "/images/logos/monarch.png",          priority: true, website: "https://www.monarchschool.org" },
   { name: "RadioMedix",        src: "/images/logos/radiomedix.png",        priority: true, website: "https://radiomedix.com" },
   { name: "Venus Aerospace",   src: "/images/logos/venus.png",             priority: true, website: "https://www.venusaero.com" },
-  { name: "Vitacca Ballet",    src: "/images/logos/vitacca.png",           priority: true, website: "https://vitaccaballet.org" },
+  { name: "Vitacca Ballet",    src: "/images/logos/vitacca.png",           priority: true, website: "https://vitaccaballet.org", alt: "Vitacca - Ashkan Studios client logo" },
   { name: "Safari Vet",        src: "/images/logos/safari.png",            priority: true, website: "https://www.safarivet.com" },
   { name: "Citybook",          src: "/images/logos/citybook.png",          priority: true }, // client: do not link
   { name: "Bvlgari",           src: "/images/logos/bvlgari.png",           priority: true, website: "https://www.bulgari.com" },
