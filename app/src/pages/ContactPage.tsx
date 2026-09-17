@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Instagram, Linkedin, Send } from "lucide-react";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { Footer } from "@/components/layout/Footer";
 import { PAGE_H1_SIZE } from "@/lib/heading";
+import { submitToHubSpot } from "@/lib/hubspot";
 import type { View } from "@/App";
 
 interface ContactPageProps {
@@ -35,6 +36,14 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
     setStatus("sending");
     setErrorMsg("");
     try {
+      /* HubSpot pehle (9/17): ab client ka CRM leads ka ghar hai, to
+         agar aage ki koi bhi cheez fail ho jaye tab bhi lead HubSpot me
+         darj ho chuki hoti hai. submitToHubSpot() kabhi throw nahi
+         karta - ad-blocker ya HubSpot outage form ko tod na de. Iska
+         nateeja neeche log me jaata hai taaki /admin/leads dekh ke pata
+         chal jaye ki kaunsi lead CRM tak pahunchi. */
+      const hubspotOk = await submitToHubSpot(formData);
+
       /* Backend differs by host:
          - Vercel preview (ashakan-studio.vercel.app): /api/contact
            serverless function.
@@ -64,7 +73,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
           res = await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ ...formData, hubspot: hubspotOk ? "sent" : "failed" }),
           });
         } catch {
           continue; // network hiccup - try the next endpoint
@@ -82,7 +91,12 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
         break; // a real API answered (success or error) - stop trying
       }
 
-      if (!confirmed) {
+      /* Do me se ek bhi jagah lead pahunch gayi to user ke liye kaam ho
+         gaya - use dobara bharne ko kehna sirf duplicate banata hai.
+         Error tabhi jab dono fail hon, yaani lead sach me kahin nahi
+         gayi. (Pehle sirf /contact.php dekha jaata tha, aur uske girne
+         par lead poori tarah gum ho jaati thi.) */
+      if (!confirmed && !hubspotOk) {
         throw new Error(apiError || "Failed to send your message.");
       }
       setStatus("sent");
@@ -131,7 +145,14 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
               {/* Form */}
               <FadeIn>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {/* data-hs-do-not-collect: HubSpot ka tracking script
+                    "collected forms" ke zariye har form ko apne aap
+                    capture karne ki koshish karta hai. Hum isi lead ko
+                    Forms API se saaf-suthra bhej hi rahe hain, to us
+                    auto-capture ko yahan band rakha hai - warna ek hi
+                    lead do submissions ban jaati aur notification bhi
+                    dobara jaata. */}
+                <form onSubmit={handleSubmit} className="space-y-6" data-hs-do-not-collect="true">
                   <div>
                     <label className="block text-sm font-medium tracking-wider text-dark mb-2">
                       NAME <span className="text-dark/40">*</span>

@@ -37,6 +37,10 @@ export interface Lead {
   projectType: string;
   message: string;
   emailStatus: "sent" | "failed" | "not-configured" | string;
+  /** Lead HubSpot CRM tak pahunchi ya nahi (9/17 se). Us se pehle ki
+      rows me ye field nahi hai, aur agar kisi purane browser tab se
+      form bhara jaye to "unknown" aata hai - isliye optional. */
+  hubspot?: "sent" | "failed" | "unknown" | string;
 }
 
 /** One pass of the /blog-uploads/ image cleanup (see blogApi.optimizeImages). */

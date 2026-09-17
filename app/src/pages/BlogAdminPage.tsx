@@ -446,6 +446,25 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                         {l.projectType ? ` · ${l.projectType}` : ""}
                       </p>
                     </div>
+                    {/* CRM pill sirf 9/17 ke baad ki leads pe aata hai -
+                        us se pehle HubSpot tha hi nahi, to purani rows
+                        ko "NO CRM" dikhana galat hota. */}
+                    {l.hubspot && (
+                      <span
+                        className={`text-[11px] font-semibold tracking-wider px-2.5 py-1 rounded-full shrink-0 ${
+                          l.hubspot === "sent"
+                            ? "bg-dark/10 text-dark"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                        title={
+                          l.hubspot === "sent"
+                            ? "Saved to the HubSpot CRM"
+                            : "Did not reach HubSpot - lead is still emailed and saved here"
+                        }
+                      >
+                        {l.hubspot === "sent" ? "CRM" : "NO CRM"}
+                      </span>
+                    )}
                     <span
                       className={`text-[11px] font-semibold tracking-wider px-2.5 py-1 rounded-full shrink-0 ${
                         l.emailStatus === "sent"

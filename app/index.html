@@ -51,6 +51,19 @@
           var g = document.createElement('script');
           g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=G-99SHTH73CQ';
           f.parentNode.insertBefore(g, f);
+          // HubSpot tracking (portal 244809545, region na2) - 9/17.
+          // Client ke CRM me contact form ki leads jaati hain; ye script
+          // hubspotutk cookie set karti hai jisse submission usi
+          // visitor ki browsing se jud jaati hai (uske bina HubSpot
+          // attribution adhoora rehta hai). Isi deferred loader me
+          // rakha hai kyunki hs-scripts.com bhi bhaari third-party hai
+          // aur t=0 pe wahi main-thread block wapas aa jaata jo 7/17 me
+          // hataya tha. Form bharne se pehle user hamesha scroll/type
+          // karta hai, to cookie waqt par ban jaati hai.
+          var h = document.createElement('script');
+          h.async = true; h.id = 'hs-script-loader';
+          h.src = 'https://js-na2.hs-scripts.com/244809545.js';
+          f.parentNode.insertBefore(h, f);
         }
         ['scroll', 'pointerdown', 'touchstart', 'keydown'].forEach(function (e) {
           window.addEventListener(e, loadTags, { once: true, passive: true });

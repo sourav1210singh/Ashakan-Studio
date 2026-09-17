@@ -12,6 +12,14 @@
 //      that contains index.html and the assets/ folder.
 //   That's it. The key lives only on the server - never in the repo.
 //
+// Since 9/17 the same lead ALSO goes to the client's HubSpot CRM,
+// straight from the browser (app/src/lib/hubspot.ts) - this file is not
+// involved in that. Resend still sends the notification because HubSpot
+// can only notify addresses that are HubSpot USERS, and
+// info@ashkanstudios.com is not one; the moment the client adds it as a
+// user, the notification can move to HubSpot and the Resend 'to' below
+// can drop to the agency bcc only.
+//
 // Every submission is LOGGED as well as emailed via Resend, so if
 // email ever breaks no lead is lost. The log location is a try-ladder
 // (see the comment at the logging step below) because WP Engine
@@ -41,6 +49,12 @@ $phone   = trim((string) ($body['phone'] ?? ''));
 $company = trim((string) ($body['company'] ?? ''));
 $type    = trim((string) ($body['projectType'] ?? ''));
 $message = trim((string) ($body['message'] ?? ''));
+// HubSpot ko lead pahunchi ya nahi - React form pehle CRM me bhejta hai,
+// phir uska nateeja yahan bhej deta hai. Sirf log ke liye hai (LEADS tab
+// me dikhta hai), isliye value ko teen hi shakal me kaid rakhte hain -
+// browser se aaya string seedha file me nahi likhna.
+$hubspot = ($body['hubspot'] ?? '') === 'sent' ? 'sent'
+         : ((($body['hubspot'] ?? '') === 'failed') ? 'failed' : 'unknown');
 
 if ($name === '' || $email === '' || $phone === '' || $message === '') {
     http_response_code(400);
@@ -178,6 +192,7 @@ $entry   = json_encode(array(
     'projectType' => $type,
     'message'     => $message,
     'emailStatus' => $sent ? 'sent' : ($configured ? 'failed' : 'not-configured'),
+    'hubspot'     => $hubspot,
 ), JSON_UNESCAPED_UNICODE);
 if ($entry !== false) {
     foreach ($ladder as $rung) {
