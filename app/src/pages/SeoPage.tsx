@@ -6,6 +6,7 @@ import { AppLink } from "@/components/AppLink";
 import { seoFaqs } from "@/data/seo-faqs";
 import { PAGE_H1_SIZE } from "@/lib/heading";
 import { seoPageVideos, SEO_VIDEO_SLUGS } from "@/data/seo-page-videos";
+import { carGalleryImages, CAR_GALLERY_SLUGS } from "@/data/car-gallery";
 import { SITE, STUDIO } from "@/data/studio";
 import type { View } from "@/App";
 
@@ -255,6 +256,59 @@ export function SeoPage({ data, onNavigate }: SeoPageProps) {
                   />
                 </div>
               </FadeIn>
+            </div>
+          </section>
+        )}
+
+        {/* ━━━ Car Album ━━━
+            Ashkan 9/18: "there is 1-2 image on each please add the whole
+            album like the example page". Album yahan rakha hai - hero ke
+            baad, content se pehle - taaki kaam sabse pehle dikhe, padhna
+            baad me. Video page pe ye apne aap video ke NEECHE aa jaata
+            hai kyunki video section iske upar render hota hai.
+
+            Masonry CSS columns se hai, JS se nahi: har photo apne asli
+            aspect ratio me baithti hai (portrait aur landscape dono),
+            jaise magazine spread me. Fixed grid har frame ko ek hi
+            shakal me kaat deta, jo photography page pe sabse bura hai. */}
+        {CAR_GALLERY_SLUGS.has(data.slug) && carGalleryImages.length > 0 && (
+          <section className="py-16 sm:py-24 bg-dark text-white">
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
+              <FadeIn>
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mb-3">
+                  The Automotive Album
+                </h2>
+                <p className="text-base sm:text-lg text-white/60 max-w-2xl mb-10">
+                  Classics, supercars and modern performance - shot in our
+                  Houston studio and on location across Texas.
+                </p>
+              </FadeIn>
+              <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 lg:gap-5">
+                {carGalleryImages.map((img, i) => (
+                  <FadeIn
+                    key={img.src}
+                    /* break-inside-avoid: warna column ke beech me image
+                       do tukdon me kat jaati hai. */
+                    className="break-inside-avoid mb-4 lg:mb-5"
+                    delay={Math.min(i * 0.04, 0.24)}
+                  >
+                    <figure className="group overflow-hidden bg-white/5">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        width={img.w}
+                        height={img.h}
+                        /* Pehli chaar hi eager - baaki album fold se
+                           kaafi neeche hai, warna 21 images ek saath
+                           mobile ka LCP kha jaati hain. */
+                        loading={i < 4 ? "eager" : "lazy"}
+                        decoding="async"
+                        className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      />
+                    </figure>
+                  </FadeIn>
+                ))}
+              </div>
             </div>
           </section>
         )}
