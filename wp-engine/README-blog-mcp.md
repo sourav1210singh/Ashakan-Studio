@@ -34,7 +34,8 @@ deploy `dist/` these are already filled:
 ## Add it in Claude
 
 1. claude.ai → **Settings → Connectors → Add custom connector**
-2. URL: **`https://ashkanstudios.com/blog-mcp.php`**
+2. URL: **`https://<your-site>/blog-mcp.php`** — jis webroot me ye file
+   upload ki hai wahi domain
 3. A **sign-in page** appears → enter `MCP_LOGIN_USER` / `MCP_LOGIN_PASS`
 4. In any chat: *"Publish a blog: Behind the scenes of a Houston fashion shoot"*
 
