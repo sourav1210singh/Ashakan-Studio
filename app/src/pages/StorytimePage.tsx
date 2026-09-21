@@ -161,26 +161,27 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
         <section className="py-16 sm:py-24 bg-dark text-white border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="max-w-2xl mx-auto text-center">
+              {/* Pehle yahan "STAY IN THE LOOP" newsletter form tha, par
+                  uspe koi submit handler hi nahi tha - visitor email
+                  daal ke SUBSCRIBE dabata to page reload ho jaata aur
+                  email kahin nahi jaata. Dikhta live tha, tha nahi.
+                  Newsletter ka koi backend bhi nahi hai, to jhoothe form
+                  ki jagah wo CTA laga di jo sach me kaam karti hai. */}
               <FadeIn>
                 <h2 className="font-display text-3xl sm:text-4xl tracking-tight mb-4">
-                  STAY IN THE LOOP
+                  LET'S MAKE SOMETHING
                 </h2>
                 <p className="text-white/70 mb-8">
-                  Subscribe to our newsletter for the latest stories, tips, and studio updates.
+                  Every story here started with a conversation. Tell us what
+                  you're working on.
                 </p>
-                <form className="flex flex-col sm:flex-row gap-4">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-6 py-4 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:border-white/50"
-                  />
-                  <button
-                    type="submit"
-                    className="px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm"
-                  >
-                    SUBSCRIBE
-                  </button>
-                </form>
+                <AppLink
+                  href="/contact/"
+                  onNav={() => onNavigate("contact")}
+                  className="inline-block px-8 py-4 bg-white text-dark font-medium tracking-wider text-sm hover:bg-white/90 transition-colors"
+                >
+                  BOOK YOUR SHOOT
+                </AppLink>
               </FadeIn>
             </div>
           </div>

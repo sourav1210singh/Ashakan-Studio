@@ -483,6 +483,40 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                   </button>
                   {expandedLead === i && (
                     <div className="px-5 pb-5 pt-1">
+                      {/* Upar wali summary line truncate hoti hai, to
+                          company aur project type aksar kat jaate the -
+                          khol-ne par har field poori dikhni chahiye,
+                          wahi to reply likhte waqt chahiye hoti hai. */}
+                      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 mb-4 text-sm">
+                        {(
+                          [
+                            ["Submitted", l.time ? new Date(l.time).toLocaleString() : ""],
+                            ["Name", l.name],
+                            ["Email", l.email],
+                            ["Phone", l.phone],
+                            ["Company", l.company],
+                            ["Project type", l.projectType],
+                            /* Purani leads me hubspot field hai hi nahi
+                               (17 Sep se aaya), to sirf tab dikhao. */
+                            ...(l.hubspot
+                              ? [["Saved to CRM", l.hubspot === "sent" ? "Yes" : "No"] as const]
+                              : []),
+                            ["Notification email", l.emailStatus === "sent" ? "Sent" : "Not sent"],
+                          ] as ReadonlyArray<readonly [string, string | undefined]>
+                        ).map(([label, value]) => (
+                          <div key={label} className="flex gap-3">
+                            <dt className="w-32 shrink-0 text-[11px] font-semibold tracking-wider uppercase text-dark/40 pt-[3px]">
+                              {label}
+                            </dt>
+                            <dd className="min-w-0 break-words text-dark/80">
+                              {value && value.trim() !== "" ? value : "—"}
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+                      <p className="text-[11px] font-semibold tracking-wider uppercase text-dark/40 mb-2">
+                        Message
+                      </p>
                       <div className="bg-warmbeige/60 rounded-lg px-4 py-3 text-sm text-dark/80 whitespace-pre-wrap leading-relaxed">
                         {l.message}
                       </div>
