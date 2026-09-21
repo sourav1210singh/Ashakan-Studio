@@ -25,13 +25,14 @@
 //   That's it - the data file and uploads folder create themselves.
 //
 // To change the password later: edit the line below on the server
-// (SFTP) and save. Active sessions stay valid until the browser closes.
+// (SFTP) and save. Password badalte hi har logged-in session apne
+// aap bekaar ho jaata hai (token usi password se sign hota hai).
 //
 // All requests are POST (WP Engine's cache strips query strings from
 // GETs, which would cross-cache responses). Actions:
 //   posts (public)   -> published posts, newest first (no content body)
 //   post (public)    -> one published post by slug, full content
-//   login/logout/me  -> session auth
+//   login/logout/me  -> signed-cookie auth (session nahi)
 //   all (auth)       -> every post incl. drafts (dashboard list)
 //   get (auth)       -> one post by id, any status
 //   save (auth)      -> create/update  |  delete (auth) -> remove
@@ -69,15 +70,59 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-session_set_cookie_params(array(
-    'lifetime' => 0,
-    'path'     => '/',
-    'secure'   => true,
-    'httponly' => true,
-    'samesite' => 'Lax',
-));
-session_name('ashkan_blog');
-session_start();
+// ── Auth: signed cookie, PHP session NAHI ──────────────────────
+// PHP sessions ko disk chahiye, aur WP Engine PHP ko likhne nahi deta -
+// wahi restriction jiski wajah se posts ke liye upar wali try-ladder
+// banani padi thi. Nateeja: har request pe naya session ban jaata tha,
+// login ke turant baad hi 401 aane lagta tha. 9/21 ko naapa: 12 me se
+// 11 request pe session gir jaata tha, isliye /admin/leads kabhi khulta
+// tha kabhi nahi.
+//
+// Ab server pe kuch store hi nahi hota. Cookie me sirf expiry aur uska
+// HMAC hai, key admin password se banti hai - server ganit se hi bata
+// deta hai ki token asli hai. Koi disk, koi session file.
+//
+// Cookie ka naam ashkan_blog HI rakha hai: blog-mcp.php login response
+// se `ashkan_blog=...` regex se uthata hai aur wapas bhejta hai, to wo
+// bina kisi badlav ke chalta rehta hai.
+//
+// Password badalte hi saare token apne aap bekaar - wahi "change the
+// password to log everyone out" jo README me likha hai.
+define('BLOG_TOKEN_TTL', 12 * 60 * 60); // 12 ghante
+
+function blog_token_sign($exp) {
+    return hash_hmac('sha256', 'ashkan-blog-auth|' . $exp, BLOG_ADMIN_PASSWORD);
+}
+
+function blog_token_valid() {
+    if (empty($_COOKIE['ashkan_blog'])) { return false; }
+    $parts = explode('.', (string) $_COOKIE['ashkan_blog'], 2);
+    if (count($parts) !== 2) { return false; }
+    list($exp, $sig) = $parts;
+    if ($exp === '' || !ctype_digit($exp) || (int) $exp < time()) { return false; }
+    return hash_equals(blog_token_sign($exp), $sig);
+}
+
+function blog_cookie($value, $expires) {
+    setcookie('ashkan_blog', $value, array(
+        'expires'  => $expires,
+        'path'     => '/',
+        'secure'   => true,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ));
+}
+
+// expires 0 = browser band hote hi cookie chali jaye, bilkul pehle
+// jaisa. TTL uske upar 12 ghante ka hard cap hai.
+function blog_token_set() {
+    $exp = time() + BLOG_TOKEN_TTL;
+    blog_cookie($exp . '.' . blog_token_sign($exp), 0);
+}
+
+function blog_token_clear() {
+    blog_cookie('', time() - 3600);
+}
 
 $raw  = file_get_contents('php://input');
 $body = json_decode($raw, true);
@@ -218,7 +263,7 @@ function apply_schedule($posts, $ladder) {
     return $posts;
 }
 
-$authed = !empty($_SESSION['ashkan_blog_authed']);
+$authed = blog_token_valid();
 
 // ── Public actions ──
 if ($action === 'posts') {
@@ -254,21 +299,19 @@ if ($action === 'login') {
     if (!hash_equals(BLOG_ADMIN_PASSWORD, $pw)) {
         respond(array('error' => 'Incorrect password.'), 401);
     }
-    session_regenerate_id(true);
-    $_SESSION['ashkan_blog_authed'] = true;
+    blog_token_set();
     respond(array('ok' => true));
 }
 
 if ($action === 'logout') {
-    $_SESSION = array();
-    session_destroy();
+    blog_token_clear();
     respond(array('ok' => true));
 }
 
 if ($action === 'me') {
     // v = backend revision, so a deploy can be verified from outside
     // (v3 = storage try-ladder).
-    respond(array('ok' => true, 'authed' => $authed, 'v' => 3));
+    respond(array('ok' => true, 'authed' => $authed, 'v' => 4));
 }
 
 // ── Everything below requires auth ──
