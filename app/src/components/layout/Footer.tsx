@@ -271,7 +271,12 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
 
                       {/* Level 2: the pages. md+: side flyout to the LEFT,
                           bottom-aligned so the tall list grows upward.
-                          Mobile: stacked inside the panel (accordion). */}
+                          Mobile: stacked inside the panel (accordion), and the
+                          labels WRAP - with nowrap the longest one ("Automotive
+                          Video Production Houston") stretched the panel to
+                          336px, and because it hangs off the button's right
+                          edge that extra width ran off the left of a 375px
+                          screen (Sourav 9/24). */}
                       <div
                         className={`${servicesSub === col.heading ? "block" : "hidden"} md:absolute md:right-full md:bottom-0 md:pr-2 md:z-50`}
                       >
@@ -281,7 +286,7 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                               key={p.slug}
                               href={`/${p.slug}/`}
                               onNav={() => handleServiceClick(p.slug)}
-                              className="block w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors whitespace-nowrap"
+                              className="block w-full text-left px-4 py-2 text-sm font-medium tracking-wider text-dark/70 hover:text-dark hover:bg-dark/5 transition-colors whitespace-normal break-words md:whitespace-nowrap"
                             >
                               {p.label}
                             </AppLink>
