@@ -31,6 +31,7 @@ const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[]
       { label: "Headshot Photography Houston", slug: "headshot-photography-houston" },
         { label: "Fashion Photography in Houston", slug: "fashion-photography-in-houston" },
       { label: "Car Photography in Houston", slug: "car-photography-houston" },
+      { label: "Jewelry Photography in Houston", slug: "jewelry-photography-houston" },
     ],
   },
   {

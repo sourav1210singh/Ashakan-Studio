@@ -182,7 +182,7 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
     },
     {
       q: "What's included when you deliver a commercial video, such as length, music, and revisions?",
-      a: "We deliver a finished, ready-to-publish video at the length your platform needs, with royalty-free music and full rights to use it on your website and social media. Sound design, colour and motion graphics are included in your finished delivery, and we align on revisions during planning so the final video matches your expectations.",
+      a: "We deliver a finished, ready-to-publish video at the length your platform needs, with royalty-free music and full rights to use it on your website and social media. Sound design, color and motion graphics are included in your finished delivery, and we align on revisions during planning so the final video matches your expectations.",
     },
   ],
   "videography-in-the-woodlands": [
@@ -297,6 +297,28 @@ export const seoFaqs: Record<string, SeoFaq[]> = {
     {
       q: "How do I start an automotive video project in Houston?",
       a: "Contact our team or call the studio to set up a consultation. We will talk through the vehicles, goals, and timeline, then build a production plan and schedule your shoot.",
+    },
+  ],
+  "jewelry-photography-houston": [
+    {
+      q: "What is included in a jewelry photography session in Houston?",
+      a: "A typical session includes a consultation, professional lighting, product styling, and a set of fully retouched final images. Depending on your package we can shoot clean product packshots, macro detail close-ups, and on-model or lifestyle jewelry photography.",
+    },
+    {
+      q: "Do you shoot jewelry product photography on white backgrounds?",
+      a: "Yes. Clean white-background packshots are the standard for e-commerce and catalogs, and we light carefully to control reflections on metal and gemstones. We can also match your brand palette or add lifestyle context when you want more mood.",
+    },
+    {
+      q: "Can you do on-model and jewelry lifestyle photography?",
+      a: "We do. Beyond product packshots we shoot on-model and jewelry lifestyle photography that shows scale, fit, and styling, which helps customers picture how a piece looks when worn.",
+    },
+    {
+      q: "Do you handle macro and detail shots of necklaces, earrings, and rings?",
+      a: "Yes. Jewelry is all about detail, so we shoot macro and close-up frames that show stones, settings, metal finishes, and craftsmanship, managing reflections so every element reads cleanly.",
+    },
+    {
+      q: "How do I book a jewelry photography shoot in Houston?",
+      a: "Reach out through our contact page or call the studio, and we will set up a consultation to discuss your collection, timeline, and where the images will run. From there we build a shoot plan and lock in your date.",
     },
   ],
 };
