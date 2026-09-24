@@ -127,8 +127,14 @@ const categoryGallery: Record<string, { src: string; alt: string }[]> = {
   ],
 };
 
-/** Category-specific titles and descriptions */
-const categoryMeta: Record<string, { title: string; description: string }> = {
+/** Category-specific titles and descriptions.
+    serviceLink: jahan is category ka apna service page hai, wahan uska
+    seedha link - gallery dekhne wale ko "aur is kaam ke baare me" tak
+    pahunchane ke liye (Mahendra 9/24, jewellery page ke saath). */
+const categoryMeta: Record<
+  string,
+  { title: string; description: string; serviceLink?: { label: string; slug: string } }
+> = {
   "the-arts": {
     title: "THE ARTS",
     description:
@@ -138,6 +144,10 @@ const categoryMeta: Record<string, { title: string; description: string }> = {
     title: "RETAIL",
     description:
       "Product and brand photography that turns merchandise into visual experiences - blending polished commercial imagery with storytelling that strengthens brand presence and consumer connection.",
+    serviceLink: {
+      label: "Jewelry Photography in Houston",
+      slug: "jewelry-photography-houston",
+    },
   },
   fashion: {
     title: "FASHION",
@@ -167,6 +177,7 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
   let displayImages: { src: string; alt: string }[] = [];
   let pageTitle = "PHOTOGRAPHY";
   let pageDescription = "";
+  let serviceLink: { label: string; slug: string } | undefined;
 
   if (isCategory) {
     // Category page - show only that category's images (max 20)
@@ -174,6 +185,7 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
     const meta = categoryMeta[activeCategory!];
     pageTitle = meta?.title || activeCategory!.toUpperCase();
     pageDescription = meta?.description || "";
+    serviceLink = meta?.serviceLink;
   } else {
     /* Main photography page - category galleries only (client-provided
        photos). The old portfolioItems thumbnail merge was removed per
@@ -219,6 +231,17 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
               {pageDescription && (
                 <p className="text-lg sm:text-xl text-white/60 max-w-2xl mt-6 leading-relaxed">
                   {pageDescription}
+                </p>
+              )}
+              {serviceLink && (
+                <p className="mt-4">
+                  <AppLink
+                    href={`/${serviceLink.slug}/`}
+                    onNav={() => onNavigate("seo", serviceLink!.slug)}
+                    className="inline-flex items-center gap-2 text-sm font-medium tracking-wider text-white/70 border-b border-white/30 pb-1 hover:text-white hover:border-white transition-colors"
+                  >
+                    {serviceLink.label}
+                  </AppLink>
                 </p>
               )}
 

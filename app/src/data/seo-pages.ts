@@ -70,7 +70,7 @@ export const seoPages: SeoPageData[] = [
           "Showcases product features in their simplest form",
         ],
         image: "/images/seo/approved/product-deutsch-ring-coupe.jpg",
-        imageAlt: "Clean, controlled product photography of fine jewellery in the Houston studio",
+        imageAlt: "Clean, controlled product photography of fine jewelry in the Houston studio",
       },
       {
         heading: "Our Process",
@@ -941,6 +941,67 @@ export const seoPages: SeoPageData[] = [
       "Automotive video production in Houston, TX. Ashkan Studios creates cinematic car videos, dealership content, and brand films that move vehicles. Get in touch.",
   },
 
+  {
+    slug: "jewelry-photography-houston",
+    title: "Jewelry Photography in Houston, TX",
+    subtitle: "Every Facet, Every Detail, Made to Shine",
+    /* Hero doc me naam se maanga gaya tha (retail-74). Wahi shot retail
+       category page pe bhi hai - jaan-boojh ke, kyunki ye page wahin se
+       link hota hai. */
+    heroImage: "/images/categories/retail/retail-74.jpg",
+    intro:
+      "Jewelry photography in Houston has to do more than show a piece. It has to capture the sparkle, the metal, the stones, and the fine detail that make someone want to wear it. When a jeweler, jewelry brand, or designer works with Ashkan Studios, we shoot images built to sell the piece, whether it is for an online store, a catalog, a campaign, or the counter. We shoot jewelry the way it deserves to be seen: controlled lighting, careful styling, and macro detail that makes every stone and setting shine.",
+    sections: [
+      {
+        heading: "Product and Lifestyle Jewelry Photography",
+        body: "Our jewelry photography covers the full range a jeweler or brand needs, from clean commercial product shots to lifestyle and editorial images styled on a model. See the range in our product and retail portfolio, and we match the approach to where the images will live.",
+        bullets: [
+          "Jewelry product and packshot photography on white",
+          "Necklace, earring, and ring detail and macro shots",
+          "On-model and jewelry lifestyle photography",
+          "Editorial and campaign jewelry imagery",
+          "E-commerce and catalog jewelry photography",
+          "Social-first jewelry content for brands and boutiques",
+        ],
+        /* Doc ne yahan client se packshot maanga tha ("necklace detail on
+           white"). Wo abhi aayi nahi, to filhaal Deutsch Fine Jewelry
+           campaign ka shot hai. ALT image ke hisaab se likha hai, doc ke
+           hisaab se nahi - ye white packshot hai hi nahi, aur jhootha ALT
+           screen reader aur Google dono ko galat batata hai. */
+        image: "/images/campaigns/deutsch/deutsch-2025-holiday-029.jpg",
+        imageAlt:
+          "Jewelry photography Houston - diamond, pearl, and gold necklaces from the Deutsch Fine Jewelry campaign",
+      },
+      {
+        heading: "Who We Shoot Jewelry for in Houston",
+        body: "Houston's jewelry market runs from independent jewelers to fine and fashion jewelry brands, and our work adapts to each. We shoot for clients who need images that hold up on a product page, a website, a catalog, and a social feed at the same time.",
+        bullets: [
+          "Jewelers and jewelry brands",
+          "Fine and fashion jewelry designers",
+          "Boutiques and retail stores",
+          "E-commerce retailers",
+          "Watch and accessory brands",
+        ],
+      },
+      {
+        heading: "Our Jewelry Photography Process",
+        body: "Every strong jewelry shoot starts before the pieces reach the set. We begin with a consultation to understand your collection, your brand, and where the images will run. From there we plan lighting, angles, and styling so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and macro detail that make or break a jewelry image. Browse our photography portfolio to see the results, and we deliver retouched, ready-to-publish jewelry photography built to perform across your online store, catalog, print, and social channels.",
+        /* Doc ne yahan "macro" maanga tha; ye on-model shot hai, to ALT
+           bhi wahi kehta hai. Client ki asli macro image aate hi image
+           aur ALT dono swap ho jayenge. */
+        image: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
+        imageAlt:
+          "On-model jewelry photography by Ashkan Studios Houston - diamond earring, ring, and bracelet",
+      },
+    ],
+    ctaHeading: "READY TO MAKE YOUR JEWELRY SPARKLE ON SCREEN?",
+    ctaText:
+      "Ashkan Studios brings lighting, styling, and macro detail together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for jewelry photography that sells the piece.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Jewelry Photography in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Professional jewelry photography in Houston, TX. Ashkan Studios shoots brilliant product and lifestyle images of necklaces, earrings, and rings that sell.",
+  },
 ];
 
 /** Look up an SEO page by its URL slug */
