@@ -11,10 +11,10 @@ export const SITE = "https://ashkanstudios.com";
 
 export const STUDIO = {
   name: "Ashkan Studios",
-  street: "1502 Sawyer St #108",
+  street: "1502 Sawyer St #110",
   city: "Houston",
   region: "TX",
   postalCode: "77007",
-  phone: "+1-346-335-7973",
+  phone: "+1-832-205-8203",
   email: "info@ashkanstudios.com",
 } as const;

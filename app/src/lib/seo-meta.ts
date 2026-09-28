@@ -134,7 +134,7 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
       return {
         title: `Video Production Services Houston - Contact ${SITE_NAME}`,
         description:
-          "Ready to hire a Houston production company for video production services or commercial photography? Contact Ashkan Studios today or call (346) 335-7973.",
+          "Ready to hire a Houston production company for video production services or commercial photography? Contact Ashkan Studios today or call (832) 205-8203.",
         path: "/contact/",
       };
 

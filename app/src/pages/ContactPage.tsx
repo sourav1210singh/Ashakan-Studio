@@ -188,7 +188,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full px-4 py-3 border border-dark/20 rounded-lg focus:border-dark focus:outline-none transition-colors bg-transparent"
-                      placeholder="(346) 335-7973"
+                      placeholder="(832) 205-8203"
                       autoComplete="tel"
                       required
                     />
@@ -284,7 +284,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                     </a>
 
                     <a
-                      href="tel:3463357973"
+                      href="tel:8322058203"
                       className="flex items-center gap-4 text-dark hover:text-dark/70 transition-colors"
                     >
                       <div className="w-12 h-12 rounded-full border border-dark/20 flex items-center justify-center">
@@ -292,7 +292,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                       </div>
                       <div>
                         <p className="text-sm text-dark/50">PHONE</p>
-                        <p className="font-medium">(346) 335-7973</p>
+                        <p className="font-medium">(832) 205-8203</p>
                       </div>
                     </a>
 
@@ -302,7 +302,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                       </div>
                       <div>
                         <p className="text-sm text-dark/50">LOCATION</p>
-                        <p className="font-medium">1502 Sawyer St #108, Houston, TX</p>
+                        <p className="font-medium">1502 Sawyer St #110, Houston, TX</p>
                       </div>
                     </div>
                   </div>

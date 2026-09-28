@@ -275,7 +275,7 @@ function ashkan_send_enquiry_email($name, $email, $company, $type, $message) {
       . '<tr><td style="background-color:#1A1A1A;padding:26px 40px">'
       . '<div style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#8f8a7f;line-height:1.7">'
       . 'Sent from the <a href="https://ashkanstudios.com" style="color:#E8E0D1;text-decoration:none">ashkanstudios.com</a> contact form<br>'
-      . '1502 Sawyer St #108, Houston, TX 77007 &nbsp;&middot;&nbsp; (346) 335-7973'
+      . '1502 Sawyer St #110, Houston, TX 77007 &nbsp;&middot;&nbsp; (832) 205-8203'
       . '</div></td></tr>'
       . '</table></td></tr></table>';
 

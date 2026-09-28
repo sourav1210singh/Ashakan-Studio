@@ -424,7 +424,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   <span className="text-white/40">HOUSTON.</span>
                 </h2>
                 <p className="text-lg text-white/70 leading-relaxed mb-4">
-                  1502 Sawyer St #108
+                  1502 Sawyer St #110
                   <br />
                   Houston, TX 77007
                 </p>
@@ -437,7 +437,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                   comes together to experience art firsthand.
                 </p>
                 <a
-                  href="https://maps.google.com/?q=1502+Sawyer+St+%23108,+Houston,+TX+77007"
+                  href="https://maps.google.com/?q=1502+Sawyer+St+%23110,+Houston,+TX+77007"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 text-white group"
@@ -449,7 +449,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
               <FadeIn delay={0.1}>
                 <div className="aspect-video overflow-hidden">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3463.8!2d-95.3766!3d29.7716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c0f1b7cfffff%3A0x5f0f3a1b1c1b1b1b!2s1502+Sawyer+St+%23108%2C+Houston%2C+TX+77007!5e0!3m2!1sen!2sus!4v1"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3463.8!2d-95.3766!3d29.7716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c0f1b7cfffff%3A0x5f0f3a1b1c1b1b1b!2s1502+Sawyer+St+%23110%2C+Houston%2C+TX+77007!5e0!3m2!1sen!2sus!4v1"
                     width="100%"
                     height="100%"
                     style={{ border: 0, minHeight: "300px" }}
