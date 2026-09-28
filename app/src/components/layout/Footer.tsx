@@ -146,10 +146,10 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 info@ashkanstudios.com
               </a>
               <a
-                href="tel:+13463357973"
+                href="tel:+18322058203"
                 className="block text-lg sm:text-xl font-medium hover:text-warmbeige transition-colors"
               >
-                (346) 335-7973
+                (832) 205-8203
               </a>
             </div>
           </FadeIn>
@@ -179,12 +179,12 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
                 FIND US
               </p>
               <a
-                href="https://maps.google.com/?q=1502+Sawyer+St+%23108,+Houston,+TX+77007"
+                href="https://maps.google.com/?q=1502+Sawyer+St+%23110,+Houston,+TX+77007"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-base sm:text-lg text-white/80 hover:text-white transition-colors leading-relaxed"
               >
-                1502 Sawyer St #108
+                1502 Sawyer St #110
                 <br />
                 Houston, TX 77007
               </a>
