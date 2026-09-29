@@ -19,6 +19,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { readFile } from "node:fs/promises";
 import { basename, extname } from "node:path";
+import { unzip, docxText, docxImages, docxUrlFor } from "./docx.mjs";
 
 const SITE = (process.env.ASHKAN_SITE_URL || "https://ashkanstudios.com").replace(/\/+$/, "");
 const PASSWORD = process.env.ASHKAN_BLOG_PASSWORD || "";
@@ -93,7 +94,8 @@ const server = new McpServer(
       "Publishing workflow for the Ashkan Studios Storytime blog (a Houston commercial photo/video studio journal):",
       "1. Call list_recent_posts first so you never repeat a slug or topic.",
       "2. Write the article yourself in markdown: 500-900 words, a short intro, 3-5 `##` sections, natural human tone (studio journal voice - behind-the-scenes, campaigns, Houston, production craft). No AI-sounding filler.",
-      "3. Images: if the client supplied them (a brief, a doc, a folder, a URL), call upload_blog_image for each one so it is self-hosted - never hotlink and never invent an AI image in its place. Only when no picture was supplied, call generate_blog_image with a short scene description.",
+      "2b. If the user points at a document (a Google Doc link, a .docx link, or a file on the machine), call read_doc FIRST. It returns the copy AND uploads the pictures inside it, so never ask them to paste the text or describe the images. Write the post from that copy; [[IMAGE: imageN.jpg]] in the text marks where each picture belongs, matching the returned images in order.",
+      "3. Images: if the client supplied them (a doc, a folder, a URL), use read_doc or upload_blog_image so they are self-hosted - never hotlink and never invent an AI image in its place. Only when no picture was supplied, call generate_blog_image with a short scene description.",
       "   Pass the first image to publish_blog_post as `image` (the banner), and place the rest in the markdown body as ![alt](/blog-uploads/...). An italic line right after an image renders as its caption.",
       "4. Report the live URL back to the user when done.",
       "If the user gives only a title, that's enough - write the whole post from it.",
@@ -211,34 +213,107 @@ server.registerTool(
       bytes = Buffer.from(await r.arrayBuffer());
     }
 
-    const [mime, ext] = sniffImage(bytes);
-    if (!mime) {
-      throw new Error("That file is not a JPG, PNG, WebP or GIF - those are the only types the blog accepts. Convert it first.");
-    }
-    if (bytes.length > 8 * 1024 * 1024) {
-      throw new Error(`Image is ${(bytes.length / 1048576).toFixed(1)} MB; the blog's limit is 8 MB. Compress it first.`);
-    }
-
     const stem = (name || (filePath ? basename(filePath, extname(filePath)) : "image"))
       .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "image";
 
-    if (!sessionCookie) await login();
-    const fd = new FormData();
-    fd.append("action", "upload");
-    fd.append("file", new Blob([bytes], { type: mime }), `${stem}.${ext}`);
-    const up = await fetch(API, { method: "POST", headers: { Cookie: sessionCookie }, body: fd });
-    captureCookie(up);
-    const upData = await up.json().catch(() => ({}));
-    if (!upData.ok || !upData.url) {
-      throw new Error(`Upload to the site failed: ${upData.error || `HTTP ${up.status}`}`);
-    }
+    const up = await pushImage(bytes, stem);
     return ok({
-      image: upData.url,
-      absoluteUrl: `${SITE}${upData.url}`,
-      markdown: `![${name || stem}](${upData.url})`,
-      type: mime,
-      bytes: bytes.length,
-      resized: upData.resized || "",
+      ...up,
+      absoluteUrl: `${SITE}${up.image}`,
+      markdown: `![${name || stem}](${up.image})`,
+    });
+  }
+);
+
+/* Ek image ko site pe daal do. upload_blog_image aur read_doc dono
+   yahi use karte hain, taaki niyam ek hi jagah rahein. */
+async function pushImage(bytes, stem) {
+  const [mime, ext] = sniffImage(bytes);
+  if (!mime) throw new Error("That file is not a JPG, PNG, WebP or GIF - those are the only types the blog accepts.");
+  if (bytes.length > 8 * 1024 * 1024) {
+    throw new Error(`Image is ${(bytes.length / 1048576).toFixed(1)} MB; the blog's limit is 8 MB.`);
+  }
+  if (!sessionCookie) await login();
+  const fd = new FormData();
+  fd.append("action", "upload");
+  fd.append("file", new Blob([bytes], { type: mime }), `${stem}.${ext}`);
+  const up = await fetch(API, { method: "POST", headers: { Cookie: sessionCookie }, body: fd });
+  captureCookie(up);
+  const data = await up.json().catch(() => ({}));
+  if (!data.ok || !data.url) throw new Error(`Upload to the site failed: ${data.error || `HTTP ${up.status}`}`);
+  return { image: data.url, type: mime, bytes: bytes.length, resized: data.resized || "" };
+}
+
+server.registerTool(
+  "read_doc",
+  {
+    description:
+      "Read a client brief that came as a Word file or a Google Doc, and get back BOTH its text and its pictures already hosted on the site. Pass a Google Doc link, a .docx URL, or a path to a .docx on this machine. The text keeps the document's headings and marks where each picture sat as [[IMAGE: imageN.jpg]], and the returned images list gives the /blog-uploads/ path for each one in the same order - so you can drop them back into the article at the right places. Use this first whenever the user points at a document; do not ask them to copy-paste the copy or to describe the pictures.",
+    inputSchema: {
+      url: z.string().optional().describe("Google Doc link, or a direct URL to a .docx"),
+      path: z.string().optional().describe("Path to a .docx file on this machine"),
+      upload_images: z.boolean().optional().describe("Default true. false only reports what is inside, uploading nothing."),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
+  },
+  async ({ url, path: filePath, upload_images = true }) => {
+    if (!url && !filePath) throw new Error("Give either `url` (a Google Doc or .docx link) or `path` (a file on this machine).");
+    if (url && filePath) throw new Error("Give `url` or `path`, not both.");
+
+    let buf;
+    if (filePath) {
+      try {
+        buf = await readFile(filePath);
+      } catch (e) {
+        throw new Error(`Could not read ${filePath}: ${e.code === "ENOENT" ? "file not found" : e.message}`);
+      }
+    } else {
+      const dl = docxUrlFor(url);
+      const r = await fetch(dl, { redirect: "follow" });
+      if (!r.ok) throw new Error(`Could not download the document (HTTP ${r.status}). If it is a Google Doc, open Share and set it to "Anyone with the link - Viewer".`);
+      const ct = r.headers.get("content-type") || "";
+      buf = Buffer.from(await r.arrayBuffer());
+      /* Google ek sign-in page bhi 200 ke saath deta hai. Us HTML ko
+         .docx samajh ke aage badhe to error bilkul bekaar milta hai. */
+      if (/text\/html/i.test(ct) || buf.subarray(0, 2).toString("ascii") !== "PK") {
+        throw new Error(
+          dl.includes("docs.google.com")
+            ? "Google returned a sign-in page instead of the document. Open the doc, hit Share, and set it to \"Anyone with the link - Viewer\", then try again."
+            : "That URL did not return a .docx file."
+        );
+      }
+    }
+
+    let files, text, media;
+    try {
+      files = unzip(buf);
+      text = docxText(files);
+      media = docxImages(files);
+    } catch (e) {
+      throw new Error(`Could not read that document: ${e.message}`);
+    }
+
+    const images = [];
+    for (let i = 0; i < media.length; i++) {
+      const m = media[i];
+      const entry = { docName: m.name, bytes: m.bytes.length };
+      if (upload_images) {
+        try {
+          const up = await pushImage(m.bytes, `doc-${Date.now().toString(36)}-${i + 1}`);
+          Object.assign(entry, up, { markdown: `![](${up.image})` });
+        } catch (e) {
+          entry.error = e.message;   // ek image ka fail hona poora doc na rok de
+        }
+      }
+      images.push(entry);
+    }
+
+    return ok({
+      source: filePath || url,
+      words: text.split(/\s+/).filter(Boolean).length,
+      imageCount: images.length,
+      images,
+      text,
     });
   }
 );
