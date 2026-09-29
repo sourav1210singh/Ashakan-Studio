@@ -640,7 +640,9 @@ $INSTRUCTIONS = "Publishing workflow for the Ashkan Studios Storytime blog (Hous
     . "2. Write the article yourself in markdown: 500-900 words, short intro, 3-5 ## sections, natural human studio-journal voice. No AI-sounding filler.\n"
     . "2b. If the user points at a document (a Google Doc link or a .docx URL), call read_doc FIRST. It returns the copy AND uploads the pictures inside it, so never ask them to paste the text or describe the images. Write the post from that copy; [[IMAGE: imageN.jpg]] marks where each picture belongs, matching the returned images in order.\n"
     . "3. Images: if the client supplied them (a doc, or any URL), use read_doc or upload_blog_image so they are self-hosted - never hotlink, and never invent an AI image in their place. Only when no picture was supplied, call generate_blog_image with a short scene description.\n"
-    . "   Pass the first image to publish_blog_post as `image` (the banner) and put the rest in the markdown body as ![alt](/blog-uploads/...). An italic line right after an image renders as its caption.\n"
+    . "   Banner: pass the FIRST image to publish_blog_post as `image`, and DELETE that one's [[IMAGE:]] marker and its caption line from the body. The banner already prints above the article, so leaving it inline shows the same photo twice.\n"
+    . "   Every other image goes where its marker sits: ![caption](/blog-uploads/...), then a blank line, then the caption in italics on its own line, then a blank line before the next paragraph or heading. Without that last blank line a following '## ' sticks to the caption and stops being a heading.\n"
+    . "   A client brief usually opens with an SEO metadata block and ends with a dev/internal-links list. Neither belongs in the body - lift the meta title/description/keywords into those fields and drop the rest.\n"
     . "4. Report the live URL back to the user. If the user gives only a title, that's enough - write the whole post from it.";
 
 // ── JSON-RPC handler for one message ────────────────────────────
