@@ -17,6 +17,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import { readFile } from "node:fs/promises";
+import { basename, extname } from "node:path";
 
 const SITE = (process.env.ASHKAN_SITE_URL || "https://ashkanstudios.com").replace(/\/+$/, "");
 const PASSWORD = process.env.ASHKAN_BLOG_PASSWORD || "";
@@ -91,7 +93,8 @@ const server = new McpServer(
       "Publishing workflow for the Ashkan Studios Storytime blog (a Houston commercial photo/video studio journal):",
       "1. Call list_recent_posts first so you never repeat a slug or topic.",
       "2. Write the article yourself in markdown: 500-900 words, a short intro, 3-5 `##` sections, natural human tone (studio journal voice - behind-the-scenes, campaigns, Houston, production craft). No AI-sounding filler.",
-      "3. Call generate_blog_image with a short scene description, then publish_blog_post with the returned image path.",
+      "3. Images: if the client supplied them (a brief, a doc, a folder, a URL), call upload_blog_image for each one so it is self-hosted - never hotlink and never invent an AI image in its place. Only when no picture was supplied, call generate_blog_image with a short scene description.",
+      "   Pass the first image to publish_blog_post as `image` (the banner), and place the rest in the markdown body as ![alt](/blog-uploads/...). An italic line right after an image renders as its caption.",
       "4. Report the live URL back to the user when done.",
       "If the user gives only a title, that's enough - write the whole post from it.",
     ].join("\n"),
@@ -164,6 +167,79 @@ server.registerTool(
       throw new Error(`Image upload to the site failed: ${upData.error || `HTTP ${up.status}`}`);
     }
     return ok({ image: upData.url, absoluteUrl: `${SITE}${upData.url}`, bytes: bytes.length });
+  }
+);
+
+/* Image ke bytes se hi uska type pehchano - extension jhooth bol sakta
+   hai, aur blog-api getimagesize() se asli type dekhta hai. */
+function sniffImage(buf) {
+  if (buf.length > 12) {
+    if (buf[0] === 0xff && buf[1] === 0xd8) return ["image/jpeg", "jpg"];
+    if (buf.toString("ascii", 1, 4) === "PNG") return ["image/png", "png"];
+    if (buf.toString("ascii", 0, 3) === "GIF") return ["image/gif", "gif"];
+    if (buf.toString("ascii", 0, 4) === "RIFF" && buf.toString("ascii", 8, 12) === "WEBP") return ["image/webp", "webp"];
+  }
+  return [null, null];
+}
+
+server.registerTool(
+  "upload_blog_image",
+  {
+    description:
+      "Upload an image you already have - from a client's document, a folder on this machine, or a URL - into the site's /blog-uploads/ so it is self-hosted. Returns the path to use as `image` in publish_blog_post, or to drop into the markdown body as ![alt](path). Use this (not generate_blog_image) whenever the client supplied the picture. JPG, PNG, WebP and GIF, up to 8 MB; the site downscales anything over 1800px.",
+    inputSchema: {
+      path: z.string().optional().describe("Absolute path to the image file on this machine"),
+      url: z.string().url().optional().describe("Image URL to fetch and re-host instead of a local file"),
+      name: z.string().optional().describe("Optional readable filename, e.g. 'jewelry-macro'. The site assigns its own unique name either way."),
+    },
+    annotations: { readOnlyHint: false, destructiveHint: false, openWorldHint: true },
+  },
+  async ({ path: filePath, url, name }) => {
+    if (!filePath && !url) throw new Error("Give either `path` (a file on this machine) or `url`.");
+    if (filePath && url) throw new Error("Give `path` or `url`, not both.");
+
+    let bytes;
+    if (filePath) {
+      try {
+        bytes = await readFile(filePath);
+      } catch (e) {
+        throw new Error(`Could not read ${filePath}: ${e.code === "ENOENT" ? "file not found" : e.message}`);
+      }
+    } else {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Could not download ${url} (HTTP ${r.status}).`);
+      bytes = Buffer.from(await r.arrayBuffer());
+    }
+
+    const [mime, ext] = sniffImage(bytes);
+    if (!mime) {
+      throw new Error("That file is not a JPG, PNG, WebP or GIF - those are the only types the blog accepts. Convert it first.");
+    }
+    if (bytes.length > 8 * 1024 * 1024) {
+      throw new Error(`Image is ${(bytes.length / 1048576).toFixed(1)} MB; the blog's limit is 8 MB. Compress it first.`);
+    }
+
+    const stem = (name || (filePath ? basename(filePath, extname(filePath)) : "image"))
+      .toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "image";
+
+    if (!sessionCookie) await login();
+    const fd = new FormData();
+    fd.append("action", "upload");
+    fd.append("file", new Blob([bytes], { type: mime }), `${stem}.${ext}`);
+    const up = await fetch(API, { method: "POST", headers: { Cookie: sessionCookie }, body: fd });
+    captureCookie(up);
+    const upData = await up.json().catch(() => ({}));
+    if (!upData.ok || !upData.url) {
+      throw new Error(`Upload to the site failed: ${upData.error || `HTTP ${up.status}`}`);
+    }
+    return ok({
+      image: upData.url,
+      absoluteUrl: `${SITE}${upData.url}`,
+      markdown: `![${name || stem}](${upData.url})`,
+      type: mime,
+      bytes: bytes.length,
+      resized: upData.resized || "",
+    });
   }
 );
 
