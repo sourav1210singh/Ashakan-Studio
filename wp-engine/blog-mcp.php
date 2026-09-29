@@ -649,20 +649,41 @@ function issue_tokens() {
 }
 
 // ── default: the MCP endpoint ───────────────────────────────────
-// Auth: accept EITHER the shared secret (header X-MCP-Secret, or
-// Authorization: Bearer <shared secret>) OR a valid OAuth access token.
+// Auth: accept the shared secret (header X-MCP-Secret, Authorization:
+// Bearer <shared secret>, or ?k=<shared secret>) OR a valid OAuth token.
 // Placeholder split so the deploy find-replace can't disable the guard.
+//
+// Why ?k= exists, 9/29: claude.ai's own connector cannot finish OAuth
+// against this host. The browser reaches /authorize fine and the code
+// comes back, but the token exchange runs from Anthropic's backend on a
+// Python HTTP client, and WP Engine's nginx answers every Python
+// user-agent with a 403 before PHP ever sees it. Measured: python-httpx,
+// python-requests, python-urllib3 and libwww-perl are blocked on every
+// path; curl, node, okhttp, Java and Claude-User are not. It is a
+// platform rule, not a customer one - a WP Engine install with zero
+// access rules blocks the same way - so it cannot be switched off from
+// the portal, and ashkanstudios.com's production install is not even in
+// the WP Engine account we hold.
+//
+// Claude's actual MCP calls arrive as Claude-User and are NOT blocked.
+// So putting the secret in the connector URL sidesteps the one step that
+// fails, with nothing hosted outside the client's own platform.
+// The trade: whoever holds that URL can publish. Treat it as a password;
+// rotate MCP_SHARED_SECRET and re-upload if it leaks. Drop back to OAuth
+// if WP Engine ever lifts the block.
 $sharedConfigured = MCP_SHARED_SECRET !== 'SET_SHARED_SECRET_' . 'BEFORE_UPLOAD' && MCP_SHARED_SECRET !== '';
 $authed = false;
 if ($sharedConfigured) {
     $hdrSecret = $_SERVER['HTTP_X_MCP_SECRET'] ?? '';
+    $qsSecret  = $_GET['k'] ?? '';
     if ($hdrSecret !== '' && hash_equals(MCP_SHARED_SECRET, $hdrSecret)) { $authed = true; }
     elseif (($bt = bearer_token()) !== '' && hash_equals(MCP_SHARED_SECRET, $bt)) { $authed = true; }
+    elseif ($qsSecret !== '' && hash_equals(MCP_SHARED_SECRET, $qsSecret)) { $authed = true; }
 }
 if (!$authed && jwt_verify('at', bearer_token())) { $authed = true; }
 if (!$authed) {
     header('WWW-Authenticate: Bearer resource_metadata="' . $base . '/.well-known/oauth-protected-resource"');
-    json_out(array('error' => 'invalid_token', 'error_description' => 'Sign in, or send the X-MCP-Secret header.'), 401);
+    json_out(array('error' => 'invalid_token', 'error_description' => 'Sign in, or send the secret as ?k=, X-MCP-Secret, or a Bearer token.'), 401);
 }
 if ($method !== 'POST') json_out(array('error' => 'POST only'), 405);
 
