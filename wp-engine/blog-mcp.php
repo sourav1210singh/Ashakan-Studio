@@ -261,10 +261,12 @@ function blog_api($action, $body = array(), $auth = false) {
     if (isset($data['error'])) throw new Exception('blog-api "' . $action . '": ' . $data['error']);
     return $data;
 }
-function blog_upload_image($bytes, $slug) {
+/* $mime/$ext default webp hain kyunki generate_blog_image wahi bhejta
+   hai; client ki apni image kisi bhi type ki ho sakti hai. */
+function blog_upload_image($bytes, $slug, $mime = 'image/webp', $ext = 'webp') {
     global $API, $BLOG_COOKIE;
     if (!$BLOG_COOKIE) blog_login();
-    $tmp = tempnam(sys_get_temp_dir(), 'img') . '.webp';
+    $tmp = tempnam(sys_get_temp_dir(), 'img') . '.' . $ext;
     file_put_contents($tmp, $bytes);
     $ch = curl_init($API);
     curl_setopt_array($ch, array(
@@ -272,7 +274,7 @@ function blog_upload_image($bytes, $slug) {
         CURLOPT_HTTPHEADER => array('Cookie: ' . $BLOG_COOKIE),
         CURLOPT_POSTFIELDS => array(
             'action' => 'upload',
-            'file' => new CURLFile($tmp, 'image/webp', $slug . '.webp'),
+            'file' => new CURLFile($tmp, $mime, $slug . '.' . $ext),
         ),
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT => 40,
@@ -286,6 +288,151 @@ function blog_upload_image($bytes, $slug) {
 }
 
 function live_url($slug) { global $SITE; return $SITE . '/storytime/' . $slug . '/'; }
+
+// ── doc reader ──────────────────────────────────────────────────
+// Mahendra brief bhejte hain - kabhi Google Doc ka link, kabhi .docx -
+// aur usi se post banti hai. Connector chalate waqt Claude ke paas na wo
+// file hoti hai na koi shell, to doc kholna server ka kaam hai.
+
+function http_fetch($url, $maxBytes = 25000000) {
+    $ch = curl_init($url);
+    curl_setopt_array($ch, array(
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS      => 5,
+        CURLOPT_TIMEOUT        => 60,
+        CURLOPT_USERAGENT      => 'ashkan-blog-mcp/1.0',
+    ));
+    $body  = curl_exec($ch);
+    $code  = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    $ctype = (string) curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+    $err   = curl_error($ch);
+    curl_close($ch);
+    if ($body === false) throw new Exception('Download failed: ' . $err);
+    if (strlen($body) > $maxBytes) throw new Exception('That file is too large to process.');
+    return array($code, $ctype, $body);
+}
+
+/* Type bytes se pehchano, extension se nahi - blog-api khud
+   getimagesize() se dekhta hai, to naam pe bharosa bekaar hai. */
+function sniff_image($b) {
+    if (strlen($b) > 12) {
+        if (substr($b, 0, 2) === "\xFF\xD8") return array('image/jpeg', 'jpg');
+        if (substr($b, 1, 3) === 'PNG')      return array('image/png', 'png');
+        if (substr($b, 0, 3) === 'GIF')      return array('image/gif', 'gif');
+        if (substr($b, 0, 4) === 'RIFF' && substr($b, 8, 4) === 'WEBP') return array('image/webp', 'webp');
+    }
+    return array(null, null);
+}
+
+/* .docx sirf ek ZIP hai. ZipArchive ko disk par file chahiye hoti hai,
+   aur WP Engine PHP ko har jagah likhne nahi deta, to string se hi padh
+   lete hain. Sizes central directory se - local header me 0 ho sakta
+   hai jab data descriptor laga ho. */
+function docx_unzip($buf) {
+    $len  = strlen($buf);
+    $eocd = -1;
+    $from = max(0, $len - 66000);
+    for ($i = $len - 22; $i >= $from; $i--) {
+        if (substr($buf, $i, 4) === "PK\x05\x06") { $eocd = $i; break; }
+    }
+    if ($eocd < 0) throw new Exception('This is not a .docx file (no ZIP directory in it).');
+
+    $u16 = function ($at) use ($buf) { $v = unpack('v', substr($buf, $at, 2)); return $v[1]; };
+    $u32 = function ($at) use ($buf) { $v = unpack('V', substr($buf, $at, 4)); return $v[1]; };
+
+    $count = $u16($eocd + 10);
+    $p     = $u32($eocd + 16);
+    $files = array();
+    for ($n = 0; $n < $count; $n++) {
+        if ($p + 46 > $len || substr($buf, $p, 4) !== "PK\x01\x02") break;
+        $method   = $u16($p + 10);
+        $compSize = $u32($p + 20);
+        $nameLen  = $u16($p + 28);
+        $extraLen = $u16($p + 30);
+        $cmtLen   = $u16($p + 32);
+        $localAt  = $u32($p + 42);
+        $name     = substr($buf, $p + 46, $nameLen);
+        $p += 46 + $nameLen + $extraLen + $cmtLen;
+
+        if ($localAt + 30 > $len || substr($buf, $localAt, 4) !== "PK\x03\x04") continue;
+        $start = $localAt + 30 + $u16($localAt + 26) + $u16($localAt + 28);
+        $raw   = substr($buf, $start, $compSize);
+        if ($method === 0) { $files[$name] = $raw; continue; }
+        $out = @gzinflate($raw);              // ek entry kharab ho to poora doc mat giraao
+        if ($out !== false) $files[$name] = $out;
+    }
+    return $files;
+}
+
+/* rId -> media file. Isi se pata chalta hai ki kaunsi image text me
+   kahan thi; warna sirf "3 images mili" reh jaata. */
+function docx_rels($files) {
+    $map = array();
+    if (empty($files['word/_rels/document.xml.rels'])) return $map;
+    if (preg_match_all('/Id="([^"]+)"[^>]*Target="([^"]+)"/', $files['word/_rels/document.xml.rels'], $m, PREG_SET_ORDER)) {
+        foreach ($m as $x) {
+            $t = preg_replace('#^\./?#', '', $x[2]);
+            $map[$x[1]] = preg_replace('#^word/#', '', $t);
+        }
+    }
+    return $map;
+}
+
+function docx_text($files) {
+    if (empty($files['word/document.xml'])) throw new Exception('No word/document.xml inside - that zip is not a Word document.');
+    $rels  = docx_rels($files);
+    $paras = array();
+    /* Poora <w:p>...</w:p> lo. Sirf <w:p par todne se opening tag ke
+       attributes (w:rsidR="...") text me reh jaate hain. */
+    if (preg_match_all('/<w:p(?:\s[^>]*)?>([\s\S]*?)<\/w:p>/', $files['word/document.xml'], $m)) {
+        foreach ($m[1] as $chunk) {
+            $prefix = '';
+            if (preg_match('/w:pStyle[^>]*w:val="([^"]+)"/', $chunk, $s)) {
+                if (preg_match('/^Heading(\d)$/i', $s[1], $h)) $prefix = str_repeat('#', min(6, (int) $h[1])) . ' ';
+                elseif (strcasecmp($s[1], 'Title') === 0) $prefix = '# ';
+            }
+            $pre = '';
+            if (preg_match_all('/<a:blip[^>]*r:embed="([^"]+)"/', $chunk, $b)) {
+                foreach ($b[1] as $rid) {
+                    if (isset($rels[$rid])) $pre .= "\n[[IMAGE: " . preg_replace('#^media/#', '', $rels[$rid]) . "]]\n";
+                }
+            }
+            $t = preg_replace('/<w:tab\b[^>]*\/?>/', "\t", $chunk);
+            $t = preg_replace('/<w:br\b[^>]*\/?>/', "\n", $t);
+            $t = preg_replace('/<[^>]+>/', '', $t);
+            $t = html_entity_decode($t, ENT_QUOTES | ENT_XML1, 'UTF-8');
+            $paras[] = trim($pre . $prefix . $t);
+        }
+    }
+    return trim(preg_replace("/\n{3,}/", "\n\n", implode("\n\n", $paras)));
+}
+
+function docx_images($files) {
+    $out = array();
+    foreach ($files as $name => $bytes) {
+        if (!preg_match('#^word/media/#i', $name)) continue;
+        $out[] = array('name' => preg_replace('#^word/media/#i', '', $name), 'bytes' => $bytes);
+    }
+    // image1, image2, image10 - number se, naam se nahi
+    usort($out, function ($a, $b) {
+        preg_match('/(\d+)/', $a['name'], $x);
+        preg_match('/(\d+)/', $b['name'], $y);
+        $na = isset($x[1]) ? (int) $x[1] : 0;
+        $nb = isset($y[1]) ? (int) $y[1] : 0;
+        return $na === $nb ? strcmp($a['name'], $b['name']) : $na - $nb;
+    });
+    return $out;
+}
+
+/* Google Doc ka link -> asli .docx ka download URL. Baaki jyon ka tyon. */
+function docx_url_for($url) {
+    if (preg_match('#docs\.google\.com/document/(?:u/\d+/)?d/([A-Za-z0-9_-]+)#', $url, $m)
+        || preg_match('#(?:drive|docs)\.google\.com/open\?id=([A-Za-z0-9_-]+)#', $url, $m)) {
+        return 'https://docs.google.com/document/d/' . $m[1] . '/export?format=docx';
+    }
+    return $url;
+}
 
 // ── MCP tools ───────────────────────────────────────────────────
 function tool_list_recent_posts($a) {
@@ -364,6 +511,79 @@ function tool_delete_blog_post($a) {
     return array('ok' => true, 'deleted' => (string) ($a['id'] ?? ''));
 }
 
+function tool_upload_blog_image($a) {
+    global $SITE;
+    $url = trim((string) (isset($a['url']) ? $a['url'] : ''));
+    if ($url === '') throw new Exception('Give `url` - the image to fetch and re-host on the site.');
+    list($code, $ctype, $bytes) = http_fetch($url, 8 * 1024 * 1024 + 4096);
+    if ($code < 200 || $code >= 300) throw new Exception("Could not download that image (HTTP $code).");
+    list($mime, $ext) = sniff_image($bytes);
+    if (!$mime) throw new Exception('That URL is not a JPG, PNG, WebP or GIF - those are the only types the blog accepts.');
+    if (strlen($bytes) > 8 * 1024 * 1024) {
+        throw new Exception('Image is ' . round(strlen($bytes) / 1048576, 1) . ' MB; the blog limit is 8 MB.');
+    }
+    $stem = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower((string) (isset($a['name']) ? $a['name'] : 'image'))), '-');
+    if ($stem === '') $stem = 'image';
+    $path = blog_upload_image($bytes, $stem, $mime, $ext);
+    return array(
+        'image' => $path, 'absoluteUrl' => $SITE . $path,
+        'markdown' => '![' . (isset($a['name']) ? $a['name'] : '') . '](' . $path . ')',
+        'type' => $mime, 'bytes' => strlen($bytes),
+    );
+}
+
+function tool_read_doc($a) {
+    $url = trim((string) (isset($a['url']) ? $a['url'] : ''));
+    if ($url === '') throw new Exception('Give `url` - a Google Doc link or a direct .docx URL.');
+    $upload = !isset($a['upload_images']) || $a['upload_images'];
+
+    $dl = docx_url_for($url);
+    list($code, $ctype, $buf) = http_fetch($dl);
+    if ($code < 200 || $code >= 300) {
+        throw new Exception("Could not download the document (HTTP $code). If it is a Google Doc, open Share and set it to \"Anyone with the link - Viewer\".");
+    }
+    /* Google apna sign-in page bhi 200 ke saath deta hai. Use .docx
+       samajh ke aage badhe to error bilkul bekaar milta hai. */
+    if (stripos($ctype, 'text/html') !== false || substr($buf, 0, 2) !== 'PK') {
+        throw new Exception(strpos($dl, 'docs.google.com') !== false
+            ? 'Google returned a sign-in page instead of the document. Open the doc, hit Share, set it to "Anyone with the link - Viewer", then try again.'
+            : 'That URL did not return a .docx file.');
+    }
+
+    $files = docx_unzip($buf);
+    $text  = docx_text($files);
+    $media = docx_images($files);
+
+    $images = array();
+    $i = 0;
+    foreach ($media as $m) {
+        $i++;
+        $entry = array('docName' => $m['name'], 'bytes' => strlen($m['bytes']));
+        if ($upload) {
+            try {
+                list($mime, $ext) = sniff_image($m['bytes']);
+                if (!$mime) throw new Exception('not a JPG/PNG/WebP/GIF');
+                $stem = 'doc-' . substr(md5($m['name'] . microtime(true)), 0, 8) . '-' . $i;
+                $path = blog_upload_image($m['bytes'], $stem, $mime, $ext);
+                $entry['image'] = $path;
+                $entry['markdown'] = '![](' . $path . ')';
+                $entry['type'] = $mime;
+            } catch (Exception $e) {
+                $entry['error'] = $e->getMessage();   // ek image ka fail hona poora doc na rok de
+            }
+        }
+        $images[] = $entry;
+    }
+
+    return array(
+        'source' => $url,
+        'words' => count(preg_split('/\s+/', $text, -1, PREG_SPLIT_NO_EMPTY)),
+        'imageCount' => count($images),
+        'images' => $images,
+        'text' => $text,
+    );
+}
+
 function tools_spec() {
     return array(
         array('name' => 'list_recent_posts', 'description' => 'List Storytime posts (id, title, slug, status, live URL). include_drafts=true also shows drafts. Call before publishing to avoid duplicate slugs/topics.',
@@ -374,6 +594,14 @@ function tools_spec() {
             'inputSchema' => array('type' => 'object', 'properties' => array(
                 'prompt' => array('type' => 'string', 'description' => 'Short scene description, subject only'),
                 'slug' => array('type' => 'string', 'description' => 'kebab-case filename')), 'required' => array('prompt', 'slug'))),
+        array('name' => 'read_doc', 'description' => "Read a client brief that came as a Google Doc link or a .docx URL, and get back BOTH its text and its pictures already hosted on the site. The text keeps the document's headings and marks where each picture sat as [[IMAGE: imageN.jpg]]; the images list gives the /blog-uploads/ path for each one in the same order, so you can put them back in the right places. Use this first whenever the user points at a document - never ask them to paste the copy or describe the pictures. A Google Doc must be shared as \"Anyone with the link - Viewer\".",
+            'inputSchema' => array('type' => 'object', 'properties' => array(
+                'url' => array('type' => 'string', 'description' => 'Google Doc link, or a direct URL to a .docx'),
+                'upload_images' => array('type' => 'boolean', 'description' => 'Default true. false only reports what is inside, uploading nothing.')), 'required' => array('url'))),
+        array('name' => 'upload_blog_image', 'description' => "Fetch an image the client supplied (any URL) and host it on the site, so the blog never hotlinks. Returns the /blog-uploads/ path to use as `image` in publish_blog_post, or to drop into the markdown body. Use this - not generate_blog_image - whenever the client gave you the picture. JPG, PNG, WebP or GIF, up to 8 MB; the site downscales anything over 1800px.",
+            'inputSchema' => array('type' => 'object', 'properties' => array(
+                'url' => array('type' => 'string', 'description' => 'URL of the image to fetch and re-host'),
+                'name' => array('type' => 'string', 'description' => "Optional readable label, e.g. 'jewelry macro'")), 'required' => array('url'))),
         array('name' => 'publish_blog_post', 'description' => "Create a Storytime post. Write the full markdown yourself (500-900 words, ## sections, studio-journal tone). status 'published' = live immediately; 'draft' = hidden. Returns the live URL.",
             'inputSchema' => array('type' => 'object', 'properties' => array(
                 'title' => array('type' => 'string'), 'content' => array('type' => 'string', 'description' => 'Full markdown body'),
@@ -398,6 +626,8 @@ function run_tool($name, $args) {
     switch ($name) {
         case 'list_recent_posts': return tool_list_recent_posts($args);
         case 'generate_blog_image': return tool_generate_blog_image($args);
+        case 'read_doc': return tool_read_doc($args);
+        case 'upload_blog_image': return tool_upload_blog_image($args);
         case 'publish_blog_post': return tool_publish_blog_post($args);
         case 'update_blog_post': return tool_update_blog_post($args);
         case 'delete_blog_post': return tool_delete_blog_post($args);
@@ -408,7 +638,9 @@ function run_tool($name, $args) {
 $INSTRUCTIONS = "Publishing workflow for the Ashkan Studios Storytime blog (Houston commercial photo/video studio journal):\n"
     . "1. Call list_recent_posts first so you never repeat a slug or topic.\n"
     . "2. Write the article yourself in markdown: 500-900 words, short intro, 3-5 ## sections, natural human studio-journal voice. No AI-sounding filler.\n"
-    . "3. Call generate_blog_image with a short scene description, then publish_blog_post with the returned image path.\n"
+    . "2b. If the user points at a document (a Google Doc link or a .docx URL), call read_doc FIRST. It returns the copy AND uploads the pictures inside it, so never ask them to paste the text or describe the images. Write the post from that copy; [[IMAGE: imageN.jpg]] marks where each picture belongs, matching the returned images in order.\n"
+    . "3. Images: if the client supplied them (a doc, or any URL), use read_doc or upload_blog_image so they are self-hosted - never hotlink, and never invent an AI image in their place. Only when no picture was supplied, call generate_blog_image with a short scene description.\n"
+    . "   Pass the first image to publish_blog_post as `image` (the banner) and put the rest in the markdown body as ![alt](/blog-uploads/...). An italic line right after an image renders as its caption.\n"
     . "4. Report the live URL back to the user. If the user gives only a title, that's enough - write the whole post from it.";
 
 // ── JSON-RPC handler for one message ────────────────────────────
