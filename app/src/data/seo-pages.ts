@@ -98,7 +98,7 @@ export const seoPages: SeoPageData[] = [
     title: "Professional Product Photographer in Houston, TX",
     subtitle: "Product & Food Photography",
     heroImage: "/images/seo/approved/product-retail12.jpg",
-    // Bag sits low in the frame; a centred crop clipped its base and
+    // Bag sits low in the frame; a centered crop clipped its base and
     // strap. 70% lifts the product into the middle of the band.
     heroPosition: "center 70%",
     intro:
@@ -175,7 +175,7 @@ export const seoPages: SeoPageData[] = [
     title: "Houston Commercial Photography in TX",
     subtitle: "Alluring Imagery for Your Business",
     heroImage: "/images/seo/approved/commercialphotography-deutsch-lifestyle-595.jpg",
-    // Three faces sit in the upper half; a centred crop cut the tops of
+    // Three faces sit in the upper half; a centered crop cut the tops of
     // their heads off once the band went past ~2.5:1 on a short window.
     heroPosition: "center 25%",
     intro:
@@ -732,7 +732,7 @@ export const seoPages: SeoPageData[] = [
     title: "Fashion Photography in Houston, TX",
     subtitle: "Style, Story, and Standout Imagery",
     heroImage: "/images/seo/approved/fashion-hero-citybook-633.jpg",
-    // Her face and raised arm are in the top third, so a centred crop
+    // Her face and raised arm are in the top third, so a centered crop
     // cut across the forehead. 30% brings the whole gesture into view.
     heroPosition: "center 30%",
     intro:
@@ -899,7 +899,7 @@ export const seoPages: SeoPageData[] = [
       {
         /* The brief put a Ferrari still here, but this section is about
            video formats - so it uses a real automotive film from the
-           catalogue instead (1968 Mustang GT, shot in an auto shop). */
+           catalog instead (1968 Mustang GT, shot in an auto shop). */
         heading: "Cinematic Car Videos, Walkarounds, and Brand Films",
         body: "Our automotive video production covers everything from cinematic brand films to fast, social-ready walkarounds. We match the format to your goal, whether that is launching a model, moving inventory, or feeding a content calendar.",
         bullets: [

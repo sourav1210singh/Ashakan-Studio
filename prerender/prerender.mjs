@@ -21,7 +21,7 @@
 //      src/lib/seo-meta.ts applied) into dist/<route>/index.html.
 //   4. The root dist/index.html is replaced with the rendered home
 //      page LAST, after all other routes are done.
-// React re-mounts over the prerendered markup on load, so behaviour
+// React re-mounts over the prerendered markup on load, so behavior
 // in real browsers is unchanged.
 // ────────────────────────────────────────────────────────────────
 import fs from "fs";

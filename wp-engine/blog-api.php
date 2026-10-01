@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // back, so it keeps working unchanged.
 //
 // Changing the password invalidates every token at once - the "change
-// the password to log everyone out" behaviour the README describes.
+// the password to log everyone out" behavior the README describes.
 define('BLOG_TOKEN_TTL', 12 * 60 * 60); // 12 hours
 
 function blog_token_sign($exp) {

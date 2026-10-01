@@ -241,7 +241,7 @@ export function StudioPage({ onNavigate }: StudioPageProps) {
                     <span className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
                     {/* Minimal play indicator - no extra label, just a
                         subtle white outlined circle with a play glyph
-                        in the centre, so the slot reads as a video. */}
+                        in the center, so the slot reads as a video. */}
                     <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
                       <span className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-white/70 flex items-center justify-center bg-white/10 backdrop-blur-sm group-hover:bg-white/15 transition-colors">
                         <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white ml-0.5" />

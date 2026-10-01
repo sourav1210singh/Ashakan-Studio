@@ -62,7 +62,7 @@ export function FullServiceHybridSection() {
       className="relative overflow-hidden bg-dark min-h-[70vh] sm:min-h-[80vh] lg:min-h-[90vh] flex items-center justify-center"
     >
       {/* ── Background video - Vimeo iframe in 'background' mode ──
-          The iframe is over-sized (300% w/h) and centred so it covers
+          The iframe is over-sized (300% w/h) and centered so it covers
           the section at any viewport aspect ratio without letterboxing.
           playsinline=1 (iOS inline autoplay) + a 540p/720p quality cap
           (ambient bg under a 60% dark overlay - full res is wasted). */}

@@ -247,7 +247,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                   )}
                 </AppLink>
 
-                {/* Sub-dropdown (flyout LEFT) - opens toward the centre of
+                {/* Sub-dropdown (flyout LEFT) - opens toward the center of
                     the screen so it never gets clipped by the right edge. */}
                 {child.children && activeSubDropdown === child.label && (
                   <div className="absolute right-full top-0 pr-2 z-50">
@@ -310,7 +310,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
 
             {/* Left spacer - the left nav cluster was emptied per the
                 2026-05-21 review (only WORK remains, moved to the right).
-                Kept as a flex-1 spacer so the centre logo stays centred. */}
+                Kept as a flex-1 spacer so the center logo stays centered. */}
             <div className="hidden lg:flex flex-1" />
 
             {/* Center Logo */}
@@ -416,9 +416,9 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
                     style={{ opacity: 0, animation: `fadeInUp 0.4s ease-out ${item.delay}s forwards` }}
                   >
                     {/* nudge the all-caps text down ~0.05em so the visible
-                        letters sit at the true vertical centre of the bar
+                        letters sit at the true vertical center of the bar
                         (the font reserves more empty space below the caps
-                        than above, so a flex-centred line box reads high). */}
+                        than above, so a flex-centered line box reads high). */}
                     <span className="inline-block translate-y-[0.05em] leading-none">
                       {item.label}
                     </span>

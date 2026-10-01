@@ -18,7 +18,7 @@ import { AppLink } from "@/components/AppLink";
    hover-expand video preview were all replaced on 2026-05-08. The
    layout now visually mirrors THE WORK accordion bands so the two
    sections feel like a matched pair, but without the expand-on-hover
-   behaviour (per user direction: static cards, click navigates).
+   behavior (per user direction: static cards, click navigates).
    ════════════════════════════════════════════════════════════════════ */
 
 interface CampaignSectionProps {

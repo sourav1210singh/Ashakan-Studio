@@ -12,7 +12,7 @@
 // menu disappears... after refreshing it loads correctly").
 //
 // Fix: temporarily force `scroll-behavior: auto` on <html> and jump
-// to (0,0) synchronously — an instant jump can't be cancelled. The
+// to (0,0) synchronously — an instant jump can't be canceled. The
 // inline override is restored right after so anchor scrolling stays
 // smooth everywhere else.
 // ────────────────────────────────────────────────────────────────

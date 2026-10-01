@@ -20,7 +20,7 @@ const HERO_VIDEO_ID = "1022971286"; // Vitacca Ballet - Season Promo (motion + t
    "window" through which a Vimeo BTS reel plays continuously.
 
    Implementation (iOS/Android-safe "inverse knockout"):
-     Layer 1 (back)  : a dark backing colour - shown if the video
+     Layer 1 (back)  : a dark backing color - shown if the video
                        fails to load, so letters never go blank.
      Layer 2 (mid)   : a plain Vimeo <iframe> covering the text box.
      Layer 3 (front) : an SVG rect filled CREAM everywhere EXCEPT
@@ -31,7 +31,7 @@ const HERO_VIDEO_ID = "1022971286"; // Vitacca Ballet - Season Promo (motion + t
    there is NO visible border/box around the word.
 
    This deliberately avoids <foreignObject> inside <mask>, which
-   does NOT render on iOS Safari (it showed a grey rectangle and a
+   does NOT render on iOS Safari (it showed a gray rectangle and a
    faint bounding border). The knockout uses only primitives that
    every mobile browser supports.
    ──────────────────────────────────────────────────────────── */
@@ -86,7 +86,7 @@ function VideoTextWord({
           pointerEvents: "none",
         }}
       >
-        {/* Layer 1: dark backing - fallback letter colour if video
+        {/* Layer 1: dark backing - fallback letter color if video
             never loads (e.g. iOS Low Power Mode blocking autoplay). */}
         <span
           style={{
@@ -96,7 +96,7 @@ function VideoTextWord({
           }}
         />
 
-        {/* Layer 2: Vimeo iframe - over-sized + centred so it fully
+        {/* Layer 2: Vimeo iframe - over-sized + centered so it fully
             covers the wide, short text box at any aspect ratio
             (no letterbox bars peeking through the letters).
             Mounted only after window load (see videoOn above). */}
@@ -120,7 +120,7 @@ function VideoTextWord({
       </span>
 
       {/* Layer 3: cream knockout overlay - fills the box with the
-          section's cream colour EVERYWHERE except the letters, which
+          section's cream color EVERYWHERE except the letters, which
           are cut out so the video behind shows through. No
           foreignObject => renders correctly on iOS + Android. */}
       <svg
@@ -139,7 +139,7 @@ function VideoTextWord({
             {/* white = keep cream, black (text) = knock out to reveal video.
                 The white rect over-hangs the box (-6%..106% wide,
                 -14%..114% tall) so the cream it drives extends past the
-                box edge and covers the iframe ring. Text stays centred,
+                box edge and covers the iframe ring. Text stays centered,
                 so the letters are unaffected. */}
             <rect x="-6%" y="-14%" width="112%" height="128%" fill="white" />
             <text
@@ -782,7 +782,7 @@ export function HeroSection({ interNaturalWidth = false }: HeroSectionProps = {}
               /* Position 2026-05-12 (third pass): user asked this
                  cutout to sit at the VERTICAL CENTER of the INSPIRE
                  text rather than hanging off the baseline. Switched
-                 from the default `align-bottom` behaviour to
+                 from the default `align-bottom` behavior to
                  verticalAlign: "middle" via inline style (overrides
                  the InlineCutout component's hardcoded class).
                  Reset `top` and `marginTop` so vertical-align:middle

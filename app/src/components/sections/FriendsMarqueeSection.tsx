@@ -62,7 +62,7 @@ function MagneticItem({
 /*  LogoItem - single logo image. Brandi's logos are dark-on-transparent,
     so on the dark section background we force them white via brightness(0)
     + invert(1). Default: 55% opacity (subtle); hover: 100% opacity (pops).
-    Keeping the monochrome treatment (no original colour even on hover)
+    Keeping the monochrome treatment (no original color even on hover)
     gives the marquee a uniform premium agency feel.                    */
 /* ──────────────────────────────────────────────────────────────────── */
 function LogoItem({ logo, size }: { logo: ClientLogo; size: "lg" | "sm" }) {

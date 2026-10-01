@@ -163,7 +163,7 @@ if ($configured && function_exists('curl_init')) {
     $sent = ($resp !== false && $code >= 200 && $code < 300);
 }
 
-// ── 2) Log the enquiry ──
+// ── 2) Log the inquiry ──
 // Try-ladder (same idea as blog-api.php - WP Engine blocks PHP from
 // writing .php files anywhere, and _wpeprivate writability varies):
 //   1. _wpeprivate/ashkan-enquiries.jsonl - WPE's private dir (nginx

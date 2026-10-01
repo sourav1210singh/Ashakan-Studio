@@ -20,7 +20,7 @@ import { AppLink } from "@/components/AppLink";
      • Desktop (lg+): scroll-pinned horizontal strip - section is
        sticky to the viewport while the row of 9 tiles translates
        left as the user scrolls vertically. Every tile passes the
-       centre of the screen before the page continues.
+       center of the screen before the page continues.
      • Mobile / tablet: regular swipeable horizontal scroller
        (sticky pinning conflicts with touch scrolling).
    ════════════════════════════════════════════════════════════════════ */
@@ -198,7 +198,7 @@ function WorkTileCard({ tile, onClick }: { tile: WorkTile; onClick: () => void }
 
       {/* Vimeo background video - overlays the poster image on
           VIDEOGRAPHY tiles that have a vimeoId. Sized at 300% w/h
-          and centred so the iframe always covers a 4:5 tile at any
+          and centered so the iframe always covers a 4:5 tile at any
           viewport. loading="lazy" defers the network request until
           the tile is near the viewport, keeping the home page fast
           even with five embedded videos. The same Ken-Burns zoom

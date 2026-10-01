@@ -14,7 +14,7 @@
  * a slightly longer heading later, and 3.2vw keeps it inside narrower
  * columns on the way up. Below lg the heading wraps, as it should.
  *
- * Colour is deliberately NOT included: light pages pass text-dark, the
+ * Color is deliberately NOT included: light pages pass text-dark, the
  * dark hero pages pass text-white.
  */
 export const PAGE_H1_SIZE =
