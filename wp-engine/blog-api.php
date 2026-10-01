@@ -112,8 +112,8 @@ function blog_cookie($value, $expires) {
     ));
 }
 
-// expires 0 = browser band hote hi cookie chali jaye, bilkul pehle
-// jaisa. TTL uske upar 12 ghante ka hard cap hai.
+// expires 0 = the cookie goes the moment the browser closes, exactly as
+// before. The TTL is a hard 12-hour cap on top of that.
 function blog_token_set() {
     $exp = time() + BLOG_TOKEN_TTL;
     blog_cookie($exp . '.' . blog_token_sign($exp), 0);

@@ -147,9 +147,9 @@ const WORK_TILES: WorkTile[] = [
     type: "VIDEOGRAPHY",
     category: "NARRATIVE",
     description: "Story-driven short films and brand narratives for organizations.",
-    /* Poster ab asli narrative film ka frame hai (Facet Seven / Nutrition
-       for Longevity). Pehle yahan ek office portrait tha, jo category ko
-       corporate headshot jaisa dikha raha tha. */
+    /* The poster is now a frame from a real narrative film (Facet Seven /
+       Nutrition for Longevity). It used to be an office portrait, which
+       made the whole category read as corporate headshots. */
     image: "/images/categories/narrative/facet-seven-nutrient-timing.jpg",
     /* Safari Vet - The Safari Difference, League City */
     vimeoId: "954997422",

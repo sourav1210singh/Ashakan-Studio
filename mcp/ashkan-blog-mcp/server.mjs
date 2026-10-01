@@ -174,8 +174,8 @@ server.registerTool(
   }
 );
 
-/* Work the type out from the image's own bytes - an extension can lie
-   hai, aur blog-api getimagesize() se asli type dekhta hai. */
+/* Work the type out from the image's own bytes - an extension can lie,
+   and blog-api checks the real type with getimagesize() anyway. */
 function sniffImage(buf) {
   if (buf.length > 12) {
     if (buf[0] === 0xff && buf[1] === 0xd8) return ["image/jpeg", "jpg"];

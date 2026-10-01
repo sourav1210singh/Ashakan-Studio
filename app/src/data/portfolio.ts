@@ -219,8 +219,8 @@ export interface ClientLogo {
    *  Only confident, verified URLs are filled in for now; Brandi will
    *  send the authoritative list to complete the rest. */
   website?: string;
-  /** ALT jab logo ka naam khud ek off-brand term ho (off-brand
-   *  audit row 29). Set na ho to alt = name, pehle jaisa. */
+  /** ALT for a logo whose own name is an off-brand term (off-brand
+   *  audit row 29). Left unset, alt falls back to name as before. */
   alt?: string;
 }
 

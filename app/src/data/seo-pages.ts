@@ -897,9 +897,9 @@ export const seoPages: SeoPageData[] = [
       "Automotive video production in Houston gives a vehicle something photos cannot: motion, sound, and drama. When a dealership or automotive brand works with Ashkan Studios, we translate a car into a cinematic video that shows how it moves, how it sounds, and why it turns heads. From rolling shots to detail sequences, our Houston team produces automotive content built to sell. A cinematic brand film sets a mood in seconds, a walkaround video shows a vehicle in full, and social-first clips keep your inventory in front of buyers.",
     sections: [
       {
-        /* Doc ne yahan ek Ferrari still rakhi thi, par ye section hai hi
-           video formats ke baare me - to catalog ka asli automotive film
-           lagaya hai (1968 Mustang GT, auto shop me shoot hua). */
+        /* The brief put a Ferrari still here, but this section is about
+           video formats - so it uses a real automotive film from the
+           catalogue instead (1968 Mustang GT, shot in an auto shop). */
         heading: "Cinematic Car Videos, Walkarounds, and Brand Films",
         body: "Our automotive video production covers everything from cinematic brand films to fast, social-ready walkarounds. We match the format to your goal, whether that is launching a model, moving inventory, or feeding a content calendar.",
         bullets: [
