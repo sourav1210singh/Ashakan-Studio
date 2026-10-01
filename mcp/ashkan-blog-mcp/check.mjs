@@ -38,12 +38,29 @@ if (fs.existsSync(path.join(HERE, "node_modules", "@modelcontextprotocol"))) {
 }
 
 // ── 3. Claude config ─────────────────────────────────────────────
+/* Two places to look. A normal install keeps the config under %APPDATA%.
+   The Microsoft Store build is packaged (MSIX), which redirects %APPDATA%
+   into its own container, so from outside the app the file is under
+   %LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\. */
+function findConfig() {
+  const names = [path.join(process.env.APPDATA || "", "Claude", "claude_desktop_config.json")];
+  try {
+    const pkgs = path.join(process.env.LOCALAPPDATA || "", "Packages");
+    for (const d of fs.readdirSync(pkgs)) {
+      if (/^Claude_/i.test(d)) names.push(path.join(pkgs, d, "LocalCache", "Roaming", "Claude", "claude_desktop_config.json"));
+    }
+  } catch { /* no Packages folder - fine */ }
+  return { found: names.find((n) => fs.existsSync(n)) || null, looked: names };
+}
+
 console.log("\n3. Claude Desktop config");
-const cfgPath = (process.env.APPDATA || "") + "/Claude/claude_desktop_config.json";
+const { found: cfgPath, looked } = findConfig();
 let entry = null;
-if (!fs.existsSync(cfgPath)) {
-  bad("claude_desktop_config.json not found at " + cfgPath);
+if (!cfgPath) {
+  bad("claude_desktop_config.json not found. Open Claude Desktop, go to Settings > Developer > Edit config, then run this again.");
+  looked.forEach((l) => console.log("        looked: " + l));
 } else {
+  ok("config: " + cfgPath);
   let cfg = null;
   try {
     cfg = JSON.parse(fs.readFileSync(cfgPath, "utf8"));
