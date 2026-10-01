@@ -1,27 +1,27 @@
 /* Ashkan Studios blog MCP - config installer.
  *
- * Claude Desktop ki config dhoondh ke usme "ashkan-blog" entry jod deta
- * hai. Baaki kuch nahi chhuta.
+ * Finds Claude Desktop's config and adds the "ashkan-blog" entry to it.
+ * Nothing else in the file is touched.
  *
- *   node install.mjs                 -> password ki jagah placeholder
- *   node install.mjs "<password>"    -> password seedha bhar deta hai
+ *   node install.mjs                 -> leaves a placeholder password
+ *   node install.mjs "<password>"    -> writes the password straight in
  *
- * Ye file isliye hai kyunki wahi cheez ek lambi `node -e "..."` line me
- * dene par cmd ne usme se || nikaal diya tha. File me koi escaping nahi,
- * koi gadbad nahi.
+ * This exists as a file rather than a long `node -e "..."` one-liner
+ * because cmd ate the `||` out of that line and it died with a syntax
+ * error. A file has no shell quoting to get wrong.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-/* server.mjs isi folder me hai, chahe folder kahin bhi ho. Path
-   hardcode karne se folder kahin aur rakhne par tootta. */
+/* server.mjs sits next to this file, wherever the folder ends up. A
+   hard-coded path breaks the moment someone puts the folder elsewhere. */
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SERVER = path.join(HERE, "server.mjs").replace(/\\/g, "/");
 
-/* Do jagah dekhni padti hain. Normal install %APPDATA% me rakhta hai.
-   Microsoft Store wala build MSIX hai - wo %APPDATA% ko apne container
-   me redirect kar deta hai, to bahar se file yahan milti hai:
+/* Two places to look. A normal install keeps the config under %APPDATA%.
+   The Microsoft Store build is packaged (MSIX), which redirects %APPDATA%
+   into its own container, so from outside the app the file lives under
    %LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\ */
 function candidates() {
   const list = [];
@@ -34,54 +34,54 @@ function candidates() {
       for (const d of fs.readdirSync(pkgs)) {
         if (/^Claude_/i.test(d)) list.push(path.join(pkgs, d, "LocalCache", "Roaming", "Claude", "claude_desktop_config.json"));
       }
-    } catch { /* no Packages folder - normal */ }
+    } catch { /* no Packages folder - normal on a non-Store install */ }
   }
   return list;
 }
 
-const stop = (msg) => { console.log("\nRUKO: " + msg + "\n"); process.exit(1); };
+const stop = (msg) => { console.log("\nSTOPPED: " + msg + "\n"); process.exit(1); };
 
 console.log("\nAshkan Studios blog MCP - config installer\n");
 
 const cands = candidates();
 const file = cands.find((c) => fs.existsSync(c));
 if (!file) {
-  console.log("Dekha gaya:");
+  console.log("Looked in:");
   cands.forEach((c) => console.log("   " + c));
-  stop("config file kahin nahi mili.\n       Claude Desktop kholo, Settings > Developer > Edit config dabao,\n       phir ye dobara chalao.");
+  stop("no config file found.\n         Open Claude Desktop, go to Settings > Developer > Edit config,\n         then run this again.");
 }
-console.log("config mili:\n   " + file + "\n");
+console.log("Config found:\n   " + file + "\n");
 
 const raw = fs.readFileSync(file, "utf8");
 let cfg;
 try {
   cfg = raw.trim() ? JSON.parse(raw) : {};
 } catch (e) {
-  stop("is config ki JSON tooti hui hai, isliye kuch nahi badla.\n       " + e.message + "\n       Pehle use theek karo, phir ye chalao.");
+  stop("that config is not valid JSON, so nothing was changed.\n         " + e.message + "\n         Fix the file first, then run this again.");
 }
 
 if (!cfg.mcpServers) cfg.mcpServers = {};
 
 if (cfg.mcpServers["ashkan-blog"]) {
-  console.log("ashkan-blog pehle se maujood hai - kuch nahi badla.");
-  console.log("Dobara daalna ho to pehle config se wo entry hata do.\n");
+  console.log("ashkan-blog is already there - nothing changed.");
+  console.log("To add it again, remove that entry from the config first.\n");
   process.exit(0);
 }
 
 if (!fs.existsSync(SERVER)) {
-  stop("server.mjs isi folder me nahi mila:\n       " + SERVER + "\n       install.mjs ko package wale folder ke andar se hi chalao.");
+  stop("server.mjs is not next to this script:\n         " + SERVER + "\n         Run install.mjs from inside the package folder.");
 }
 
-const password = process.argv[2] ? process.argv[2] : "YAHAN_PASSWORD";
+const password = process.argv[2] ? process.argv[2] : "PASTE_THE_PASSWORD_HERE";
 
 const backup = file.replace(/\.json$/, ".before-ashkan.json");
 fs.copyFileSync(file, backup);
-console.log("backup bana:\n   " + backup + "\n");
+console.log("Backup written:\n   " + backup + "\n");
 
 const before = Object.keys(cfg.mcpServers);
 cfg.mcpServers = {
   "ashkan-blog": {
-    command: process.execPath.replace(/\\/g, "/"),   // jo node abhi chala raha hai, wahi
+    command: process.execPath.replace(/\\/g, "/"),   // the node running this, so it is always right
     args: [SERVER],
     env: { ASHKAN_BLOG_PASSWORD: password },
   },
@@ -89,12 +89,12 @@ cfg.mcpServers = {
 };
 fs.writeFileSync(file, JSON.stringify(cfg, null, 2));
 
-console.log("ashkan-blog add ho gaya.");
-console.log("   node       : " + process.execPath);
-console.log("   purane servers: " + (before.length ? before.join(", ") : "(koi nahi)"));
-console.log("   ab kul     : " + Object.keys(cfg.mcpServers).length);
+console.log("ashkan-blog added.");
+console.log("   node            : " + process.execPath);
+console.log("   existing servers: " + (before.length ? before.join(", ") : "(none)"));
+console.log("   total now       : " + Object.keys(cfg.mcpServers).length);
 console.log(
-  password === "YAHAN_PASSWORD"
-    ? "\nAGLA KADAM: config kholo aur YAHAN_PASSWORD ki jagah asli password daalo,\n           phir: node check.mjs\n"
-    : "\nAGLA KADAM: node check.mjs\n"
+  password === "PASTE_THE_PASSWORD_HERE"
+    ? "\nNEXT: open the config and replace PASTE_THE_PASSWORD_HERE with the real\n      password, then run:  node check.mjs\n"
+    : "\nNEXT: node check.mjs\n"
 );
