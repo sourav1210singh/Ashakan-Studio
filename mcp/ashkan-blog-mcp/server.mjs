@@ -51,7 +51,7 @@ async function api(action, body = {}, { auth = false, retry = true } = {}) {
   const text = await res.text();
   let data;
   try { data = JSON.parse(text); } catch {
-    throw new Error(`blog-api ne JSON nahi diya (HTTP ${res.status}). Site theek hai? Response: ${text.slice(0, 200)}`);
+    throw new Error(`blog-api did not return JSON (HTTP ${res.status}). Is the site up? Response: ${text.slice(0, 200)}`);
   }
   if (auth && res.status === 401 && retry) {
     sessionCookie = null; // session expired — login again once
