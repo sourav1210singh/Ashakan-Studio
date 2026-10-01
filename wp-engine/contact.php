@@ -103,13 +103,13 @@ if ($configured && function_exists('curl_init')) {
     $rowR = 'padding:14px 0;border-bottom:1px solid #E7E2D6;font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#1A1A1A;vertical-align:top';
 
     $html = ''
-      . '<div style="display:none;max-height:0;overflow:hidden;opacity:0">New enquiry from ' . $n . ($c !== '' ? ' at ' . $c : '') . ' via the website contact form.</div>'
+      . '<div style="display:none;max-height:0;overflow:hidden;opacity:0">New inquiry from ' . $n . ($c !== '' ? ' at ' . $c : '') . ' via the website contact form.</div>'
       . '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#1A1A1A;margin:0;padding:0"><tr><td align="center" style="padding:32px 16px">'
       . '<table role="presentation" cellpadding="0" cellspacing="0" width="600" style="width:600px;max-width:600px;background-color:#F5F5F0">'
       . '<tr><td align="center" style="background-color:#1A1A1A;padding:40px 40px 34px">'
       . '<div style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:30px;letter-spacing:9px;color:#F5F5F0;line-height:1">ASHKAN</div>'
       . '<div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:6px;color:#E8E0D1;margin-top:6px">&mdash; STUDIOS &mdash;</div>'
-      . '<div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8f8a7f;margin-top:22px">New Website Enquiry</div>'
+      . '<div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8f8a7f;margin-top:22px">New Website Inquiry</div>'
       . '</td></tr>'
       . '<tr><td style="padding:38px 40px 8px">'
       . '<div style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:26px;letter-spacing:1px;text-transform:uppercase;color:#1A1A1A;line-height:1.15">You&#39;ve got a new lead</div>'
@@ -128,7 +128,7 @@ if ($configured && function_exists('curl_init')) {
       . '<tr><td style="padding:20px 22px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#1A1A1A;white-space:pre-wrap">' . $m . '</td></tr>'
       . '</table></td></tr>'
       . '<tr><td style="padding:30px 40px 40px"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background-color:#1A1A1A">'
-      . '<a href="mailto:' . $e . '?subject=' . rawurlencode('Re: Your enquiry with Ashkan Studios') . '" style="display:inline-block;padding:15px 34px;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#F5F5F0;text-decoration:none">Reply to ' . $n . ' &nbsp;&rsaquo;</a>'
+      . '<a href="mailto:' . $e . '?subject=' . rawurlencode('Re: Your inquiry with Ashkan Studios') . '" style="display:inline-block;padding:15px 34px;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;color:#F5F5F0;text-decoration:none">Reply to ' . $n . ' &nbsp;&rsaquo;</a>'
       . '</td></tr></table></td></tr>'
       . '<tr><td style="background-color:#1A1A1A;padding:26px 40px">'
       . '<div style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#8f8a7f;line-height:1.7">'
@@ -142,7 +142,7 @@ if ($configured && function_exists('curl_init')) {
         'to'       => array('info@ashkanstudios.com'),
         'bcc'      => array('leadquality@incrementors.com'),
         'reply_to' => $email,
-        'subject'  => 'New enquiry from ' . $name . ($company !== '' ? ' - ' . $company : ''),
+        'subject'  => 'New inquiry from ' . $name . ($company !== '' ? ' - ' . $company : ''),
         'html'     => $html,
     ));
 
@@ -183,7 +183,7 @@ if (is_dir(__DIR__ . '/_wpeprivate')) {
 }
 $ladder[] = array($dataDir . '/enquiries-' . substr(hash('sha256', 'ashkan-leads|' . RESEND_API_KEY), 0, 12) . '.jsonl', '');
 $ladder[] = array(__DIR__ . '/enquiries-log.php',
-    "<?php http_response_code(404); exit; // Ashkan Studios enquiry log - do not delete ?>\n");
+    "<?php http_response_code(404); exit; // Ashkan Studios inquiry log - do not delete ?>\n");
 $entry   = json_encode(array(
     'time'        => gmdate('c'),
     'name'        => $name,

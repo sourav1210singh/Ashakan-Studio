@@ -522,7 +522,7 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                       </div>
                       <div className="mt-3 flex flex-wrap items-center gap-5">
                         <a
-                          href={`mailto:${l.email}?subject=${encodeURIComponent("Re: Your enquiry with Ashkan Studios")}`}
+                          href={`mailto:${l.email}?subject=${encodeURIComponent("Re: Your inquiry with Ashkan Studios")}`}
                           className="inline-flex items-center gap-2 text-xs font-medium tracking-wider text-dark/70 hover:text-dark"
                         >
                           <Mail className="w-3.5 h-3.5" /> REPLY TO {l.name.toUpperCase()}

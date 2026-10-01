@@ -38,7 +38,7 @@ const CAPABILITIES = [
   {
     title: "FINISHING & DELIVERY",
     body:
-      "Every project is finished in-house - colour, sound and final delivery - so your campaign assets arrive ready to use across digital, print and marketing platforms.",
+      "Every project is finished in-house - color, sound and final delivery - so your campaign assets arrive ready to use across digital, print and marketing platforms.",
   },
 ];
 

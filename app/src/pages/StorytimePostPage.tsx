@@ -230,7 +230,7 @@ export function StorytimePostPage({ slug, onNavigate }: StorytimePostPageProps) 
           .blog-prose li { margin: 0.35em 0; }
           /* Inline images: never upscale past their own resolution (that
              is what made smaller uploads look soft), and cap the height so
-             a tall portrait shot doesn't swallow the article. Centred,
+             a tall portrait shot doesn't swallow the article. Centered,
              with the caption line that follows sitting right under it. */
           .blog-prose img {
             display: block; margin: 2.2em auto 0.6em;
