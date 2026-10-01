@@ -1,16 +1,16 @@
 /**
- * Car album - ashkanstudios.com ki apni automotive gallery.
+ * Car album - ashkanstudios.com's own automotive gallery.
  *
- * Ashkan ne 9/18 ko kaha tha: "there is 1-2 image on each please add the
- * whole album like the example page". Wo ashkanmedia.com/car-photography-houston/
- * ke 21-image showcase ki baat kar raha tha. Ye wahi album hai.
+ * Ashkan on 9/18: "there is 1-2 image on each please add the whole album
+ * like the example page". He meant the 21-image showcase on
+ * ashkanmedia.com/car-photography-houston/. This is that album.
  *
- * Zyadatar shots repo ki 2400px master copies se aaye hain - ashkanmedia
- * par wahi images sirf 1229px par hain, to hamari quality behtar hai.
- * Baaki Sourav ne 9/19 ko di.
+ * Most shots come from the repo's 2400px masters - ashkanmedia serves the
+ * same images at only 1229px, so ours are the better copies. Sourav
+ * supplied the rest on 9/19.
  *
- * w/h har image pe isliye hain ki masonry me browser jagah pehle se
- * reserve kar le - warna images load hote hi layout kood-ta hai (CLS).
+ * Every image carries w/h so the browser can reserve the space up front in
+ * the masonry layout - without it the page jumps as the images load (CLS).
  */
 export interface CarGalleryImage {
   src: string;
@@ -43,15 +43,14 @@ export const carGalleryImages: CarGalleryImage[] = [
   { src: "/images/seo/car-gallery/car-mustang-095.jpg", w: 1400, h: 934, alt: "Ford Mustang GT in an auto shop, Houston automotive photography" },
 ];
 
-/* Ashkan ne dono pages pe album maanga tha ("1-2 image on each"), aur
-   automotive video page ko iski zyada zaroorat hai - uske paas abhi
-   sirf EK hi car video hai (1968 Mustang GT), to bharne ke liye images
-   hi bachti hain.
+/* Ashkan asked for the album on both pages ("1-2 image on each"), and the
+   automotive video page needs it more - it has exactly ONE car video so
+   far (the 1968 Mustang GT), so images are all there is to fill it.
 
-   Dono pages pe album intro ke turant baad aata hai. Video page ka
-   Mustang video ek content section ke andar baitha hai, page ke beech
-   me - album ko usse neeche daalne ka matlab hota album ko text ke
-   neeche dabana, jo Ashkan ki shikayat ka ulta hai. */
+   On both pages the album sits straight after the intro. The video page's
+   Mustang video lives inside a content section halfway down, and putting
+   the album below that would bury it under the copy - the opposite of
+   what Ashkan complained about. */
 export const CAR_GALLERY_SLUGS = new Set([
   "car-photography-houston",
   "automotive-video-production-houston",

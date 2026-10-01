@@ -25,14 +25,14 @@
 //   That's it - the data file and uploads folder create themselves.
 //
 // To change the password later: edit the line below on the server
-// (SFTP) and save. Password badalte hi har logged-in session apne
-// aap bekaar ho jaata hai (token usi password se sign hota hai).
+// (SFTP) and save. Changing it invalidates every logged-in session on
+// its own, since the token is signed with that same password.
 //
 // All requests are POST (WP Engine's cache strips query strings from
 // GETs, which would cross-cache responses). Actions:
 //   posts (public)   -> published posts, newest first (no content body)
 //   post (public)    -> one published post by slug, full content
-//   login/logout/me  -> signed-cookie auth (session nahi)
+//   login/logout/me  -> signed-cookie auth (no PHP session)
 //   all (auth)       -> every post incl. drafts (dashboard list)
 //   get (auth)       -> one post by id, any status
 //   save (auth)      -> create/update  |  delete (auth) -> remove
@@ -70,25 +70,24 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// ── Auth: signed cookie, PHP session NAHI ──────────────────────
-// PHP sessions ko disk chahiye, aur WP Engine PHP ko likhne nahi deta -
-// wahi restriction jiski wajah se posts ke liye upar wali try-ladder
-// banani padi thi. Nateeja: har request pe naya session ban jaata tha,
-// login ke turant baad hi 401 aane lagta tha. 9/21 ko naapa: 12 me se
-// 11 request pe session gir jaata tha, isliye /admin/leads kabhi khulta
-// tha kabhi nahi.
+// ── Auth: signed cookie, NOT a PHP session ─────────────────────
+// PHP sessions need disk, and WP Engine does not let PHP write - the
+// same restriction that forced the try-ladder above for posts. The
+// result was a fresh session on every request and a 401 straight after
+// logging in. Measured on 9/21: the session was lost on 11 requests out
+// of 12, which is why /admin/leads opened only sometimes.
 //
-// Ab server pe kuch store hi nahi hota. Cookie me sirf expiry aur uska
-// HMAC hai, key admin password se banti hai - server ganit se hi bata
-// deta hai ki token asli hai. Koi disk, koi session file.
+// Nothing is stored on the server now. The cookie holds an expiry and
+// its HMAC, keyed on the admin password - the server proves the token
+// by arithmetic alone. No disk, no session file.
 //
-// Cookie ka naam ashkan_blog HI rakha hai: blog-mcp.php login response
-// se `ashkan_blog=...` regex se uthata hai aur wapas bhejta hai, to wo
-// bina kisi badlav ke chalta rehta hai.
+// The cookie keeps the name ashkan_blog on purpose: blog-mcp.php picks
+// `ashkan_blog=...` out of the login response by regex and sends it
+// back, so it keeps working unchanged.
 //
-// Password badalte hi saare token apne aap bekaar - wahi "change the
-// password to log everyone out" jo README me likha hai.
-define('BLOG_TOKEN_TTL', 12 * 60 * 60); // 12 ghante
+// Changing the password invalidates every token at once - the "change
+// the password to log everyone out" behaviour the README describes.
+define('BLOG_TOKEN_TTL', 12 * 60 * 60); // 12 hours
 
 function blog_token_sign($exp) {
     return hash_hmac('sha256', 'ashkan-blog-auth|' . $exp, BLOG_ADMIN_PASSWORD);

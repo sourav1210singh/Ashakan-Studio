@@ -24,10 +24,10 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    /* Phone ko required kiya gaya hai (client 9/5). type="tel" browser
-       me format enforce nahi karta, isliye digits gin lete hain - wahi
-       check contact.php me bhi hai, taaki koi form ko bypass karke
-       seedha POST kare to bhi khaali phone na aaye. */
+    /* Phone was made required (client, 9/5). type="tel" enforces no
+       format in the browser, so count the digits instead - contact.php
+       runs the same check, so a POST that bypasses the form still cannot
+       arrive without a phone number. */
     if (formData.phone.replace(/\D/g, "").length < 7) {
       setErrorMsg("Please enter a phone number we can reach you on.");
       setStatus("error");
@@ -36,12 +36,11 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
     setStatus("sending");
     setErrorMsg("");
     try {
-      /* HubSpot pehle (9/17): ab client ka CRM leads ka ghar hai, to
-         agar aage ki koi bhi cheez fail ho jaye tab bhi lead HubSpot me
-         darj ho chuki hoti hai. submitToHubSpot() kabhi throw nahi
-         karta - ad-blocker ya HubSpot outage form ko tod na de. Iska
-         nateeja neeche log me jaata hai taaki /admin/leads dekh ke pata
-         chal jaye ki kaunsi lead CRM tak pahunchi. */
+      /* HubSpot first (9/17): the client's CRM is where leads live now,
+         so the lead is already recorded there even if everything after
+         this fails. submitToHubSpot() never throws - an ad-blocker or a
+         HubSpot outage must not break the form. Its result goes into the
+         log below so /admin/leads shows which leads reached the CRM. */
       const hubspotOk = await submitToHubSpot(formData);
 
       /* Backend differs by host:
@@ -91,11 +90,11 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
         break; // a real API answered (success or error) - stop trying
       }
 
-      /* Do me se ek bhi jagah lead pahunch gayi to user ke liye kaam ho
-         gaya - use dobara bharne ko kehna sirf duplicate banata hai.
-         Error tabhi jab dono fail hon, yaani lead sach me kahin nahi
-         gayi. (Pehle sirf /contact.php dekha jaata tha, aur uske girne
-         par lead poori tarah gum ho jaati thi.) */
+      /* If the lead landed in either place the job is done as far as the
+         visitor is concerned - asking them to send it again only creates
+         a duplicate. Error only when both failed, meaning the lead really
+         went nowhere. (This used to watch /contact.php alone, so when
+         that fell over the lead was lost entirely.) */
       if (!confirmed && !hubspotOk) {
         throw new Error(apiError || "Failed to send your message.");
       }
@@ -145,13 +144,12 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
               {/* Form */}
               <FadeIn>
-                {/* data-hs-do-not-collect: HubSpot ka tracking script
-                    "collected forms" ke zariye har form ko apne aap
-                    capture karne ki koshish karta hai. Hum isi lead ko
-                    Forms API se saaf-suthra bhej hi rahe hain, to us
-                    auto-capture ko yahan band rakha hai - warna ek hi
-                    lead do submissions ban jaati aur notification bhi
-                    dobara jaata. */}
+                {/* data-hs-do-not-collect: HubSpot's tracking script tries
+                    to capture every form by itself through "collected
+                    forms". We already send this lead cleanly through the
+                    Forms API, so that auto-capture is switched off here -
+                    otherwise one lead becomes two submissions and the
+                    notification goes out twice. */}
                 <form onSubmit={handleSubmit} className="space-y-6" data-hs-do-not-collect="true">
                   <div>
                     <label className="block text-sm font-medium tracking-wider text-dark mb-2">

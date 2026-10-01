@@ -446,9 +446,9 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                         {l.projectType ? ` · ${l.projectType}` : ""}
                       </p>
                     </div>
-                    {/* CRM pill sirf 9/17 ke baad ki leads pe aata hai -
-                        us se pehle HubSpot tha hi nahi, to purani rows
-                        ko "NO CRM" dikhana galat hota. */}
+                    {/* The CRM pill only appears on leads from 9/17 on -
+                        there was no HubSpot before that, so showing "NO
+                        CRM" on older rows would be wrong. */}
                     {l.hubspot && (
                       <span
                         className={`text-[11px] font-semibold tracking-wider px-2.5 py-1 rounded-full shrink-0 ${
@@ -483,10 +483,10 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                   </button>
                   {expandedLead === i && (
                     <div className="px-5 pb-5 pt-1">
-                      {/* Upar wali summary line truncate hoti hai, to
-                          company aur project type aksar kat jaate the -
-                          khol-ne par har field poori dikhni chahiye,
-                          wahi to reply likhte waqt chahiye hoti hai. */}
+                      {/* The summary line above truncates, which often cut
+                          off company and project type - once expanded every
+                          field should be readable in full, since that is
+                          what you need while writing the reply. */}
                       <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-2 mb-4 text-sm">
                         {(
                           [
@@ -496,8 +496,8 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                             ["Phone", l.phone],
                             ["Company", l.company],
                             ["Project type", l.projectType],
-                            /* Purani leads me hubspot field hai hi nahi
-                               (17 Sep se aaya), to sirf tab dikhao. */
+                            /* Older leads have no hubspot field at all (it
+                               arrived 17 Sep), so only show it when set. */
                             ...(l.hubspot
                               ? [["Saved to CRM", l.hubspot === "sent" ? "Yes" : "No"] as const]
                               : []),
@@ -527,8 +527,9 @@ export function BlogAdminPage({ onNavigate }: BlogAdminPageProps) {
                         >
                           <Mail className="w-3.5 h-3.5" /> REPLY TO {l.name.toUpperCase()}
                         </a>
-                        {/* Phone 9/5 se required hai; purani leads me nahi
-                            hai, to link tabhi dikhao jab number ho. */}
+                        {/* Phone has been required since 9/5; older leads do
+                            not have one, so only link when a number
+                            exists. */}
                         {l.phone && (
                           <a
                             href={`tel:${l.phone.replace(/[A-Za-z].*$/, "").replace(/[^\d+]/g, "")}`}

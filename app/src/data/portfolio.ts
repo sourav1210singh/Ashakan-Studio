@@ -235,9 +235,9 @@ export const clientLogos: ClientLogo[] = [
   { name: "The Monarch School", src: "/images/logos/monarch.png",          priority: true, website: "https://www.monarchschool.org" },
   { name: "RadioMedix",        src: "/images/logos/radiomedix.png",        priority: true, website: "https://radiomedix.com" },
   { name: "Venus Aerospace",   src: "/images/logos/venus.png",             priority: true, website: "https://www.venusaero.com" },
-  /* Rows 30-31: logo proof ke liye rahega, par outbound link hataya
-     gaya - dance site se link hi wo signal tha jo Google ko is
-     domain ko dance se joda raha tha. */
+  /* Rows 30-31: the logo stays as proof of the work, but the outbound
+     link was removed - linking to a dance site was the very signal tying
+     this domain to dance in Google's eyes. */
   { name: "Vitacca Ballet",    src: "/images/logos/vitacca.png",           priority: true, alt: "Vitacca - Ashkan Studios client logo" },
   { name: "Safari Vet",        src: "/images/logos/safari.png",            priority: true, website: "https://www.safarivet.com" },
   { name: "Citybook",          src: "/images/logos/citybook.png",          priority: true }, // client: do not link

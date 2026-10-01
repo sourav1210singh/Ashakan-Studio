@@ -1,20 +1,21 @@
 // ────────────────────────────────────────────────────────────────
-// .docx padhne ka chhota reader - text aur andar ki images dono.
+// A small .docx reader - both the text and the images inside it.
 //
-// Koi npm package nahi: .docx sirf ek ZIP hai, aur Node ke zlib se
-// uske entries khol lete hain. Package add karne ka matlab hota user
-// ko npm install bolna, jo ek MCP server ke liye bekaar jhanjhat hai.
+// No npm package: a .docx is just a ZIP, and Node's zlib opens its
+// entries. Adding a dependency would mean telling the user to run
+// npm install, which is a pointless chore for an MCP server.
 //
-// Google Doc bhi yahin se nikal jaata hai - uska /export?format=docx
-// ek asli .docx deta hai, to raasta ek hi rehta hai.
+// Google Docs come through here too - /export?format=docx hands back a
+// real .docx, so there is only ever one code path.
 // ────────────────────────────────────────────────────────────────
 import { inflateRawSync } from "node:zlib";
 
 /* ── ZIP ──────────────────────────────────────────────────────────
-   Sirf central directory padhte hain (wahi sach hai - local header
-   me size 0 ho sakta hai jab data descriptor use hua ho). */
+   Read the central directory only - that is the authoritative copy. A
+   local header can carry 0 for the size when a data descriptor was
+   used. */
 export function unzip(buf) {
-  // End of Central Directory peeche se dhundo (comment 64 KB tak ho sakta)
+  // Find the End of Central Directory from the back (its comment can run to 64 KB)
   let eocd = -1;
   for (let i = buf.length - 22; i >= Math.max(0, buf.length - 66000); i--) {
     if (buf.readUInt32LE(i) === 0x06054b50) { eocd = i; break; }
@@ -36,7 +37,7 @@ export function unzip(buf) {
     const name = buf.toString("utf8", p + 46, p + 46 + nameLen);
     p += 46 + nameLen + extraLen + cmtLen;
 
-    // local header se asli data ka offset
+    // the real data offset comes from the local header
     if (localAt + 30 > buf.length || buf.readUInt32LE(localAt) !== 0x04034b50) continue;
     const lNameLen = buf.readUInt16LE(localAt + 26);
     const lExtraLen = buf.readUInt16LE(localAt + 28);
@@ -46,7 +47,7 @@ export function unzip(buf) {
     try {
       files.set(name, method === 0 ? Buffer.from(raw) : inflateRawSync(raw));
     } catch {
-      // ek entry kharab ho to poora doc mat girao
+      // one bad entry must not bring the whole document down
     }
   }
   return files;
@@ -56,10 +57,10 @@ export function unzip(buf) {
 const unescapeXml = (s) =>
   s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
    .replace(/&apos;/g, "'").replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d))
-   .replace(/&amp;/g, "&");   // amp sabse aakhir me, warna double-decode
+   .replace(/&amp;/g, "&");   // amp last, otherwise everything double-decodes
 
-/* rId -> media file ka naam. Isi se pata chalta hai ki kaunsi image
-   text me kahan thi; warna sirf "3 images mili" hota. */
+/* rId -> media filename. This is what makes an image's position in the
+   text knowable; without it all you get is "3 images found". */
 function relsMap(files) {
   const rels = files.get("word/_rels/document.xml.rels");
   const map = new Map();
@@ -70,8 +71,8 @@ function relsMap(files) {
   return map;
 }
 
-/* Ek <w:p> ko padhne layak line me badlo. Heading ko markdown ke #
-   se mark karte hain taaki structure na khoye. */
+/* Turn one <w:p> into a readable line. Headings are marked with
+   markdown # so the document's structure survives. */
 function paragraphToText(xml, rels) {
   let prefix = "";
   const style = xml.match(/w:pStyle[^>]*w:val="([^"]+)"/);
@@ -81,7 +82,7 @@ function paragraphToText(xml, rels) {
     else if (/^Title$/i.test(style[1])) prefix = "# ";
   }
 
-  // image placeholder - jahan thi wahin
+  // image placeholder, left exactly where the picture sat
   let out = "";
   for (const blip of xml.matchAll(/<a:blip[^>]*r:embed="([^"]+)"/g)) {
     const target = rels.get(blip[1]);
@@ -100,10 +101,9 @@ export function docxText(files) {
   if (!doc) throw new Error("No word/document.xml inside - this zip is not a Word document.");
   const rels = relsMap(files);
   const xml = doc.toString("utf8");
-  /* Har <w:p>...</w:p> ka andar ka hissa lo. split() se kaam nahi chala
-     tha - wo opening tag ka `<w:p` kha jaata hai, to bache hue
-     attributes (w:rsidR="...") tag-strip se nahi hatt te the aur seedhe
-     text me chale aate the. */
+  /* Take the inside of each <w:p>...</w:p>. split() did not work here -
+     it eats the opening `<w:p`, so the leftover attributes
+     (w:rsidR="...") survived the tag strip and landed in the text. */
   const paras = [...xml.matchAll(/<w:p(?:\s[^>]*)?>([\s\S]*?)<\/w:p>/g)]
     .map((m) => paragraphToText(m[1], rels));
   return paras.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
@@ -115,14 +115,14 @@ export function docxImages(files) {
     if (!/^word\/media\//i.test(name)) continue;
     out.push({ name: name.replace(/^word\/media\//i, ""), bytes });
   }
-  // image1, image2, image10 - number ke hisaab se, naam ke hisaab se nahi
+  // image1, image2, image10 - order by the number, not by the name
   const num = (s) => { const m = s.match(/(\d+)/); return m ? +m[1] : 0; };
   out.sort((a, b) => num(a.name) - num(b.name) || a.name.localeCompare(b.name));
   return out;
 }
 
-/* Google Doc ka link -> asli .docx ka download URL. Baaki koi bhi URL
-   jyon ka tyon. */
+/* A Google Doc link becomes the real .docx download URL. Any other URL
+   passes through untouched. */
 export function docxUrlFor(url) {
   const m = String(url).match(/docs\.google\.com\/document\/(?:u\/\d+\/)?d\/([A-Za-z0-9_-]+)/);
   if (m) return `https://docs.google.com/document/d/${m[1]}/export?format=docx`;

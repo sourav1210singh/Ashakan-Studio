@@ -261,8 +261,8 @@ function blog_api($action, $body = array(), $auth = false) {
     if (isset($data['error'])) throw new Exception('blog-api "' . $action . '": ' . $data['error']);
     return $data;
 }
-/* $mime/$ext default webp hain kyunki generate_blog_image wahi bhejta
-   hai; client ki apni image kisi bhi type ki ho sakti hai. */
+/* $mime/$ext default to webp because that is what generate_blog_image
+   sends; a client's own image can be any type. */
 function blog_upload_image($bytes, $slug, $mime = 'image/webp', $ext = 'webp') {
     global $API, $BLOG_COOKIE;
     if (!$BLOG_COOKIE) blog_login();
@@ -290,9 +290,10 @@ function blog_upload_image($bytes, $slug, $mime = 'image/webp', $ext = 'webp') {
 function live_url($slug) { global $SITE; return $SITE . '/storytime/' . $slug . '/'; }
 
 // ── doc reader ──────────────────────────────────────────────────
-// Mahendra brief bhejte hain - kabhi Google Doc ka link, kabhi .docx -
-// aur usi se post banti hai. Connector chalate waqt Claude ke paas na wo
-// file hoti hai na koi shell, to doc kholna server ka kaam hai.
+// Mahendra sends briefs - sometimes a Google Doc link, sometimes a .docx
+// - and the post is written from them. Over the connector Claude has
+// neither the file nor a shell, so opening the document is the server's
+// job.
 
 function http_fetch($url, $maxBytes = 25000000) {
     $ch = curl_init($url);
@@ -313,8 +314,8 @@ function http_fetch($url, $maxBytes = 25000000) {
     return array($code, $ctype, $body);
 }
 
-/* Type bytes se pehchano, extension se nahi - blog-api khud
-   getimagesize() se dekhta hai, to naam pe bharosa bekaar hai. */
+/* Work the type out from the bytes, not the extension - blog-api checks
+   with getimagesize() anyway, so trusting the name buys nothing. */
 function sniff_image($b) {
     if (strlen($b) > 12) {
         if (substr($b, 0, 2) === "\xFF\xD8") return array('image/jpeg', 'jpg');
@@ -325,10 +326,10 @@ function sniff_image($b) {
     return array(null, null);
 }
 
-/* .docx sirf ek ZIP hai. ZipArchive ko disk par file chahiye hoti hai,
-   aur WP Engine PHP ko har jagah likhne nahi deta, to string se hi padh
-   lete hain. Sizes central directory se - local header me 0 ho sakta
-   hai jab data descriptor laga ho. */
+/* A .docx is just a ZIP. ZipArchive needs a file on disk and WP Engine
+   does not let PHP write everywhere, so it is read straight from the
+   string. Sizes come from the central directory - a local header can
+   carry 0 when a data descriptor was used. */
 function docx_unzip($buf) {
     $len  = strlen($buf);
     $eocd = -1;
@@ -359,14 +360,14 @@ function docx_unzip($buf) {
         $start = $localAt + 30 + $u16($localAt + 26) + $u16($localAt + 28);
         $raw   = substr($buf, $start, $compSize);
         if ($method === 0) { $files[$name] = $raw; continue; }
-        $out = @gzinflate($raw);              // ek entry kharab ho to poora doc mat giraao
+        $out = @gzinflate($raw);              // one bad entry must not bring the whole document down
         if ($out !== false) $files[$name] = $out;
     }
     return $files;
 }
 
-/* rId -> media file. Isi se pata chalta hai ki kaunsi image text me
-   kahan thi; warna sirf "3 images mili" reh jaata. */
+/* rId -> media file. This is what makes an image's position in the text
+   knowable; without it all you get is "3 images found". */
 function docx_rels($files) {
     $map = array();
     if (empty($files['word/_rels/document.xml.rels'])) return $map;
@@ -383,8 +384,8 @@ function docx_text($files) {
     if (empty($files['word/document.xml'])) throw new Exception('No word/document.xml inside - that zip is not a Word document.');
     $rels  = docx_rels($files);
     $paras = array();
-    /* Poora <w:p>...</w:p> lo. Sirf <w:p par todne se opening tag ke
-       attributes (w:rsidR="...") text me reh jaate hain. */
+    /* Take the whole <w:p>...</w:p>. Splitting on just <w:p leaves the
+       opening tag's attributes (w:rsidR="...") behind in the text. */
     if (preg_match_all('/<w:p(?:\s[^>]*)?>([\s\S]*?)<\/w:p>/', $files['word/document.xml'], $m)) {
         foreach ($m[1] as $chunk) {
             $prefix = '';
@@ -414,7 +415,7 @@ function docx_images($files) {
         if (!preg_match('#^word/media/#i', $name)) continue;
         $out[] = array('name' => preg_replace('#^word/media/#i', '', $name), 'bytes' => $bytes);
     }
-    // image1, image2, image10 - number se, naam se nahi
+    // image1, image2, image10 - order by the number, not the name
     usort($out, function ($a, $b) {
         preg_match('/(\d+)/', $a['name'], $x);
         preg_match('/(\d+)/', $b['name'], $y);
@@ -425,7 +426,8 @@ function docx_images($files) {
     return $out;
 }
 
-/* Google Doc ka link -> asli .docx ka download URL. Baaki jyon ka tyon. */
+/* A Google Doc link becomes the real .docx download URL. Anything else
+   passes through untouched. */
 function docx_url_for($url) {
     if (preg_match('#docs\.google\.com/document/(?:u/\d+/)?d/([A-Za-z0-9_-]+)#', $url, $m)
         || preg_match('#(?:drive|docs)\.google\.com/open\?id=([A-Za-z0-9_-]+)#', $url, $m)) {
@@ -542,8 +544,8 @@ function tool_read_doc($a) {
     if ($code < 200 || $code >= 300) {
         throw new Exception("Could not download the document (HTTP $code). If it is a Google Doc, open Share and set it to \"Anyone with the link - Viewer\".");
     }
-    /* Google apna sign-in page bhi 200 ke saath deta hai. Use .docx
-       samajh ke aage badhe to error bilkul bekaar milta hai. */
+    /* Google serves its sign-in page with a 200 as well. Treating that
+       as a .docx produces a completely useless error. */
     if (stripos($ctype, 'text/html') !== false || substr($buf, 0, 2) !== 'PK') {
         throw new Exception(strpos($dl, 'docs.google.com') !== false
             ? 'Google returned a sign-in page instead of the document. Open the doc, hit Share, set it to "Anyone with the link - Viewer", then try again.'
@@ -569,7 +571,7 @@ function tool_read_doc($a) {
                 $entry['markdown'] = '![](' . $path . ')';
                 $entry['type'] = $mime;
             } catch (Exception $e) {
-                $entry['error'] = $e->getMessage();   // ek image ka fail hona poora doc na rok de
+                $entry['error'] = $e->getMessage();   // one failed image must not stop the whole document
             }
         }
         $images[] = $entry;

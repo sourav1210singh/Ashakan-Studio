@@ -161,12 +161,12 @@ export function StorytimePage({ onNavigate }: StorytimePageProps) {
         <section className="py-16 sm:py-24 bg-dark text-white border-t border-white/10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
             <div className="max-w-2xl mx-auto text-center">
-              {/* Pehle yahan "STAY IN THE LOOP" newsletter form tha, par
-                  uspe koi submit handler hi nahi tha - visitor email
-                  daal ke SUBSCRIBE dabata to page reload ho jaata aur
-                  email kahin nahi jaata. Dikhta live tha, tha nahi.
-                  Newsletter ka koi backend bhi nahi hai, to jhoothe form
-                  ki jagah wo CTA laga di jo sach me kaam karti hai. */}
+              {/* This used to be a "STAY IN THE LOOP" newsletter form with
+                  no submit handler at all - a visitor typing an email and
+                  pressing SUBSCRIBE just reloaded the page and the address
+                  went nowhere. It looked live and was not. There is no
+                  newsletter backend either, so the fake form was replaced
+                  with the CTA that actually works. */}
               <FadeIn>
                 <h2 className="font-display text-3xl sm:text-4xl tracking-tight mb-4">
                   LET'S MAKE SOMETHING

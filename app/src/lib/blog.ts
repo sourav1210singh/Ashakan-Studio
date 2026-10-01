@@ -30,16 +30,16 @@ export interface Lead {
   time: string;
   name: string;
   email: string;
-  /** 9/5 se required. Us se pehle log hui leads me ye field nahi hai,
-      isliye optional - purani rows waise hi render hoti rahein. */
+  /** Required since 9/5. Leads logged before that have no such field,
+      hence optional - older rows must keep rendering. */
   phone?: string;
   company: string;
   projectType: string;
   message: string;
   emailStatus: "sent" | "failed" | "not-configured" | string;
-  /** Lead HubSpot CRM tak pahunchi ya nahi (9/17 se). Us se pehle ki
-      rows me ye field nahi hai, aur agar kisi purane browser tab se
-      form bhara jaye to "unknown" aata hai - isliye optional. */
+  /** Whether the lead reached the HubSpot CRM (since 9/17). Rows from
+      before that have no such field, and a form submitted from a stale
+      browser tab reports "unknown" - hence optional. */
   hubspot?: "sent" | "failed" | "unknown" | string;
 }
 

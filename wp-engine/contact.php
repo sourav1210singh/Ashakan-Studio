@@ -49,10 +49,10 @@ $phone   = trim((string) ($body['phone'] ?? ''));
 $company = trim((string) ($body['company'] ?? ''));
 $type    = trim((string) ($body['projectType'] ?? ''));
 $message = trim((string) ($body['message'] ?? ''));
-// HubSpot ko lead pahunchi ya nahi - React form pehle CRM me bhejta hai,
-// phir uska nateeja yahan bhej deta hai. Sirf log ke liye hai (LEADS tab
-// me dikhta hai), isliye value ko teen hi shakal me kaid rakhte hain -
-// browser se aaya string seedha file me nahi likhna.
+// Whether the lead reached HubSpot - the React form sends it to the CRM
+// first, then reports the outcome here. This is only for the log (it
+// shows in the LEADS tab), so the value is pinned to three known shapes -
+// never write a browser-supplied string straight into the file.
 $hubspot = ($body['hubspot'] ?? '') === 'sent' ? 'sent'
          : ((($body['hubspot'] ?? '') === 'failed') ? 'failed' : 'unknown');
 
@@ -66,8 +66,9 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(array('error' => 'Please enter a valid email address.'));
     exit;
 }
-// Phone required hai (client 9/5). Format nahi thopa - US, international,
-// extensions sab chalte hain - bas itne digits ho ki number asli lage.
+// Phone is required (client, 9/5). No format is imposed - US,
+// international and extensions all pass - only enough digits to look
+// like a real number.
 if (strlen(preg_replace('/\D/', '', $phone)) < 7) {
     http_response_code(400);
     echo json_encode(array('error' => 'Please enter a phone number we can reach you on.'));
@@ -87,9 +88,9 @@ if ($configured && function_exists('curl_init')) {
     $n = $esc($name);
     $e = $esc($email);
     $ph = $esc($phone);
-    // tel: link ke liye. Pehle "ext. 12" / "x12" jaisa suffix kaato -
-    // warna uske digits number me chipak kar galat number bana dete
-    // hain - phir spaces/brackets hata do, leading + rehne do.
+    // For the tel: link. Cut any "ext. 12" / "x12" suffix first -
+    // otherwise its digits stick to the number and produce a wrong one -
+    // then drop spaces and brackets, keeping a leading +.
     $phLink = $esc(preg_replace('/[^\d+]/', '', preg_replace('/[A-Za-z].*$/', '', $phone)));
     $c = $esc($company);
     $t = $esc($type);

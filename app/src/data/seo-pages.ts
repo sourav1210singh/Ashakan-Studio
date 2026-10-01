@@ -212,10 +212,10 @@ export const seoPages: SeoPageData[] = [
     title: "Commercial Photographer in Houston, TX",
     subtitle: "Visual Storytellers for Your Brand",
     heroImage: "/images/seo/approved/commercialphotography-eyegallery-036.jpg",
-    /* Ferrari hataya - ek car commercial kaam hai, par is page ka lead
-       image studio ka asli brand/lifestyle kaam dikhana chahiye. Ye The
-       Eye Gallery campaign frame hai; 35% se chehra dono band ratios me
-       rehta hai aur left side khali rehti hai H1 ke liye. */
+    /* Ferrari dropped - a car is commercial work, but this page's lead
+       image should show the studio's real brand/lifestyle work. This is a
+       frame from The Eye Gallery campaign; 35% keeps the face inside both
+       crop ratios and leaves the left side clear for the H1. */
     heroPosition: "center 35%",
     intro:
       "Welcome to Ashkan Studios - an exceptional commercial photographer in Houston. Elevate your brand with compelling imagery that narrates your distinctive story. We go beyond photography; we are visual storytellers committed to translating your commercial vision into captivating visuals that resonate.",
@@ -784,9 +784,9 @@ export const seoPages: SeoPageData[] = [
     title: "Fashion Video Production Services in Houston, TX",
     subtitle: "Motion That Makes Your Brand Move",
     heroImage: "/images/seo/approved/fashionvideo-hero-weissman-spring26.jpg",
-    /* Frame Weissman Spring FY26 film se hi liya hai - wahi film neeche
-       process section me chalti hai. 30% par chehra aur uthaya hua haath
-       dono band me poore rehte hain. */
+    /* The frame comes from the Weissman Spring FY26 film - the same film
+       that plays in the process section below. At 30% both the face and
+       the raised arm stay inside either crop. */
     heroPosition: "center 30%",
     intro:
       "Fashion video production services in Houston, TX give your brand something a still image cannot: movement, rhythm, and story. When a designer or label needs to show how a collection moves, video is what carries it. Video is where fashion comes alive. A campaign film sets a mood in seconds, a lookbook video shows a full collection in motion, and social-first clips put your label in front of the audience already scrolling for it.",
@@ -835,10 +835,10 @@ export const seoPages: SeoPageData[] = [
   },
 
   /* ── Car / automotive, Mahendra 9/3 ─────────────────────────────────
-     Dono pages client ke supplied docs se hain. Doc ne har image slot ke
-     saath site ka filename bhi diya tha, to hero/section images wahi hain
-     - bas Drive ke 8192px originals se dobara banayi gayi hain, doc me
-     embedded 2046px copies se nahi. */
+     Both pages come from the client's supplied docs. The doc named a site
+     filename against every image slot, so the hero and section images are
+     those - only rebuilt from the 8192px originals in Drive rather than
+     the 2046px copies embedded in the doc. */
   {
     slug: "car-photography-houston",
     title: "Car Photography in Houston, TX",
@@ -945,9 +945,9 @@ export const seoPages: SeoPageData[] = [
     slug: "jewelry-photography-houston",
     title: "Jewelry Photography in Houston, TX",
     subtitle: "Every Facet, Every Detail, Made to Shine",
-    /* Hero doc me naam se maanga gaya tha (retail-74). Wahi shot retail
-       category page pe bhi hai - jaan-boojh ke, kyunki ye page wahin se
-       link hota hai. */
+    /* The doc asked for this hero by name (retail-74). The same shot also
+       appears on the retail category page - deliberately, since that page
+       is where this one is linked from. */
     heroImage: "/images/categories/retail/retail-74.jpg",
     intro:
       "Jewelry photography in Houston has to do more than show a piece. It has to capture the sparkle, the metal, the stones, and the fine detail that make someone want to wear it. When a jeweler, jewelry brand, or designer works with Ashkan Studios, we shoot images built to sell the piece, whether it is for an online store, a catalog, a campaign, or the counter. We shoot jewelry the way it deserves to be seen: controlled lighting, careful styling, and macro detail that makes every stone and setting shine.",
@@ -963,11 +963,11 @@ export const seoPages: SeoPageData[] = [
           "E-commerce and catalog jewelry photography",
           "Social-first jewelry content for brands and boutiques",
         ],
-        /* Doc ne yahan client se packshot maanga tha ("necklace detail on
-           white"). Wo abhi aayi nahi, to filhaal Deutsch Fine Jewelry
-           campaign ka shot hai. ALT image ke hisaab se likha hai, doc ke
-           hisaab se nahi - ye white packshot hai hi nahi, aur jhootha ALT
-           screen reader aur Google dono ko galat batata hai. */
+        /* The doc asked the client for a packshot here ("necklace detail
+           on white"). It has not arrived, so this is a shot from the
+           Deutsch Fine Jewelry campaign for now. The ALT describes the
+           image, not the doc - this is not a white packshot, and an ALT
+           that claims otherwise misleads both screen readers and Google. */
         image: "/images/campaigns/deutsch/deutsch-2025-holiday-029.jpg",
         imageAlt:
           "Jewelry photography Houston - diamond, pearl, and gold necklaces from the Deutsch Fine Jewelry campaign",
@@ -986,9 +986,9 @@ export const seoPages: SeoPageData[] = [
       {
         heading: "Our Jewelry Photography Process",
         body: "Every strong jewelry shoot starts before the pieces reach the set. We begin with a consultation to understand your collection, your brand, and where the images will run. From there we plan lighting, angles, and styling so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and macro detail that make or break a jewelry image. Browse our photography portfolio to see the results, and we deliver retouched, ready-to-publish jewelry photography built to perform across your online store, catalog, print, and social channels.",
-        /* Doc ne yahan "macro" maanga tha; ye on-model shot hai, to ALT
-           bhi wahi kehta hai. Client ki asli macro image aate hi image
-           aur ALT dono swap ho jayenge. */
+        /* The doc asked for "macro" here; this is an on-model shot, so the
+           ALT says so. Both the image and the ALT get swapped as soon as
+           the client's real macro shot arrives. */
         image: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
         imageAlt:
           "On-model jewelry photography by Ashkan Studios Houston - diamond earring, ring, and bracelet",

@@ -336,9 +336,9 @@ export function Footer({ onLogoClick, onNavigate }: FooterProps) {
           {/* Agency credit - same muted color/size as the copyright,
               normal case (no uppercase / no bold), link brightens on
               hover. Placed on its own line below so it stays subtle.
-              7/1 ki wording ke saath ek doosra vaakya bhi aaya tha; 9/8
-              ko Ashkan ne bataya ki wo unka internal context tha, kabhi
-              publish hone ke liye tha hi nahi. Ab sirf credit line. */}
+              A second sentence arrived with the 7/1 wording; on 9/8
+              Ashkan said that was internal context and was never meant
+              to be published. Only the credit line remains. */}
           <p className="text-xs sm:text-sm text-white/40 text-center mt-1.5">
             Created by{" "}
             <a

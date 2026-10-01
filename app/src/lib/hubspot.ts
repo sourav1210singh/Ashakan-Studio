@@ -1,26 +1,25 @@
-/* HubSpot Forms API - website ke contact form ki leads client ke CRM
-   me pahunchati hai (9/17).
+/* HubSpot Forms API - carries the contact form's leads into the
+   client's CRM (9/17).
 
-   Kyun Forms API aur koi HubSpot embed nahi:
-   - Form ka look bilkul wahi rehna tha jo abhi hai (client ki request),
-     aur hbspt.forms.create() apna markup inject karta hai.
-   - ashkanimage.com pe pehle se yahi tareeka chal raha hai, to portal
-     me dono sites ka data ek jaise shape me aata hai.
-   Dono sites ki leads ek hi contact list me milti hain, isliye har
-   submission ke saath WEBSITE_SOURCE bhejte hain - HubSpot me us
-   property pe filter/list bana ke ashkanstudios ki leads alag dikh
-   jaati hain.
+   Why the Forms API and not a HubSpot embed:
+   - The form had to keep exactly the look it has (client's request),
+     and hbspt.forms.create() injects its own markup.
+   - ashkanimage.com already does it this way, so both sites land in the
+     portal in the same shape.
+   Both sites' leads arrive in one contact list, so every submission
+   carries WEBSITE_SOURCE - a filter or list on that property in HubSpot
+   separates the ashkanstudios ones.
 
-   Portal 244809545 (region na2) client ka hai. GUID sirf is site ke
-   apne form ka hai - ashkanimage ke forms ko haath nahi lagaya gaya. */
+   Portal 244809545 (region na2) is the client's. The GUID belongs only
+   to this site's own form - ashkanimage's forms were left alone. */
 export const HUBSPOT_PORTAL_ID = "244809545";
 export const HUBSPOT_CONTACT_FORM_GUID = "8512f25a-fadc-47f1-95a7-8f5427eea0a3";
 
 const SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_CONTACT_FORM_GUID}`;
 
-/* Ye site sirf ashkanstudios.com pe chalti hai, par preview builds
-   (vercel.app / localhost) bhi isi code se submit karte hain - unki
-   test leads CRM me alag pehchani ja saken isliye host bhejte hain. */
+/* The site only runs on ashkanstudios.com, but preview builds
+   (vercel.app / localhost) submit through this same code - sending the
+   host is what makes their test leads identifiable in the CRM. */
 const SOURCE = "ashkanstudios.com";
 
 export interface HubSpotLead {
@@ -32,37 +31,37 @@ export interface HubSpotLead {
   message: string;
 }
 
-/* hubspotutk cookie tracking script (index.html) lagata hai. Ye cookie
-   submission ko usi visitor ki browsing history se jodti hai - iske
-   bina HubSpot "cookie needed to link form submissions isn't being
-   sent" warning deta hai aur attribution adhoora rehta hai. Cookie na
-   mile to bhi submission chalti hai, bas analytics kam ho jaata hai. */
+/* The tracking script in index.html sets the hubspotutk cookie. It ties
+   a submission to that visitor's browsing history - without it HubSpot
+   warns that the "cookie needed to link form submissions isn't being
+   sent" and attribution stays incomplete. A missing cookie does not stop
+   the submission; it only costs analytics. */
 function readHubspotCookie(): string {
   const m = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
   return m ? decodeURIComponent(m[1]) : "";
 }
 
-/* HubSpot ke paas alag firstname/lastname hain, hamare form me ek hi
-   NAME field. Pehle space pe todte hain; single-word naam pe lastname
-   bhejte hi nahi (khaali value bhejne se CRM me blank last name set ho
-   jaata hai). */
+/* HubSpot keeps firstname and lastname apart; our form has a single
+   NAME field. Split on the first space, and for a one-word name send no
+   lastname at all - sending an empty value writes a blank last name into
+   the CRM. */
 function splitName(full: string): { firstname: string; lastname: string } {
   const parts = full.trim().split(/\s+/);
   return { firstname: parts[0] || "", lastname: parts.slice(1).join(" ") };
 }
 
-/* Ye function kabhi throw nahi karta. HubSpot down ho, ad-blocker
-   hs-scripts/hsforms block kar de, ya network girr jaye - lead phir
-   bhi /contact.php se client ko email ho jaati hai aur /admin/leads me
-   save rehti hai. Isliye yahan sirf true/false wapas jaata hai, form
-   ka success/failure ispe depend nahi karta. */
+/* This never throws. HubSpot can be down, an ad-blocker can block
+   hs-scripts/hsforms, the network can drop - the lead still reaches the
+   client by email through /contact.php and is still saved in
+   /admin/leads. So this only reports true or false; the form's success
+   does not hang on it. */
 export async function submitToHubSpot(lead: HubSpotLead): Promise<boolean> {
   try {
     const { firstname, lastname } = splitName(lead.name);
-    /* Field names HubSpot ke internal names hain - galat naam pe API
-       200 hi deta hai aur value chupchaap drop kar deta hai (9/17 me
-       test kiya), isliye inhe badalna mat. project_type aur
-       website_source is portal ki custom properties hain. */
+    /* These are HubSpot's internal field names. A wrong name still
+       returns 200 and the value is silently dropped (tested 9/17), so do
+       not rename them. project_type and website_source are this portal's
+       custom properties. */
     const pairs: Array<[string, string]> = [
       ["email", lead.email],
       ["firstname", firstname],
@@ -86,9 +85,9 @@ export async function submitToHubSpot(lead: HubSpotLead): Promise<boolean> {
       },
     };
 
-    /* Form ko HubSpot ke bharose latakna nahi hai: 8s ke baad chhod
-       dete hain, user ko tab tak /contact.php wala confirmation mil
-       chuka hota hai. */
+    /* Don't leave the form hanging on HubSpot: give up after 8s, by
+       which point the user already has the confirmation from
+       /contact.php. */
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 8000);
     try {

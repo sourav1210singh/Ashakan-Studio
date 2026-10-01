@@ -52,14 +52,14 @@
           g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=G-99SHTH73CQ';
           f.parentNode.insertBefore(g, f);
           // HubSpot tracking (portal 244809545, region na2) - 9/17.
-          // Client ke CRM me contact form ki leads jaati hain; ye script
-          // hubspotutk cookie set karti hai jisse submission usi
-          // visitor ki browsing se jud jaati hai (uske bina HubSpot
-          // attribution adhoora rehta hai). Isi deferred loader me
-          // rakha hai kyunki hs-scripts.com bhi bhaari third-party hai
-          // aur t=0 pe wahi main-thread block wapas aa jaata jo 7/17 me
-          // hataya tha. Form bharne se pehle user hamesha scroll/type
-          // karta hai, to cookie waqt par ban jaati hai.
+          // Contact form leads go to the client's CRM; this script sets
+          // the hubspotutk cookie that ties a submission to that
+          // visitor's browsing (without it HubSpot attribution stays
+          // incomplete). It sits in this deferred loader because
+          // hs-scripts.com is another heavy third party, and loading it
+          // at t=0 brings back the very main-thread block removed on
+          // 7/17. A visitor always scrolls or types before filling the
+          // form, so the cookie is in place in time.
           var h = document.createElement('script');
           h.async = true; h.id = 'hs-script-loader';
           h.src = 'https://js-na2.hs-scripts.com/244809545.js';

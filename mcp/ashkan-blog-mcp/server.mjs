@@ -174,7 +174,7 @@ server.registerTool(
   }
 );
 
-/* Image ke bytes se hi uska type pehchano - extension jhooth bol sakta
+/* Work the type out from the image's own bytes - an extension can lie
    hai, aur blog-api getimagesize() se asli type dekhta hai. */
 function sniffImage(buf) {
   if (buf.length > 12) {
@@ -227,8 +227,8 @@ server.registerTool(
   }
 );
 
-/* Ek image ko site pe daal do. upload_blog_image aur read_doc dono
-   yahi use karte hain, taaki niyam ek hi jagah rahein. */
+/* Put one image on the site. Both upload_blog_image and read_doc go
+   through this, so the rules live in one place. */
 async function pushImage(bytes, stem) {
   const [mime, ext] = sniffImage(bytes);
   if (!mime) throw new Error("That file is not a JPG, PNG, WebP or GIF - those are the only types the blog accepts.");
@@ -275,8 +275,8 @@ server.registerTool(
       if (!r.ok) throw new Error(`Could not download the document (HTTP ${r.status}). If it is a Google Doc, open Share and set it to "Anyone with the link - Viewer".`);
       const ct = r.headers.get("content-type") || "";
       buf = Buffer.from(await r.arrayBuffer());
-      /* Google ek sign-in page bhi 200 ke saath deta hai. Us HTML ko
-         .docx samajh ke aage badhe to error bilkul bekaar milta hai. */
+      /* Google serves its sign-in page with a 200 as well. Treating that
+         HTML as a .docx produces a completely useless error. */
       if (/text\/html/i.test(ct) || buf.subarray(0, 2).toString("ascii") !== "PK") {
         throw new Error(
           dl.includes("docs.google.com")
@@ -304,7 +304,7 @@ server.registerTool(
           const up = await pushImage(m.bytes, `doc-${Date.now().toString(36)}-${i + 1}`);
           Object.assign(entry, up, { markdown: `![](${up.image})` });
         } catch (e) {
-          entry.error = e.message;   // ek image ka fail hona poora doc na rok de
+          entry.error = e.message;   // one failed image must not stop the whole document
         }
       }
       images.push(entry);
