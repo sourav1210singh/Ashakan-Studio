@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /llm-info/ is a hand-written static page, not a React route, so it is
+     deliberately NOT in sitemap-pages.xml: that file is also the list the
+     prerender pass walks, and a prerender of this route would overwrite the
+     static file with a React render. It lives here instead so search engines
+     still find it. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://ashkanstudios.com/llm-info/</loc><priority>0.5</priority></url>
+</urlset>

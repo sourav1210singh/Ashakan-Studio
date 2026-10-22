@@ -4,8 +4,12 @@
                         list the prerender pass walks.
      sitemap-blog.xml   generated on request by index.php from the live
                         blog store, so posts written in /admin after a
-                        deploy appear here without a rebuild. -->
+                        deploy appear here without a rebuild.
+     sitemap-llm.xml    /llm-info/, a static page that is deliberately kept
+                        out of sitemap-pages.xml because that file doubles as
+                        the prerender route list. -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap><loc>https://ashkanstudios.com/sitemap-pages.xml</loc></sitemap>
   <sitemap><loc>https://ashkanstudios.com/sitemap-blog.xml</loc></sitemap>
+  <sitemap><loc>https://ashkanstudios.com/sitemap-llm.xml</loc></sitemap>
 </sitemapindex>
