@@ -1,1015 +1,974 @@
-import type { SeoPageData } from "@/pages/SeoPage";
-
-export const seoPages: SeoPageData[] = [
-  // ─── PHOTOGRAPHY SEO PAGES ─────────────────────────────────
-
-  {
-    slug: "product-photography-in-houston",
-    title: "Professional Product Photography in Houston, TX",
-    subtitle: "Don't Forget the Details",
-    heroImage: "/images/seo/approved/product-retail10.jpg",
-    intro:
-      "When we work with a business like yours on product photography in Houston, we know one of the most important things to capture are the DETAILS. Whether you are selling clothing, food, artwork, or furniture, you must show your audience the details of what you are creating for them. Ecommerce has gained huge respect for quality in recent years, which means people truly care about what they are putting in their homes or on their bodies. Showing your products up close gives your potential customer a feeling of trust with your product.",
-    sections: [
-      {
-        heading: "The Details Will Set You Apart",
-        body: "The details show the time and care you put into your work, and ultimately the heart of the function of your products. Make sure you are representing your products the best way possible, whether you are showcasing them on social media, your Etsy or online shop, or your website. ESPECIALLY if you are going to handle the imagery yourself, making sure you get the DETAILS of your products is what can set you apart.",
-        bullets: [
-          "Showcases the craftsmanship of your products",
-          "Gives variety to your portfolio and catalog",
-          "Unique perspective on materials and textures",
-          "White backgrounds are clean and classic",
-          "Colors can be used if appropriate to your brand",
-          "Texture, texture, texture",
-        ],
-        image: "/images/seo/approved/product-retail59.jpg",
-        imageAlt: "Product photography in Houston by Ashkan Studios",
-      },
-      {
-        heading: "From Handcrafted Goods to Retail Lines",
-        body: "Whether it's handcrafted furniture showcasing craftsmanship, an active wear line highlighting the brand voice, or a fine artist giving insight into their creative process, these kinds of images are crucial to help your audience connect with what you are creating for them, to build trust into your brand and your work that you are ultimately trying to sell.",
-        bullets: [
-          "Handcrafted goods - texture, materials, craftsmanship",
-          "Retail products - brand voice, lifestyle context, close-up and mid views",
-          "Fine art - process, human connection, storytelling",
-          "Important for social media and your website",
-          "Perfect for print adverts, brochures, and catalogs",
-        ],
-      },
-      {
-        heading: "Our Product Photography Process",
-        body: "At Ashkan Studios, the first thing we do to prepare for your product photography is to get to know you and your brand. A consultation is set up so we can discuss your company, your style, and your goals. From there, we start the creative development of your shoot. With your thoughts as well as our own artistic ideas, we create your product photography shoot plan. We have a plethora of background colors, models, hair and makeup available. We leave you with beautiful imagery to be used on your social media, your website, print, and more.",
-        image: "/images/seo/approved/product-retail17.jpg",
-        imageAlt: "Houston product photography studio",
-      },
-    ],
-    ctaHeading: "NEED HELP WITH YOUR PRODUCT PHOTOGRAPHY?",
-    ctaText:
-      "We know a thing or two about product photography in Houston. We are happy to help get your products noticed, and create imagery that truly shows off the blood, sweat, and tears you have put into your products.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Product Photography in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Professional product photography in Houston, TX for ecommerce, catalogs & social. Ashkan Studios delivers detail-rich images that sell - book a shoot.",
-  },
-
-  {
-    slug: "product-photographer-in-houston",
-    title: "Product Photographer in Houston, TX",
-    subtitle: "Product & Catalog Photography",
-    heroImage: "/images/seo/approved/product-cacao-bonbons-marble.jpg",
-    intro:
-      "If you're looking for a product photographer in Houston, Ashkan Studios is here to provide stunning imagery for you. Product, also known as catalog, photography allows us to create clean and controlled images with various lighting and mood whether for business or personal creativity. This style is most effective to showcase your products and their features in the simplest form, and are best to be used on your website or in print and graphic design.",
-    sections: [
-      {
-        heading: "What Is Product Photography?",
-        body: "Product and catalog photography is the art of producing images of objects to be used in a list or book of items for sale purposes. It is often used on websites, printed booklets, or social media to assist in the sales of a product. High-quality imagery is often the best representation of your brand and products.",
-        bullets: [
-          "Clean, controlled images with professional lighting",
-          "Multiple mood and styling options",
-          "Optimized for websites, print, and social media",
-          "Showcases product features in their simplest form",
-        ],
-        image: "/images/seo/approved/product-deutsch-ring-coupe.jpg",
-        imageAlt: "Clean, controlled product photography of fine jewelry in the Houston studio",
-      },
-      {
-        heading: "Our Process",
-        body: "Now that you've selected your product photographer in Houston, it's time for us to learn more about your brand. At Ashkan Studios, the first thing we do is get to know you and your brand through a consultation where we discuss your company, your style, and your goals. We then start the creative development of your shoot, combining your thoughts with our artistic ideas to create a shoot plan. We have a plethora of background colors, models, hair and makeup available. We leave you with beautiful imagery for your social media, website, print, and more.",
-        bullets: [
-          "Women's activewear companies",
-          "Hand-crafted African wood furniture creators",
-          "Performance apparel brands",
-          "Luxury eyewear distributors",
-          "Food and beverage brands",
-        ],
-      },
-    ],
-    ctaHeading: "LET'S CREATE BEAUTIFUL IMAGERY",
-    ctaText:
-      "Ready to showcase your products at their absolute best? Contact us today and let's create some stunning imagery for you and your brand.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Product Photographer in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Award-winning product photographer in Houston, TX. Ashkan Studios creates clean, professional product & catalog imagery for retail brands. Book your shoot.",
-  },
-
-  {
-    slug: "product-photographer-houston",
-    title: "Professional Product Photographer in Houston, TX",
-    subtitle: "Product & Food Photography",
-    heroImage: "/images/seo/approved/product-retail12.jpg",
-    // Bag sits low in the frame; a centered crop clipped its base and
-    // strap. 70% lifts the product into the middle of the band.
-    heroPosition: "center 70%",
-    intro:
-      "As a Houston product photographer, Ashkan Studios creates alluring imagery of the food and products of your business to help represent you. Whether content for a website, print pieces, or social media, professional imagery can reflect the quality of service that you provide your customers.",
-    sections: [
-      {
-        heading: "What Is a Product Photographer?",
-        body: "A product photographer is a person who produces images of products or food, such as a prepared dish or drink, used to sell or promote a product or service, or otherwise support a business or organization. As Houston commercial photographers, our focus is on small businesses. We want to represent your store-front to your customers with imagery that drives sales and builds trust.",
-        image: "/images/seo/approved/product-002-eg-april26.jpg",
-        imageAlt: "Product and food photography Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "The first thing we do to prepare for your product photography is to get to know you and your company. A consultation is set up so we can discuss your company, your style, and your goals. After that, we start the creative development of your shoot. If you are a restaurant, you are welcome to prepare the dishes you'd like us to capture. If your products are on site, we can work right there in your space. Otherwise, we can do it all at our studio. We leave you with professional imagery for your social media, website, print, and more.",
-        bullets: [
-          "Mechanic shops and auto businesses",
-          "Fine hotels and hospitality",
-          "Restaurants and food brands",
-          "Spas and wellness centers",
-          "Luxury eyewear distributors",
-        ],
-      },
-    ],
-    ctaHeading: "MAKE YOUR PRODUCTS SHINE",
-    ctaText:
-      "Let's create some beautiful imagery for you. Professional product and food photography that represents your business at its best.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Product Photographer in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Looking for a product photographer in Houston, TX? Ashkan Studios shoots alluring product & food imagery for retail, restaurants & brands. Book today.",
-  },
-
-  {
-    slug: "commercial-photography-houston",
-    title: "Commercial Photography in Houston, TX",
-    subtitle: "Professional Imagery That Represents Your Brand",
-    heroImage: "/images/seo/approved/commercialphotography-the-art-2.jpg",
-    intro:
-      "Are you looking for commercial photography in Houston? Whether you are searching for the right person for product photography, commercial headshots, or lifestyle headshots, Ashkan Studios is one of the most reliable sources for commercial photography in Houston. Our commercial photography surpasses expectations while always meeting the needs laid out by the client. Our unique process makes us a go-to that our clients return to time and again.",
-    sections: [
-      {
-        heading: "A Team of Artists",
-        body: "We take a special approach. Our team is made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives us a very unique perspective and separates us from other photographers in the space. We know how to capture the best moments, light our subjects in the most flattering way, and capture images that truly stand out. It takes a team effort to produce the very best commercial photography in Houston.",
-        bullets: [
-          "Product photography with professional styling",
-          "Commercial headshots for businesses",
-          "Lifestyle imagery and brand photography",
-          "Professional images with a multitude of backgrounds",
-          "Photos for websites, ads, and print work",
-        ],
-        image: "/images/seo/approved/commercialphotography-fashion17.jpg",
-        imageAlt: "Commercial photography Houston studio",
-      },
-      {
-        heading: "Our Studio Sets Us Apart",
-        body: "Our photography studio is very special and sets us apart among other businesses providing commercial photography in Houston. We have one of the most cutting-edge, high-end photography studios in Houston. We have a live monitor in the studio, ideal for subjects to see themselves as their photos are being captured. It aids in posing, helping to ensure the person on the other side of the camera feels confident with the angles, lighting, and wardrobe. We also have a vast selection of backgrounds, props, and tools at our disposal, making us a one-stop-shop for commercial photography in Houston.",
-      },
-      {
-        heading: "Let's Collaborate",
-        body: "If you have any ideas for your photography needs and are looking for commercial photography in Houston, we would love to collaborate with you and bring your idea to life. Remember, beautiful photography appeals to even the least engaged scrollers. Our process begins with an initial consultation, where we get to know you and your brand. From there, we create a custom plan that captures the essence of your business. Let's team up for your next project!",
-      },
-    ],
-    ctaHeading: "READY TO GET STARTED?",
-    ctaText:
-      "Have questions? Let's talk about your project. Beautiful photography that represents your brand starts here.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Commercial Photography in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Professional commercial photography in Houston, TX - product, headshot & lifestyle imagery for brands by Ashkan Studios. Let's plan your shoot today.",
-  },
-
-  {
-    slug: "houston-commercial-photography",
-    title: "Houston Commercial Photography in TX",
-    subtitle: "Alluring Imagery for Your Business",
-    heroImage: "/images/seo/approved/commercialphotography-deutsch-lifestyle-595.jpg",
-    // Three faces sit in the upper half; a centered crop cut the tops of
-    // their heads off once the band went past ~2.5:1 on a short window.
-    heroPosition: "center 25%",
-    intro:
-      "As a Houston commercial photography team, Ashkan Studios creates alluring imagery of the lifestyle and products of your business to help represent you. Whether content for a website, print pieces, or social media, professional imagery can reflect the quality of service that you provide your customers.",
-    sections: [
-      {
-        heading: "What Is a Commercial Photographer?",
-        body: "A commercial photographer is a person who produces images of products, services, or lifestyle, used to sell or promote a product or service, or otherwise support a business or organization in making more money. This can refer to product photography, lifestyle photography, and even fashion photography, depending on the client and the product or service being sold.",
-        bullets: [
-          "Product and catalog photography",
-          "Lifestyle and environmental photography",
-          "Fashion and brand photography",
-          "On-location and in-studio options",
-        ],
-        image: "/images/seo/approved/commercialphotography-fashion24.jpg",
-        imageAlt: "Houston commercial photography",
-      },
-      {
-        heading: "Our Process",
-        body: "As Houston commercial photographers, our focus is on small businesses. We want to represent your store-front to your customers. The first thing we do is get to know you and your company through a consultation. We discuss your company, your style, and your goals. Then we start creative development. If your products are on site, we can work right there in your space. Otherwise, we can do it all at our studio. We can also capture lifestyle or environmental photography at your business. Whether it's a mechanic shop, a restaurant, or a fine hotel, our team is experienced enough to handle all sorts of environments. We bring all necessary lighting and tools, whether at our studio or on site.",
-      },
-    ],
-    ctaHeading: "LET'S CREATE TOGETHER",
-    ctaText:
-      "We have experience in commercial photography for mechanic shops, fine hotels, restaurants, spas, luxury eyewear distributors, and more. Let's create some beautiful imagery for you.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Houston Commercial Photography Services, TX | Ashkan Studios",
-    metaDescription:
-      "Creative commercial photography in Houston, TX by Ashkan Studios - product, lifestyle & brand visuals for businesses of all sizes. Get a quote today.",
-  },
-
-  {
-    slug: "commercial-photographer-houston",
-    title: "Commercial Photographer in Houston, TX",
-    subtitle: "Visual Storytellers for Your Brand",
-    heroImage: "/images/seo/approved/commercialphotography-eyegallery-036.jpg",
-    /* Ferrari dropped - a car is commercial work, but this page's lead
-       image should show the studio's real brand/lifestyle work. This is a
-       frame from The Eye Gallery campaign; 35% keeps the face inside both
-       crop ratios and leaves the left side clear for the H1. */
-    heroPosition: "center 35%",
-    intro:
-      "Welcome to Ashkan Studios - an exceptional commercial photographer in Houston. Elevate your brand with compelling imagery that narrates your distinctive story. We go beyond photography; we are visual storytellers committed to translating your commercial vision into captivating visuals that resonate.",
-    sections: [
-      {
-        heading: "Why Choose Ashkan Studios?",
-        body: "We thrive on creativity, transforming ordinary moments into extraordinary visual narratives. Our innovative approach ensures that your brand not only stands out but makes a lasting impression in today's competitive market.",
-        bullets: [
-          "Innovation & Craftsmanship - ordinary moments into extraordinary narratives",
-          "Tailored Solutions - no project is too ambitious or too niche",
-          "Marketing campaigns, social media content, advertisements",
-          "Artistic projects and commissions",
-          "From concept to final delivery, your trusted creative partner",
-        ],
-        image: "/images/seo/approved/commercialphotography-011-eg-q3-juicy.jpg",
-        imageAlt: "Commercial photographer Houston",
-      },
-      {
-        heading: "Transform Your Brand's Visual Narrative",
-        body: "Unlock your brand's potential with Ashkan Studios' commercial photographer services in Houston. Our dedication to excellence, creativity, and client satisfaction makes us the ideal partner for visually compelling content. We understand the uniqueness of each client, tailoring our services to align with your brand's voice and commercial objectives.",
-      },
-    ],
-    ctaHeading: "GET YOUR FREE CONSULTATION",
-    ctaText:
-      "Schedule your free call or virtual meeting. We want to learn more about your brand, and what we can do for you. Every image tells a story, and your success is our primary focus.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Commercial Photographer in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Trusted commercial photographer in Houston, TX. Ashkan Studios delivers compelling brand imagery & visual storytelling. View our work & book a shoot.",
-  },
-
-  {
-    slug: "business-marketing-photography-houston",
-    title: "Business Marketing Photography in Houston, TX",
-    subtitle: "Unleashing the Power of Visual Storytelling",
-    heroImage: "/images/seo/approved/commercialphotography-012-eg-q3-scale-square.jpg",
-    intro:
-      "Embark on a transformative visual journey with Ashkan Studios' specialized services tailored for business marketing photography in Houston. Our team is committed to capturing the unique essence of your brand, ensuring that your narrative stands out in Houston's dynamic business landscape, and providing a long-standing media inventory for you to use across your marketing needs.",
-    sections: [
-      {
-        heading: "Why Choose Ashkan Studios for Your Business Story?",
-        body: "At Ashkan Studios, we possess an intimate understanding of individual markets while maintaining a big picture perspective. Our visuals resonate not only with local audiences but also have the potential to make a broader impact nationally and globally.",
-        bullets: [
-          "Local insight with national impact",
-          "Tailored to your brand's unique narrative",
-          "Long-standing media inventory for all your marketing needs",
-          "Specialized in Houston's dynamic business landscape",
-        ],
-        image: "/images/seo/approved/commercialphotography-unbridaled-boutique.jpg",
-        imageAlt: "Business marketing photography for a Houston bridal boutique - owners and team on the retail floor",
-      },
-      {
-        heading: "The Impact of Visual Storytelling on Your Brand",
-        body: "High-quality business marketing photography enhances your Houston business's online presence, making it more attractive to potential clients and customers. Visually compelling content is more likely to be shared and engaged with on social media platforms. Elevate the user experience on your website and marketing materials with striking photography that encourages potential customers to take action.",
-        bullets: [
-          "Boost online visibility with high-quality imagery",
-          "Enhance social media reach through visual content",
-          "Drive conversions with striking photography",
-          "Redefine how your audience perceives your business",
-        ],
-      },
-    ],
-    ctaHeading: "GET YOUR FREE CONSULTATION",
-    ctaText:
-      "Elevate your visual reach with business marketing photography crafted specifically for your needs. Our passion and dedication to bringing your brand's vision to life will redefine the way your audience engages with your business.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Business Marketing Photography in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Strategic business marketing photography in Houston that drives growth, engagement & conversions. Ashkan Studios creates the visuals - get started.",
-  },
-
-  {
-    slug: "headshot-photography-houston",
-    title: "Headshot Photography in Houston, TX",
-    subtitle: "Corporate Headshot Photography",
-    heroImage: "/images/seo/approved/headshot-headshots9.jpg",
-    heroPosition: "center 22%",
-    intro:
-      "Whether for a business profile, content for a website, or for advertising pieces, you can count on us. Ashkan Studios provides the headshot photography Houston needs. Headshots can reflect the quality of service that you provide your customers. We create professional images with a multitude of available backgrounds. These kinds of images can be used for websites, ads, or print work, and can be created in the studio or at your location.",
-    sections: [
-      {
-        heading: "What Is Headshot Photography?",
-        body: "Headshot photography is the art of producing images of someone's face for promotional purposes such as a model or business-person. It is often used on websites, printed booklets, or social media to assist in presenting the person professionally in their field. High-quality imagery is often the best representation of you and your team.",
-        image: "/images/seo/approved/headshot-headshots15.jpg",
-        imageAlt: "Professional headshot photography Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "As your headshot photography Houston team, we prepare by first getting to know you and your company. A consultation is set up so we can discuss your company, your style, and your goals. After that, we start the creative development of your shoot. With your thoughts as well as our artistic ideas, we create your headshot photography shoot plan. We have a plethora of background colors, hair and makeup available, and can even photograph at your business or at your location.",
-        bullets: [
-          "Real estate agents and professionals",
-          "Television personalities and media figures",
-          "Chefs and hospitality professionals",
-          "Doctors and healthcare providers",
-          "Corporate teams and executives",
-        ],
-      },
-    ],
-    ctaHeading: "BOOK YOUR HEADSHOT SESSION",
-    ctaText:
-      "We leave you with beautiful professional imagery to be used on your social media, your website, print, and more. Contact us today!",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Headshot Photography in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Professional headshot photography in Houston, TX - corporate, editorial & creative headshots by Ashkan Studios. Book your session today.",
-  },
-
-  // ─── VIDEOGRAPHY SEO PAGES ─────────────────────────────────
-
-  {
-    slug: "cinematography-services-in-houston",
-    title: "Cinematography Services in Houston, TX",
-    subtitle: "Creative Commercial Videography",
-    heroImage: "/images/seo/approved/videography-the-art-5.jpg",
-    intro:
-      "Looking for cinematography services in Houston? If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
-    sections: [
-      {
-        heading: "What Is a Creative/Commercial Videographer?",
-        body: "A creative commercial videographer is a person who makes expressive, imaginative film pieces to be used for commerce and sales purposes. These are often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand.",
-        image: "/images/seo/approved/videography-15439-black-21660.jpg",
-        imageAlt: "Cinematography services Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "As videographers in Houston, we have an amazing variety of businesses to work with. First, we set up a consultation to discuss your services, your style, and your goals. In addition to your thoughts as well as our own artistic ideas, we create your videography shoot plan. Your shoot could take place inside our amazing studio, or we can work to find you a suitable commercial location. We have a plethora of background colors, and models in addition to hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
-        bullets: [
-          "Cancer research companies and medical offices",
-          "Women's activewear companies",
-          "Life coaches and wellness brands",
-          "Spas and luxury eyewear distributors",
-          "Real estate agents and more",
-        ],
-      },
-    ],
-    ctaHeading: "BRING YOUR VISION TO LIFE",
-    ctaText:
-      "We create commercial videography for businesses across every industry. Contact us today to start your project.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Cinematography Services in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Professional cinematography services in Houston, TX. Ashkan Studios crafts cinematic commercial videography for brands & businesses. Start your project.",
-  },
-
-  {
-    slug: "commercial-videographers-houston",
-    title: "Commercial Videographers in Houston, TX",
-    subtitle: "The Creative Videographers Houston Needs",
-    heroImage: "/images/seo/approved/videography-chocolate-box.jpg",
-    intro:
-      "We are the commercial videographers Houston needs! If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
-    sections: [
-      {
-        heading: "Creative & Commercial Videography",
-        body: "A creative commercial videographer is a person who makes expressive, imaginative film pieces to be used for commerce and sales purposes, often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand and business.",
-        image: "/images/seo/approved/videography-the-art-5.jpg",
-        imageAlt: "Commercial videographers Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "As videographers in Houston, we have an amazing variety of businesses to work with. We set up a consultation to discuss your services, your style, and your goals. With your thoughts as well as our artistic ideas, we create your videography shoot plan. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have background options, models, hair and makeup artists. Our production team then delivers your finished promotional video at any length, with royalty-free music and full rights to use on the web and social media.",
-      },
-    ],
-    ctaHeading: "GROW WITH VIDEO",
-    ctaText:
-      "We create commercial videography for businesses across every industry. Contact us today.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Commercial Videographers in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Trusted commercial videographers in Houston, TX. Ashkan Studios produces creative, professional video content for businesses. View our reel & connect.",
-  },
-
-  {
-    slug: "video-production-services-houston",
-    title: "Video Production Services in Houston, TX",
-    subtitle: "Full-Service Video Production",
-    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
-    intro:
-      "We are the video production services Houston needs! If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect addition to your company experience.",
-    sections: [
-      {
-        heading: "Complete Video Production",
-        body: "A creative commercial videographer makes expressive, imaginative film pieces to be used for commerce and sales purposes, often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand.",
-        image: "/images/seo/approved/videography-013-eg-april26-527.jpg",
-        imageAlt: "Video production services Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "As videographers in Houston, we work with an amazing variety of businesses. We start with a consultation to discuss your services, style, and goals. Your shoot could take place inside our studio, or we can find you a suitable commercial location. We have a plethora of background options, models, and hair and makeup artists. Our production team delivers your finished video at any length, with royalty-free music and full web and social media rights.",
-        bullets: [
-          "Concept development to final delivery",
-          "Professional crew and equipment",
-          "Studio and on-location production",
-          "Post-production & final delivery",
-          "Full rights for web and social media use",
-        ],
-      },
-    ],
-    ctaHeading: "LIGHTS, CAMERA, ACTION",
-    ctaText:
-      "Full-scale video production services ready to bring your project to life. Contact us today.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Video Production Services in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Full-service video production in Houston, TX - from concept to delivery. Commercials, brand films & promo videos by Ashkan Studios. Start your project.",
-  },
-
-  {
-    slug: "videographer-houston",
-    title: "Videographer in Houston, TX",
-    subtitle: "Make Your Business Stand Out",
-    heroImage: "/images/seo/approved/videography-chocolate-bonbons.jpg",
-    intro:
-      "Videography is the BEST representation of your digital store-front and the best way to connect with your local audience. Whether you are looking to tell your story, promote your brand, or give yourself a digital revamp, Ashkan Studios in Houston can provide creative commercial videography to showcase what you have to offer. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience fully into your brand.",
-    sections: [
-      {
-        heading: "Commercial Video Production",
-        body: "Videography is the best representation of your digital store-front, and the best way to get it is with a professional videographer. Whether you are looking to tell your story, promote your brand, or give yourself a digital revamp, Ashkan Studios in Houston can provide creative commercial videography to showcase what you have to offer.",
-        image: "/images/seo/approved/videography-001-eyegallery-057.jpg",
-        imageAlt: "Videographer Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "As a Houston videographer team that has grown into an amazing creative force, we have worked with a wonderful variety of businesses. We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
-        bullets: [
-          "Cancer research companies and medical offices",
-          "Women's activewear companies",
-          "Life coaches and wellness brands",
-          "Spas and luxury eyewear distributors",
-          "Real estate agents and more",
-        ],
-      },
-    ],
-    ctaHeading: "HIRE A TOP VIDEOGRAPHER",
-    ctaText:
-      "Professional videography that tells your story. As videographers in Houston, we create commercial videography for businesses across every industry.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Videographer in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Looking for a professional videographer in Houston, TX? Ashkan Studios produces cinematic brand films, commercials & creative video content for businesses. Book your shoot today.",
-  },
-
-  {
-    slug: "videography-houston",
-    title: "Videography Services in Houston, TX",
-    subtitle: "Houston's Creative Videography Team",
-    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
-    intro:
-      "Are you looking for videography in Houston? Ashkan Studios is here to help. We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives our imagery a notable artistic edge. When you work with us, you can expect a team of qualified, creative, and friendly professionals.",
-    sections: [
-      {
-        heading: "Why Choose Us for Videography in Houston",
-        body: "When looking for videography in Houston, we know there are several options to choose from. It is important to find a videographer who aligns with your brand's look and feel. Ashkan Studios is proven to be successful at capturing a very diverse range of styles to meet any need. With our varied experience, we are confident we can exceed your expectations. Life moves quickly, and that inspires us. We are deeply passionate about capturing the pace and movement of life.",
-        image: "/images/seo/approved/videography-the-art-5.jpg",
-        imageAlt: "Videography Houston",
-      },
-      {
-        heading: "Our Studio Sets Us Apart",
-        body: "Our creative studio is very special and sets us apart for videography in Houston. We have one of the most cutting-edge, high-end studios for photography and videography in Houston. We have a live monitor in the studio, which is unique and amazing because you can see what is happening behind the lens in real-time to make needed adjustments.",
-      },
-      {
-        heading: "Let's Collaborate",
-        body: "If you have any ideas for your business's needs and are looking for videography in Houston, we would love to collaborate with you and bring your idea to life. Remember, beautiful videography appeals to even the least engaged scrollers. Let's team up for your next project as your chosen team for videography in Houston!",
-      },
-    ],
-    ctaHeading: "TELL YOUR STORY",
-    ctaText:
-      "Want to work with our experienced team? Beautiful videography that connects with your audience starts here.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Videography Services in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Premier videography studio in Houston. Ashkan Studios creates cinematic brand films, commercials, and video content with an artistic edge.",
-  },
-
-  {
-    slug: "videography-in-the-woodlands",
-    title: "Videography Services in The Woodlands, TX",
-    subtitle: "Conveniently Located Near Downtown Houston",
-    heroImage: "/images/seo/approved/videography-the-art-5.jpg",
-    intro:
-      "Are you looking for videography in The Woodlands? Ashkan Studios is just a short drive away, located near downtown Houston. We have been privileged to work with prolific clients from all over the US, including Olympic athletes, luxury boutiques, athletic brands, and doctors. Our videography services surpass expectations while always meeting the needs laid out by the client.",
-    sections: [
-      {
-        heading: "A Team of Creative Artists",
-        body: "We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives our creative content a distinctively artistic edge. When you work with Ashkan Studios, you can expect a team of qualified, creative, and friendly professionals. This is what makes us one of the most reliable options for videography in The Woodlands and the greater Houston area.",
-        image: "/images/seo/approved/videography-013-eg-april26-527.jpg",
-        imageAlt: "Videography in The Woodlands TX",
-      },
-      {
-        heading: "Our Studio Sets Us Apart",
-        body: "Our creative studio is very special and sets us apart for any videography projects. We have one of the most cutting-edge, high-end studios for photography and videography in all of Houston. We have a live monitor in the studio, which lets you see what is happening behind the lens in real-time. We're also excited about our infinity wall, which helps us create an entirely new type of content. If you have any ideas for your business's needs and are looking for videography services, we would love to collaborate with you and bring your idea to life.",
-      },
-    ],
-    ctaHeading: "LET'S FILM YOUR PROJECT",
-    ctaText:
-      "Beautiful videography appeals to even the least engaged scrollers. Let's team up for your next project!",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Videography Services in The Woodlands, TX - Ashkan Studios",
-    metaDescription:
-      "Professional videography services in The Woodlands, TX. Ashkan Studios produces commercials, brand & event video for the greater Houston area. Connect.",
-  },
-
-  {
-    slug: "videography-in-texas",
-    title: "Videography Services in Texas",
-    subtitle: "Texas-Based Creative Video Production",
-    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
-    intro:
-      "Are you looking for videography in Texas? Whether you are in the Panhandle, in East Texas, in Hill Country near Austin, or in our own backyard in Houston, Ashkan Studios is a top choice for any sort of videography needs. We have been privileged to work with prolific clients from all over the US, including Olympic athletes, luxury boutiques, athletic brands, and doctors.",
-    sections: [
-      {
-        heading: "Statewide Video Production",
-        body: "No matter where in the state you are, Ashkan Studios is a solid choice if you are looking for top-quality videography in Texas. We are located near downtown Houston, and we love to travel! Whether working together means you come to our state-of-the-art studio, or we travel to you, we can guarantee you will love your videography results. We are a team made of artists of all sorts: filmmakers, commercial photographers, and movement photographers. This gives our creative content a distinctively artistic edge.",
-        image: "/images/seo/approved/videography-010-eg-q1-april25.jpg",
-        imageAlt: "Videography in Texas",
-      },
-      {
-        heading: "Our Studio Sets Us Apart",
-        body: "Our creative studio is very special and sets us apart for any videography projects. We have one of the most cutting-edge, high-end studios for photography and videography in Texas. We have a live monitor in the studio, and our infinity wall helps us create an entirely new type of content. When you work with Ashkan Studios, you can expect a team of qualified, creative, and friendly professionals. We are proven to be successful at capturing a very diverse range of styles to meet any need.",
-      },
-    ],
-    ctaHeading: "VIDEO PRODUCTION ACROSS TEXAS",
-    ctaText:
-      "If you have ideas for your business's needs, we would love to collaborate and bring your vision to life. Let's team up!",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Videography Services in Texas - Ashkan Studios",
-    metaDescription:
-      "Professional videography services across Texas by Houston-based Ashkan Studios - statewide video production for commercials, brands & creative work.",
-  },
-
-  {
-    slug: "videographer-in-houston",
-    title: "Professional Videographer in Houston, TX",
-    subtitle: "Creative & Commercial Videography",
-    heroImage: "/images/seo/approved/videography-013-eg-april26-527.jpg",
-    intro:
-      "If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
-    sections: [
-      {
-        heading: "Our Portfolio of Work",
-        body: "We have had the privilege of working with incredible brands and organizations across Houston, from nail art brands and opera singers to luxury eyewear stores and schools. We've created promotional videos, Facebook ads, Instagram reels, fundraising videos, conference presentations, behind-the-scenes content, and much more.",
-        bullets: [
-          "Fashion and beauty brand collaborations",
-          "Luxury eyewear promotional content",
-          "Nonprofit and educational institution videos",
-          "Medical and biotechnology conference presentations",
-          "Active wear and lifestyle brand promotions",
-          "Magazine and editorial behind-the-scenes",
-        ],
-        image: "/images/seo/approved/videography-ashkangroup-outside.jpg",
-        imageAlt: "Videographer in Houston",
-      },
-      {
-        heading: "Our Process",
-        body: "We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and social media.",
-      },
-    ],
-    ctaHeading: "FIND YOUR VIDEOGRAPHER",
-    ctaText:
-      "We create commercial videography for cancer research companies, medical offices, women's activewear companies, life coaches, spas, luxury eyewear distributors, real estate agents and more. Contact us today.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Professional Videographer in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Hire a professional videographer in Houston, TX. Ashkan Studios creates brand films, commercials & promo video content for businesses of all sizes. Get in touch today.",
-  },
-
-  {
-    slug: "commercial-videography-in-houston",
-    title: "Commercial Videography in Houston, TX",
-    subtitle: "Unlocking the Power of Commercial Videography",
-    heroImage: "/images/seo/approved/videography-013-eg-april26-527.jpg",
-    intro:
-      "Welcome to the vibrant world of commercial videography in Houston, where storytelling meets innovation to create compelling visual narratives for businesses. Businesses are discovering the transformative impact of high-quality videography in conveying their brand messages and engaging their target audience.",
-    sections: [
-      {
-        heading: "Why Invest in Commercial Videography?",
-        body: "Houston, with its diverse business landscape, is an ideal canvas for commercial videography. Whether you're a small startup or an established corporation, harnessing the power of video content can set you apart in a competitive market. From corporate profiles and product launches to promotional campaigns and artistic commissions, commercial videography provides a dynamic platform to showcase your brand in a way that resonates with your audience.",
-        image: "/images/seo/approved/videography-4q7a0674.jpg",
-        imageAlt: "Commercial videography Houston",
-      },
-      {
-        heading: "Why Ashkan Studios?",
-        body: "Our team of skilled videographers brings a wealth of experience to the table. We have successfully collaborated with businesses across various industries, delivering visually stunning content. We recognize that each business is unique, and we tailor our videography services to align with your brand identity and goals.",
-        bullets: [
-          "Expertise - skilled videographers with a wealth of experience",
-          "Tailored Solutions - services aligned with your brand identity",
-          "Collaborative Approach - your ideas and objectives seamlessly integrated",
-          "Cutting-edge technology and techniques",
-          "Local Houston insight with global quality standards",
-        ],
-      },
-    ],
-    ctaHeading: "ELEVATE YOUR BRAND WITH VIDEO",
-    ctaText:
-      "Choose Ashkan Studios for unparalleled expertise, tailored solutions, and a collaborative approach. Contact us today for a free consultation. Your story deserves to be told, and we're here to make it unforgettable.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Commercial Videography in Houston, TX - Ashkan Studios",
-    metaDescription:
-      "Professional commercial videography in Houston, TX - strategic commercials, brand films & marketing video by Ashkan Studios. Let's tell your story.",
-  },
-
-  // ─── VSL PAGES ─────────────────────────────────────────────
-
-  {
-    slug: "vsl-arts-industry",
-    title: "Video Production for the Arts & Culture Industry in Houston, TX",
-    subtitle: "High-Quality, Strategic Video Content",
-    heroImage: "/images/seo/approved/videography-the-art-5.jpg",
-    videoEmbed: "https://player.vimeo.com/video/1040868785?h=90973fcfe1",
-    intro:
-      "We here at Ashkan Studios have extensive experience operating within the arts industry, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
-    sections: [
-      {
-        heading: "What Video Can Do",
-        body: "Video transcends language, shares stories, and connects to emotions. For the arts industry, it brings audiences closer to the creative process and unites communities around shared artistic experiences.",
-        bullets: [
-          "Grant and sponsor pitches",
-          "Behind the scenes content",
-          "Exhibition walkthroughs",
-          "Performance documentation",
-          "Talent interviews",
-          "Announcement videos",
-          "Creative process walk-throughs",
-          "And much more",
-        ],
-        image: "/images/seo/approved/videography-15439-black-21660.jpg",
-        imageAlt: "Arts industry video production Houston",
-      },
-    ],
-    ctaHeading: "START YOUR PROJECT",
-    ctaText:
-      "Let us help you tell your story through compelling video content. Whether for grants, social media, or marketing, we're here for the arts.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Video Production for Arts Industry | Ashkan Studios Houston",
-    metaDescription:
-      "Video production for the arts industry in Houston. Ashkan Studios creates films for visual arts, galleries, museums and cultural organizations.",
-  },
-
-  {
-    slug: "vsl-retail-industry",
-    title: "Retail Video Production in Houston, TX",
-    subtitle: "High-Quality, Strategic Video Content",
-    heroImage: "/images/seo/vsl/retail-still-001.jpg",
-    intro:
-      "We here at Ashkan Studios have extensive experience operating within the retail industry, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
-    sections: [
-      {
-        heading: "What Video Can Do",
-        body: "For the retail industry, video is your most powerful tool for connecting with customers, showcasing products, and driving sales. From ecommerce content to in-store displays, video brings your brand to life.",
-        bullets: [
-          "E-commerce videography",
-          "Testimonials",
-          "End to end experience videos",
-          "Staff profiles",
-          "Product demos",
-          "Customer support content",
-          "And much more",
-        ],
-        video:
-          "https://player.vimeo.com/video/1125611606?title=0&byline=0&portrait=0&dnt=1",
-        videoTitle: "Cacao & Cardamom: Delicious Impressions",
-      },
-    ],
-    ctaHeading: "BOOST YOUR RETAIL BRAND",
-    ctaText:
-      "Video content that moves products off shelves and into carts. Let's create your next campaign.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Retail Video Production in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Retail video production in Houston, TX by Ashkan Studios - product demos, testimonials & ecommerce video that drives sales. View our work & connect.",
-  },
-
-  {
-    slug: "vsl-li-industry",
-    title: "Industrial & Corporate Video Production in Houston, TX",
-    subtitle: "High-Quality, Strategic Video Content",
-    heroImage: "/images/seo/approved/industrial-lab-portrait.jpg",
-    heroPosition: "center 30%",
-    intro:
-      "We here at Ashkan Studios have extensive experience operating within the industrial and corporate sector, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
-    sections: [
-      {
-        heading: "What Video Can Do",
-        body: "For the industrial and corporate sector, video is essential for internal communications, stakeholder engagement, and brand building. From training content to investor presentations, we produce professional video that communicates your message with clarity and authority.",
-        bullets: [
-          "HR training videos",
-          "Internal and external communications",
-          "Case studies",
-          "Advertisements and campaigns",
-          "Company announcements",
-          "Investor relations content",
-          "Trade show videos",
-          "Earnings reports presentations",
-          "And much more",
-        ],
-        video:
-          "https://player.vimeo.com/video/1100405072?title=0&byline=0&portrait=0&dnt=1",
-        videoTitle: "RadioMedix 2025: Where It All Began",
-      },
-    ],
-    ctaHeading: "ELEVATE YOUR CORPORATE VIDEO",
-    ctaText:
-      "Professional video production for the industrial and corporate sector. Let's create content that moves your business forward.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Industrial & Corporate Video Production in Houston | Ashkan Studios",
-    metaDescription:
-      "Industrial and corporate video production in Houston. Ashkan Studios creates training, communications, and marketing videos for enterprise clients.",
-  },
-
-  // ─── FASHION SEO PAGES (Mahendra 8/17, from client-approved docs) ──
-
-  {
-    slug: "fashion-photography-in-houston",
-    title: "Fashion Photography in Houston, TX",
-    subtitle: "Style, Story, and Standout Imagery",
-    heroImage: "/images/seo/approved/fashion-hero-citybook-633.jpg",
-    // Her face and raised arm are in the top third, so a centered crop
-    // cut across the forehead. 30% brings the whole gesture into view.
-    heroPosition: "center 30%",
-    intro:
-      "Fashion photography in Houston has to do more than look good. It has to sell a feeling, a label, and a point of view in a single frame. When a brand, designer, or model works with Ashkan Studios, we build images that carry your styling, your mood, and your story straight to the audience you want to reach. From editorial spreads to commercial campaigns, our Houston, TX studio turns clothing and concepts into visuals people remember.",
-    sections: [
-      {
-        heading: "Editorial and Commercial Fashion Photography",
-        body: "Our fashion photography covers the full range of what a modern brand needs. Editorial work leans into narrative, movement, and art direction. Commercial work keeps your product front and center while still feeling elevated. We shift between the two depending on where your images will live and what they need to do.",
-        bullets: [
-          "Editorial and high fashion shoots with strong art direction",
-          "Commercial photography and lookbook photography for collections and catalogs",
-          "Model portfolio and comp card imagery",
-          "Campaign photography for designers and emerging labels",
-          "On-figure apparel, accessories, and styling detail shots",
-          "Studio and location fashion shoots across Houston",
-        ],
-        image: "/images/seo/approved/fashion-editorial-fashion31.jpg",
-        imageAlt: "Editorial fashion photography with bold styling and art direction, Houston",
-      },
-      {
-        heading: "Who We Photograph for in Houston",
-        body: "Houston's fashion scene runs from independent designers to established retail brands, and our work adapts to each of them. We collaborate with clients who need imagery that holds up on a magazine page, a product listing, and a social feed at the same time.",
-        bullets: [
-          "Fashion designers and clothing labels",
-          "Models building or refreshing a portfolio",
-          "Boutiques and retail brands",
-          "Editorial publications and stylists",
-          "Beauty and accessory brands",
-        ],
-      },
-      {
-        heading: "Our Fashion Photography Process",
-        body: "Every strong fashion shoot starts before the camera comes out. We begin with a consultation to understand your brand, your collection, and the mood you want to set. From there we plan concept, styling, lighting, and casting so the shoot day runs in a clear creative direction. With hair and makeup, models, and a full range of backdrops available in-house at our Silos at Sawyer Yards studio, we keep production under one roof and your vision intact from first look to final edit. We deliver retouched, campaign-ready fashion photography built to perform across your website, lookbooks, print editorials, and social channels.",
-        image: "/images/seo/approved/fashion-doc-section2.jpg",
-        imageAlt: "Fashion photoshoot styling and lighting at Ashkan Studios Houston",
-      },
-    ],
-    ctaHeading: "READY TO SHOOT YOUR NEXT FASHION CAMPAIGN?",
-    ctaText:
-      "Ashkan Studios brings styling, lighting, and creative direction together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for fashion photography that defines your brand.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Fashion Photography in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Editorial and commercial fashion photography in Houston, TX. Ashkan Studios creates bold, campaign-ready images for designers, brands, and models. Book today.",
-  },
-
-  {
-    slug: "fashion-video-production-services-houston",
-    title: "Fashion Video Production Services in Houston, TX",
-    subtitle: "Motion That Makes Your Brand Move",
-    heroImage: "/images/seo/approved/fashionvideo-hero-weissman-spring26.jpg",
-    /* The frame comes from the Weissman Spring FY26 film - the same film
-       that plays in the process section below. At 30% both the face and
-       the raised arm stay inside either crop. */
-    heroPosition: "center 30%",
-    intro:
-      "Fashion video production services in Houston, TX give your brand something a still image cannot: movement, rhythm, and story. When a designer or label needs to show how a collection moves, video is what carries it. Video is where fashion comes alive. A campaign film sets a mood in seconds, a lookbook video shows a full collection in motion, and social-first clips put your label in front of the audience already scrolling for it.",
-    sections: [
-      {
-        heading: "Brand Films, Lookbooks, and Campaign Videos",
-        body: "Our fashion video production covers everything from cinematic brand films to fast, social-ready cutdowns. We match the format to where your audience actually watches, so a single shoot day can feed a campaign, a website, and a season of social content.",
-        bullets: [
-          "Fashion brand films and campaign videos",
-          "Lookbook and collection videos",
-          "Runway and editorial fashion video",
-          "Social-first content and reels for designers and labels",
-          "Behind-the-scenes and process films",
-          "Model and portfolio video",
-        ],
-        video:
-          "https://player.vimeo.com/video/1094764251?h=17dfb40e13&title=0&byline=0&portrait=0&dnt=1",
-        videoTitle: "Weissman Fall 2025 Season Cross Genre",
-      },
-      {
-        heading: "Who We Produce Fashion Video for in Houston",
-        body: "Houston's designers, boutiques, and brands need video that competes on every screen. We produce fashion content for clients who want their collections seen in motion, whether that is a campaign film for a launch or a run of social cutdowns for the season.",
-        bullets: [
-          "Fashion designers and clothing labels",
-          "Boutiques and retail brands",
-          "Models and agencies",
-          "Editorial publications and stylists",
-          "Beauty and accessory brands",
-        ],
-      },
-      {
-        heading: "Our Fashion Video Production Process",
-        body: "Strong fashion video starts with a clear creative plan. We open with a consultation to understand your collection, your audience, and the story you want the film to tell, then build the concept, casting, styling, and shot list around it. Our team produces and finishes the film in-house, delivered for the platforms where your audience actually watches, from your website and campaigns to reels and paid social.",
-        video:
-          "https://player.vimeo.com/video/1145783498?h=6e07bd9e26&title=0&byline=0&portrait=0&dnt=1",
-        videoTitle: "Weissman Spring 2026 Season Cross Genre",
-      },
-    ],
-    ctaHeading: "READY TO PUT YOUR COLLECTION IN MOTION?",
-    ctaText:
-      "Ashkan Studios brings creative direction, filming, and post-production together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for fashion video that moves your brand forward.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Fashion Video Production Services in Houston | Ashkan Studios",
-    metaDescription:
-      "Fashion video production services in Houston, TX. Ashkan Studios creates brand films, lookbook videos, and fashion campaigns for designers and labels.",
-  },
-
-  /* ── Car / automotive, Mahendra 9/3 ─────────────────────────────────
-     Both pages come from the client's supplied docs. The doc named a site
-     filename against every image slot, so the hero and section images are
-     those - only rebuilt from the 8192px originals in Drive rather than
-     the 2046px copies embedded in the doc. */
-  {
-    slug: "car-photography-houston",
-    title: "Car Photography in Houston, TX",
-    subtitle: "Every Angle, Every Detail, Built to Sell",
-    heroImage: "/images/seo/approved/car-hero-mustang-095.jpg",
-    intro:
-      "Car photography in Houston has to do more than show a vehicle. It has to capture the stance, the lines, the paint, and the detail that make a buyer stop and look. When a dealership, brand, or private collector works with Ashkan Studios, we shoot automotive images built to sell, whether the car is a daily driver, a luxury build, or an exotic on the showroom floor. We shoot cars the way they deserve to be seen, with controlled lighting, clean reflections, and composition that flatters every panel.",
-    sections: [
-      {
-        heading: "Commercial and Luxury Automotive Photography",
-        body: "Our car photography covers the full range of what a dealership or automotive brand needs, from clean commercial coverage that keeps the vehicle sharp and consistent to luxury and editorial work that gives a build the drama it deserves. We match the approach to where the images will live.",
-        bullets: [
-          "Dealership and inventory photography for listings",
-          "Luxury and exotic car photography with editorial lighting",
-          "Detail and interior shots that show craftsmanship",
-          "Rolling and location shoots for campaign imagery",
-          "Studio automotive photography with controlled reflections",
-          "Classic and collector car documentation",
-        ],
-        image: "/images/seo/approved/car-luxury-296gtb-070.jpg",
-        imageAlt: "Luxury car photography Houston - Ferrari 296 GTB",
-      },
-      {
-        heading: "Who We Photograph Cars for in Houston",
-        body: "Houston's automotive scene runs from high-volume dealerships to private collectors and aftermarket brands, and our work adapts to each. We shoot for clients who need images that hold up on a listing, a website, and a social feed at the same time.",
-        bullets: [
-          "Car dealerships and used-car lots",
-          "Luxury and exotic car dealers",
-          "Private collectors and enthusiasts",
-          "Automotive aftermarket and parts brands",
-          "Rental and specialty vehicle companies",
-        ],
-      },
-      {
-        heading: "Our Car Photography Process",
-        body: "Every strong automotive shoot starts before the camera comes out. We begin with a consultation to understand the vehicle, your goals, and where the images will run. From there we plan lighting, angles, and setting so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and detail that make or break a car image. We deliver retouched, ready-to-publish car photography built to perform across your listings, website, print, and social channels.",
-        image: "/images/seo/approved/car-classic-clenet-505.jpg",
-        imageAlt: "Classic car photography detail at Ashkan Studios Houston",
-      },
-    ],
-    ctaHeading: "READY TO SHOOT YOUR INVENTORY OR COLLECTION?",
-    ctaText:
-      "Ashkan Studios brings lighting, detail, and creative direction together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for car photography that sells the vehicle.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Car Photography in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Professional car photography in Houston, TX. Ashkan Studios shoots luxury, dealership, and commercial automotive images that sell vehicles. Book a shoot.",
-  },
-
-  {
-    slug: "automotive-video-production-houston",
-    title: "Automotive Video Production in Houston, TX",
-    subtitle: "Motion, Detail, and Cinematic Drive",
-    heroImage: "/images/seo/approved/autovideo-hero-mustang-111.jpg",
-    intro:
-      "Automotive video production in Houston gives a vehicle something photos cannot: motion, sound, and drama. When a dealership or automotive brand works with Ashkan Studios, we translate a car into a cinematic video that shows how it moves, how it sounds, and why it turns heads. From rolling shots to detail sequences, our Houston team produces automotive content built to sell. A cinematic brand film sets a mood in seconds, a walkaround video shows a vehicle in full, and social-first clips keep your inventory in front of buyers.",
-    sections: [
-      {
-        /* The brief put a Ferrari still here, but this section is about
-           video formats - so it uses a real automotive film from the
-           catalog instead (1968 Mustang GT, shot in an auto shop). */
-        heading: "Cinematic Car Videos, Walkarounds, and Brand Films",
-        body: "Our automotive video production covers everything from cinematic brand films to fast, social-ready walkarounds. We match the format to your goal, whether that is launching a model, moving inventory, or feeding a content calendar.",
-        bullets: [
-          "Automotive brand films and campaign videos",
-          "Dealership walkaround and inventory videos",
-          "Rolling and tracking shots for cinematic motion",
-          "Detail and interior sequences",
-          "Social-first content and reels for dealers and brands",
-          "Luxury and exotic car feature films",
-        ],
-        video:
-          "https://player.vimeo.com/video/1189136660?h=00ea4a2e1c&title=0&byline=0&portrait=0&dnt=1",
-        videoTitle: "1968 Mustang GT / Auto Shop",
-      },
-      {
-        heading: "Who We Produce Automotive Video for in Houston",
-        body: "Houston's dealers, collectors, and automotive brands need video that competes on every screen. We produce content for clients who want their vehicles to look as strong in motion as they do in person.",
-        bullets: [
-          "Car dealerships and dealer groups",
-          "Luxury and exotic car dealers",
-          "Automotive aftermarket and parts brands",
-          "Private collectors and enthusiasts",
-          "Rental and specialty vehicle companies",
-        ],
-      },
-      {
-        heading: "Our Automotive Video Production Process",
-        body: "Strong automotive video starts with a clear plan. We open with a consultation to understand the vehicle, your audience, and the story you want in motion. From there we handle concept, location, lighting, and shot planning, then move into filming and post. With a controlled space and full setup at our Silos at Sawyer Yards studio, we keep your Houston automotive production under one roof. Our team produces and finishes the film in-house, delivered for the platforms where your buyers watch, from your website and listings to Instagram, TikTok, and YouTube.",
-        image: "/images/seo/approved/autovideo-detail-296gtb-121.jpg",
-        imageAlt: "Automotive video detail shoot at Ashkan Studios Houston",
-      },
-    ],
-    ctaHeading: "READY TO PUT YOUR VEHICLES IN MOTION?",
-    ctaText:
-      "Ashkan Studios brings direction, filming, and post-production together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for automotive video production that moves vehicles.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Automotive Video Production in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Automotive video production in Houston, TX. Ashkan Studios creates cinematic car videos, dealership content, and brand films that move vehicles. Get in touch.",
-  },
-
-  {
-    slug: "jewelry-photography-houston",
-    title: "Jewelry Photography in Houston, TX",
-    subtitle: "Every Facet, Every Detail, Made to Shine",
-    /* The doc asked for this hero by name (retail-74). The same shot also
-       appears on the retail category page - deliberately, since that page
-       is where this one is linked from. */
-    heroImage: "/images/categories/retail/retail-74.jpg",
-    intro:
-      "Jewelry photography in Houston has to do more than show a piece. It has to capture the sparkle, the metal, the stones, and the fine detail that make someone want to wear it. When a jeweler, jewelry brand, or designer works with Ashkan Studios, we shoot images built to sell the piece, whether it is for an online store, a catalog, a campaign, or the counter. We shoot jewelry the way it deserves to be seen: controlled lighting, careful styling, and macro detail that makes every stone and setting shine.",
-    sections: [
-      {
-        heading: "Product and Lifestyle Jewelry Photography",
-        body: "Our jewelry photography covers the full range a jeweler or brand needs, from clean commercial product shots to lifestyle and editorial images styled on a model. See the range in our product and retail portfolio, and we match the approach to where the images will live.",
-        bullets: [
-          "Jewelry product and packshot photography on white",
-          "Necklace, earring, and ring detail and macro shots",
-          "On-model and jewelry lifestyle photography",
-          "Editorial and campaign jewelry imagery",
-          "E-commerce and catalog jewelry photography",
-          "Social-first jewelry content for brands and boutiques",
-        ],
-        /* The doc asked the client for a packshot here ("necklace detail
-           on white"). It has not arrived, so this is a shot from the
-           Deutsch Fine Jewelry campaign for now. The ALT describes the
-           image, not the doc - this is not a white packshot, and an ALT
-           that claims otherwise misleads both screen readers and Google. */
-        image: "/images/campaigns/deutsch/deutsch-2025-holiday-029.jpg",
-        imageAlt:
-          "Jewelry photography Houston - diamond, pearl, and gold necklaces from the Deutsch Fine Jewelry campaign",
-      },
-      {
-        heading: "Who We Shoot Jewelry for in Houston",
-        body: "Houston's jewelry market runs from independent jewelers to fine and fashion jewelry brands, and our work adapts to each. We shoot for clients who need images that hold up on a product page, a website, a catalog, and a social feed at the same time.",
-        bullets: [
-          "Jewelers and jewelry brands",
-          "Fine and fashion jewelry designers",
-          "Boutiques and retail stores",
-          "E-commerce retailers",
-          "Watch and accessory brands",
-        ],
-      },
-      {
-        heading: "Our Jewelry Photography Process",
-        body: "Every strong jewelry shoot starts before the pieces reach the set. We begin with a consultation to understand your collection, your brand, and where the images will run. From there we plan lighting, angles, and styling so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and macro detail that make or break a jewelry image. Browse our photography portfolio to see the results, and we deliver retouched, ready-to-publish jewelry photography built to perform across your online store, catalog, print, and social channels.",
-        /* The doc asked for "macro" here; this is an on-model shot, so the
-           ALT says so. Both the image and the ALT get swapped as soon as
-           the client's real macro shot arrives. */
-        image: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
-        imageAlt:
-          "On-model jewelry photography by Ashkan Studios Houston - diamond earring, ring, and bracelet",
-      },
-    ],
-    ctaHeading: "READY TO MAKE YOUR JEWELRY SPARKLE ON SCREEN?",
-    ctaText:
-      "Ashkan Studios brings lighting, styling, and macro detail together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for jewelry photography that sells the piece.",
-    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
-    metaTitle: "Jewelry Photography in Houston, TX | Ashkan Studios",
-    metaDescription:
-      "Professional jewelry photography in Houston, TX. Ashkan Studios shoots brilliant product and lifestyle images of necklaces, earrings, and rings that sell.",
-  },
-];
-
-/** Look up an SEO page by its URL slug */
-export function getSeoPageBySlug(slug: string): SeoPageData | undefined {
-  return seoPages.find((p) => p.slug === slug);
-}
-
-/** Get all SEO page slugs for routing */
-export function getAllSeoSlugs(): string[] {
-  return seoPages.map((p) => p.slug);
-}
+import type { SeoPageData } from "@/pages/SeoPage";
+
+export const seoPages: SeoPageData[] = [
+  // ─── PHOTOGRAPHY SEO PAGES ─────────────────────────────────
+
+  {
+    slug: "product-photography-in-houston",
+    title: "Professional Product Photography in Houston, TX",
+    subtitle: "Don't Forget the Details",
+    heroImage: "/images/seo/approved/product-retail10.jpg",
+    intro:
+      "When we work with a business like yours on product photography in Houston, we know one of the most important things to capture are the DETAILS. Whether you are selling clothing, food, artwork, or furniture, you must show your audience the details of what you are creating for them. Ecommerce has gained huge respect for quality in recent years, which means people truly care about what they are putting in their homes or on their bodies. Showing your products up close gives your potential customer a feeling of trust with your product.",
+    sections: [
+      {
+        heading: "The Details Will Set You Apart",
+        body: "The details show the time and care you put into your work, and ultimately the heart of the function of your products. Make sure you are representing your products the best way possible, whether you are showcasing them on social media, your Etsy or online shop, or your website. ESPECIALLY if you are going to handle the imagery yourself, making sure you get the DETAILS of your products is what can set you apart.",
+        bullets: [
+          "Showcases the craftsmanship of your products",
+          "Gives variety to your portfolio and catalog",
+          "Unique perspective on materials and textures",
+          "White backgrounds are clean and classic",
+          "Colors can be used if appropriate to your brand",
+          "Texture, texture, texture",
+        ],
+        image: "/images/seo/approved/product-retail59.jpg",
+        imageAlt: "Product photography in Houston by Ashkan Studios",
+      },
+      {
+        heading: "From Handcrafted Goods to Retail Lines",
+        body: "Whether it's handcrafted furniture showcasing craftsmanship, an active wear line highlighting the brand voice, or a fine artist giving insight into their creative process, these kinds of images are crucial to help your audience connect with what you are creating for them, to build trust into your brand and your work that you are ultimately trying to sell.",
+        bullets: [
+          "Handcrafted goods - texture, materials, craftsmanship",
+          "Retail products - brand voice, lifestyle context, close-up and mid views",
+          "Fine art - process, human connection, storytelling",
+          "Important for social media and your website",
+          "Perfect for print adverts, brochures, and catalogs",
+        ],
+      },
+      {
+        heading: "Our Product Photography Process",
+        body: "At Ashkan Studios, the first thing we do to prepare for your product photography is to get to know you and your brand. A consultation is set up so we can discuss your company, your style, and your goals. From there, we start the creative development of your shoot. With your thoughts as well as our own artistic ideas, we create your product photography shoot plan. We have a plethora of background colors, models, hair and makeup available. We leave you with beautiful imagery to be used on your social media, your website, print, and more.",
+        image: "/images/seo/approved/product-retail17.jpg",
+        imageAlt: "Houston product photography studio",
+      },
+    ],
+    ctaHeading: "NEED HELP WITH YOUR PRODUCT PHOTOGRAPHY?",
+    ctaText:
+      "We know a thing or two about product photography in Houston. We are happy to help get your products noticed, and create imagery that truly shows off the blood, sweat, and tears you have put into your products.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Product Photography in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Professional product photography in Houston, TX for ecommerce, catalogs & social. Ashkan Studios delivers detail-rich images that sell - book a shoot.",
+  },
+
+  {
+    slug: "product-photographer-in-houston",
+    title: "Product Photographer in Houston, TX",
+    subtitle: "Product & Catalog Photography",
+    heroImage: "/images/seo/approved/product-cacao-bonbons-marble.jpg",
+    intro:
+      "If you're looking for a product photographer in Houston, Ashkan Studios is here to provide stunning imagery for you. Product, also known as catalog, photography allows us to create clean and controlled images with various lighting and mood whether for business or personal creativity. This style is most effective to showcase your products and their features in the simplest form, and are best to be used on your website or in print and graphic design.",
+    sections: [
+      {
+        heading: "What Is Product Photography?",
+        body: "Product and catalog photography is the art of producing images of objects to be used in a list or book of items for sale purposes. It is often used on websites, printed booklets, or social media to assist in the sales of a product. High-quality imagery is often the best representation of your brand and products.",
+        bullets: [
+          "Clean, controlled images with professional lighting",
+          "Multiple mood and styling options",
+          "Optimized for websites, print, and social media",
+          "Showcases product features in their simplest form",
+        ],
+        image: "/images/seo/approved/product-deutsch-ring-coupe.jpg",
+        imageAlt: "Clean, controlled product photography of fine jewelry in the Houston studio",
+      },
+      {
+        heading: "Our Process",
+        body: "Now that you've selected your product photographer in Houston, it's time for us to learn more about your brand. At Ashkan Studios, the first thing we do is get to know you and your brand through a consultation where we discuss your company, your style, and your goals. We then start the creative development of your shoot, combining your thoughts with our artistic ideas to create a shoot plan. We have a plethora of background colors, models, hair and makeup available. If your products are on site, we can work right there in your space; otherwise we can do it all at our studio. We leave you with beautiful imagery for your social media, website, print, and more.",
+        bullets: [
+          "Women's activewear companies",
+          "Hand-crafted African wood furniture creators",
+          "Performance apparel brands",
+          "Luxury eyewear distributors",
+          "Food and beverage brands",
+        ],
+      },
+      /* Merged in from /product-photographer-houston/ when that duplicate was
+         retired (Oct 2026). It carried the small-business angle and a wider
+         industry list than this page had; both are kept here so the 301 does
+         not lose them. Its restaurant and menu lines are deliberately NOT
+         carried over - the client dropped that work in September. */
+      {
+        heading: "Who We Shoot For",
+        body: "Our focus is on the businesses behind the products. We want to represent your storefront to your customers with imagery that drives sales and builds trust, whether you are a small brand shipping your first catalog or an established name refreshing a season. Professional imagery reflects the quality of service you already provide, and it works just as hard on a website as it does in print.",
+        bullets: [
+          "Retail and ecommerce brands",
+          "Mechanic shops and auto businesses",
+          "Fine hotels and hospitality",
+          "Spas and wellness centers",
+          "Packaged and artisan food brands",
+        ],
+        image: "/images/seo/approved/product-002-eg-april26.jpg",
+        imageAlt: "Packaged product photography lit and styled in the Houston studio",
+      },
+    ],
+    ctaHeading: "LET'S CREATE BEAUTIFUL IMAGERY",
+    ctaText:
+      "Ready to showcase your products at their absolute best? Contact us today and let's create some stunning imagery for you and your brand.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Product Photographer in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Award-winning product photographer in Houston, TX. Ashkan Studios creates clean, professional product & catalog imagery for retail brands. Book your shoot.",
+  },  {
+    slug: "commercial-photography-houston",
+    title: "Commercial Photography in Houston, TX",
+    subtitle: "Professional Imagery That Represents Your Brand",
+    heroImage: "/images/seo/approved/commercialphotography-the-art-2.jpg",
+    intro:
+      "Are you looking for commercial photography in Houston? Whether you are searching for the right person for product photography, commercial headshots, or lifestyle headshots, Ashkan Studios is one of the most reliable sources for commercial photography in Houston. Our commercial photography surpasses expectations while always meeting the needs laid out by the client. Our unique process makes us a go-to that our clients return to time and again.",
+    sections: [
+      {
+        heading: "A Team of Artists",
+        body: "We take a special approach. Our team is made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives us a very unique perspective and separates us from other photographers in the space. We know how to capture the best moments, light our subjects in the most flattering way, and capture images that truly stand out. It takes a team effort to produce the very best commercial photography in Houston.",
+        bullets: [
+          "Product photography with professional styling",
+          "Commercial headshots for businesses",
+          "Lifestyle imagery and brand photography",
+          "Professional images with a multitude of backgrounds",
+          "Photos for websites, ads, and print work",
+        ],
+        image: "/images/seo/approved/commercialphotography-fashion17.jpg",
+        imageAlt: "Commercial photography Houston studio",
+      },
+      {
+        heading: "Our Studio Sets Us Apart",
+        body: "Our photography studio is very special and sets us apart among other businesses providing commercial photography in Houston. We have one of the most cutting-edge, high-end photography studios in Houston. We have a live monitor in the studio, ideal for subjects to see themselves as their photos are being captured. It aids in posing, helping to ensure the person on the other side of the camera feels confident with the angles, lighting, and wardrobe. We also have a vast selection of backgrounds, props, and tools at our disposal, making us a one-stop-shop for commercial photography in Houston.",
+      },
+      /* Merged in from /houston-commercial-photography/ when that duplicate
+         was retired (Oct 2026). That page opened with the definition of the
+         term and an on-location angle this one never had, and it was the
+         better performer of the two in Search Console - so its substance is
+         kept here rather than lost behind the 301. Its restaurant line is
+         deliberately NOT carried over; the client dropped that work in
+         September. */
+      {
+        heading: "What Is a Commercial Photographer?",
+        body: "A commercial photographer produces images of products, services or lifestyle that are used to sell or promote a business. Depending on the client that can mean product and catalog work, lifestyle and environmental imagery, or fashion and brand photography. We shoot both on location and in the studio: if the work belongs in your own space we bring the lighting and tools to you, and if it belongs on a controlled set we have one.",
+        bullets: [
+          "Product and catalog photography",
+          "Lifestyle and environmental photography",
+          "Fashion and brand photography",
+          "On-location and in-studio options",
+          "Experience across hospitality, wellness, automotive and retail",
+        ],
+        image: "/images/seo/approved/commercialphotography-fashion24.jpg",
+        imageAlt: "Commercial lifestyle photography on location in Houston",
+      },
+      {
+        heading: "Let's Collaborate",
+        body: "If you have any ideas for your photography needs and are looking for commercial photography in Houston, we would love to collaborate with you and bring your idea to life. Remember, beautiful photography appeals to even the least engaged scrollers. Our process begins with an initial consultation, where we get to know you and your brand. From there, we create a custom plan that captures the essence of your business. Let's team up for your next project!",
+      },
+    ],
+    ctaHeading: "READY TO GET STARTED?",
+    ctaText:
+      "Have questions? Let's talk about your project. Beautiful photography that represents your brand starts here.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Commercial Photography in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Professional commercial photography in Houston, TX - product, headshot & lifestyle imagery for brands by Ashkan Studios. Let's plan your shoot today.",
+  },  {
+    slug: "commercial-photographer-houston",
+    title: "Commercial Photographer in Houston, TX",
+    subtitle: "Visual Storytellers for Your Brand",
+    heroImage: "/images/seo/approved/commercialphotography-eyegallery-036.jpg",
+    /* Ferrari dropped - a car is commercial work, but this page's lead
+       image should show the studio's real brand/lifestyle work. This is a
+       frame from The Eye Gallery campaign; 35% keeps the face inside both
+       crop ratios and leaves the left side clear for the H1. */
+    heroPosition: "center 35%",
+    intro:
+      "Welcome to Ashkan Studios - an exceptional commercial photographer in Houston. Elevate your brand with compelling imagery that narrates your distinctive story. We go beyond photography; we are visual storytellers committed to translating your commercial vision into captivating visuals that resonate.",
+    sections: [
+      {
+        heading: "Why Choose Ashkan Studios?",
+        body: "We thrive on creativity, transforming ordinary moments into extraordinary visual narratives. Our innovative approach ensures that your brand not only stands out but makes a lasting impression in today's competitive market.",
+        bullets: [
+          "Innovation & Craftsmanship - ordinary moments into extraordinary narratives",
+          "Tailored Solutions - no project is too ambitious or too niche",
+          "Marketing campaigns, social media content, advertisements",
+          "Artistic projects and commissions",
+          "From concept to final delivery, your trusted creative partner",
+        ],
+        image: "/images/seo/approved/commercialphotography-011-eg-q3-juicy.jpg",
+        imageAlt: "Commercial photographer Houston",
+      },
+      {
+        heading: "Transform Your Brand's Visual Narrative",
+        body: "Unlock your brand's potential with Ashkan Studios' commercial photographer services in Houston. Our dedication to excellence, creativity, and client satisfaction makes us the ideal partner for visually compelling content. We understand the uniqueness of each client, tailoring our services to align with your brand's voice and commercial objectives.",
+      },
+    ],
+    ctaHeading: "GET YOUR FREE CONSULTATION",
+    ctaText:
+      "Schedule your free call or virtual meeting. We want to learn more about your brand, and what we can do for you. Every image tells a story, and your success is our primary focus.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Commercial Photographer in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Trusted commercial photographer in Houston, TX. Ashkan Studios delivers compelling brand imagery & visual storytelling. View our work & book a shoot.",
+  },
+
+  {
+    slug: "business-marketing-photography-houston",
+    title: "Business Marketing Photography in Houston, TX",
+    subtitle: "Unleashing the Power of Visual Storytelling",
+    heroImage: "/images/seo/approved/commercialphotography-012-eg-q3-scale-square.jpg",
+    intro:
+      "Embark on a transformative visual journey with Ashkan Studios' specialized services tailored for business marketing photography in Houston. Our team is committed to capturing the unique essence of your brand, ensuring that your narrative stands out in Houston's dynamic business landscape, and providing a long-standing media inventory for you to use across your marketing needs.",
+    sections: [
+      {
+        heading: "Why Choose Ashkan Studios for Your Business Story?",
+        body: "At Ashkan Studios, we possess an intimate understanding of individual markets while maintaining a big picture perspective. Our visuals resonate not only with local audiences but also have the potential to make a broader impact nationally and globally.",
+        bullets: [
+          "Local insight with national impact",
+          "Tailored to your brand's unique narrative",
+          "Long-standing media inventory for all your marketing needs",
+          "Specialized in Houston's dynamic business landscape",
+        ],
+        image: "/images/seo/approved/commercialphotography-unbridaled-boutique.jpg",
+        imageAlt: "Business marketing photography for a Houston bridal boutique - owners and team on the retail floor",
+      },
+      {
+        heading: "The Impact of Visual Storytelling on Your Brand",
+        body: "High-quality business marketing photography enhances your Houston business's online presence, making it more attractive to potential clients and customers. Visually compelling content is more likely to be shared and engaged with on social media platforms. Elevate the user experience on your website and marketing materials with striking photography that encourages potential customers to take action.",
+        bullets: [
+          "Boost online visibility with high-quality imagery",
+          "Enhance social media reach through visual content",
+          "Drive conversions with striking photography",
+          "Redefine how your audience perceives your business",
+        ],
+      },
+    ],
+    ctaHeading: "GET YOUR FREE CONSULTATION",
+    ctaText:
+      "Elevate your visual reach with business marketing photography crafted specifically for your needs. Our passion and dedication to bringing your brand's vision to life will redefine the way your audience engages with your business.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Business Marketing Photography in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Strategic business marketing photography in Houston that drives growth, engagement & conversions. Ashkan Studios creates the visuals - get started.",
+  },
+
+  {
+    slug: "headshot-photography-houston",
+    title: "Headshot Photography in Houston, TX",
+    subtitle: "Corporate Headshot Photography",
+    heroImage: "/images/seo/approved/headshot-headshots9.jpg",
+    heroPosition: "center 22%",
+    intro:
+      "Whether for a business profile, content for a website, or for advertising pieces, you can count on us. Ashkan Studios provides the headshot photography Houston needs. Headshots can reflect the quality of service that you provide your customers. We create professional images with a multitude of available backgrounds. These kinds of images can be used for websites, ads, or print work, and can be created in the studio or at your location.",
+    sections: [
+      {
+        heading: "What Is Headshot Photography?",
+        body: "Headshot photography is the art of producing images of someone's face for promotional purposes such as a model or business-person. It is often used on websites, printed booklets, or social media to assist in presenting the person professionally in their field. High-quality imagery is often the best representation of you and your team.",
+        image: "/images/seo/approved/headshot-headshots15.jpg",
+        imageAlt: "Professional headshot photography Houston",
+      },
+      {
+        heading: "Our Process",
+        body: "As your headshot photography Houston team, we prepare by first getting to know you and your company. A consultation is set up so we can discuss your company, your style, and your goals. After that, we start the creative development of your shoot. With your thoughts as well as our artistic ideas, we create your headshot photography shoot plan. We have a plethora of background colors, hair and makeup available, and can even photograph at your business or at your location.",
+        bullets: [
+          "Real estate agents and professionals",
+          "Television personalities and media figures",
+          "Chefs and hospitality professionals",
+          "Doctors and healthcare providers",
+          "Corporate teams and executives",
+        ],
+      },
+    ],
+    ctaHeading: "BOOK YOUR HEADSHOT SESSION",
+    ctaText:
+      "We leave you with beautiful professional imagery to be used on your social media, your website, print, and more. Contact us today!",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Headshot Photography in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Professional headshot photography in Houston, TX - corporate, editorial & creative headshots by Ashkan Studios. Book your session today.",
+  },
+
+  // ─── VIDEOGRAPHY SEO PAGES ─────────────────────────────────
+
+  {
+    slug: "cinematography-services-in-houston",
+    title: "Cinematography Services in Houston, TX",
+    subtitle: "Creative Commercial Videography",
+    heroImage: "/images/seo/approved/videography-the-art-5.jpg",
+    intro:
+      "Looking for cinematography services in Houston? If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
+    sections: [
+      {
+        heading: "What Is a Creative/Commercial Videographer?",
+        body: "A creative commercial videographer is a person who makes expressive, imaginative film pieces to be used for commerce and sales purposes. These are often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand.",
+        image: "/images/seo/approved/videography-15439-black-21660.jpg",
+        imageAlt: "Cinematography services Houston",
+      },
+      {
+        heading: "Our Process",
+        body: "As videographers in Houston, we have an amazing variety of businesses to work with. First, we set up a consultation to discuss your services, your style, and your goals. In addition to your thoughts as well as our own artistic ideas, we create your videography shoot plan. Your shoot could take place inside our amazing studio, or we can work to find you a suitable commercial location. We have a plethora of background colors, and models in addition to hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
+        bullets: [
+          "Cancer research companies and medical offices",
+          "Women's activewear companies",
+          "Life coaches and wellness brands",
+          "Spas and luxury eyewear distributors",
+          "Real estate agents and more",
+        ],
+      },
+    ],
+    ctaHeading: "BRING YOUR VISION TO LIFE",
+    ctaText:
+      "We create commercial videography for businesses across every industry. Contact us today to start your project.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Cinematography Services in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Professional cinematography services in Houston, TX. Ashkan Studios crafts cinematic commercial videography for brands & businesses. Start your project.",
+  },
+
+  {
+    slug: "commercial-videographers-houston",
+    title: "Commercial Videographers in Houston, TX",
+    subtitle: "The Creative Videographers Houston Needs",
+    heroImage: "/images/seo/approved/videography-chocolate-box.jpg",
+    intro:
+      "We are the commercial videographers Houston needs! If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
+    sections: [
+      {
+        heading: "Creative & Commercial Videography",
+        body: "A creative commercial videographer is a person who makes expressive, imaginative film pieces to be used for commerce and sales purposes, often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand and business.",
+        image: "/images/seo/approved/videography-the-art-5.jpg",
+        imageAlt: "Commercial videographers Houston",
+      },
+      {
+        heading: "Our Process",
+        body: "As videographers in Houston, we have an amazing variety of businesses to work with. We set up a consultation to discuss your services, your style, and your goals. With your thoughts as well as our artistic ideas, we create your videography shoot plan. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have background options, models, hair and makeup artists. Our production team then delivers your finished promotional video at any length, with royalty-free music and full rights to use on the web and social media.",
+      },
+    ],
+    ctaHeading: "GROW WITH VIDEO",
+    ctaText:
+      "We create commercial videography for businesses across every industry. Contact us today.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Commercial Videographers in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Trusted commercial videographers in Houston, TX. Ashkan Studios produces creative, professional video content for businesses. View our reel & connect.",
+  },
+
+  {
+    slug: "video-production-services-houston",
+    title: "Video Production Services in Houston, TX",
+    subtitle: "Full-Service Video Production",
+    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
+    intro:
+      "We are the video production services Houston needs! If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect addition to your company experience.",
+    sections: [
+      {
+        heading: "Complete Video Production",
+        body: "A creative commercial videographer makes expressive, imaginative film pieces to be used for commerce and sales purposes, often used on websites, social media, and other digital platforms. Most importantly, high-quality stories are the best representation of your brand.",
+        image: "/images/seo/approved/videography-013-eg-april26-527.jpg",
+        imageAlt: "Video production services Houston",
+      },
+      {
+        heading: "Our Process",
+        body: "As videographers in Houston, we work with an amazing variety of businesses. We start with a consultation to discuss your services, style, and goals. Your shoot could take place inside our studio, or we can find you a suitable commercial location. We have a plethora of background options, models, and hair and makeup artists. Our production team delivers your finished video at any length, with royalty-free music and full web and social media rights.",
+        bullets: [
+          "Concept development to final delivery",
+          "Professional crew and equipment",
+          "Studio and on-location production",
+          "Post-production & final delivery",
+          "Full rights for web and social media use",
+        ],
+      },
+    ],
+    ctaHeading: "LIGHTS, CAMERA, ACTION",
+    ctaText:
+      "Full-scale video production services ready to bring your project to life. Contact us today.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Video Production Services in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Full-service video production in Houston, TX - from concept to delivery. Commercials, brand films & promo videos by Ashkan Studios. Start your project.",
+  },
+
+  {
+    slug: "videographer-houston",
+    title: "Videographer in Houston, TX",
+    subtitle: "Make Your Business Stand Out",
+    heroImage: "/images/seo/approved/videography-chocolate-bonbons.jpg",
+    intro:
+      "Videography is the BEST representation of your digital store-front and the best way to connect with your local audience. Whether you are looking to tell your story, promote your brand, or give yourself a digital revamp, Ashkan Studios in Houston can provide creative commercial videography to showcase what you have to offer. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience fully into your brand.",
+    sections: [
+      {
+        heading: "Commercial Video Production",
+        body: "Videography is the best representation of your digital store-front, and the best way to get it is with a professional videographer. Whether you are looking to tell your story, promote your brand, or give yourself a digital revamp, Ashkan Studios in Houston can provide creative commercial videography to showcase what you have to offer.",
+        image: "/images/seo/approved/videography-001-eyegallery-057.jpg",
+        imageAlt: "Videographer Houston",
+      },
+      {
+        heading: "Our Process",
+        body: "As a Houston videographer team that has grown into an amazing creative force, we have worked with a wonderful variety of businesses. We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and in social media.",
+        bullets: [
+          "Cancer research companies and medical offices",
+          "Women's activewear companies",
+          "Life coaches and wellness brands",
+          "Spas and luxury eyewear distributors",
+          "Real estate agents and more",
+        ],
+      },
+    ],
+    ctaHeading: "HIRE A TOP VIDEOGRAPHER",
+    ctaText:
+      "Professional videography that tells your story. As videographers in Houston, we create commercial videography for businesses across every industry.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Videographer in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Looking for a professional videographer in Houston, TX? Ashkan Studios produces cinematic brand films, commercials & creative video content for businesses. Book your shoot today.",
+  },
+
+  {
+    slug: "videography-houston",
+    title: "Videography Services in Houston, TX",
+    subtitle: "Houston's Creative Videography Team",
+    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
+    intro:
+      "Are you looking for videography in Houston? Ashkan Studios is here to help. We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives our imagery a notable artistic edge. When you work with us, you can expect a team of qualified, creative, and friendly professionals.",
+    sections: [
+      {
+        heading: "Why Choose Us for Videography in Houston",
+        body: "When looking for videography in Houston, we know there are several options to choose from. It is important to find a videographer who aligns with your brand's look and feel. Ashkan Studios is proven to be successful at capturing a very diverse range of styles to meet any need. With our varied experience, we are confident we can exceed your expectations. Life moves quickly, and that inspires us. We are deeply passionate about capturing the pace and movement of life.",
+        image: "/images/seo/approved/videography-the-art-5.jpg",
+        imageAlt: "Videography Houston",
+      },
+      {
+        heading: "Our Studio Sets Us Apart",
+        body: "Our creative studio is very special and sets us apart for videography in Houston. We have one of the most cutting-edge, high-end studios for photography and videography in Houston. We have a live monitor in the studio, which is unique and amazing because you can see what is happening behind the lens in real-time to make needed adjustments.",
+      },
+      {
+        heading: "Let's Collaborate",
+        body: "If you have any ideas for your business's needs and are looking for videography in Houston, we would love to collaborate with you and bring your idea to life. Remember, beautiful videography appeals to even the least engaged scrollers. Let's team up for your next project as your chosen team for videography in Houston!",
+      },
+    ],
+    ctaHeading: "TELL YOUR STORY",
+    ctaText:
+      "Want to work with our experienced team? Beautiful videography that connects with your audience starts here.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Videography Services in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Premier videography studio in Houston. Ashkan Studios creates cinematic brand films, commercials, and video content with an artistic edge.",
+  },
+
+  {
+    slug: "videography-in-the-woodlands",
+    title: "Videography Services in The Woodlands, TX",
+    subtitle: "Conveniently Located Near Downtown Houston",
+    heroImage: "/images/seo/approved/videography-the-art-5.jpg",
+    intro:
+      "Are you looking for videography in The Woodlands? Ashkan Studios is just a short drive away, located near downtown Houston. We have been privileged to work with prolific clients from all over the US, including Olympic athletes, luxury boutiques, athletic brands, and doctors. Our videography services surpass expectations while always meeting the needs laid out by the client.",
+    sections: [
+      {
+        heading: "A Team of Creative Artists",
+        body: "We take a special approach as we are a team made of artists of all sorts. We are filmmakers, commercial photographers, and movement photographers. This gives our creative content a distinctively artistic edge. When you work with Ashkan Studios, you can expect a team of qualified, creative, and friendly professionals. This is what makes us one of the most reliable options for videography in The Woodlands and the greater Houston area.",
+        image: "/images/seo/approved/videography-013-eg-april26-527.jpg",
+        imageAlt: "Videography in The Woodlands TX",
+      },
+      {
+        heading: "Our Studio Sets Us Apart",
+        body: "Our creative studio is very special and sets us apart for any videography projects. We have one of the most cutting-edge, high-end studios for photography and videography in all of Houston. We have a live monitor in the studio, which lets you see what is happening behind the lens in real-time. We're also excited about our infinity wall, which helps us create an entirely new type of content. If you have any ideas for your business's needs and are looking for videography services, we would love to collaborate with you and bring your idea to life.",
+      },
+    ],
+    ctaHeading: "LET'S FILM YOUR PROJECT",
+    ctaText:
+      "Beautiful videography appeals to even the least engaged scrollers. Let's team up for your next project!",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Videography Services in The Woodlands, TX - Ashkan Studios",
+    metaDescription:
+      "Professional videography services in The Woodlands, TX. Ashkan Studios produces commercials, brand & event video for the greater Houston area. Connect.",
+  },
+
+  {
+    slug: "videography-in-texas",
+    title: "Videography Services in Texas",
+    subtitle: "Texas-Based Creative Video Production",
+    heroImage: "/images/seo/approved/videography-4q7a0674.jpg",
+    intro:
+      "Are you looking for videography in Texas? Whether you are in the Panhandle, in East Texas, in Hill Country near Austin, or in our own backyard in Houston, Ashkan Studios is a top choice for any sort of videography needs. We have been privileged to work with prolific clients from all over the US, including Olympic athletes, luxury boutiques, athletic brands, and doctors.",
+    sections: [
+      {
+        heading: "Statewide Video Production",
+        body: "No matter where in the state you are, Ashkan Studios is a solid choice if you are looking for top-quality videography in Texas. We are located near downtown Houston, and we love to travel! Whether working together means you come to our state-of-the-art studio, or we travel to you, we can guarantee you will love your videography results. We are a team made of artists of all sorts: filmmakers, commercial photographers, and movement photographers. This gives our creative content a distinctively artistic edge.",
+        image: "/images/seo/approved/videography-010-eg-q1-april25.jpg",
+        imageAlt: "Videography in Texas",
+      },
+      {
+        heading: "Our Studio Sets Us Apart",
+        body: "Our creative studio is very special and sets us apart for any videography projects. We have one of the most cutting-edge, high-end studios for photography and videography in Texas. We have a live monitor in the studio, and our infinity wall helps us create an entirely new type of content. When you work with Ashkan Studios, you can expect a team of qualified, creative, and friendly professionals. We are proven to be successful at capturing a very diverse range of styles to meet any need.",
+      },
+    ],
+    ctaHeading: "VIDEO PRODUCTION ACROSS TEXAS",
+    ctaText:
+      "If you have ideas for your business's needs, we would love to collaborate and bring your vision to life. Let's team up!",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Videography Services in Texas - Ashkan Studios",
+    metaDescription:
+      "Professional videography services across Texas by Houston-based Ashkan Studios - statewide video production for commercials, brands & creative work.",
+  },
+
+  {
+    slug: "videographer-in-houston",
+    title: "Professional Videographer in Houston, TX",
+    subtitle: "Creative & Commercial Videography",
+    heroImage: "/images/seo/approved/videography-013-eg-april26-527.jpg",
+    intro:
+      "If you are looking for a videographer in Houston for your promotional project, you want someone who is focused on creativity. Today the world is so focused on imagery, on movement. With professional promotional videography, you bring your audience into your brand. Evoking footage and creative storytelling makes a video promotional a perfect colorful addition to your company experience.",
+    sections: [
+      {
+        heading: "Our Portfolio of Work",
+        body: "We have had the privilege of working with incredible brands and organizations across Houston, from nail art brands and opera singers to luxury eyewear stores and schools. We've created promotional videos, Facebook ads, Instagram reels, fundraising videos, conference presentations, behind-the-scenes content, and much more.",
+        bullets: [
+          "Fashion and beauty brand collaborations",
+          "Luxury eyewear promotional content",
+          "Nonprofit and educational institution videos",
+          "Medical and biotechnology conference presentations",
+          "Active wear and lifestyle brand promotions",
+          "Magazine and editorial behind-the-scenes",
+        ],
+        image: "/images/seo/approved/videography-ashkangroup-outside.jpg",
+        imageAlt: "Videographer in Houston",
+      },
+      {
+        heading: "Our Process",
+        body: "We set up a consultation to discuss your services, your style, and your goals. Your shoot could take place inside our studio, or we can find a suitable commercial location. We have a plethora of background colors, models, and hair and makeup artists. Our production team delivers your finished promotional video at any length, with royalty-free music and rights to use on the web and social media.",
+      },
+    ],
+    ctaHeading: "FIND YOUR VIDEOGRAPHER",
+    ctaText:
+      "We create commercial videography for cancer research companies, medical offices, women's activewear companies, life coaches, spas, luxury eyewear distributors, real estate agents and more. Contact us today.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Professional Videographer in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Hire a professional videographer in Houston, TX. Ashkan Studios creates brand films, commercials & promo video content for businesses of all sizes. Get in touch today.",
+  },
+
+  {
+    slug: "commercial-videography-in-houston",
+    title: "Commercial Videography in Houston, TX",
+    subtitle: "Unlocking the Power of Commercial Videography",
+    heroImage: "/images/seo/approved/videography-013-eg-april26-527.jpg",
+    intro:
+      "Welcome to the vibrant world of commercial videography in Houston, where storytelling meets innovation to create compelling visual narratives for businesses. Businesses are discovering the transformative impact of high-quality videography in conveying their brand messages and engaging their target audience.",
+    sections: [
+      {
+        heading: "Why Invest in Commercial Videography?",
+        body: "Houston, with its diverse business landscape, is an ideal canvas for commercial videography. Whether you're a small startup or an established corporation, harnessing the power of video content can set you apart in a competitive market. From corporate profiles and product launches to promotional campaigns and artistic commissions, commercial videography provides a dynamic platform to showcase your brand in a way that resonates with your audience.",
+        image: "/images/seo/approved/videography-4q7a0674.jpg",
+        imageAlt: "Commercial videography Houston",
+      },
+      {
+        heading: "Why Ashkan Studios?",
+        body: "Our team of skilled videographers brings a wealth of experience to the table. We have successfully collaborated with businesses across various industries, delivering visually stunning content. We recognize that each business is unique, and we tailor our videography services to align with your brand identity and goals.",
+        bullets: [
+          "Expertise - skilled videographers with a wealth of experience",
+          "Tailored Solutions - services aligned with your brand identity",
+          "Collaborative Approach - your ideas and objectives seamlessly integrated",
+          "Cutting-edge technology and techniques",
+          "Local Houston insight with global quality standards",
+        ],
+      },
+    ],
+    ctaHeading: "ELEVATE YOUR BRAND WITH VIDEO",
+    ctaText:
+      "Choose Ashkan Studios for unparalleled expertise, tailored solutions, and a collaborative approach. Contact us today for a free consultation. Your story deserves to be told, and we're here to make it unforgettable.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Commercial Videography in Houston, TX - Ashkan Studios",
+    metaDescription:
+      "Professional commercial videography in Houston, TX - strategic commercials, brand films & marketing video by Ashkan Studios. Let's tell your story.",
+  },
+
+  // ─── VSL PAGES ─────────────────────────────────────────────
+
+  {
+    slug: "vsl-arts-industry",
+    title: "Video Production for the Arts & Culture Industry in Houston, TX",
+    subtitle: "High-Quality, Strategic Video Content",
+    heroImage: "/images/seo/approved/videography-the-art-5.jpg",
+    videoEmbed: "https://player.vimeo.com/video/1040868785?h=90973fcfe1",
+    intro:
+      "We here at Ashkan Studios have extensive experience operating within the arts industry, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
+    sections: [
+      {
+        heading: "What Video Can Do",
+        body: "Video transcends language, shares stories, and connects to emotions. For the arts industry, it brings audiences closer to the creative process and unites communities around shared artistic experiences.",
+        bullets: [
+          "Grant and sponsor pitches",
+          "Behind the scenes content",
+          "Exhibition walkthroughs",
+          "Performance documentation",
+          "Talent interviews",
+          "Announcement videos",
+          "Creative process walk-throughs",
+          "And much more",
+        ],
+        image: "/images/seo/approved/videography-15439-black-21660.jpg",
+        imageAlt: "Arts industry video production Houston",
+      },
+    ],
+    ctaHeading: "START YOUR PROJECT",
+    ctaText:
+      "Let us help you tell your story through compelling video content. Whether for grants, social media, or marketing, we're here for the arts.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Video Production for Arts Industry | Ashkan Studios Houston",
+    metaDescription:
+      "Video production for the arts industry in Houston. Ashkan Studios creates films for visual arts, galleries, museums and cultural organizations.",
+  },
+
+  {
+    slug: "vsl-retail-industry",
+    title: "Retail Video Production in Houston, TX",
+    subtitle: "High-Quality, Strategic Video Content",
+    heroImage: "/images/seo/vsl/retail-still-001.jpg",
+    intro:
+      "We here at Ashkan Studios have extensive experience operating within the retail industry, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
+    sections: [
+      {
+        heading: "What Video Can Do",
+        body: "For the retail industry, video is your most powerful tool for connecting with customers, showcasing products, and driving sales. From ecommerce content to in-store displays, video brings your brand to life.",
+        bullets: [
+          "E-commerce videography",
+          "Testimonials",
+          "End to end experience videos",
+          "Staff profiles",
+          "Product demos",
+          "Customer support content",
+          "And much more",
+        ],
+        video:
+          "https://player.vimeo.com/video/1125611606?title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "Cacao & Cardamom: Delicious Impressions",
+      },
+    ],
+    ctaHeading: "BOOST YOUR RETAIL BRAND",
+    ctaText:
+      "Video content that moves products off shelves and into carts. Let's create your next campaign.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Retail Video Production in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Retail video production in Houston, TX by Ashkan Studios - product demos, testimonials & ecommerce video that drives sales. View our work & connect.",
+  },
+
+  {
+    slug: "vsl-li-industry",
+    title: "Industrial & Corporate Video Production in Houston, TX",
+    subtitle: "High-Quality, Strategic Video Content",
+    heroImage: "/images/seo/approved/industrial-lab-portrait.jpg",
+    heroPosition: "center 30%",
+    intro:
+      "We here at Ashkan Studios have extensive experience operating within the industrial and corporate sector, and believe that we can help you tell your story, whether it be through digital ads, social media content, or any marketing and advertising. High-quality, strategic video content will help you connect with your audience in meaningful ways. Video continues to play a central role in digital marketing and communication.",
+    sections: [
+      {
+        heading: "What Video Can Do",
+        body: "For the industrial and corporate sector, video is essential for internal communications, stakeholder engagement, and brand building. From training content to investor presentations, we produce professional video that communicates your message with clarity and authority.",
+        bullets: [
+          "HR training videos",
+          "Internal and external communications",
+          "Case studies",
+          "Advertisements and campaigns",
+          "Company announcements",
+          "Investor relations content",
+          "Trade show videos",
+          "Earnings reports presentations",
+          "And much more",
+        ],
+        video:
+          "https://player.vimeo.com/video/1100405072?title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "RadioMedix 2025: Where It All Began",
+      },
+    ],
+    ctaHeading: "ELEVATE YOUR CORPORATE VIDEO",
+    ctaText:
+      "Professional video production for the industrial and corporate sector. Let's create content that moves your business forward.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Industrial & Corporate Video Production in Houston | Ashkan Studios",
+    metaDescription:
+      "Industrial and corporate video production in Houston. Ashkan Studios creates training, communications, and marketing videos for enterprise clients.",
+  },
+
+  // ─── FASHION SEO PAGES (Mahendra 8/17, from client-approved docs) ──
+
+  {
+    slug: "fashion-photography-in-houston",
+    title: "Fashion Photography in Houston, TX",
+    subtitle: "Style, Story, and Standout Imagery",
+    heroImage: "/images/seo/approved/fashion-hero-citybook-633.jpg",
+    // Her face and raised arm are in the top third, so a centered crop
+    // cut across the forehead. 30% brings the whole gesture into view.
+    heroPosition: "center 30%",
+    intro:
+      "Fashion photography in Houston has to do more than look good. It has to sell a feeling, a label, and a point of view in a single frame. When a brand, designer, or model works with Ashkan Studios, we build images that carry your styling, your mood, and your story straight to the audience you want to reach. From editorial spreads to commercial campaigns, our Houston, TX studio turns clothing and concepts into visuals people remember.",
+    sections: [
+      {
+        heading: "Editorial and Commercial Fashion Photography",
+        body: "Our fashion photography covers the full range of what a modern brand needs. Editorial work leans into narrative, movement, and art direction. Commercial work keeps your product front and center while still feeling elevated. We shift between the two depending on where your images will live and what they need to do.",
+        bullets: [
+          "Editorial and high fashion shoots with strong art direction",
+          "Commercial photography and lookbook photography for collections and catalogs",
+          "Model portfolio and comp card imagery",
+          "Campaign photography for designers and emerging labels",
+          "On-figure apparel, accessories, and styling detail shots",
+          "Studio and location fashion shoots across Houston",
+        ],
+        image: "/images/seo/approved/fashion-editorial-fashion31.jpg",
+        imageAlt: "Editorial fashion photography with bold styling and art direction, Houston",
+      },
+      {
+        heading: "Who We Photograph for in Houston",
+        body: "Houston's fashion scene runs from independent designers to established retail brands, and our work adapts to each of them. We collaborate with clients who need imagery that holds up on a magazine page, a product listing, and a social feed at the same time.",
+        bullets: [
+          "Fashion designers and clothing labels",
+          "Models building or refreshing a portfolio",
+          "Boutiques and retail brands",
+          "Editorial publications and stylists",
+          "Beauty and accessory brands",
+        ],
+      },
+      {
+        heading: "Our Fashion Photography Process",
+        body: "Every strong fashion shoot starts before the camera comes out. We begin with a consultation to understand your brand, your collection, and the mood you want to set. From there we plan concept, styling, lighting, and casting so the shoot day runs in a clear creative direction. With hair and makeup, models, and a full range of backdrops available in-house at our Silos at Sawyer Yards studio, we keep production under one roof and your vision intact from first look to final edit. We deliver retouched, campaign-ready fashion photography built to perform across your website, lookbooks, print editorials, and social channels.",
+        image: "/images/seo/approved/fashion-doc-section2.jpg",
+        imageAlt: "Fashion photoshoot styling and lighting at Ashkan Studios Houston",
+      },
+    ],
+    ctaHeading: "READY TO SHOOT YOUR NEXT FASHION CAMPAIGN?",
+    ctaText:
+      "Ashkan Studios brings styling, lighting, and creative direction together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for fashion photography that defines your brand.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Fashion Photography in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Editorial and commercial fashion photography in Houston, TX. Ashkan Studios creates bold, campaign-ready images for designers, brands, and models. Book today.",
+  },
+
+  {
+    slug: "fashion-video-production-services-houston",
+    title: "Fashion Video Production Services in Houston, TX",
+    subtitle: "Motion That Makes Your Brand Move",
+    heroImage: "/images/seo/approved/fashionvideo-hero-weissman-spring26.jpg",
+    /* The frame comes from the Weissman Spring FY26 film - the same film
+       that plays in the process section below. At 30% both the face and
+       the raised arm stay inside either crop. */
+    heroPosition: "center 30%",
+    intro:
+      "Fashion video production services in Houston, TX give your brand something a still image cannot: movement, rhythm, and story. When a designer or label needs to show how a collection moves, video is what carries it. Video is where fashion comes alive. A campaign film sets a mood in seconds, a lookbook video shows a full collection in motion, and social-first clips put your label in front of the audience already scrolling for it.",
+    sections: [
+      {
+        heading: "Brand Films, Lookbooks, and Campaign Videos",
+        body: "Our fashion video production covers everything from cinematic brand films to fast, social-ready cutdowns. We match the format to where your audience actually watches, so a single shoot day can feed a campaign, a website, and a season of social content.",
+        bullets: [
+          "Fashion brand films and campaign videos",
+          "Lookbook and collection videos",
+          "Runway and editorial fashion video",
+          "Social-first content and reels for designers and labels",
+          "Behind-the-scenes and process films",
+          "Model and portfolio video",
+        ],
+        video:
+          "https://player.vimeo.com/video/1094764251?h=17dfb40e13&title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "Weissman Fall 2025 Season Cross Genre",
+      },
+      {
+        heading: "Who We Produce Fashion Video for in Houston",
+        body: "Houston's designers, boutiques, and brands need video that competes on every screen. We produce fashion content for clients who want their collections seen in motion, whether that is a campaign film for a launch or a run of social cutdowns for the season.",
+        bullets: [
+          "Fashion designers and clothing labels",
+          "Boutiques and retail brands",
+          "Models and agencies",
+          "Editorial publications and stylists",
+          "Beauty and accessory brands",
+        ],
+      },
+      {
+        heading: "Our Fashion Video Production Process",
+        body: "Strong fashion video starts with a clear creative plan. We open with a consultation to understand your collection, your audience, and the story you want the film to tell, then build the concept, casting, styling, and shot list around it. Our team produces and finishes the film in-house, delivered for the platforms where your audience actually watches, from your website and campaigns to reels and paid social.",
+        video:
+          "https://player.vimeo.com/video/1145783498?h=6e07bd9e26&title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "Weissman Spring 2026 Season Cross Genre",
+      },
+    ],
+    ctaHeading: "READY TO PUT YOUR COLLECTION IN MOTION?",
+    ctaText:
+      "Ashkan Studios brings creative direction, filming, and post-production together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for fashion video that moves your brand forward.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Fashion Video Production Services in Houston | Ashkan Studios",
+    metaDescription:
+      "Fashion video production services in Houston, TX. Ashkan Studios creates brand films, lookbook videos, and fashion campaigns for designers and labels.",
+  },
+
+  /* ── Car / automotive, Mahendra 9/3 ─────────────────────────────────
+     Both pages come from the client's supplied docs. The doc named a site
+     filename against every image slot, so the hero and section images are
+     those - only rebuilt from the 8192px originals in Drive rather than
+     the 2046px copies embedded in the doc. */
+  {
+    slug: "car-photography-houston",
+    title: "Car Photography in Houston, TX",
+    subtitle: "Every Angle, Every Detail, Built to Sell",
+    heroImage: "/images/seo/approved/car-hero-mustang-095.jpg",
+    intro:
+      "Car photography in Houston has to do more than show a vehicle. It has to capture the stance, the lines, the paint, and the detail that make a buyer stop and look. When a dealership, brand, or private collector works with Ashkan Studios, we shoot automotive images built to sell, whether the car is a daily driver, a luxury build, or an exotic on the showroom floor. We shoot cars the way they deserve to be seen, with controlled lighting, clean reflections, and composition that flatters every panel.",
+    sections: [
+      {
+        heading: "Commercial and Luxury Automotive Photography",
+        body: "Our car photography covers the full range of what a dealership or automotive brand needs, from clean commercial coverage that keeps the vehicle sharp and consistent to luxury and editorial work that gives a build the drama it deserves. We match the approach to where the images will live.",
+        bullets: [
+          "Dealership and inventory photography for listings",
+          "Luxury and exotic car photography with editorial lighting",
+          "Detail and interior shots that show craftsmanship",
+          "Rolling and location shoots for campaign imagery",
+          "Studio automotive photography with controlled reflections",
+          "Classic and collector car documentation",
+        ],
+        image: "/images/seo/approved/car-luxury-296gtb-070.jpg",
+        imageAlt: "Luxury car photography Houston - Ferrari 296 GTB",
+      },
+      {
+        heading: "Who We Photograph Cars for in Houston",
+        body: "Houston's automotive scene runs from high-volume dealerships to private collectors and aftermarket brands, and our work adapts to each. We shoot for clients who need images that hold up on a listing, a website, and a social feed at the same time.",
+        bullets: [
+          "Car dealerships and used-car lots",
+          "Luxury and exotic car dealers",
+          "Private collectors and enthusiasts",
+          "Automotive aftermarket and parts brands",
+          "Rental and specialty vehicle companies",
+        ],
+      },
+      {
+        heading: "Our Car Photography Process",
+        body: "Every strong automotive shoot starts before the camera comes out. We begin with a consultation to understand the vehicle, your goals, and where the images will run. From there we plan lighting, angles, and setting so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and detail that make or break a car image. We deliver retouched, ready-to-publish car photography built to perform across your listings, website, print, and social channels.",
+        image: "/images/seo/approved/car-classic-clenet-505.jpg",
+        imageAlt: "Classic car photography detail at Ashkan Studios Houston",
+      },
+    ],
+    ctaHeading: "READY TO SHOOT YOUR INVENTORY OR COLLECTION?",
+    ctaText:
+      "Ashkan Studios brings lighting, detail, and creative direction together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for car photography that sells the vehicle.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Car Photography in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Professional car photography in Houston, TX. Ashkan Studios shoots luxury, dealership, and commercial automotive images that sell vehicles. Book a shoot.",
+  },
+
+  {
+    slug: "automotive-video-production-houston",
+    title: "Automotive Video Production in Houston, TX",
+    subtitle: "Motion, Detail, and Cinematic Drive",
+    heroImage: "/images/seo/approved/autovideo-hero-mustang-111.jpg",
+    intro:
+      "Automotive video production in Houston gives a vehicle something photos cannot: motion, sound, and drama. When a dealership or automotive brand works with Ashkan Studios, we translate a car into a cinematic video that shows how it moves, how it sounds, and why it turns heads. From rolling shots to detail sequences, our Houston team produces automotive content built to sell. A cinematic brand film sets a mood in seconds, a walkaround video shows a vehicle in full, and social-first clips keep your inventory in front of buyers.",
+    sections: [
+      {
+        /* The brief put a Ferrari still here, but this section is about
+           video formats - so it uses a real automotive film from the
+           catalog instead (1968 Mustang GT, shot in an auto shop). */
+        heading: "Cinematic Car Videos, Walkarounds, and Brand Films",
+        body: "Our automotive video production covers everything from cinematic brand films to fast, social-ready walkarounds. We match the format to your goal, whether that is launching a model, moving inventory, or feeding a content calendar.",
+        bullets: [
+          "Automotive brand films and campaign videos",
+          "Dealership walkaround and inventory videos",
+          "Rolling and tracking shots for cinematic motion",
+          "Detail and interior sequences",
+          "Social-first content and reels for dealers and brands",
+          "Luxury and exotic car feature films",
+        ],
+        video:
+          "https://player.vimeo.com/video/1189136660?h=00ea4a2e1c&title=0&byline=0&portrait=0&dnt=1",
+        videoTitle: "1968 Mustang GT / Auto Shop",
+      },
+      {
+        heading: "Who We Produce Automotive Video for in Houston",
+        body: "Houston's dealers, collectors, and automotive brands need video that competes on every screen. We produce content for clients who want their vehicles to look as strong in motion as they do in person.",
+        bullets: [
+          "Car dealerships and dealer groups",
+          "Luxury and exotic car dealers",
+          "Automotive aftermarket and parts brands",
+          "Private collectors and enthusiasts",
+          "Rental and specialty vehicle companies",
+        ],
+      },
+      {
+        heading: "Our Automotive Video Production Process",
+        body: "Strong automotive video starts with a clear plan. We open with a consultation to understand the vehicle, your audience, and the story you want in motion. From there we handle concept, location, lighting, and shot planning, then move into filming and post. With a controlled space and full setup at our Silos at Sawyer Yards studio, we keep your Houston automotive production under one roof. Our team produces and finishes the film in-house, delivered for the platforms where your buyers watch, from your website and listings to Instagram, TikTok, and YouTube.",
+        image: "/images/seo/approved/autovideo-detail-296gtb-121.jpg",
+        imageAlt: "Automotive video detail shoot at Ashkan Studios Houston",
+      },
+    ],
+    ctaHeading: "READY TO PUT YOUR VEHICLES IN MOTION?",
+    ctaText:
+      "Ashkan Studios brings direction, filming, and post-production together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for automotive video production that moves vehicles.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Automotive Video Production in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Automotive video production in Houston, TX. Ashkan Studios creates cinematic car videos, dealership content, and brand films that move vehicles. Get in touch.",
+  },
+
+  {
+    slug: "jewelry-photography-houston",
+    title: "Jewelry Photography in Houston, TX",
+    subtitle: "Every Facet, Every Detail, Made to Shine",
+    /* The doc asked for this hero by name (retail-74). The same shot also
+       appears on the retail category page - deliberately, since that page
+       is where this one is linked from. */
+    heroImage: "/images/categories/retail/retail-74.jpg",
+    intro:
+      "Jewelry photography in Houston has to do more than show a piece. It has to capture the sparkle, the metal, the stones, and the fine detail that make someone want to wear it. When a jeweler, jewelry brand, or designer works with Ashkan Studios, we shoot images built to sell the piece, whether it is for an online store, a catalog, a campaign, or the counter. We shoot jewelry the way it deserves to be seen: controlled lighting, careful styling, and macro detail that makes every stone and setting shine.",
+    sections: [
+      {
+        heading: "Product and Lifestyle Jewelry Photography",
+        body: "Our jewelry photography covers the full range a jeweler or brand needs, from clean commercial product shots to lifestyle and editorial images styled on a model. See the range in our product and retail portfolio, and we match the approach to where the images will live.",
+        bullets: [
+          "Jewelry product and packshot photography on white",
+          "Necklace, earring, and ring detail and macro shots",
+          "On-model and jewelry lifestyle photography",
+          "Editorial and campaign jewelry imagery",
+          "E-commerce and catalog jewelry photography",
+          "Social-first jewelry content for brands and boutiques",
+        ],
+        /* The doc asked the client for a packshot here ("necklace detail
+           on white"). It has not arrived, so this is a shot from the
+           Deutsch Fine Jewelry campaign for now. The ALT describes the
+           image, not the doc - this is not a white packshot, and an ALT
+           that claims otherwise misleads both screen readers and Google. */
+        image: "/images/campaigns/deutsch/deutsch-2025-holiday-029.jpg",
+        imageAlt:
+          "Jewelry photography Houston - diamond, pearl, and gold necklaces from the Deutsch Fine Jewelry campaign",
+      },
+      {
+        heading: "Who We Shoot Jewelry for in Houston",
+        body: "Houston's jewelry market runs from independent jewelers to fine and fashion jewelry brands, and our work adapts to each. We shoot for clients who need images that hold up on a product page, a website, a catalog, and a social feed at the same time.",
+        bullets: [
+          "Jewelers and jewelry brands",
+          "Fine and fashion jewelry designers",
+          "Boutiques and retail stores",
+          "E-commerce retailers",
+          "Watch and accessory brands",
+        ],
+      },
+      {
+        heading: "Our Jewelry Photography Process",
+        body: "Every strong jewelry shoot starts before the pieces reach the set. We begin with a consultation to understand your collection, your brand, and where the images will run. From there we plan lighting, angles, and styling so the shoot runs on a clear plan. With a controlled space and full lighting in-house at our Silos at Sawyer Yards studio, we manage the reflections and macro detail that make or break a jewelry image. Browse our photography portfolio to see the results, and we deliver retouched, ready-to-publish jewelry photography built to perform across your online store, catalog, print, and social channels.",
+        /* The doc asked for "macro" here; this is an on-model shot, so the
+           ALT says so. Both the image and the ALT get swapped as soon as
+           the client's real macro shot arrives. */
+        image: "/images/campaigns/deutsch/deutsch-2025-holiday-485.jpg",
+        imageAlt:
+          "On-model jewelry photography by Ashkan Studios Houston - diamond earring, ring, and bracelet",
+      },
+    ],
+    ctaHeading: "READY TO MAKE YOUR JEWELRY SPARKLE ON SCREEN?",
+    ctaText:
+      "Ashkan Studios brings lighting, styling, and macro detail together under one roof at our Houston studio in the Silos at Sawyer Yards. Partner with our team for jewelry photography that sells the piece.",
+    ctaButton: { label: "BOOK YOUR SHOOT", view: "contact" },
+    metaTitle: "Jewelry Photography in Houston, TX | Ashkan Studios",
+    metaDescription:
+      "Professional jewelry photography in Houston, TX. Ashkan Studios shoots brilliant product and lifestyle images of necklaces, earrings, and rings that sell.",
+  },
+];
+
+/** Look up an SEO page by its URL slug */
+export function getSeoPageBySlug(slug: string): SeoPageData | undefined {
+  return seoPages.find((p) => p.slug === slug);
+}
+
+/** Get all SEO page slugs for routing */
+export function getAllSeoSlugs(): string[] {
+  return seoPages.map((p) => p.slug);
+}

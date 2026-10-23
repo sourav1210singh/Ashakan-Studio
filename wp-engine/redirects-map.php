@@ -21,6 +21,20 @@ return array(
     // The video-editing page was removed on 9/11 (off-brand term audit
     // row 3) - this URL had GSC impressions, hence the 301.
     'video-editing-services-in-houston' => '/video-production-services-houston/',
+    /* Two duplicate pairs merged in Oct 2026, each pair splitting one intent
+       between two URLs. The retired page's unique copy was moved into the
+       survivor first, so these 301s carry the ranking signal to a page that
+       now contains what the old one said.
+
+       Both retired URLs out-performed their survivor in Search Console over
+       the 90 days to 21 Oct - 464 impressions at position 26.7 and 222 at
+       31.7, against 101 at 46.6 and 143 at 37.9. The survivors were chosen
+       anyway, on the client's instruction: they hold the longer copy and the
+       FAQ schema, and one of them keeps the naming pattern the rest of the
+       service pages use. Worth re-checking in Search Console once the merge
+       has settled. */
+    'product-photographer-houston' => '/product-photographer-in-houston/',
+    'houston-commercial-photography' => '/commercial-photography-houston/',
     'about-me' => '/studio/',
     'portfolios-new' => '/work/photography/',
     'portfolios/brandon-blackwood' => '/work/photography/fashion/',

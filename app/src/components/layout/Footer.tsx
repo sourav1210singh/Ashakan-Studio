@@ -23,9 +23,7 @@ const SERVICE_LINKS: { heading: string; pages: { label: string; slug: string }[]
     pages: [
       { label: "Product Photography in Houston", slug: "product-photography-in-houston" },
       { label: "Product Photographer in Houston", slug: "product-photographer-in-houston" },
-      { label: "Product Photographer Houston", slug: "product-photographer-houston" },
       { label: "Commercial Photography Houston", slug: "commercial-photography-houston" },
-      { label: "Houston Commercial Photography", slug: "houston-commercial-photography" },
       { label: "Commercial Photographer Houston", slug: "commercial-photographer-houston" },
       { label: "Business Marketing Photography Houston", slug: "business-marketing-photography-houston" },
       { label: "Headshot Photography Houston", slug: "headshot-photography-houston" },

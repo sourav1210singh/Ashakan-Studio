@@ -51,7 +51,7 @@
     {
       "source": "/product-photographer-houston",
       "has": [{ "type": "host", "value": "ashkanmedia.com" }],
-      "destination": "https://ashkanstudios.com/product-photographer-houston/",
+      "destination": "https://ashkanstudios.com/product-photographer-in-houston/",
       "statusCode": 301
     },
     {
@@ -63,7 +63,7 @@
     {
       "source": "/houston-commercial-photography",
       "has": [{ "type": "host", "value": "ashkanmedia.com" }],
-      "destination": "https://ashkanstudios.com/houston-commercial-photography/",
+      "destination": "https://ashkanstudios.com/commercial-photography-houston/",
       "statusCode": 301
     },
     {
