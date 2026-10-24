@@ -904,10 +904,20 @@ export const seoPages: SeoPageData[] = [
     slug: "jewelry-photography-houston",
     title: "Jewelry Photography in Houston, TX",
     subtitle: "Every Facet, Every Detail, Made to Shine",
-    /* The doc asked for this hero by name (retail-74). The same shot also
-       appears on the retail category page - deliberately, since that page
-       is where this one is linked from. */
-    heroImage: "/images/categories/retail/retail-74.jpg",
+    /* Same shot the brief asked for by name (retail-74), which also appears
+       on the retail category page - deliberately, since that page links here.
+
+       The frame is 3:2 and the hero band is ~2.4:1, so a straight crop cut
+       the rings and the bracelet off the bottom. On a jewelry page that is
+       the one thing that cannot be lost, and there is no wider crop to fall
+       back on: the original in the library is 7858x5241, the same 3:2.
+
+       So this file is that photograph with its lace background extended
+       left and right to 3:1. Every piece of jewelry, the model and the glass
+       are the original frame; only the background outside it is generated.
+       Swap this for a natively wide jewelry frame whenever the client
+       shoots one. */
+    heroImage: "/images/seo/approved/jewelry-hero-diamond-emerald-stack-gold-lace.jpg",
     intro:
       "Jewelry photography in Houston has to do more than show a piece. It has to capture the sparkle, the metal, the stones, and the fine detail that make someone want to wear it. When a jeweler, jewelry brand, or designer works with Ashkan Studios, we shoot images built to sell the piece, whether it is for an online store, a catalog, a campaign, or the counter. We shoot jewelry the way it deserves to be seen: controlled lighting, careful styling, and macro detail that makes every stone and setting shine.",
     sections: [
