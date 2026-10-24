@@ -125,13 +125,14 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
     if (href === "/") {
       onNavigate("home");
     } else if (href === "/work") {
-      /* Standalone /work/ page was removed 2026-05-08 per Brandi.
-         Clicking the WORK label should not navigate anywhere; the
-         dropdown shows the sub-routes (photography / videography /
-         campaigns) which still work. We close any open dropdown
-         below at the end of this function so a tap on mobile still
-         feels responsive. */
-      return;
+      /* There is no standalone /work/ page - it was removed
+         2026-05-08 per Brandi, and the path itself 403s because the
+         build leaves a real /work/ directory with no index.html in
+         it. This branch used to return, so the label went nowhere;
+         Ashkan reported that on 2026-10-22 ("the WORK link in the
+         top menu does not go anywhere"). It now opens the
+         photography portfolio, the first route in the dropdown. */
+      onNavigate("photography");
     } else if (href.startsWith("/work/photography")) {
       const cat = href.replace(/^\/work\/photography\/?/, "") || undefined;
       onNavigate("photography", cat);
@@ -190,10 +191,18 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
       }}
     >
       {item.children ? (
-        /* WORK is a dropdown OPENER (navigates nowhere) - stays a button;
-           its children below are the real crawlable links. */
-        <button
-          onClick={() => handleNavClick(item.href)}
+        /* A dropdown parent has no page of its own, so it points at
+           its first child rather than nowhere. WORK used to be a
+           <button> that opened the panel on hover and did nothing at
+           all on click, which Ashkan reported as a dead link on
+           2026-10-22. Hovering still opens the panel, and every
+           sub-route in it stays a crawlable link of its own.
+           onNav still passes the parent href because handleNavClick
+           maps /work to this same first route, and the narrowing on
+           item.children does not survive into the callback. */
+        <AppLink
+          href={item.children[0].href.endsWith("/") ? item.children[0].href : item.children[0].href + "/"}
+          onNav={() => handleNavClick(item.href)}
           className={`relative px-3 xl:px-4 py-2 text-xs xl:text-sm font-medium tracking-wider transition-colors flex items-center gap-1 whitespace-nowrap ${
             isActive(item.href)
               ? isDarkPage && !isScrolled && !isMenuOpen ? "text-white" : "text-dark"
@@ -205,7 +214,7 @@ export function Header({ onLogoClick, onNavigate, currentView }: HeaderProps) {
           {isActive(item.href) && (
             <span className={`absolute bottom-0 left-3 right-3 xl:left-4 xl:right-4 h-px ${isDarkPage && !isScrolled && !isMenuOpen ? "bg-white" : "bg-dark"}`} />
           )}
-        </button>
+        </AppLink>
       ) : (
         <AppLink
           href={item.href.endsWith("/") ? item.href : item.href + "/"}
