@@ -5,6 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { AppLink } from "@/components/AppLink";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { PortfolioCta } from "@/components/ui/PortfolioCta";
+import { retailSections, retailIntro } from "@/data/retail-sections";
+import type { RetailSection, RetailSectionCta } from "@/data/retail-sections";
+import { scrollToTopInstant } from "@/lib/scroll";
 import type { View } from "@/App";
 
 /** Gallery images organized by category - sourced from real photoshoot folders */
@@ -134,10 +137,14 @@ const categoryMeta: Record<string, { title: string; description: string }> = {
     description:
       "Capturing the soul of artists and performers through expressive photography. Each frame celebrates movement, emotion, and creative expression.",
   },
+  /* Retail's visible heading carries the page's exact-match phrase.
+     The approved section-copy sheet reserves that phrase for the Title
+     and H1 only, which is why the intro underneath never repeats it
+     word for word. The other three categories keep their one-word
+     display headings. */
   retail: {
-    title: "RETAIL",
-    description:
-      "Product and brand photography that turns merchandise into visual experiences - blending polished commercial imagery with storytelling that strengthens brand presence and consumer connection.",
+    title: "RETAIL PRODUCT PHOTOGRAPHY IN HOUSTON",
+    description: retailIntro,
   },
   fashion: {
     title: "FASHION",
@@ -168,7 +175,23 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
   let pageTitle = "PHOTOGRAPHY";
   let pageDescription = "";
 
-  if (isCategory) {
+  /* Retail is the only photography category rendered as sections - see
+     retail-sections.ts for the approved copy and the rules behind it.
+     Its lightbox still runs over ONE flat list so a visitor can page
+     through the whole portfolio instead of it resetting at every
+     section boundary, so the section images are flattened here in
+     order and each section records the index it starts at. */
+  const isRetail = activeCategory === "retail";
+  const sectionStart: number[] = [];
+
+  if (isRetail) {
+    for (const section of retailSections) {
+      sectionStart.push(displayImages.length);
+      displayImages.push(...section.images);
+    }
+    pageTitle = categoryMeta.retail.title;
+    pageDescription = categoryMeta.retail.description;
+  } else if (isCategory) {
     // Category page - show only that category's images (max 20)
     displayImages = (categoryGallery[activeCategory!] || []).slice(0, 20);
     const meta = categoryMeta[activeCategory!];
@@ -188,6 +211,74 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
       }
     }
   }
+
+  /* An SEO landing page is not a View - App.tsx routes those straight
+     from the URL - so a link into one pushes the path and lets the
+     popstate handler pick it up. Same pattern the footer's services
+     menu uses. */
+  const goToSeoPage = (slug: string) => {
+    window.history.pushState(null, "", `/${slug}/`);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    scrollToTopInstant();
+  };
+
+  const handleSectionCta = (cta: RetailSectionCta) => {
+    if (cta.kind === "campaign") {
+      onNavigate("campaigns", cta.slug);
+    } else {
+      goToSeoPage(cta.slug);
+    }
+  };
+
+  /* One tile, used by both the flat galleries and the retail sections.
+     The lightbox index is the position in the flattened list, while the
+     stagger delay restarts per section so a section further down the
+     page does not animate in all at once at the cap. */
+  const renderTile = (
+    img: { src: string; alt: string },
+    lightboxIdx: number,
+    delayIdx: number,
+  ) => (
+    <FadeIn key={`photo-${lightboxIdx}`} delay={Math.min(delayIdx * 0.06, 0.6)} className="break-inside-avoid mb-4 sm:mb-6">
+      <button
+        type="button"
+        onClick={() => setLightboxIndex(lightboxIdx)}
+        aria-label={`Open ${img.alt} in lightbox`}
+        className="block relative overflow-hidden cursor-zoom-in w-full group"
+      >
+        <img
+          src={img.src}
+          alt={img.alt}
+          className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+        {/* Subtle dark overlay on hover so cursor:zoom-in feels intentional */}
+        <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
+      </button>
+    </FadeIn>
+  );
+
+  /* Food & Artisan carries an in-text link instead of a button, so its
+     approved copy is kept as one verbatim string and the anchor phrase
+     is wrapped where it appears. */
+  const renderSectionCopy = (section: RetailSection) => {
+    const link = section.inTextLink;
+    if (!link) return section.description;
+    const at = section.description.indexOf(link.anchor);
+    if (at === -1) return section.description;
+    return (
+      <>
+        {section.description.slice(0, at)}
+        <AppLink
+          href={link.href}
+          onNav={() => goToSeoPage(link.slug)}
+          className="text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+        >
+          {link.anchor}
+        </AppLink>
+        {section.description.slice(at + link.anchor.length)}
+      </>
+    );
+  };
 
   return (
     <>
@@ -213,7 +304,13 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
                   keyword-rich sr-only h1 above a visible h2 (Mahendra 7/17
                   sheet); the client called that out (8/10), so the heading
                   people actually see now carries the tag. */}
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight">
+              <h1
+                className={`font-display text-white tracking-tight ${
+                  isRetail
+                    ? "text-4xl sm:text-5xl lg:text-6xl"
+                    : "text-5xl sm:text-7xl lg:text-8xl"
+                }`}
+              >
                 {pageTitle}
               </h1>
               {pageDescription && (
@@ -269,37 +366,65 @@ export function PhotographyPage({ onNavigate, activeCategory }: PhotographyPageP
           </div>
         </section>
 
-        {/* Masonry gallery */}
-        <section className="py-16 sm:py-24">
-          <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
-            {displayImages.length === 0 ? (
-              <div className="text-center py-20">
-                <p className="text-lg text-white/50">No images found.</p>
-              </div>
-            ) : (
-              <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
-                {displayImages.map((img, index) => (
-                  <FadeIn key={`photo-${index}`} delay={Math.min(index * 0.06, 0.6)} className="break-inside-avoid mb-4 sm:mb-6">
-                    <button
-                      type="button"
-                      onClick={() => setLightboxIndex(index)}
-                      aria-label={`Open ${img.alt} in lightbox`}
-                      className="block relative overflow-hidden cursor-zoom-in w-full group"
-                    >
-                      <img
-                        src={img.src}
-                        alt={img.alt}
-                        className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      />
-                      {/* Subtle dark overlay on hover so cursor:zoom-in feels intentional */}
-                      <span className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
-                    </button>
+        {isRetail ? (
+          /* Five approved sections, each its own <section> with the
+             anchor id the sheet assigns, so the headings can be linked
+             to directly. scroll-mt keeps a jumped-to heading clear of
+             the fixed header. */
+          retailSections.map((section, sectionIndex) => (
+            <section
+              key={section.id}
+              id={section.id}
+              className="py-14 sm:py-20 border-b border-white/10 last:border-b-0 scroll-mt-28"
+            >
+              <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+                <FadeIn>
+                  <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+                    {section.heading}
+                  </h2>
+                  <p className="text-base sm:text-lg text-white/60 max-w-3xl mt-5 leading-relaxed">
+                    {renderSectionCopy(section)}
+                  </p>
+                </FadeIn>
+
+                <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6 mt-10 sm:mt-12">
+                  {section.images.map((img, i) =>
+                    renderTile(img, sectionStart[sectionIndex] + i, i),
+                  )}
+                </div>
+
+                {section.cta && (
+                  <FadeIn>
+                    <div className="mt-10 sm:mt-12">
+                      <AppLink
+                        href={section.cta.href}
+                        onNav={() => handleSectionCta(section.cta!)}
+                        className="inline-block text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/85 hover:text-white uppercase border border-white/30 hover:border-white/70 hover:bg-white/5 px-5 sm:px-6 py-2.5 sm:py-3 transition-colors duration-300"
+                      >
+                        {section.cta.label}
+                      </AppLink>
+                    </div>
                   </FadeIn>
-                ))}
+                )}
               </div>
-            )}
-          </div>
-        </section>
+            </section>
+          ))
+        ) : (
+          /* Masonry gallery */
+          <section className="py-16 sm:py-24">
+            <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-10">
+              {displayImages.length === 0 ? (
+                <div className="text-center py-20">
+                  <p className="text-lg text-white/50">No images found.</p>
+                </div>
+              ) : (
+                <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 sm:gap-6">
+                  {displayImages.map((img, index) => renderTile(img, index, index))}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* CTA above the footer (Ashkan 6/10: CTA on portfolio pages) */}
         <PortfolioCta

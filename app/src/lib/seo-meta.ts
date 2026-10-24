@@ -59,6 +59,18 @@ export function getRouteMeta({ view, category, slug }: RouteInput): RouteMeta {
       };
 
     case "photography":
+      /* Retail is the only category with its own approved on-page copy,
+         so it does not take the generated pair the other three use. The
+         section-copy sheet reserves the exact-match phrase for the Title
+         and the H1, which is why the page intro never repeats it. */
+      if (category === "retail") {
+        return {
+          title: `Retail Product Photography in Houston | ${SITE_NAME}`,
+          description:
+            "Retail product photography in Houston: luxury cars, jewelry, activewear, artisan food and eyewear, shot in our Sawyer Yards studio. See the portfolio.",
+          path: "/work/photography/retail/",
+        };
+      }
       if (category) {
         const c = titleCase(category);
         return {
