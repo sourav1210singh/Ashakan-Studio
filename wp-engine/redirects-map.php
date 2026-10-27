@@ -65,6 +65,12 @@ return array(
     'our-process' => '/what-we-do/',
     'session-pricing' => '/what-we-do/',
     'photography-services' => '/what-we-do/',
+    /* Retired 2026-10-27 at the client's request. It was also the only
+       post left that used the wording the client bans site-wide, so it
+       could not be kept. Without this entry the slug answers 200 with
+       the SPA shell - a soft 404 - because index.php only has real
+       tags for posts the store still holds. */
+    'storytime/choose-dance-photographer-houston-studios-performers' => '/storytime/',
     'tips-for-dance-audition-photos' => '/storytime/',
     'street-studio-dance-photography' => '/storytime/',
     'boundless-dance-art-exhibition' => '/storytime/',

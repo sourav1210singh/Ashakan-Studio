@@ -345,6 +345,11 @@
       "statusCode": 301
     },
     {
+      "source": "/storytime/choose-dance-photographer-houston-studios-performers",
+      "destination": "/storytime",
+      "statusCode": 301
+    },
+    {
       "source": "/tips-for-dance-audition-photos",
       "destination": "/storytime",
       "statusCode": 301
